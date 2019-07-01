@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t communityHub .
+docker build -t communityhub .
