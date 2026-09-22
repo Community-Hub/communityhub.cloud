@@ -233,31 +233,34 @@ export function App() {
         </div>
 
         <section className="thesis">
-          <p className="index">01 — The job</p>
-          <h2>Distance got easier. Place got harder.</h2>
-          <p>
-            Communication tools reach across continents and leave the block, the
-            dorm, and the plant room strangely quiet. Community Hub is the local
-            layer: acquisition, display, and a way for a community to talk about
-            what it is using while it is using it.
-          </p>
-          <ol>
-            <li>
-              <strong>Facilities</strong>
-              <span>A week of load, readable before the complaint arrives.</span>
-            </li>
-            <li>
-              <strong>Sustainability</strong>
-              <span>A public picture that makes a plan feel inhabited.</span>
-            </li>
-            <li>
-              <strong>Faculty</strong>
-              <span>Data with no answer key. Students gather it and interpret it.</span>
-            </li>
-          </ol>
+          <div className="shell thesis-grid">
+            <p className="index">01 — The job</p>
+            <h2>Distance got easier. Place got harder.</h2>
+            <p>
+              Communication tools reach across continents and leave the block, the
+              dorm, and the plant room strangely quiet. Community Hub is the local
+              layer: acquisition, display, and a way for a community to talk about
+              what it is using while it is using it.
+            </p>
+            <ol>
+              <li>
+                <strong>Facilities</strong>
+                <span>A week of load, readable before the complaint arrives.</span>
+              </li>
+              <li>
+                <strong>Sustainability</strong>
+                <span>A public picture that makes a plan feel inhabited.</span>
+              </li>
+              <li>
+                <strong>Faculty</strong>
+                <span>Data with no answer key. Students gather it and interpret it.</span>
+              </li>
+            </ol>
+          </div>
         </section>
 
         <section className="signature" id="signature">
+          <div className="shell signature-layout">
           <div className="signature-copy">
             <p className="index">02 — The demo</p>
             <h2>A building has a signature.</h2>
@@ -317,9 +320,11 @@ export function App() {
               {BUILDING_COPY[kind].label.toLowerCase()} · seven days
             </p>
           </div>
+          </div>
         </section>
 
         <section className="products" id="products">
+          <div className="shell">
           <div className="products-head">
             <p className="index">03 — The suite</p>
             <h2>One platform. Six ways a campus meets it.</h2>
@@ -364,9 +369,11 @@ export function App() {
             embeds drop a calendar or a live dashboard into a partner’s own site.
             Pricing is scoped to the campus. Ask, and you get a number — not a maze.
           </p>
+          </div>
         </section>
 
         <section className="field" id="field">
+          <div className="shell">
           <div className="field-head">
             <p className="index">04 — In the field</p>
             <h2>A decade in Oberlin. A pilot at Hamilton. A district in Toledo.</h2>
@@ -406,9 +413,11 @@ export function App() {
               </p>
             </article>
           </div>
+          </div>
         </section>
 
         <section className="aashe" id="aashe">
+          <div className="shell aashe-grid">
           <p className="index">05 — October 4–6</p>
           <h2>Fifteen minutes in Baltimore.</h2>
           <ol>
@@ -432,9 +441,11 @@ export function App() {
           <a className="btn solid dark" href="#contact">
             Hold a time
           </a>
+          </div>
         </section>
 
         <section className="contact" id="contact">
+          <div className="shell contact-grid">
           <div>
             <p className="index">06 — Talk</p>
             <h2>Tell us the campus. We’ll bring the picture.</h2>
@@ -490,13 +501,16 @@ export function App() {
               </p>
             ) : null}
           </form>
+          </div>
         </section>
       </main>
 
       <footer>
-        <span>Community Hub</span>
-        <a href="mailto:connect@communityhub.cloud">connect@communityhub.cloud</a>
-        <a href="https://www.aashe.org/conference/">AASHE 2026</a>
+        <div className="shell footer-inner">
+          <span>Community Hub</span>
+          <a href="mailto:connect@communityhub.cloud">connect@communityhub.cloud</a>
+          <a href="https://www.aashe.org/conference/">AASHE 2026</a>
+        </div>
       </footer>
     </>
   );

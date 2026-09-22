@@ -10,6 +10,8 @@
   --line: rgba(243, 239, 230, 0.16);
   --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
   --sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  --shell: min(1520px, calc(100% - 2 * clamp(1.75rem, 5vw, 5.5rem)));
+  --section-y: clamp(5.5rem, 9vw, 9.5rem);
   color-scheme: dark;
 }
 
@@ -17,18 +19,23 @@
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--ink);
   color: var(--ink);
   font-family: var(--sans);
   font-weight: 420;
   font-size: 17px;
-  line-height: 1.5;
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
 }
 img { max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
 ::selection { background: var(--lime); color: var(--ink); }
 :focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+
+.shell {
+  width: var(--shell);
+  margin-inline: auto;
+}
 
 .skip {
   position: absolute;
@@ -50,7 +57,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 0.9rem 1.4rem;
+  padding: 1.1rem clamp(1.75rem, 5vw, 5.5rem);
   color: var(--paper);
   mix-blend-mode: difference;
 }
@@ -78,7 +85,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .nav nav {
   display: flex;
-  gap: 1.15rem;
+  gap: 1.5rem;
   margin-left: auto;
 }
 .nav a { color: inherit; text-decoration: none; }
@@ -87,7 +94,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .nav-cta {
   border: 1px solid currentColor;
   border-radius: 999px;
-  padding: 0.4rem 0.8rem;
+  padding: 0.45rem 0.95rem;
   font-size: 0.86rem;
 }
 
@@ -101,10 +108,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
   overflow: hidden;
 }
 .hero-copy {
-  padding: 7.5rem 1.6rem 3rem 6vw;
+  padding: 8.5rem clamp(1.75rem, 5vw, 5.5rem) 4rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  gap: 0.25rem;
   position: relative;
   z-index: 2;
 }
@@ -113,19 +121,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--lime);
-  margin: 0 0 1rem;
+  margin: 0 0 1.4rem;
 }
 .hero h1, .thesis h2, .signature h2, .products h2, .field h2, .aashe h2, .contact h2 {
   font-family: var(--serif);
   font-weight: 560;
   font-optical-sizing: auto;
   letter-spacing: -0.035em;
-  line-height: 0.96;
-  margin: 0;
+  line-height: 1.02;
+  margin: 0 0 1.25rem;
 }
 .hero h1 {
-  font-size: clamp(3.3rem, 6.4vw, 6.4rem);
+  font-size: clamp(3.3rem, 6.4vw, 6rem);
   max-width: 9ch;
+  margin-bottom: 1.5rem;
 }
 .hero h1 em {
   font-style: italic;
@@ -133,18 +142,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
   color: var(--lime);
 }
 .lede {
-  max-width: 38rem;
-  font-size: 1.12rem;
+  max-width: 36rem;
+  font-size: 1.14rem;
+  line-height: 1.7;
   color: rgba(243, 239, 230, 0.82);
+  margin: 0 0 0.5rem;
 }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1.6rem 0 1.2rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin: 2rem 0 1.6rem; }
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   border-radius: 999px;
-  padding: 0.85rem 1.15rem;
+  padding: 0.9rem 1.35rem;
   border: 1px solid transparent;
   cursor: pointer;
   background: transparent;
@@ -157,7 +168,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .hero-note, .fine {
   color: var(--muted);
   font-size: 0.92rem;
-  max-width: 36rem;
+  line-height: 1.65;
+  max-width: 34rem;
+  margin: 0;
 }
 .hero-stage {
   position: relative;
@@ -198,89 +211,119 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-bottom: 1px solid var(--ink);
 }
 .marquee div { display: flex; width: max-content; animation: tick 28s linear infinite; }
-.marquee p { display: flex; gap: 2.2rem; margin: 0; padding: 0.72rem 1.1rem; font-weight: 560; }
-.marquee span::before { content: "✦"; margin-right: 2.2rem; font-weight: 400; }
+.marquee p { display: flex; gap: 2.8rem; margin: 0; padding: 0.9rem 1.4rem; font-weight: 560; }
+.marquee span::before { content: "✦"; margin-right: 2.8rem; font-weight: 400; }
 @keyframes tick { to { transform: translateX(-50%); } }
 
 .thesis, .products, .field, .contact {
-  padding: 6.5rem 6vw;
+  padding-block: var(--section-y);
 }
-.thesis { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 4rem; align-items: end; }
-.thesis .index { grid-column: 1 / -1; margin-bottom: -1.5rem; color: #5d6b4a; }
+.thesis { background: var(--paper); }
+.thesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem 5rem;
+  align-items: end;
+}
+.thesis .index { grid-column: 1 / -1; margin-bottom: -1rem; color: #5d6b4a; }
 .thesis h2, .products h2, .field h2, .contact h2 {
-  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
   color: var(--ink);
 }
-.thesis > p { font-size: 1.2rem; margin: 0; }
+.thesis > p { font-size: 1.18rem; line-height: 1.75; margin: 0; max-width: 34rem; }
 .thesis ol, .aashe ol {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 1rem;
+  gap: 1.35rem;
 }
 .thesis li, .aashe li {
   display: grid;
-  gap: 0.2rem;
-  padding-top: 0.8rem;
+  gap: 0.35rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(16, 22, 17, 0.16);
 }
 .thesis strong, .aashe strong { font-weight: 560; }
 
 .signature {
-  display: grid;
-  grid-template-columns: minmax(300px, 480px) 1fr;
-  align-items: center;
   background: var(--ink);
   color: var(--paper);
+  padding-block: var(--section-y);
 }
-.signature-inner {
-  display: contents;
+.signature-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 400px) 1fr;
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+  align-items: center;
 }
-.signature-copy { padding: 6.5rem 6vw 3rem; }
-.signature h2 { font-size: clamp(2.8rem, 4.5vw, 4.4rem); margin-bottom: 1rem; }
-.signature-line { color: var(--lime); font-family: var(--serif); font-size: 1.35rem; line-height: 1.25; }
-.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1.2rem 0 0.4rem; }
+.signature-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.signature-copy > p:not(.index):not(.fine) {
+  margin: 0 0 1.1rem;
+  line-height: 1.75;
+  max-width: 34rem;
+}
+.signature h2 {
+  font-size: clamp(2.6rem, 4vw, 3.8rem);
+  margin-bottom: 1.25rem;
+}
+.signature-line {
+  color: var(--lime);
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  line-height: 1.45;
+  margin: 0.5rem 0 1.5rem;
+  max-width: 32rem;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0.5rem 0 0.75rem; }
 .chips button {
   background: transparent;
   border: 1px solid rgba(243, 239, 230, 0.28);
   color: var(--paper);
   border-radius: 999px;
-  padding: 0.45rem 0.8rem;
+  padding: 0.55rem 1rem;
   cursor: pointer;
+  font-size: 0.94rem;
 }
 .chips button[aria-pressed="true"] {
   background: var(--lime);
   color: var(--ink);
   border-color: var(--lime);
 }
+.chips.resource { margin-top: 0.25rem; }
 .chips.resource button[aria-pressed="true"] { background: var(--water); border-color: var(--water); }
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
-  margin: 1.6rem 0 0.6rem;
+  gap: 1.2rem;
+  margin: 2rem 0 1.25rem;
+  max-width: 28rem;
 }
-.stats div { border-top: 1px solid var(--line); padding-top: 0.55rem; }
+.stats div { border-top: 1px solid var(--line); padding-top: 0.75rem; }
 .stats dt { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
 .stats dd {
-  margin: 0.2rem 0 0;
+  margin: 0.35rem 0 0;
   font-family: var(--serif);
   font-size: 2rem;
   letter-spacing: -0.04em;
 }
 .signature-stage {
   position: relative;
-  height: min(78vh, 760px);
-  min-height: 520px;
-  max-width: 1100px;
+  height: min(70vh, 680px);
+  min-height: 460px;
   width: 100%;
-  justify-self: center;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0c1411;
 }
 .stage-caption {
   position: absolute;
-  left: 1.2rem;
-  bottom: 1rem;
+  left: 1.4rem;
+  bottom: 1.2rem;
   margin: 0;
   font-size: 0.82rem;
   letter-spacing: 0.08em;
@@ -290,7 +333,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 .products { background: var(--paper); }
-.products-head { max-width: 40rem; margin-bottom: 2.5rem; }
+.products-head { max-width: 42rem; margin-bottom: 3.5rem; }
+.products-head p:not(.index) { line-height: 1.75; margin: 0; }
 .products .index, .field .index, .contact .index { color: #5d6b4a; }
 .product-list {
   display: grid;
@@ -299,15 +343,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-top: 1px solid rgba(16, 22, 17, 0.16);
 }
 .product-list article {
-  padding: 1.6rem 1.6rem 1.8rem 0;
+  padding: 2.2rem 2.2rem 2.4rem 0;
   border-bottom: 1px solid rgba(16, 22, 17, 0.16);
 }
-.product-list article:nth-child(odd) { padding-right: 2.5rem; border-right: 1px solid rgba(16, 22, 17, 0.16); }
-.product-list article:nth-child(even) { padding-left: 2.5rem; }
+.product-list article:nth-child(odd) { padding-right: 3rem; border-right: 1px solid rgba(16, 22, 17, 0.16); }
+.product-list article:nth-child(even) { padding-left: 3rem; }
 .product-list article > p:first-child {
   display: flex;
   justify-content: space-between;
-  margin: 0;
+  margin: 0 0 0.5rem;
   color: var(--muted);
   font-size: 0.85rem;
   letter-spacing: 0.12em;
@@ -315,47 +359,49 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .product-list h3 {
   font-family: var(--serif);
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: 560;
   letter-spacing: -0.03em;
-  margin: 0.4rem 0 0.5rem;
+  margin: 0.5rem 0 0.75rem;
 }
-.product-list ul { margin: 0.8rem 0 0; padding-left: 1.1rem; color: #3c463e; }
-.product-list li + li { margin-top: 0.25rem; }
+.product-list article > p:nth-of-type(2) { line-height: 1.7; margin: 0; }
+.product-list ul { margin: 1.1rem 0 0; padding-left: 1.1rem; color: #3c463e; line-height: 1.65; }
+.product-list li + li { margin-top: 0.45rem; }
 .bundles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1.25rem;
+  margin-top: 3rem;
 }
 .bundles div {
   background: var(--ink);
   color: var(--paper);
-  padding: 1.3rem 1.2rem 1.4rem;
+  padding: 1.75rem 1.6rem 1.85rem;
   min-height: 11rem;
 }
-.bundles h3 { margin: 0 0 0.5rem; font-family: var(--serif); font-size: 1.8rem; font-weight: 560; }
-.bundles p { margin: 0; color: rgba(243, 239, 230, 0.78); }
-.bundles-note { margin-top: 1rem; }
+.bundles h3 { margin: 0 0 0.65rem; font-family: var(--serif); font-size: 1.75rem; font-weight: 560; }
+.bundles p { margin: 0; color: rgba(243, 239, 230, 0.78); line-height: 1.65; }
+.bundles-note { margin-top: 1.75rem; }
 
 .field { background: #ebe6da; }
-.field-head { max-width: 46rem; }
+.field-head { max-width: 46rem; margin-bottom: 0.5rem; }
+.field-head h2 { margin-bottom: 0; }
 .quotes {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(280px, 34vw);
-  gap: 1rem;
+  grid-auto-columns: minmax(300px, 360px);
+  gap: 1.25rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 0.6rem;
-  margin: 2rem 0 2.4rem;
+  padding-block: 2.5rem 1rem;
+  margin: 0 0 2.5rem;
 }
 .quotes figure {
   scroll-snap-align: start;
   margin: 0;
   background: var(--paper);
-  padding: 1.3rem 1.2rem 1.1rem;
-  min-height: 16rem;
+  padding: 1.75rem 1.6rem 1.5rem;
+  min-height: 15rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -363,66 +409,78 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .quotes blockquote {
   margin: 0;
   font-family: var(--serif);
-  font-size: 1.35rem;
-  line-height: 1.25;
+  font-size: 1.28rem;
+  line-height: 1.45;
   letter-spacing: -0.02em;
 }
-.quotes figcaption { display: grid; margin-top: 1.2rem; color: #3c463e; font-size: 0.92rem; }
-.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
-.proof-grid h3 { font-family: var(--serif); font-size: 1.8rem; margin: 0 0 0.4rem; }
-.proof-grid p { margin: 0; }
+.quotes figcaption { display: grid; margin-top: 1.5rem; color: #3c463e; font-size: 0.92rem; line-height: 1.5; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.proof-grid h3 { font-family: var(--serif); font-size: 1.75rem; margin: 0 0 0.65rem; }
+.proof-grid p { margin: 0; line-height: 1.7; }
 
 .aashe {
   background: var(--lime);
   color: var(--ink);
-  padding: 6rem 6vw;
+  padding-block: var(--section-y);
+}
+.aashe-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 2rem 4rem;
+  gap: 2.5rem 5rem;
   align-items: end;
 }
-.aashe .index { color: #3d4a18; }
-.aashe h2 { font-size: clamp(3rem, 6vw, 5.4rem); grid-column: 1 / -1; max-width: 12ch; }
-.aashe > p { font-size: 1.15rem; margin: 0; }
-.aashe .btn { justify-self: start; }
+.aashe .index { color: #3d4a18; grid-column: 1 / -1; margin-bottom: -0.5rem; }
+.aashe h2 {
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  grid-column: 1 / -1;
+  max-width: 12ch;
+  margin-bottom: 0.5rem;
+}
+.aashe > p { font-size: 1.12rem; line-height: 1.7; margin: 0; max-width: 34rem; }
+.aashe .btn { justify-self: start; margin-top: 0.5rem; }
 .aashe ol { align-self: end; }
 
 .contact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
   background: var(--paper);
 }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+.contact-grid > div:first-child p:not(.index):not(.fine) { line-height: 1.75; margin: 0 0 1rem; max-width: 32rem; }
 .contact a { color: inherit; }
-.contact form { display: grid; gap: 0.85rem; }
-.contact label { display: grid; gap: 0.3rem; font-size: 0.86rem; letter-spacing: 0.04em; }
+.contact form { display: grid; gap: 1.1rem; }
+.contact label { display: grid; gap: 0.45rem; font-size: 0.86rem; letter-spacing: 0.04em; }
 .contact input, .contact select, .contact textarea {
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(16, 22, 17, 0.35);
   border-radius: 0;
-  padding: 0.55rem 0;
+  padding: 0.65rem 0;
   color: var(--ink);
 }
-.contact textarea { resize: vertical; }
+.contact textarea { resize: vertical; min-height: 5rem; }
 .contact input:focus, .contact select:focus, .contact textarea:focus { outline: none; border-bottom-color: var(--ink); }
-.contact .btn { justify-self: start; margin-top: 0.4rem; }
+.contact .btn { justify-self: start; margin-top: 0.75rem; }
 
 footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.2rem 6vw 1.6rem;
   background: var(--ink);
   color: var(--paper);
+  padding: 1.5rem 0 2rem;
   font-size: 0.92rem;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 footer a { color: inherit; }
 
 @media (min-width: 1200px) {
-  .hero {
-    display: block;
-  }
+  .hero { display: block; }
   .hero-stage {
     position: absolute;
     inset: 0;
@@ -430,86 +488,60 @@ footer a { color: inherit; }
   }
   .hero-copy {
     min-height: 100svh;
-    max-width: min(760px, 46vw);
-    padding: 7.5rem clamp(1.6rem, 4vw, 5rem) 3.5rem;
+    max-width: min(680px, 44vw);
+    padding-inline: clamp(1.75rem, 5vw, 5.5rem);
     background: linear-gradient(
       90deg,
       rgba(16, 22, 17, 0.97) 0%,
-      rgba(16, 22, 17, 0.88) 72%,
-      rgba(16, 22, 17, 0.35) 100%
+      rgba(16, 22, 17, 0.9) 68%,
+      rgba(16, 22, 17, 0.4) 100%
     );
   }
-  .hero h1 { max-width: 10ch; font-size: clamp(3.6rem, 4.8vw, 5.8rem); }
+  .hero h1 { max-width: 10ch; font-size: clamp(3.5rem, 4.5vw, 5.5rem); }
   .hero-stage::after {
     background:
       radial-gradient(circle at 58% 46%, rgba(214, 255, 74, 0.1), transparent 38%),
-      linear-gradient(90deg, rgba(16, 22, 17, 0.55) 0%, transparent 46%);
+      linear-gradient(90deg, rgba(16, 22, 17, 0.5) 0%, transparent 42%);
   }
-  .thesis, .products, .field, .contact {
-    padding-inline: clamp(1.6rem, 5vw, 6rem);
+  .signature-layout {
+    grid-template-columns: minmax(300px, 420px) 1fr;
   }
-  .thesis, .products-head, .field-head, .contact > div:first-child {
-    max-width: 1480px;
-    margin-inline: auto;
-    width: 100%;
-  }
-  .thesis { width: min(1480px, calc(100% - 2 * clamp(1.6rem, 5vw, 6rem))); margin-inline: auto; }
-  .products, .field, .contact {
-    max-width: 1480px;
-    margin-inline: auto;
-    width: 100%;
-  }
-  .signature {
-    grid-template-columns: minmax(340px, 520px) minmax(480px, 1fr);
-  }
-  .signature-copy {
-    padding-inline: clamp(1.6rem, 5vw, 6rem);
-    max-width: 560px;
-    justify-self: end;
-    width: 100%;
-  }
-  .quotes { grid-auto-columns: minmax(300px, 380px); }
 }
 
 @media (min-width: 1500px) {
   .product-list { grid-template-columns: repeat(3, 1fr); }
   .product-list article:nth-child(odd),
   .product-list article:nth-child(even) {
-    padding: 1.6rem 1.4rem 1.8rem;
+    padding: 2.2rem 1.8rem 2.4rem;
     border-right: none;
   }
   .product-list article {
     border-right: 1px solid rgba(16, 22, 17, 0.16);
   }
   .product-list article:nth-child(3n) { border-right: none; }
-  .aashe {
-    max-width: 1480px;
-    margin-inline: auto;
-    width: calc(100% - 2 * clamp(1.6rem, 5vw, 6rem));
-    border-radius: 2px;
-  }
 }
 
 @media (max-width: 980px) {
   .nav nav { display: none; }
-  .hero, .signature, .thesis, .contact, .aashe, .product-list, .bundles, .proof-grid {
+  .hero, .signature-layout, .thesis-grid, .contact-grid, .aashe-grid, .product-list, .bundles, .proof-grid {
     grid-template-columns: 1fr;
   }
-  .hero-copy { padding: 6.2rem 1.3rem 2rem; }
-  .hero-stage { min-height: 68svh; order: -1; position: relative; }
+  .hero-copy { padding: 6.5rem 1.5rem 2.5rem; }
+  .hero-stage { min-height: 62svh; order: -1; position: relative; }
   .hero-stage::after {
-    background: linear-gradient(180deg, transparent 55%, rgba(16, 22, 17, 0.92) 100%);
+    background: linear-gradient(180deg, transparent 50%, rgba(16, 22, 17, 0.94) 100%);
   }
   .hero { min-height: auto; display: grid; }
   .hero-copy { background: none; max-width: none; }
-  .thesis, .products, .field, .contact, .signature-copy, .aashe { padding: 4.2rem 1.3rem; }
+  .thesis, .products, .field, .contact, .signature, .aashe { padding-block: 4.5rem; }
   .product-list article:nth-child(odd),
   .product-list article:nth-child(even) {
-    padding: 1.4rem 0;
+    padding: 1.75rem 0;
     border-right: none;
   }
-  .signature-stage { height: 62svh; min-height: 420px; }
+  .signature-stage { height: 58svh; min-height: 400px; }
   .aashe h2 { max-width: none; }
+  .stats { max-width: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
