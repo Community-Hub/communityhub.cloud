@@ -253,31 +253,33 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .signature-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 400px) 1fr;
-  gap: clamp(2.5rem, 5vw, 5.5rem);
-  align-items: center;
+  grid-template-columns: 3fr 7fr;
+  gap: clamp(2rem, 3vw, 3.5rem);
+  align-items: stretch;
 }
 .signature-copy {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  justify-content: center;
+  min-width: 0;
 }
 .signature-copy > p:not(.index):not(.fine) {
   margin: 0 0 1.1rem;
-  line-height: 1.75;
-  max-width: 34rem;
+  line-height: 1.7;
+  max-width: 100%;
 }
 .signature h2 {
-  font-size: clamp(2.6rem, 4vw, 3.8rem);
+  font-size: clamp(2.2rem, 2.8vw, 3.4rem);
   margin-bottom: 1.25rem;
 }
 .signature-line {
   color: var(--lime);
   font-family: var(--serif);
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 1.4vw, 1.28rem);
   line-height: 1.45;
   margin: 0.5rem 0 1.5rem;
-  max-width: 32rem;
+  max-width: 100%;
 }
 .chips { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0.5rem 0 0.75rem; }
 .chips button {
@@ -299,26 +301,27 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  gap: 0.85rem;
   margin: 2rem 0 1.25rem;
-  max-width: 28rem;
+  max-width: 100%;
 }
 .stats div { border-top: 1px solid var(--line); padding-top: 0.75rem; }
 .stats dt { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
 .stats dd {
   margin: 0.35rem 0 0;
   font-family: var(--serif);
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
   letter-spacing: -0.04em;
 }
 .signature-stage {
   position: relative;
-  height: min(70vh, 680px);
-  min-height: 460px;
+  height: min(82vh, 860px);
+  min-height: 520px;
   width: 100%;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   background: #0c1411;
+  box-shadow: 0 0 0 1px rgba(243, 239, 230, 0.06);
 }
 .stage-caption {
   position: absolute;
@@ -504,7 +507,10 @@ footer a { color: inherit; }
       linear-gradient(90deg, rgba(16, 22, 17, 0.5) 0%, transparent 42%);
   }
   .signature-layout {
-    grid-template-columns: minmax(300px, 420px) 1fr;
+    grid-template-columns: 3fr 7fr;
+  }
+  .signature-stage {
+    height: min(84vh, 920px);
   }
 }
 
@@ -539,7 +545,12 @@ footer a { color: inherit; }
     padding: 1.75rem 0;
     border-right: none;
   }
-  .signature-stage { height: 58svh; min-height: 400px; }
+  .signature-layout { gap: 2rem; }
+  .signature-stage {
+    order: -1;
+    height: 62svh;
+    min-height: 420px;
+  }
   .aashe h2 { max-width: none; }
   .stats { max-width: none; }
 }

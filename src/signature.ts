@@ -84,18 +84,18 @@ export const BUILDING_COPY: Record<
 > = {
   residence: {
     label: "Residence",
-    line: "Halls wake twice. A morning shoulder, then the real peak after dark, when everyone is back.",
+    line: "Use picks up in the morning, then peaks again at night when students come back to their rooms.",
   },
   lab: {
     label: "Lab",
-    line: "Labs barely sleep. The signature is a high baseload with a midday plateau, and a weekend that finally exhales.",
+    line: "Steady use all day with a midday high. Weekends are quieter, but the building never fully shuts down.",
   },
   dining: {
     label: "Dining",
-    line: "Three pulses a day. Breakfast, the noon rush, dinner. The building tells you when the campus eats.",
+    line: "Three clear peaks — breakfast, lunch, and dinner. You can tell exactly when the campus is eating.",
   },
   library: {
     label: "Library",
-    line: "A long afternoon held open into the evening. Weekend use drops, but it does not go quiet.",
+    line: "Busy through the afternoon and into the evening. Weekends are slower, but the building stays open.",
   },
 };

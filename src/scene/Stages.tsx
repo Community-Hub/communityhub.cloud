@@ -34,7 +34,7 @@ function useReducedMotion() {
 export function CampusStage() {
   const reduced = useReducedMotion();
   return (
-    <StageBoundary label="A campus of lit buildings, drawn as a still image when graphics are unavailable.">
+    <StageBoundary label="Interactive campus view — available when 3D graphics are supported in your browser.">
       <Canvas
         camera={{ position: [8.2, 4.9, 10.2], fov: 40, near: 0.1, far: 60 }}
         dpr={[1, 2]}
@@ -49,7 +49,7 @@ export function CampusStage() {
 export function SignatureStage({ kind, resource }: { kind: BuildingKind; resource: Resource }) {
   const reduced = useReducedMotion();
   return (
-    <StageBoundary label="A week of resource use, shown as a still relief when graphics are unavailable.">
+    <StageBoundary label="Interactive building chart — available when 3D graphics are supported in your browser.">
       <Canvas
         camera={{ position: [4.6, 3.15, 5.5], fov: 40, near: 0.1, far: 40 }}
         dpr={[1, 1.6]}

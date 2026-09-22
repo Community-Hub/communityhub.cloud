@@ -11,64 +11,64 @@ const AASHE_DAY = Date.UTC(2026, 9, 4);
 
 const PRODUCTS = [
   {
-    kicker: "See",
+    kicker: "Understand",
     name: "Data Hub",
-    line: "The instrument. Live feeds become heat maps, load profiles, and dashboards a campus can publish.",
+    line: "One place for all your campus energy and water data — turned into charts anyone can read.",
     points: [
-      "Building systems, sensors, and public feeds in one place",
-      "Single- and multi-variable heat maps and load profiles",
-      "Derived variables, then a dashboard for a sign or a website",
-      "Already written through to EPA Portfolio Manager",
+      "Pulls data from buildings, meters, and public sources",
+      "Color charts that show when and where use is highest",
+      "Build dashboards for your website or lobby screens",
+      "Reports to EPA Portfolio Manager for compliance",
     ],
   },
   {
-    kicker: "See",
+    kicker: "Understand",
     name: "Building Dashboard",
-    line: "One building, in public. Resource use that a student can feel, not only a facilities login.",
+    line: "Show real-time electricity and water use for a single building — where students and staff will actually see it.",
     points: [
-      "Electricity and water, as the building is using them",
-      "Patterns readable without a mechanical-room tour",
-      "Conservation tied to a benefit the campus can name",
+      "Live updates as the building uses power and water",
+      "Easy-to-read patterns, no engineering degree required",
+      "Helps tie conservation to goals your campus can celebrate",
     ],
   },
   {
-    kicker: "See",
+    kicker: "Understand",
     name: "Citywide Dashboard",
-    line: "The whole place, flowing. Electricity, water, and conditions as one picture of a community.",
+    line: "See electricity, water, and weather across your whole campus or city in one view.",
     points: [
-      "Animated flows for a city or a campus district",
-      "A resident can see themselves inside the larger system",
-      "Built to live on a sign, a site, and a phone",
+      "Animated maps that show how resources flow through your community",
+      "Helps residents see their role in the bigger picture",
+      "Works on lobby screens, websites, and phones",
     ],
   },
   {
-    kicker: "Gather",
+    kicker: "Connect",
     name: "Digital Signage",
-    line: "The hallway is a channel. Many people update one network of screens.",
+    line: "Turn hallway screens into a shared bulletin board for sustainability and campus life.",
     points: [
-      "Organization-specific and community-wide on the same wall",
-      "Stakeholders post without a broadcast desk",
-      "The nearest sign can be steered from the phone app",
+      "Department updates and community-wide messages on the same screens",
+      "Many people can post — no TV studio required",
+      "Update the nearest screen from your phone",
     ],
   },
   {
-    kicker: "Gather",
+    kicker: "Connect",
     name: "Community Calendar",
-    line: "The week, crowdsourced. Events, announcements, volunteer calls, and jobs.",
+    line: "A shared calendar for events, volunteer opportunities, job postings, and campus news.",
     points: [
-      "Anyone can submit. A designated person approves",
-      "Filter by type, place, and sponsor",
-      "Web, phone, a weekly note, and the sign down the hall",
+      "Anyone can submit an event; your team approves what goes live",
+      "Filter by type, location, or sponsor",
+      "Shows up on the web, in the app, and on lobby screens",
     ],
   },
   {
-    kicker: "Gather",
+    kicker: "Connect",
     name: "Community Voices",
-    line: "The campus, in its own words. Images and lines shaped into messages people actually stop for.",
+    line: "Collect stories and photos from across campus and turn them into messages people stop to read.",
     points: [
-      "Drawn from the full range of a community",
-      "Organized, then placed on signs, phones, and sites",
-      "A social-marketing tool for resilience, not a slideshow",
+      "Stories from students, staff, and neighbors",
+      "Curated and published to screens, phones, and websites",
+      "Built for climate and sustainability outreach that feels human",
     ],
   },
 ] as const;
@@ -156,7 +156,7 @@ export function App() {
       `Role: ${role}`,
       `Interest: ${interest}`,
       "",
-      note || "I'd like a conversation at AASHE.",
+      note || "I would like to schedule a meeting at AASHE.",
     ].join("\n");
     const href = `mailto:connect@communityhub.cloud?subject=${encodeURIComponent(
       `AASHE — ${institution || "campus conversation"}`,
@@ -176,13 +176,13 @@ export function App() {
           Community Hub
         </a>
         <nav>
-          <a href="#signature">Signatures</a>
-          <a href="#products">Products</a>
-          <a href="#field">In the field</a>
+          <a href="#signature">Demo</a>
+          <a href="#products">Platform</a>
+          <a href="#field">Stories</a>
           <a href="#aashe">AASHE</a>
         </nav>
         <a className="nav-cta" href="#contact">
-          {days > 0 ? `Baltimore in ${days} days` : "We’re in Baltimore"}
+          {days > 0 ? `AASHE in ${days} days` : "Meet us at AASHE"}
         </a>
       </header>
 
@@ -191,25 +191,25 @@ export function App() {
           <div className="hero-copy">
             <p className="eyebrow">AASHE 2026 · Baltimore · October 4–6</p>
             <h1>
-              Make resource use <em>impossible</em> to ignore.
+              Help your campus <em>see</em> what it uses.
             </h1>
             <p className="lede">
-              Community Hub turns live electricity, water, and climate data into the
-              things a campus already looks at — a sign in the lobby, a week on the
-              calendar, a graph a class can argue with.
+              Community Hub shows live electricity and water use on the screens,
+              websites, and phones your community already checks. When people can
+              see it, they can care about it — and change it.
             </p>
             <div className="hero-actions">
               <a className="btn solid" href="#contact">
-                Book a conversation
+                Schedule a call
               </a>
               <a className="btn ghost" href="#signature">
-                Drag the signature
+                Try the demo
               </a>
             </div>
             <p className="hero-note">
-              Four building types — residence, lab, dining, library — pulse and
-              exchange data through the hub. What the campus uses becomes what the
-              campus sees on signs, phones, and in class.
+              Watch four campus buildings share data through one hub — residence
+              halls, labs, dining, and the library. What your campus uses becomes
+              what everyone can see and act on.
             </p>
           </div>
           <div className="hero-stage" aria-hidden="true">
@@ -234,26 +234,25 @@ export function App() {
 
         <section className="thesis">
           <div className="shell thesis-grid">
-            <p className="index">01 — The job</p>
-            <h2>Distance got easier. Place got harder.</h2>
+            <p className="index">01 — Why it matters</p>
+            <h2>Your campus uses energy every day. Most people never see it.</h2>
             <p>
-              Communication tools reach across continents and leave the block, the
-              dorm, and the plant room strangely quiet. Community Hub is the local
-              layer: acquisition, display, and a way for a community to talk about
-              what it is using while it is using it.
+              Community Hub brings electricity and water use out of the basement and
+              into daily life — on lobby screens, calendars, and phones. When use is
+              visible, conservation becomes something everyone can take part in.
             </p>
             <ol>
               <li>
                 <strong>Facilities</strong>
-                <span>A week of load, readable before the complaint arrives.</span>
+                <span>Catch problems early, before they turn into emergencies.</span>
               </li>
               <li>
                 <strong>Sustainability</strong>
-                <span>A public picture that makes a plan feel inhabited.</span>
+                <span>Show progress on goals in a way the whole campus understands.</span>
               </li>
               <li>
                 <strong>Faculty</strong>
-                <span>Data with no answer key. Students gather it and interpret it.</span>
+                <span>Turn live campus data into lessons students actually care about.</span>
               </li>
             </ol>
           </div>
@@ -262,12 +261,12 @@ export function App() {
         <section className="signature" id="signature">
           <div className="shell signature-layout">
           <div className="signature-copy">
-            <p className="index">02 — The demo</p>
-            <h2>A building has a signature.</h2>
+            <p className="index">02 — Try it</p>
+            <h2>Every building has a pattern.</h2>
             <p>
-              Residence halls peak after dark. Labs hold a midday plateau. Dining
-              rings three times a day. At AASHE, this is the assignment: read a week
-              of resource use and say what the building is for.
+              Dorms spike at night. Labs run steady through the day. Dining halls
+              peak at mealtimes. Pick a building below and explore a week of
+              electricity or water use.
             </p>
             <p className="signature-line">{BUILDING_COPY[kind].line}</p>
             <div className="chips" role="group" aria-label="Building type">
@@ -290,27 +289,27 @@ export function App() {
                   aria-pressed={resource === item}
                   onClick={() => setResource(item)}
                 >
-                  {item}
+                  {item === "electricity" ? "Electricity" : "Water"}
                 </button>
               ))}
             </div>
             <dl className="stats">
               <div>
-                <dt>Peak</dt>
+                <dt>Peak hour</dt>
                 <dd>{stats.peakHour}</dd>
               </div>
               <div>
-                <dt>Baseload</dt>
+                <dt>Lowest use</dt>
                 <dd>{stats.baseload}</dd>
               </div>
               <div>
-                <dt>Weekend</dt>
+                <dt>Weekends</dt>
                 <dd>{stats.weekend}</dd>
               </div>
             </dl>
             <p className="fine">
-              Example profiles, not a live meter. Drag to orbit. Hours run left to
-              right. Days run front to back, Monday through Sunday.
+              Sample data for demo purposes. Click and drag the chart to rotate it.
+              Hours run left to right; days run front to back, Monday through Sunday.
             </p>
           </div>
           <div className="signature-stage">
@@ -326,11 +325,12 @@ export function App() {
         <section className="products" id="products">
           <div className="shell">
           <div className="products-head">
-            <p className="index">03 — The suite</p>
-            <h2>One platform. Six ways a campus meets it.</h2>
+            <p className="index">03 — The platform</p>
+            <h2>One platform. Six ways to reach your campus.</h2>
             <p>
-              Communications and data ship together or apart. A sign without a true
-              number is a poster. A dashboard nobody walks past is a login.
+              Use the data tools, the communication tools, or both. A sustainability
+              poster without real numbers is just decoration. A dashboard behind a
+              login is a dashboard nobody sees.
             </p>
           </div>
           <div className="product-list">
@@ -353,21 +353,21 @@ export function App() {
           <div className="bundles">
             <div>
               <h3>Communications</h3>
-              <p>Signage, calendar, and voices. The campus starts talking in public.</p>
+              <p>Signage, calendar, and community stories. Get your campus talking in public.</p>
             </div>
             <div>
               <h3>Data</h3>
-              <p>Data Hub with building and citywide views. The numbers get a face.</p>
+              <p>Data Hub with building and campus-wide views. Give your numbers a public face.</p>
             </div>
             <div>
-              <h3>Campus</h3>
-              <p>Both, plus design support when the first screens have to look inevitable.</p>
+              <h3>Full campus</h3>
+              <p>Everything above, plus design help to make your first screens look great.</p>
             </div>
           </div>
           <p className="fine bundles-note">
-            The phone app carries the same content and can steer the nearest sign. Web
-            embeds drop a calendar or a live dashboard into a partner’s own site.
-            Pricing is scoped to the campus. Ask, and you get a number — not a maze.
+            The phone app shows the same content and can update the nearest lobby screen.
+            Embed a live dashboard or calendar on any partner website. Pricing is tailored
+            to your campus — ask us for a quote.
           </p>
           </div>
         </section>
@@ -375,8 +375,8 @@ export function App() {
         <section className="field" id="field">
           <div className="shell">
           <div className="field-head">
-            <p className="index">04 — In the field</p>
-            <h2>A decade in Oberlin. A pilot at Hamilton. A district in Toledo.</h2>
+            <p className="index">04 — Who uses it</p>
+            <h2>Trusted on campuses and in communities for over a decade.</h2>
           </div>
           <div className="quotes">
             {VOICES.map((voice) => (
@@ -393,23 +393,23 @@ export function App() {
             <article>
               <h3>Oberlin</h3>
               <p>
-                College and city share the Environmental Dashboard: building use,
-                citywide flows, signs, a calendar, and voices. The software grew up
-                in public, on the street it describes.
+                The college and city share one Environmental Dashboard — building use,
+                citywide flows, lobby screens, a community calendar, and resident
+                stories. The software grew up in public, on the streets it describes.
               </p>
             </article>
             <article>
               <h3>Hamilton</h3>
               <p>
-                Building-system data is moving into Data Hub. Hamilton and Oberlin
-                are bringing the resource-use signature into the AASHE program.
+                Building data is moving into Data Hub. Hamilton and Oberlin are
+                bringing the resource-use demo to AASHE 2026 together.
               </p>
             </article>
             <article>
-              <h3>The classroom</h3>
+              <h3>Toledo schools</h3>
               <p>
-                Toledo teachers turned water and energy in dozens of school buildings
-                into lessons. The same graphs hang where residents already stand.
+                Teachers turned water and energy data from 44 school buildings into
+                classroom lessons — using the same charts that hang in public spaces.
               </p>
             </article>
           </div>
@@ -418,28 +418,28 @@ export function App() {
 
         <section className="aashe" id="aashe">
           <div className="shell aashe-grid">
-          <p className="index">05 — October 4–6</p>
-          <h2>Fifteen minutes in Baltimore.</h2>
+          <p className="index">05 — AASHE 2026 · October 4–6</p>
+          <h2>See it live in Baltimore.</h2>
           <ol>
             <li>
-              <strong>Read a signature.</strong>
-              <span>Orbit a week. Name the building from its shape.</span>
+              <strong>Explore a building’s pattern.</strong>
+              <span>Spin the chart and guess the building type from its shape.</span>
             </li>
             <li>
-              <strong>Put it on a wall.</strong>
-              <span>The same picture, on a sign a student will walk past tonight.</span>
+              <strong>Put it on a lobby screen.</strong>
+              <span>The same live chart, where students walk past it every day.</span>
             </li>
             <li>
-              <strong>Hand it to a class.</strong>
-              <span>An assignment with a live campus instead of a textbook table.</span>
+              <strong>Bring it to class.</strong>
+              <span>A real assignment using your campus — not a textbook example.</span>
             </li>
           </ol>
           <p>
-            Hilton Baltimore Inner Harbor. If you are in a session with Hamilton and
-            Oberlin, come find the people who built the picture.
+            Hilton Baltimore Inner Harbor. Join us at the Hamilton and Oberlin session,
+            or reach out to schedule a walk-through.
           </p>
           <a className="btn solid dark" href="#contact">
-            Hold a time
+            Schedule a meeting
           </a>
           </div>
         </section>
@@ -447,15 +447,14 @@ export function App() {
         <section className="contact" id="contact">
           <div className="shell contact-grid">
           <div>
-            <p className="index">06 — Talk</p>
-            <h2>Tell us the campus. We’ll bring the picture.</h2>
+            <p className="index">06 — Get in touch</p>
+            <h2>Tell us about your campus. We’ll show you what’s possible.</h2>
             <p>
-              Write to{" "}
+              Email us at{" "}
               <a href="mailto:connect@communityhub.cloud">connect@communityhub.cloud</a>.
-              Say AASHE if you want this found in Baltimore rather than in an inbox
-              on the 7th.
+              Mention AASHE if you would like to meet in Baltimore.
             </p>
-            <p className="fine">Oberlin, Ohio. Community Hub.</p>
+            <p className="fine">Based in Oberlin, Ohio.</p>
           </div>
           <form onSubmit={onSubmit}>
             <label>
@@ -478,26 +477,26 @@ export function App() {
               </select>
             </label>
             <label>
-              You want
-              <select name="interest" defaultValue="A conversation at AASHE">
-                <option>A conversation at AASHE</option>
-                <option>The campus bundle</option>
+              I am interested in
+              <select name="interest" defaultValue="A meeting at AASHE">
+                <option>A meeting at AASHE</option>
+                <option>The full campus package</option>
                 <option>Data Hub</option>
                 <option>Signage and calendar</option>
                 <option>A classroom pilot</option>
               </select>
             </label>
             <label>
-              Note
-              <textarea name="note" rows={4} placeholder="Buildings, meters, or the session you’re in." />
+              Message
+              <textarea name="note" rows={4} placeholder="Tell us about your buildings, meters, or what you hope to accomplish." />
             </label>
             <button className="btn solid" type="submit">
-              Open the email
+              Send message
             </button>
             {sent ? (
               <p className="fine" role="status">
-                Your mail app should be open. If it isn’t, write connect@communityhub.cloud
-                directly.
+                Your email app should open with a draft. If it does not, write to
+                connect@communityhub.cloud directly.
               </p>
             ) : null}
           </form>
