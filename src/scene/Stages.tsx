@@ -36,8 +36,8 @@ export function CampusStage() {
   return (
     <StageBoundary label="A campus of lit buildings, drawn as a still image when graphics are unavailable.">
       <Canvas
-        camera={{ position: [7.4, 4.8, 9.2], fov: 36, near: 0.1, far: 60 }}
-        dpr={[1, 1.6]}
+        camera={{ position: [8.2, 4.9, 10.2], fov: 40, near: 0.1, far: 60 }}
+        dpr={[1, 2]}
         gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
       >
         <CampusScene reduced={reduced} />

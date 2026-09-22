@@ -207,8 +207,9 @@ export function App() {
               </a>
             </div>
             <p className="hero-note">
-              Illustrated campus. The orb is the hub: buildings send their pulse in,
-              and the story goes back out to signs, phones, and class.
+              Four building types — residence, lab, dining, library — pulse and
+              exchange data through the hub. What the campus uses becomes what the
+              campus sees on signs, phones, and in class.
             </p>
           </div>
           <div className="hero-stage" aria-hidden="true">

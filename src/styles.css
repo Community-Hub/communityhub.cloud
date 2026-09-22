@@ -92,11 +92,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 .hero {
+  position: relative;
   min-height: 100svh;
   display: grid;
   grid-template-columns: minmax(320px, 620px) 1fr;
   background: var(--ink);
   color: var(--paper);
+  overflow: hidden;
 }
 .hero-copy {
   padding: 7.5rem 1.6rem 3rem 6vw;
@@ -104,7 +106,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .eyebrow, .index {
   font-size: 0.78rem;
@@ -157,8 +159,25 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: 0.92rem;
   max-width: 36rem;
 }
-.hero-stage { position: relative; min-height: 100svh; }
-.hero-stage canvas, .signature-stage canvas { width: 100% !important; height: 100% !important; display: block; }
+.hero-stage {
+  position: relative;
+  min-height: 100svh;
+}
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 62% 48%, rgba(214, 255, 74, 0.08), transparent 42%),
+    linear-gradient(90deg, rgba(16, 22, 17, 0.92) 0%, rgba(16, 22, 17, 0.55) 38%, rgba(16, 22, 17, 0.08) 72%, transparent 100%);
+  z-index: 1;
+}
+.hero-stage canvas, .signature-stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
 .stage-fallback {
   height: 100%;
   min-height: 24rem;
@@ -215,6 +234,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   background: var(--ink);
   color: var(--paper);
 }
+.signature-inner {
+  display: contents;
+}
 .signature-copy { padding: 6.5rem 6vw 3rem; }
 .signature h2 { font-size: clamp(2.8rem, 4.5vw, 4.4rem); margin-bottom: 1rem; }
 .signature-line { color: var(--lime); font-family: var(--serif); font-size: 1.35rem; line-height: 1.25; }
@@ -251,6 +273,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   position: relative;
   height: min(78vh, 760px);
   min-height: 520px;
+  max-width: 1100px;
+  width: 100%;
+  justify-self: center;
 }
 .stage-caption {
   position: absolute;
@@ -394,14 +419,89 @@ footer {
 }
 footer a { color: inherit; }
 
+@media (min-width: 1200px) {
+  .hero {
+    display: block;
+  }
+  .hero-stage {
+    position: absolute;
+    inset: 0;
+    min-height: 100svh;
+  }
+  .hero-copy {
+    min-height: 100svh;
+    max-width: min(760px, 46vw);
+    padding: 7.5rem clamp(1.6rem, 4vw, 5rem) 3.5rem;
+    background: linear-gradient(
+      90deg,
+      rgba(16, 22, 17, 0.97) 0%,
+      rgba(16, 22, 17, 0.88) 72%,
+      rgba(16, 22, 17, 0.35) 100%
+    );
+  }
+  .hero h1 { max-width: 10ch; font-size: clamp(3.6rem, 4.8vw, 5.8rem); }
+  .hero-stage::after {
+    background:
+      radial-gradient(circle at 58% 46%, rgba(214, 255, 74, 0.1), transparent 38%),
+      linear-gradient(90deg, rgba(16, 22, 17, 0.55) 0%, transparent 46%);
+  }
+  .thesis, .products, .field, .contact {
+    padding-inline: clamp(1.6rem, 5vw, 6rem);
+  }
+  .thesis, .products-head, .field-head, .contact > div:first-child {
+    max-width: 1480px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .thesis { width: min(1480px, calc(100% - 2 * clamp(1.6rem, 5vw, 6rem))); margin-inline: auto; }
+  .products, .field, .contact {
+    max-width: 1480px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .signature {
+    grid-template-columns: minmax(340px, 520px) minmax(480px, 1fr);
+  }
+  .signature-copy {
+    padding-inline: clamp(1.6rem, 5vw, 6rem);
+    max-width: 560px;
+    justify-self: end;
+    width: 100%;
+  }
+  .quotes { grid-auto-columns: minmax(300px, 380px); }
+}
+
+@media (min-width: 1500px) {
+  .product-list { grid-template-columns: repeat(3, 1fr); }
+  .product-list article:nth-child(odd),
+  .product-list article:nth-child(even) {
+    padding: 1.6rem 1.4rem 1.8rem;
+    border-right: none;
+  }
+  .product-list article {
+    border-right: 1px solid rgba(16, 22, 17, 0.16);
+  }
+  .product-list article:nth-child(3n) { border-right: none; }
+  .aashe {
+    max-width: 1480px;
+    margin-inline: auto;
+    width: calc(100% - 2 * clamp(1.6rem, 5vw, 6rem));
+    border-radius: 2px;
+  }
+}
+
 @media (max-width: 980px) {
   .nav nav { display: none; }
   .hero, .signature, .thesis, .contact, .aashe, .product-list, .bundles, .proof-grid {
     grid-template-columns: 1fr;
   }
   .hero-copy { padding: 6.2rem 1.3rem 2rem; }
-  .hero-stage { min-height: 68svh; order: -1; }
-  .hero { min-height: auto; }
+  .hero-stage { min-height: 68svh; order: -1; position: relative; }
+  .hero-stage::after {
+    background: linear-gradient(180deg, transparent 55%, rgba(16, 22, 17, 0.92) 100%);
+  }
+  .hero { min-height: auto; display: grid; }
+  .hero-copy { background: none; max-width: none; }
   .thesis, .products, .field, .contact, .signature-copy, .aashe { padding: 4.2rem 1.3rem; }
   .product-list article:nth-child(odd),
   .product-list article:nth-child(even) {
