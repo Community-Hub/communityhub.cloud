@@ -1,5 +1,12 @@
-FROM httpd:2.4
-ADD https://github.com/Terf/bootstrap/archive/communityhub.tar.gz /usr/local/css/bootstrap.tar.gz
-WORKDIR /usr/local/apache2/htdocs/
-COPY . .
-RUN tar xvfz /usr/local/css/bootstrap.tar.gz && mv ./bootstrap-communityhub/dist/css/bootstrap.min.css ./css/bootstrap.css
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY index.html tsconfig.json vite.config.ts ./
+COPY src ./src
+RUN npm run build
+
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
