@@ -10,6 +10,6 @@ if (!python) {
   console.error('Test dependencies are missing. Create .venv and install requirements-dev.txt, or set PYTHON to an interpreter with those packages.');
   process.exit(1);
 }
-const result = spawnSync(python, process.argv.slice(2), { cwd: root, stdio: 'inherit', env: process.env });
+const result = spawnSync(python, process.argv.slice(2), { cwd: root, stdio: 'inherit', env: { ...process.env, PYTHONUTF8: '1' } });
 if (result.error) console.error(result.error.message);
 process.exit(result.status ?? 1);
