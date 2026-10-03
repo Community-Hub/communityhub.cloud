@@ -1,0 +1,120 @@
+{
+  "retrieved_at_utc": "2026-10-01T05:23:08.788109+00:00",
+  "normalization": "HTML entities decoded and whitespace collapsed; exact source spelling, capitalization and punctuation preserved. Extracted directly from official HTML, independently of local application source. Team original image selected from the largest advertised srcset entry.",
+  "team_page": {
+    "source_url": "https://www.communityhub.cloud/team/",
+    "source_html_sha256": "f4869f1c9a592d66431b7a99d21e63a20b586c51c942b9502b742a7fcba616e7",
+    "mission_text": "Community Hub creates software products that foster stronger, more sustainable, and more resilient connections among people and the natural systems upon which we depend. Our award-winning communications platform uses sophisticated data acquisition and visualization applications to simplify complexity and share the wisdom of community-focused solutions. Community Hub clients include organizations, businesses, and whole communities that are working to enhance understanding, embrace challenges, celebrate success, and foster positive initiative. We believe that it has never been more important to act locally while thinking globally.",
+    "mission_paragraphs": [
+      "Community Hub creates software products that foster stronger, more sustainable, and more resilient connections among people and the natural systems upon which we depend. Our award-winning communications platform uses sophisticated data acquisition and visualization applications to simplify complexity and share the wisdom of community-focused solutions.",
+      "Community Hub clients include organizations, businesses, and whole communities that are working to enhance understanding, embrace challenges, celebrate success, and foster positive initiative. We believe that it has never been more important to act locally while thinking globally."
+    ],
+    "mission_source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[4]/div/div/div/div/p",
+    "team": [
+      {
+        "name": "John Petersen",
+        "role": "Director",
+        "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div[1]/div/div",
+        "image": {
+          "displayed_source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/John.jpg",
+          "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/John.jpg",
+          "local_path": "assets/live-team-01.jpg",
+          "sha256": "6365fa4d24a014d8da5fb41fdeeda3cf6109b3d10f61d333e228c5e4b37b809a",
+          "width": 955,
+          "height": 1086
+        }
+      },
+      {
+        "name": "Ethan Woodfill",
+        "role": "Project Manager",
+        "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div[2]/div/div",
+        "image": {
+          "displayed_source_url": "https://www.communityhub.cloud/wp-content/uploads/2023/01/EthanW-400x455.jpg",
+          "source_url": "https://www.communityhub.cloud/wp-content/uploads/2023/01/EthanW.jpg",
+          "local_path": "assets/live-team-02.jpg",
+          "sha256": "5d3e414c5b18a25c0fcd58e38c62e88d5c4c1e129ea2ca97620627f820e53ed4",
+          "width": 633,
+          "height": 720
+        }
+      },
+      {
+        "name": "Madeleine Faubert",
+        "role": "Design and Media",
+        "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div[3]/div/div",
+        "image": {
+          "displayed_source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/maddy.jpg",
+          "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/maddy.jpg",
+          "local_path": "assets/live-team-03.jpg",
+          "sha256": "4c0b52c6ef79984de73727393f74d22f6472ddc15a940d1ca40d364fce85426e",
+          "width": 953,
+          "height": 1087
+        }
+      },
+      {
+        "name": "Gaurav Bora",
+        "role": "Software Engineer",
+        "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div[4]/div/div",
+        "image": {
+          "displayed_source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/Gaurav-cropped-e1639177188550.jpg",
+          "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/Gaurav-cropped-e1639177188550.jpg",
+          "local_path": "assets/live-team-04.jpg",
+          "sha256": "389684d5ae793b7f6a1ddcf2aa8899d40e854b6c1f21445ba607c078554f59ae",
+          "width": 463,
+          "height": 531
+        }
+      },
+      {
+        "name": "Pratyush Bharti",
+        "role": "Software Engineer",
+        "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div[5]/div/div",
+        "image": {
+          "displayed_source_url": "https://www.communityhub.cloud/wp-content/uploads/2023/01/PratyushB-400x455.jpg",
+          "source_url": "https://www.communityhub.cloud/wp-content/uploads/2023/01/PratyushB.jpg",
+          "local_path": "assets/live-team-05.jpg",
+          "sha256": "aeb523332922b774433f0b5ff4d35014d4ed3c93dc35bcf5bfbc03efd04e9007",
+          "width": 633,
+          "height": 720
+        }
+      },
+      {
+        "name": "Hitesh Jangid",
+        "role": "Software Engineer",
+        "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div[6]/div/div",
+        "image": {
+          "displayed_source_url": "https://www.communityhub.cloud/wp-content/uploads/2023/01/HiteshJ-400x455.jpg",
+          "source_url": "https://www.communityhub.cloud/wp-content/uploads/2023/01/HiteshJ.jpg",
+          "local_path": "assets/live-team-06.jpg",
+          "sha256": "125fc483a5f21184aedb15545161c9688f898ad05c7c6a4be21d94c054aaacd8",
+          "width": 633,
+          "height": 720
+        }
+      }
+    ],
+    "hiring": {
+      "source_url": "https://www.communityhub.cloud/team/",
+      "heading": "Software Engineer",
+      "dated_context": "December 2021",
+      "date_evidence": "Interested applicants should send a cover letter, contact information for three references, and resume describing relevant skills and experiences to connect@communityhub.cloud. Review of applications will begin in December of 2021 and will continue until a hire is made.",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[6]/div/div/div/div/p[7]"
+    },
+    "notes": [
+      "The live mission is one HTML paragraph; local presentation retains two paragraphs at the existing logical break before Community Hub clients include.",
+      "The source hiring listing says application review begins in December 2021. It is linked with dated context, not represented as a current vacancy."
+    ]
+  },
+  "contact_page": {
+    "source_url": "https://www.communityhub.cloud/contact-us/",
+    "source_html_sha256": "dbab0f574eeaea90d9d7ad8ea36540beb173322647b59b1827242a8ca0f4f335",
+    "introduction": "We welcome inquiries about our software applications and pricing options for organizations and whole communities.",
+    "introduction_source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[1]/div/div[2]/div/div[1]/div/div/div/p",
+    "email": "connect@communityhub.cloud",
+    "image": {
+      "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/12/191013_GLSC_ED_Wrkshp-033-scaled.jpg",
+      "local_path": "assets/live-contact-workshop.jpg",
+      "sha256": "cd78c5161c8bc3cd2a93d3b24f3a7d502dd14bbf6a17b8d443215cb30c59a578",
+      "width": 2560,
+      "height": 1929,
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[1]/div/div[1]/div/div/span/img"
+    }
+  }
+}

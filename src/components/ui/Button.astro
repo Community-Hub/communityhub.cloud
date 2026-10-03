@@ -1,0 +1,6 @@
+---
+import { renderButton, type ButtonProps } from '../../lib/ui';
+import '../../styles/ui.css';
+type Props = ButtonProps;
+---
+<Fragment set:html={renderButton(Astro.props)} />

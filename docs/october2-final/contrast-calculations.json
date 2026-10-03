@@ -1,0 +1,14 @@
+{
+  "method": "WCAG relative luminance calculated from authored CSS colors, with worst-case white image pixels behind the solid held-frame scrim. This is not runtime color sampling or a browser audit score.",
+  "held_scrim": "#12271dd9",
+  "brightest_composited_background_rgb": [
+    53.31764705882354,
+    71.18823529411765,
+    62.67843137254903
+  ],
+  "green": "#a1cd54",
+  "green_minimum_ratio": 5.340187111400137,
+  "white_minimum_ratio": 9.8579743774476,
+  "body_ratio": 12.30369242690734,
+  "control_ratio": 8.651435387838793
+}

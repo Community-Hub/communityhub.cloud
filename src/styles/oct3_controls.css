@@ -1,0 +1,60 @@
+/* Oct 3 controls. One look per meaning, site-wide.
+   1. Solid green is for links that navigate (buttons and cards that go somewhere).
+   2. Tabs, segmented selectors and toggles share one look: flat text, pine
+      underline and bold when selected. Never a filled face.
+   3. Every inner scroll region has the same persistent pine scrollbar.
+   Imported last so it wins over the older page sheets. */
+
+/* ---------- 1. Tabs, segmented selectors, toggles ---------- */
+#main#main#main#main :is(.native-choices,.dashboard-tabs,.rs-seg,.cwd-views){
+  display:flex;flex-wrap:wrap;gap:6px 22px;margin-block:12px;padding:0;background:transparent;border:0;border-bottom:1px solid var(--ch-line,#c9d2c4);border-radius:0;box-shadow:none}
+#main#main#main#main :is(.native-choices,.dashboard-tabs,.rs-seg,.cwd-views) button,
+#main#main#main#main .ch-embed-toolbar .ch-embed-toggle{
+  min-height:44px;padding:10px 2px;margin:0 0 -1px;background:transparent;box-shadow:none;border:0;border-bottom:3px solid transparent;border-radius:0;
+  color:var(--ch-ink,#2c2c2c);font:700 15px/1.35 var(--font-body);cursor:pointer}
+#main#main#main#main :is(.native-choices,.dashboard-tabs,.rs-seg,.cwd-views) button:hover,
+#main#main#main#main .ch-embed-toolbar .ch-embed-toggle:hover{background:transparent;color:var(--ch-pine,#244b38);border-bottom-color:#a9bba3}
+#main#main#main#main :is(.native-choices,.dashboard-tabs,.rs-seg,.cwd-views) button:is([aria-selected="true"],[aria-pressed="true"]),
+#main#main#main#main .ch-embed-toolbar .ch-embed-toggle[aria-pressed="true"]{
+  background:transparent;box-shadow:none;color:var(--ch-pine,#244b38);border-bottom-color:var(--ch-pine,#244b38)}
+#main#main#main#main :is(.native-choices,.dashboard-tabs,.rs-seg,.cwd-views) button:focus-visible,
+#main#main#main#main .ch-embed-toolbar .ch-embed-toggle:focus-visible{outline:2px solid var(--ch-ink,#2c2c2c);outline-offset:2px}
+#main#main#main#main .ch-embed-toolbar .ch-embed-toggle{min-width:0;padding-inline:4px}
+
+/* Tile selectors (picture buttons) show the choice with an outline, not a fill. */
+#main#main#main#main .native-categories button{background:#f8faf4;border:1px solid #c1ceb9;box-shadow:none}
+#main#main#main#main .native-categories button[aria-pressed="true"]{background:#f8faf4;border:2px solid var(--ch-pine,#244b38);font-weight:700}
+
+/* The phone mock-ups list their choices on a dark screen: the choice on show
+   gets a light bar on the left, never a green face. */
+#main#main#main#main .phone-workflow button.pw-choice,
+#main#main#main#main .remote-phone button{box-shadow:none}
+#main#main#main#main .phone-workflow button.pw-choice:hover,
+#main#main#main#main .remote-phone button:hover{background:#444;color:#fff}
+#main#main#main#main .phone-workflow button.pw-choice[aria-pressed="true"],
+#main#main#main#main .remote-phone button[aria-pressed="true"]{background:#383838;color:#fff;font-weight:700;box-shadow:inset 4px 0 0 #a1cd54}
+#main#main#main#main .phone-demo button[aria-pressed="true"]:not(.pw-choice){background:transparent;color:inherit}
+
+/* ---------- 2. Persistent scrollbar on every inner scroll region ---------- */
+/* Blink and WebKit draw a classic 14px bar that stays visible; Firefox gets the
+   same colours from scrollbar-color. (Chrome ignores ::-webkit-scrollbar once
+   scrollbar-color is set, so each engine gets only its own rule.) */
+:is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel){
+  scrollbar-gutter:stable}
+@supports selector(::-webkit-scrollbar){
+  :is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel){
+    scrollbar-color:auto!important;scrollbar-width:auto!important}
+  :is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel)::-webkit-scrollbar{width:14px;height:14px;background:#e6ece4}
+  :is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel)::-webkit-scrollbar-track{background:#e6ece4;border-radius:6px}
+  :is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel)::-webkit-scrollbar-thumb{background:var(--ch-pine,#244b38);border-radius:7px;border:3px solid #e6ece4;min-height:40px}
+  :is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel)::-webkit-scrollbar-thumb:hover{background:#1a3b2b}
+}
+@supports not selector(::-webkit-scrollbar){
+  :is([data-scroll-owner],.native-scroll,.native-voices-content,.native-application-viewport,.ev-mini,.rs-lessons,.zpb-emb-site,.hf-source-model,.hf-grid,.pw-picker,.lv-box,.page-contents-panel){
+    scrollbar-color:#244b38 #e6ece4!important;scrollbar-width:auto!important}
+}
+
+/* ---------- 3. Scroll hint: the attention squirrel (oct3_squirrel.css) cues "Scroll here" ---------- */
+
+/* Community Voices category tabs: same underline weight and colour as the rest. */
+#main#main#main#main .zpb-cv-tab[aria-selected="true"]{color:var(--ch-pine,#244b38);border-bottom-width:3px}

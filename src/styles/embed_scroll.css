@@ -1,0 +1,64 @@
+/* Every scrollable embed keeps a real scrollbar and space beside it for its
+   temporary guide. Only the scrolling viewport narrows; toolbar controls keep
+   the full width of the frame. Once a region needs the space, keep it reserved:
+   narrowing a scaled frame can remove its overflow, and reclaiming the space
+   would immediately restore it and trigger a repeating resize cycle. */
+.embed-scroll-shell { --embed-cue-gutter: 124px; min-width: 0; }
+#main#main#main#main .embed-scroll-region[data-embed-scroll-reserved] {
+  box-sizing: border-box;
+  width: calc(100% - var(--embed-cue-gutter, 124px)) !important;
+  max-width: calc(100% - var(--embed-cue-gutter, 124px)) !important;
+  margin-inline: 0 var(--embed-cue-gutter, 124px) !important;
+  min-width: 0;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable;
+  overscroll-behavior-y: auto;
+}
+/* Replace the older route-specific whole-frame gutters. */
+#main#main#main#main :is(.live-frame,.native-scroll-feature).embed-scroll-shell {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+#main#main#main#main[data-page="dashboards"] [data-dashboard-panel]:has(.embed-scroll-shell) {
+  max-width: 100% !important;
+}
+#main#main#main#main .embed-scroll-region:focus-visible {
+  outline: 2px solid var(--ch-pine, #244b38);
+  outline-offset: 2px;
+}
+#main#main#main#main .embed-scroll-shell.live-frame > .bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  height: auto;
+  min-height: 44px;
+  overflow: visible;
+  padding: 6px 10px;
+}
+#main#main#main#main .embed-scroll-shell.live-frame > .bar :is(a,button) {
+  min-height: 44px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+.native-scroll-canvas { overflow: hidden; }
+#main#main#main#main .native-application-viewport.embed-content-fitted {
+  height: clamp(240px, 50dvh, 480px) !important;
+  aspect-ratio: auto;
+}
+/* A phone's screen retains its whole width. Its existing device layout leaves
+   the cue outside the bezel instead of taking space away from the controls. */
+#main#main#main#main :is(.pw-picker,.native-phone-screen).embed-scroll-region[data-embed-scroll-reserved] {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: 0 !important;
+}
+@media (max-width: 900px) {
+  .embed-scroll-shell { --embed-cue-gutter: 76px; }
+}
+@media (max-width: 360px) {
+  .embed-scroll-shell { --embed-cue-gutter: 68px; }
+}
+@media (forced-colors: active) {
+  .embed-scroll-region { scrollbar-color: auto !important; }
+}

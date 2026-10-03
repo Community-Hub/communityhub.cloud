@@ -1,0 +1,41 @@
+[
+  {
+    "file": "oberlin-stories-heating-original.png",
+    "source_deck": "Carbon Neutral Stories Home Loop",
+    "deck_id": "1IQ-xVTkfJP4P3UY-FY8DltGmR8Lzo5r5TFJbf5RyfxI",
+    "slide": 8,
+    "slide_id": "g30275f6fdef_0_938",
+    "institution": "Oberlin College",
+    "story": "Heating & Cooling",
+    "source_app": "https://oberlin.communityhub.cloud/dh-public/oc-embed?active-page=exploreStories",
+    "extraction": "Native Google Slides PNG export of authored slide; SVG original also preserved. Not screenshot.",
+    "bytes": 149503,
+    "sha256": "afa3c079b5cd80e9d3b07fc3e4aac05b6af7984a4e9ebeeebe53d74e77b14c1a",
+    "dimensions": [
+      960,
+      540
+    ],
+    "source_url": "https://docs.google.com/presentation/d/1IQ-xVTkfJP4P3UY-FY8DltGmR8Lzo5r5TFJbf5RyfxI/preview?slide=id.g30275f6fdef_0_938",
+    "verified_at": "2026-10-03T02:13:51Z"
+  },
+  {
+    "file": "glsc-stories-climate-original.png",
+    "source_deck": "LIVE_GLSC_Climate",
+    "deck_id": "1VdppDivGwcZ_4hn66WPBYkVR7Ue9_ESm8RRzBYAt--0",
+    "slide": 3,
+    "slide_id": "g5c068c4609_0_10",
+    "institution": "Great Lakes Science Center",
+    "story": "Climate",
+    "source_app": "https://cleveland.communityhub.cloud/dh-public/glsc-embed?active-page=exploreStories",
+    "source_chain": "Native public GLSC Stories display exposed home-loop Google deck1zERmRrT6KKY7Dc6KLNxnxt553MZ1G9vNmVSXT539ZZ0. Its slide8 Climate hyperlink led to LIVE_GLSC_Climate.",
+    "extraction": "Native Google Slides PNG export of authored slide; no live-data value capture.",
+    "bytes": 67895,
+    "sha256": "808e2963c09858ab19c9274e4db7b5462e946f996f4aaaef5950146e269a7e63",
+    "dimensions": [
+      960,
+      540
+    ],
+    "source_url": "https://docs.google.com/presentation/d/1VdppDivGwcZ_4hn66WPBYkVR7Ue9_ESm8RRzBYAt--0/preview?slide=id.g5c068c4609_0_10",
+    "verified_at": "2026-10-03T02:13:51Z"
+  }
+]

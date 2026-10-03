@@ -1,0 +1,18 @@
+{
+  "verified_at": "2026-10-03T02:02:19Z",
+  "source_page": "https://environmentaldashboard.org/story-of-dashboard",
+  "source_deck_title": "StoryOfDashboard_200121",
+  "source_slide": 14,
+  "slide_count": 31,
+  "local_asset": "public/assets/sod/14.jpg",
+  "sha256": "616e0e70751cc01be6aac1d476421a631b1d6ecd19ccbe80e4456980a4217588",
+  "dimensions": [
+    960,
+    720
+  ],
+  "verification": "Current source slide14 selected with native Google Slides picker and visually compared to local asset and recording frame source-diagram-replacement/06.jpg. Same three input groups, central Hub, four data visualization apps and three engagement outputs.",
+  "recording_clock_window": "11:06:48\u201311:07:03",
+  "recording_elapsed_basis": "transcript clock minus11:01:44",
+  "distinct_from": "Communication-network graphic discussed later in About/CommunityHub context",
+  "browser_evidence": "source-slide14-browser.jpg"
+}

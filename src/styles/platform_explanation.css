@@ -1,0 +1,30 @@
+/* User-directed single focal point: enlarge the existing source identity,
+   center its composition, retain left-aligned reading and natural short-screen height. */
+#main#main#main[data-page="index"] #problem[data-identity-explanation]{padding-block:clamp(28px,5dvh,48px) 64px!important}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .why-grid{grid-template-columns:1fr;display:block;max-width:960px;margin-inline:auto}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .why-copy{width:100%;max-width:760px;min-height:0!important;margin-inline:auto;padding-block:0!important;text-align:center;box-sizing:border-box}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .why-sol{margin:0 0 26px!important;text-align:center;font-size:clamp(36px,3.8vw,50px);line-height:1.15}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .roll{--w:clamp(70px,min(9.6vw,14dvh),116px);justify-content:center;width:100%;max-width:none;margin:0 auto 26px;min-height:calc(var(--w) * 1.6)}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .roll img{height:auto;opacity:1;transform:none;object-fit:contain;transition:none!important;animation:none!important}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .roll img:not(.roll-c){width:var(--w);margin:0 calc(var(--w) * -.14)}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .roll .roll-c{width:calc(var(--w) * 1.6);margin:0 calc(var(--w) * -.14)}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .why-copy p{text-align:left;max-width:64ch;margin:0 auto;font-size:clamp(18px,1.55vw,21px);line-height:1.6}
+#main#main#main[data-page="index"] #problem[data-identity-explanation] .why-a{display:inline-flex;align-items:center;min-height:44px;margin-top:20px}
+@media(max-width:900px){
+ #main#main#main[data-page="index"] #problem[data-identity-explanation]{padding-block:28px 64px!important}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .why-grid{padding-inline:20px}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .why-sol{font-size:clamp(32px,7.8vw,44px);margin-bottom:22px!important}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .roll{--w:clamp(56px,18vw,76px);margin-bottom:24px}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .why-copy p{font-size:18px;line-height:1.6}
+}
+@media(prefers-reduced-motion:reduce){
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .roll img{animation:none!important;transition:none!important;opacity:1;transform:none}
+}
+/* Short narrow viewport: recover the observed 27px overflow through spacing,
+   keeping the complete18px mission and About link readable. */
+@media(max-width:699px) and (max-height:740px){
+ #main#main#main[data-page="index"] #problem[data-identity-explanation]{padding-block:18px 58px!important}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .why-sol{margin-bottom:18px!important}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .roll{margin-bottom:18px}
+ #main#main#main[data-page="index"] #problem[data-identity-explanation] .why-a{margin-top:18px}
+}

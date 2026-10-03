@@ -1,0 +1,2 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';
+test('saved Community Voices sign rendering carries the verified speaker attribution',()=>{const code=readFileSync('src/lib/content-helpers.ts','utf8');const part=code.slice(code.indexOf('export function voices_sign_mode'),code.indexOf('export function live_frame'));assert.match(part,/class="cv-author"/);assert.match(part,/e\(who\)/);assert.match(part,/e\(role\)/);});

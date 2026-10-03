@@ -1,0 +1,103 @@
+/* Complete homepage compositions at natural type sizes. Decorative styling
+   lives in stripe_refinement.css; these rules only govern scene geometry. */
+#main[data-page="index"] .eng-media-title { display:none; }
+#main[data-page="index"] .ch-embed-toolbar {
+  display:flex; align-items:center; justify-content:flex-end; min-height:44px; margin-bottom:4px;
+}
+#main[data-page="index"] .ch-embed-toolbar .ch-embed-toggle {
+  position:static; min-height:44px; min-width:112px; padding:8px 0; border:0;
+  border-bottom:1px solid currentColor; border-radius:0; background:transparent;
+  color:inherit; box-shadow:none; font:700 14px/1.4 var(--font-body);
+}
+#main[data-page="index"] .ch-embed-toolbar .ch-embed-toggle[aria-pressed="true"] {
+  color:inherit; background:transparent; border-color:currentColor;
+}
+
+@media (min-width:901px) and (max-height:800px) {
+  #main[data-page="index"] #problem .conn-art { max-width:380px; }
+  #main[data-page="index"] #problem .conn-heading { margin-bottom:12px; }
+  #main[data-page="index"] #problem .conn-cap { margin-top:8px; }
+  #main[data-page="index"] #motivate .events-list li a { padding-block:6px; }
+}
+
+@media (max-width:900px) {
+  #main[data-page="index"] > section.eng { padding-block:12px!important; }
+  #main[data-page="index"] > .eng .chapter-heading { margin-bottom:12px; }
+  #main[data-page="index"] > :is(#engage,#products,#motivate) .eng-p { gap:16px; }
+  /* Keep each rail's native horizontal positions, while only its selected
+     product contributes height or exposes controls to keyboard navigation. */
+  #main[data-page="index"] > .eng.eng-enhanced[data-i="0"] .eng-p:not(:nth-child(1)),
+  #main[data-page="index"] > .eng.eng-enhanced[data-i="1"] .eng-p:not(:nth-child(2)),
+  #main[data-page="index"] > .eng.eng-enhanced[data-i="2"] .eng-p:not(:nth-child(3)),
+  #main[data-page="index"] > .eng.eng-enhanced[data-i="3"] .eng-p:not(:nth-child(4)) {
+    height:0; min-height:0; overflow:hidden; visibility:hidden;
+  }
+  /* A full controller or visualization follows its intact explanation when
+     both cannot fit together. No text, media or control is scaled to fit. */
+  #main[data-page="index"] > .eng.eng-sequenced { padding-bottom:0!important; }
+  #main[data-page="index"] > :is(#engage,#products,#motivate).eng-sequenced .eng-p { gap:0; }
+  #main[data-page="index"] > :is(#engage,#products,#motivate).eng-sequenced .eng-copy {
+    order:0; min-height:var(--eng-context-room); box-sizing:border-box;
+    display:flex; flex-direction:column; justify-content:center; padding-block:12px;
+  }
+  #main[data-page="index"] > :is(#engage,#products,#motivate).eng-sequenced .eng-media {
+    order:1; min-height:calc(100dvh - var(--story-hdr-h,77px)); box-sizing:border-box;
+    display:flex; flex-direction:column; justify-content:center; padding-block:16px;
+  }
+  #main[data-page="index"] > .eng.eng-sequenced .eng-media-title {
+    display:block; margin:0 0 16px; font:700 26px/1.2 var(--font-body);
+  }
+  #main[data-page="index"] > .eng.eng-sequenced [data-eng-context] > p:not(.eng-go) {
+    font-size:20px; line-height:1.5;
+  }
+  #main[data-page="index"] > .eng.eng-sequenced [data-eng-context] > h3 {
+    font-size:32px; line-height:1.15;
+  }
+  #main[data-page="index"] > .eng.eng-sequenced .sp-slide img { max-height:360px; }
+  #main[data-page="index"] > .eng.eng-sequenced .eng-live .mini {
+    max-width:min(230px,calc((100dvh - var(--story-hdr-h,77px) - 164px)/2));
+  }
+  #main[data-page="index"] > .eng.eng-sequenced .eng-media:has(.eng-phones) {
+    padding-block:8px;
+  }
+  #main[data-page="index"] > .eng.eng-sequenced .eng-media:has(.eng-phones) .eng-media-title {
+    margin-bottom:8px;
+  }
+  #main[data-page="index"] > .eng.eng-sequenced .eng-phones .mini-cap { margin-top:8px; }
+  /* layoutPanel measures the natural combined view in the same task, before
+     restoring the selected semantic scenes. This state is never painted. */
+  #main[data-page="index"] > .eng.eng-measuring { padding-bottom:12px!important; }
+  #main[data-page="index"] > :is(#engage,#products,#motivate).eng-measuring .eng-p { gap:16px; }
+  #main[data-page="index"] > :is(#engage,#products,#motivate).eng-measuring :is(.eng-copy,.eng-media) {
+    min-height:0; padding-block:0; display:block;
+  }
+  #main[data-page="index"] > .eng.eng-measuring .eng-media-title { display:none; }
+  #main[data-page="index"] > .eng.eng-measuring [data-eng-context] > p:not(.eng-go) { font-size:16px; }
+  #main[data-page="index"] > .eng.eng-measuring [data-eng-context] > h3 { font-size:26px; }
+  #main[data-page="index"] > .eng.eng-measuring .sp-slide img { max-height:300px; }
+  #main[data-page="index"] > #engage.eng-measuring .sp-slide img { max-height:190px; }
+  #main[data-page="index"] > .eng.eng-measuring .eng-live .mini { max-width:190px; }
+}
+
+@media (max-width:699px) and (max-height:740px) {
+  #main[data-page="index"] > section.eng { padding-block:8px!important; }
+  #main[data-page="index"] > .eng.eng-sequenced { padding-bottom:0!important; }
+  #main[data-page="index"] > .eng.eng-measuring { padding-bottom:8px!important; }
+  #main[data-page="index"] > :is(#engage,#products,#motivate).eng-sequenced [data-eng-context] {
+    padding-block:0;
+  }
+  #main[data-page="index"] > .eng.eng-sequenced [data-eng-context] > .eng-go {
+    margin-top:6px!important; margin-bottom:0;
+  }
+  #main[data-page="index"] > section#people { padding-block:12px; }
+  #main[data-page="index"] #people .pp-fade { margin-top:12px; }
+  #main[data-page="index"] #people .pp-fade .pp img { max-height:190px; }
+  #main[data-page="index"] #people .pp-fade .pp blockquote { padding-top:12px; }
+  #main[data-page="index"] #people .pp-fade .pp figcaption { padding-top:8px; }
+  #main[data-page="index"] #people .pp-fade .pp-go {
+    padding-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:0 12px;
+  }
+  #main[data-page="index"] #people .pp-fade .pp-go > :only-child { grid-column:1/-1; }
+  #main[data-page="index"] #people .pp-nav { margin-top:4px; }
+  #main[data-page="index"] #problem .why-copy { padding-block:16px; }
+}

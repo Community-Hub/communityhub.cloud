@@ -1,0 +1,168 @@
+/* Oct 3 visitor review fixes: data */
+/* Shared room math (desktop): header 77, section title band 84, floating next control 60. */
+#main#main#main[data-page="data-dashboard"]{--dd-room:calc(100dvh - var(--story-hdr-h,77px) - 84px - 60px)}
+
+/* 1/2. Cleveland scene: carries the Orbs label; the embedded viewer needs ~0.68 height per width so its controller pills are inside the frame. */
+#main#main#main[data-page="data-dashboard"] .orb-scene-label{display:none;margin:0}
+#main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orb-scene-label{display:block;grid-column:1/-1;font-size:32px;line-height:40px;margin:0 0 4px}
+#main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orbmap iframe{height:auto;aspect-ratio:100/68;width:min(100%,calc((100dvh - var(--story-hdr-h,77px) - 175px)*100/68))}
+@media(max-width:699px){
+ #main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orb-scene-label{font-size:26px;line-height:32px;margin-bottom:6px}
+ #main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orbmap iframe{width:100%}
+}
+
+/* 4. Citywide map: the frame is exactly the native 1584:893 ratio, so no white strip beside it. */
+@media(min-width:700px){
+ #main#main#main[data-page="data-dashboard"] #citywide .citywide-product-layout{grid-template-columns:minmax(220px,1fr) auto}
+ #main#main#main[data-page="data-dashboard"] #citywide .citywide-product-live{justify-self:end;min-width:0}
+ #main#main#main[data-page="data-dashboard"] #citywide .live-frame{width:min(100%,calc((100dvh - var(--story-hdr-h,77px) - 180px)*1584/893));margin-inline-start:auto}
+}
+
+/* The gallery's separate Citywide scene also reserves its heading, introduction,
+   toolbar and next-control row. Limit width with height so the complete native
+   SVG, including the bottom gauges, stays at its authored ratio. */
+#main#main#main#main[data-page="dashboards"] #cwd .live-frame { margin-inline:auto; }
+#main#main#main#main[data-page="dashboards"] #cwd .live-frame .lf-body {
+  width:100%;
+  aspect-ratio:1584/893;
+  height:auto!important;
+  min-height:0;
+  max-height:none;
+  overflow:hidden;
+}
+#main#main#main#main[data-page="dashboards"] #cwd .live-frame .lf-body > iframe {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%!important;
+  max-width:none;
+  transform:none;
+}
+@media(min-width:700px){
+  #main#main#main#main[data-page="dashboards"] #cwd .live-frame {
+    width:min(100%,max(320px,calc((100dvh - var(--story-hdr-h,77px) - 320px)*1584/893)));
+  }
+}
+
+/* 3/5. Ecolympics: heading, lede and both results share one scene; images are capped so captions sit clear of the next control. */
+@media(min-width:901px){
+ #main#main#main[data-page="data-dashboard"] #eco .chapter-scene{margin-top:12px}
+ #main#main#main[data-page="data-dashboard"] #eco .product-chapter-heading{margin-bottom:8px}
+ #main#main#main[data-page="data-dashboard"] #eco .zpa-sec-body{margin-top:0}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-pair{gap:20px 32px}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card{gap:6px}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card img{max-height:max(140px,calc(var(--dd-room) - 168px))}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card figcaption{font-size:15px;line-height:1.35;padding-bottom:2px}
+}
+
+/* 6. Heat map and dorm chart stay inside their scene. */
+@media(min-width:901px){
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene{gap:24px;align-items:start}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image>img{max-height:max(150px,calc(var(--dd-room) - 112px));width:auto;max-width:100%}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene--image-only>.dashboard-evidence-image>img{max-height:max(150px,calc(var(--dd-room) - 100px))}
+}
+#main#main#main[data-page="data-dashboard"] #eco .eco-card img{width:auto;max-width:100%;height:auto;object-fit:contain;object-position:left top}
+@media(min-width:901px){
+ /* Oberlin orb scene fits under the section title band too. */
+ #main#main#main[data-page="data-dashboard"] #orbs .orb-product-scene:not(.orb-product-scene--cleveland) .orbmap iframe{width:min(100%,calc((var(--dd-room) - 44px)*2048/1266))}
+}
+
+/* 7. Sources: two columns, one scene. */
+@media(min-width:901px){
+ #main#main#main[data-page="data-dashboard"] #sources .source-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;align-items:start}
+ #main#main#main[data-page="data-dashboard"] #sources .source-group{display:contents}
+ #main#main#main[data-page="data-dashboard"] #sources .source-group .zpa-src{grid-template-columns:1fr;gap:0}
+ #main#main#main[data-page="data-dashboard"] #sources .source-group .zpa-src li{padding:8px 0;gap:14px}
+ #main#main#main[data-page="data-dashboard"] #sources .zpa-src img.src-scene{width:64px;height:64px}
+ #main#main#main[data-page="data-dashboard"] #sources .source-group .zpa-src b{font-size:18px;line-height:1.25}
+ #main#main#main[data-page="data-dashboard"] #sources .source-group .zpa-src span span{font-size:15px;line-height:1.4}
+ #main#main#main[data-page="data-dashboard"] #sources .source-groups>.source-group:last-child>:not(.zpa-src){grid-column:1/-1;margin-top:8px}
+ #main#main#main[data-page="data-dashboard"] #sources .chapter-scene{margin-top:12px}
+ #main#main#main[data-page="data-dashboard"] #sources .product-chapter-heading{margin-bottom:8px}
+ #main#main#main[data-page="data-dashboard"] #sources .zpa-sec-body{margin-top:0}
+}
+@media(min-width:901px){
+ #main#main#main#main[data-page="data-dashboard"] > :is(#eco,#sources,#heat) > .sec-band + *{margin-top:12px!important}
+ #main#main#main[data-page="data-dashboard"] #sources .source-groups>.source-group:last-child>:not(.zpa-src){padding-top:10px}
+}
+@media(min-width:901px){
+ #main#main#main[data-page="data-dashboard"] #sources .source-groups>.source-group:last-child>:not(.zpa-src){padding-top:4px;margin-top:2px}
+ #main#main#main[data-page="data-dashboard"] #sources .zpa-src img.src-scene{width:56px;height:56px}
+ #main#main#main[data-page="data-dashboard"] #sources .source-group .zpa-src li{padding:6px 0}
+}
+@media(min-width:901px){
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene--image-only>.dashboard-evidence-image>img{max-height:max(150px,calc(100dvh - var(--story-hdr-h,77px) - 150px))}
+}
+
+/* Phone */
+@media(max-width:699px){
+ /* Ecolympics: lede and both results in one scene, no half-empty second screen. */
+ #main#main#main[data-page="data-dashboard"] #eco .eco-pair{gap:12px}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card{gap:4px}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-label{font-size:16px}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card img{max-height:max(120px,calc(100dvh - 640px))}
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card figcaption{font-size:14px;line-height:1.35}
+ #main#main#main[data-page="data-dashboard"] #eco .product-chapter-heading .lede{font-size:15px;line-height:1.45}
+ /* Charts: render at a readable size and pan sideways, with a visible scrollbar and a hint. */
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:auto;scrollbar-color:#6b7570 #dfe5e0;padding-bottom:6px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image::-webkit-scrollbar{height:10px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image::-webkit-scrollbar-track{background:#dfe5e0;border-radius:5px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image::-webkit-scrollbar-thumb{background:#6b7570;border-radius:5px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image>img{width:720px;max-width:none;max-height:none;height:auto}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image>figcaption{position:sticky;left:0;width:calc(100vw - 32px);max-width:100%}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-image::before{content:"Swipe sideways to read the whole chart";display:block;position:sticky;left:0;font-size:13px;color:#4a524e;padding-bottom:4px}
+}
+@media(max-width:699px){
+ #main#main#main[data-page="data-dashboard"] #eco .eco-card img{max-height:158px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene--image-only>.dashboard-evidence-image>img{width:900px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene:not(.dashboard-evidence-scene--image-only)>.dashboard-evidence-image>img{width:520px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-copy .zpa-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene{gap:12px}
+}
+
+/* ===== Community Voices: short viewports. The sign is too small for the category label and the quote, so the label is dropped (the quote and author stay readable). ===== */
+@media(max-height:640px) and (min-width:700px){
+ #main#main#main[data-page="community-voices"] .voices-sign .cv .cat{display:none}
+}
+@media(max-height:640px) and (min-width:700px){
+ #main#main#main[data-page="community-voices"] .voices-sign .cv .q{padding:10px 14px}
+ #main#main#main[data-page="community-voices"] .voices-sign .cv .q p{font-size:15px;line-height:1.35}
+ #main#main#main[data-page="community-voices"] .voices-sign .cv-author{font-size:13px;margin-top:4px}
+}
+
+/* ===== Data dashboard: scene titles share the section band look (Comfortaa bold, 21px padding, full-width rule). ===== */
+@media(min-width:700px){
+ /* Cleveland "Orbs" label = same band as every other section title. */
+ #main#main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orb-scene-label{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(28px,3.2vw,43px);line-height:1.25;color:#244b38;
+  padding:21px 0;margin:0 0 12px;border-bottom:1px solid #c9d2c4;
+  border-image:linear-gradient(#c9d2c4,#c9d2c4) 0 0 1 0/0 0 1px 0/0 100vmax 0 stretch}
+ #main#main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orbmap iframe{
+  width:min(100%,calc((100dvh - var(--story-hdr-h,77px) - 232px)*100/68))}
+ /* Dorm chart scene repeats the section title so it reads on its own. */
+ #main#main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene--image-only::before{
+  content:"Building Dashboards";display:block;font-family:var(--font-display);font-weight:700;font-size:clamp(28px,3.2vw,43px);line-height:1.25;color:#244b38;
+  padding:21px 0;margin-bottom:12px;border-bottom:1px solid #c9d2c4;
+  border-image:linear-gradient(#c9d2c4,#c9d2c4) 0 0 1 0/0 0 1px 0/0 100vmax 0 stretch}
+}
+@media(min-width:901px){
+ #main#main#main#main[data-page="data-dashboard"] #heat .dashboard-evidence-scene--image-only>.dashboard-evidence-image>img{max-height:max(150px,calc(100dvh - var(--story-hdr-h,77px) - 150px - 96px))}
+}
+
+/* ===== See it live, phone: all three tabs fit the bar, and the embedded site gets a wider layout (scaled down) so its banner text clears its logo. ===== */
+@media(max-width:699px){
+ #main#main#main#main[data-page="see-it-live"] .live-frame .bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:0 8px;overflow:hidden;align-items:center}
+ #main#main#main#main[data-page="see-it-live"] .live-frame .bar>*{min-width:0;width:auto;flex:none}
+ #main#main#main#main[data-page="see-it-live"] .live-frame .bar>a,
+ #main#main#main#main[data-page="see-it-live"] .live-frame .bar .lf-load{justify-content:center;text-align:center;font-size:12.5px;line-height:1.2;padding:6px 4px;min-height:40px;white-space:normal}
+ #main#main#main#main[data-page="see-it-live"] .live-frame .lf-body{position:relative;overflow:hidden;container-type:inline-size}
+ #main#main#main#main[data-page="see-it-live"] .live-frame .lf-body>iframe{position:absolute;top:0;left:0;max-width:none;width:calc(100cqw / .52);height:calc(100% / .52)!important;transform:scale(.52);transform-origin:0 0}
+}
+
+/* ===== Data dashboard, phone: the Cleveland "Orbs" label is a full section band like the others (16px above and below, full-width rule), not a bare line against the header. ===== */
+@media(max-width:699px){
+ #main#main#main#main[data-page="data-dashboard"] .orb-product-scene--cleveland .orb-scene-label{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.25;color:#244b38;
+  padding:16px 0;margin:0 0 12px;border-bottom:1px solid #c9d2c4;
+  border-image:linear-gradient(#c9d2c4,#c9d2c4) 0 0 1 0/0 0 1px 0/0 100vmax 0 stretch}
+}

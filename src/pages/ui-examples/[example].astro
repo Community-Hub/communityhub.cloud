@@ -1,0 +1,107 @@
+---
+import Button from '../../components/ui/Button.astro';
+import ActionLink from '../../components/ui/ActionLink.astro';
+import Field from '../../components/ui/Field.astro';
+import StatusMessage from '../../components/ui/StatusMessage.astro';
+// Development documentation only: this generates no production route.
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { example: 'foundation' } }] : [];
+}
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>UI component examples | Community Hub</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" />
+  </head>
+  <body>
+    <a class="skip-link" href="#examples">Skip to examples</a>
+    <main id="examples">
+      <header><h1>UI component examples</h1><p>Community Hub’s shared controls, fields and feedback. This development page uses simulated responses to demonstrate each state.</p></header>
+      <section aria-labelledby="actions-title">
+        <h2 id="actions-title">Actions</h2>
+        <div class="actions">
+          <ActionLink href="/contact.html" label="Book a demo" />
+          <ActionLink href="/products.html" label="Browse products" variant="secondary" />
+          <Button label="Unavailable action" disabled />
+          <Button label="Save changes" loading loadingLabel="Saving changes…" />
+        </div>
+      </section>
+      <section aria-labelledby="fields-title">
+        <h2 id="fields-title">Fields</h2>
+        <div class="fields">
+          <Field id="example-name" name="name" label="Your name" autocomplete="name" required hint="Use the name you want us to reply to." />
+          <Field id="example-email" name="email" label="Email" type="email" error="Enter an email address, such as name@example.com." value="name@" />
+          <Field id="example-message" name="message" label="What you have in mind" kind="textarea" placeholder="Buildings, meters and where people gather" />
+          <Field id="example-disabled" name="disabled" label="Disabled field" value="This field is unavailable" disabled />
+        </div>
+      </section>
+      <section aria-labelledby="data-title">
+        <h2 id="data-title">Loading and recovery</h2>
+        <p>Choose a simulated response, then load the example. Loading cancels any earlier request.</p>
+        <div class="request-controls">
+          <Field id="example-response" name="response" label="Response" kind="select" options={[{ value: 'success', label: 'Results' }, { value: 'empty', label: 'No results' }, { value: 'error', label: 'Connection error' }]} />
+          <Button id="example-load" label="Load example" controls="example-content" />
+        </div>
+        <StatusMessage id="example-status" message="Load the example to see its results." />
+        <div id="example-content" data-ui-content hidden></div>
+        <div class="retry"><Button id="example-retry" label="Try again" variant="secondary" controls="example-content" /></div>
+      </section>
+      <p class="implementation">Used in <a href="/contact.html">Contact</a> and <a href="/pricing.html#quote">Pricing</a>. The components keep native keyboard behavior and do not require a client framework.</p>
+    </main>
+    <script>
+      import { createAsyncRegion } from '../../scripts/ui/async-region';
+      const retry = document.querySelector<HTMLButtonElement>('#example-retry')!;
+      retry.dataset.uiRetry = '';
+      retry.hidden = true;
+      const response = document.querySelector<HTMLSelectElement>('#example-response')!;
+      const example = createAsyncRegion<string[]>({
+        status: document.querySelector('#example-status')!,
+        content: document.querySelector('#example-content')!,
+        retry,
+        load: signal => new Promise((resolve, reject) => {
+          const selected = response.value;
+          const abort = () => { clearTimeout(timer); reject(new Error('Cancelled')); };
+          const timer = setTimeout(() => {
+            signal.removeEventListener('abort', abort);
+            if (selected === 'error') reject(new Error('Simulated connection error'));
+            else resolve(selected === 'empty' ? [] : ['Building Dashboard', 'Citywide Dashboard', 'Community Voices']);
+          }, 700);
+          if (signal.aborted) abort();
+          else signal.addEventListener('abort', abort, { once: true });
+        }),
+        isEmpty: items => items.length === 0,
+        render: items => {
+          const list = document.createElement('ul');
+          for (const item of items) { const li = document.createElement('li'); li.textContent = item; list.append(li); }
+          return list;
+        },
+        messages: { loading: 'Loading the example…', empty: 'No results in this example. Choose Results and try again.', error: 'The example could not load. Choose Results and try again.', success: 'Three example results loaded.' },
+      });
+      document.querySelector('#example-load')!.addEventListener('click', () => { void example.reload(); });
+      document.addEventListener('astro:before-swap', () => example.dispose(), { once: true });
+    </script>
+  </body>
+</html>
+<style>
+  :global(html) { background: #eef0e2; color: #2c2c2c; font: 18px/1.5 Lato, system-ui, sans-serif; }
+  :global(body) { margin: 0; }
+  main { max-width: 1100px; margin: auto; padding: 32px 24px 64px; }
+  h1 { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 400; line-height: 1.12; margin: 20px 0; }
+  h2 { font-size: 1.6rem; margin: 0 0 18px; }
+  p { max-width: 70ch; }
+  section { padding: 30px 0; border-bottom: 1px solid #a5aa9e; }
+  .actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: start; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .request-controls { display: flex; gap: 20px; align-items: end; margin-bottom: 20px; }
+  .retry { margin-top: 16px; }
+  .implementation { margin-top: 32px; }
+  a { color: inherit; text-underline-offset: .2em; }
+  a:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+  .skip-link { position: absolute; inset: 0 auto auto 24px; transform: translateY(-120%); background: #f4f4f2; padding: 8px; }
+  .skip-link:focus { transform: none; }
+  @media(max-width: 640px) { main { padding-inline: 20px; } .fields { grid-template-columns: minmax(0, 1fr); } .request-controls { flex-direction: column; align-items: stretch; } }
+</style>

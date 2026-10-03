@@ -1,0 +1,81 @@
+{
+  "source": "Supplied presentation, slide 10: How the Dashboard Platform Works",
+  "assets": [
+    {
+      "original": "image69.png",
+      "file": "building-sources.png",
+      "slide": 10,
+      "bytes": 13387,
+      "sha256": "f0d457b059816ccc32162a8a0e209e3be88f7ff9a863d683e08ed24abb5b8efe"
+    },
+    {
+      "original": "image57.png",
+      "file": "environmental-sources.png",
+      "slide": 10,
+      "bytes": 19203,
+      "sha256": "65fa61cd82027a4ff0acf396d0b6535ec414d51a09ac36c8c718804a4691e9aa"
+    },
+    {
+      "original": "image70.png",
+      "file": "social-sources.png",
+      "slide": 10,
+      "bytes": 23797,
+      "sha256": "b5a819438e87779aa897f2b600e06644d693a3809d13a016ac935229357219db"
+    },
+    {
+      "original": "image62.png",
+      "file": "hub-collects.png",
+      "slide": 10,
+      "bytes": 25453,
+      "sha256": "5778efd63e7f823d301e845cea08e0859f80c65eceb60d8039287f4445ce15f0"
+    },
+    {
+      "original": "image66.png",
+      "file": "hub-hands.png",
+      "slide": 10,
+      "bytes": 24921,
+      "sha256": "a60383eb86c7a4b06046d29f270b40c88667e2ae09b676ec562b522235ba721c"
+    },
+    {
+      "original": "image61.jpg",
+      "file": "web-embeddables.jpg",
+      "slide": 10,
+      "bytes": 60908,
+      "sha256": "bf6329df65a79a67f5f765336b970676b0d3ae65100a86430b78bcd93bd5f85c"
+    },
+    {
+      "original": "image166.png",
+      "file": "interactive-signage.png",
+      "slide": 10,
+      "bytes": 2896393,
+      "sha256": "08d88dadfedc2f2e30e583a3615f93faae0f4332df3b9a6716b7f240ca704618"
+    },
+    {
+      "original": "image50.png",
+      "file": "analytics-heatmap.png",
+      "slide": 10,
+      "bytes": 41429,
+      "sha256": "2e8e87fe56f1ac8179f3995f07ca132251bb297f355e76a9fdbab7dd6f6015c0"
+    },
+    {
+      "original": "image60.png",
+      "file": "analytics-lens.png",
+      "slide": 10,
+      "bytes": 3903,
+      "sha256": "01b74a23359209bb083582a49045e9578ecba7d0be3bab3c175111bd910ff91f"
+    }
+  ],
+  "reused": [
+    "building-dashboard.png (image64.png)",
+    "citywide-dashboard.png (image55.png)",
+    "calendar-jobs.png (image84.png)",
+    "community-voices.png (image52.png)"
+  ],
+  "phone": "../phone-workflow/oberlin-hub-menu.png replaces the source WhatsApp stock placeholder image58.png",
+  "sequence": [
+    "Building input \u2192 Hub \u2192 Building Dashboard + Hub Analytics",
+    "Environmental and municipal input \u2192 Hub \u2192 Citywide Dashboard",
+    "Social data and storytelling \u2192 Hub \u2192 Calendar & Jobs Board + Community Voices",
+    "Web Embeddables \u2192 Phone App \u2192 Interactive Signage"
+  ]
+}

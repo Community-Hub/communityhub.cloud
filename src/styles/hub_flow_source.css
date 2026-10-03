@@ -1,0 +1,81 @@
+/* Slide 10's actual illustration, hands, ring, applications and output photos.
+   Native layout and labels replace the former generic cards and empty grid. */
+#main#main#main[data-page]>.hub-flow--source{background:#212121!important}
+#main#main#main .hub-flow--source .hf-source-model{position:relative;display:grid;grid-template-columns:minmax(220px,1.05fr) minmax(215px,1fr) minmax(390px,1.85fr);grid-template-rows:auto auto;column-gap:20px;row-gap:14px;align-items:center;min-height:390px;padding:0;border:0;border-radius:0;box-shadow:none;overflow:visible;max-height:none;outline:none}
+#main#main#main .hub-flow--source .hf-source-model:focus-visible{outline:2px solid #bfe6a8;outline-offset:6px}
+#main#main#main .hub-flow--source :is(.hf-source-inputs,.hf-source-apps,.hf-source-venues){position:relative;z-index:1;min-width:0}
+#main#main#main .hub-flow--source h3{font:700 18px/1.25 var(--font-body);color:#f4f4f2;margin:0 0 12px}
+#main#main#main .hub-flow--source [data-hf-step]{transition:none;transform:none;outline:none!important;box-shadow:none!important}
+#main#main#main .hub-flow--source .hf-source-inputs{grid-column:1;grid-row:1/3;align-self:center}
+#main#main#main .hub-flow--source .hf-source-inputs ul{display:grid;gap:4px;list-style:none;margin:0;padding:0}
+#main#main#main .hub-flow--source .hf-source-input{position:relative;display:flex;align-items:center;height:105px;padding:0;background:none;border:0}
+#main#main#main .hub-flow--source .hf-input-art{display:block;flex:0 0 92px;width:92px;height:110px;overflow:hidden;background:#212121;padding:0;border-radius:0}
+#main#main#main .hub-flow--source .hf-input-art img{display:block;width:152px;height:auto;max-width:none;margin:0;object-fit:contain}
+#main#main#main .hub-flow--source .hf-source-label{position:relative;display:block;flex:1;padding:9px 10px;border-radius:5px;font:700 15px/1.3 var(--font-body);color:#212121;background:#f8c7a8;max-width:170px;z-index:1}
+#main#main#main .hub-flow--source .hf-source-input--environment .hf-source-label{background:#b5edc6}
+#main#main#main .hub-flow--source .hf-source-input--social .hf-source-label{background:#b6e4f1}
+#main#main#main .hub-flow--source .hf-source-hub{position:relative;grid-column:2;grid-row:1/3;width:100%;aspect-ratio:408/418;max-width:270px;justify-self:center;z-index:1}
+#main#main#main .hub-flow--source .hf-collect-ring{display:block;width:100%;height:auto}
+#main#main#main .hub-flow--source .hf-collect-hands{position:absolute;width:79%;height:auto;left:13%;top:15%}
+#main#main#main .hub-flow--source .hf-source-hub strong{position:absolute;top:38%;left:35%;width:38%;font:400 clamp(25px,2.5vw,35px)/1.08 var(--font-body);color:white;text-align:center;text-shadow:0 1px 2px #212121}
+#main#main#main .hub-flow--source .hf-hub-description{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+#main#main#main .hub-flow--source .hf-source-apps{grid-column:3;grid-row:1;align-self:start}
+#main#main#main .hub-flow--source .hf-source-apps ul{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;list-style:none;padding:0;margin:0}
+#main#main#main .hub-flow--source .hf-source-app{min-width:0;min-height:42px}
+#main#main#main .hub-flow--source .hf-source-app--citywide{grid-column:1}
+#main#main#main .hub-flow--source .hf-source-app--calendar{grid-column:1;grid-row:3}
+#main#main#main .hub-flow--source .hf-source-app--voices{grid-column:2;grid-row:3}
+#main#main#main .hub-flow--source .hf-source-app a{display:flex;align-items:center;gap:9px;color:#f4f4f2;text-decoration:none;background:none;padding:0;border-radius:0;min-height:44px}
+#main#main#main .hub-flow--source .hf-source-app b{font:700 15px/1.25 var(--font-body)}
+#main#main#main .hub-flow--source .hf-app-symbol{position:relative;width:42px;height:42px;flex:0 0 42px;display:block}
+#main#main#main .hub-flow--source .hf-app-symbol img{position:relative;display:block;width:100%;height:100%;object-fit:contain}
+#main#main#main .hub-flow--source .hf-app-symbol .hf-analytics-map{position:absolute;inset:5% auto auto 5%;width:68%;height:68%;object-fit:cover;border-radius:50%}
+#main#main#main .hub-flow--source .hf-source-venues{grid-column:3;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;align-items:center;align-self:end;margin-top:4px}
+#main#main#main .hub-flow--source .hf-source-venues h3{grid-column:1;grid-row:1;max-width:10ch;margin:0}
+#main#main#main .hub-flow--source .hf-venue{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:#f4f4f2;min-width:0;min-height:100px}
+#main#main#main .hub-flow--source .hf-venue--web{grid-column:2;grid-row:1}
+#main#main#main .hub-flow--source .hf-venue--signage{grid-column:1;grid-row:2}
+#main#main#main .hub-flow--source .hf-venue--phone{grid-column:2;grid-row:2}
+#main#main#main .hub-flow--source .hf-venue img{display:block;width:100%;height:78px;object-fit:contain}
+#main#main#main .hub-flow--source .hf-venue b{font:700 14px/1.3 var(--font-body);text-align:center}
+#main#main#main .hub-flow--source :is(.hf-venue,.hf-source-app a):hover b{text-decoration:underline;text-underline-offset:3px}
+#main#main#main .hub-flow--source :is(.hf-venue,.hf-source-app a):focus-visible{outline:2px solid #bfe6a8;outline-offset:4px}
+#main#main#main .hub-flow--source .hf-source-connections{position:absolute;inset:0;width:100%;height:100%;fill:none;pointer-events:none}
+#main#main#main .hub-flow--source .hf-source-link{stroke-width:2.6;stroke-dasharray:1 7;stroke-linecap:round;opacity:.3}
+#main#main#main .hub-flow--source .hf-source-link.is-active{opacity:1;stroke-width:3.2}
+#main#main#main .hub-flow--source .hf-building-link{stroke:#f8c7a8}
+#main#main#main .hub-flow--source .hf-environment-link{stroke:#abedbc}
+#main#main#main .hub-flow--source .hf-social-link{stroke:#b6e4f1}
+#main#main#main .hub-flow--source .hf-source-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:start;margin-top:20px}
+#main#main#main .hub-flow--source .hf-say{font:400 16px/1.5 var(--font-body);min-height:3em;margin:0;max-width:80ch}
+#main#main#main .hub-flow--source .hf-controls{margin:0}
+@media(max-width:900px){
+ #main#main#main .hub-flow--source .hf-source-model{display:flex;flex-direction:column;align-items:stretch;gap:22px;min-height:220px;max-height:calc(100dvh - 285px);overflow:auto;padding:4px 10px 4px 4px;scrollbar-color:#bfe6a8 #303b31}
+ #main#main#main .hub-flow--source .hf-source-inputs{width:100%;max-width:390px;align-self:center}
+ #main#main#main .hub-flow--source .hf-source-label{max-width:none}
+ #main#main#main .hub-flow--source .hf-source-hub{flex:none;width:230px;align-self:center;max-width:80%}
+ #main#main#main .hub-flow--source .hf-source-hub strong{font-size:30px}
+ #main#main#main .hub-flow--source .hf-source-connections{display:none}
+ #main#main#main .hub-flow--source .hf-source-apps{width:100%;max-width:440px;align-self:center}
+ #main#main#main .hub-flow--source .hf-source-venues{width:100%;max-width:390px;align-self:center;margin-top:0}
+ #main#main#main .hub-flow--source .hf-source-footer{grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:16px}
+ #main#main#main .hub-flow--source .hf-say{font-size:15px;min-height:0}
+ #main#main#main .hub-flow--source .hf-controls{gap:6px}
+}
+@media(max-width:450px){
+ #main#main#main .hub-flow--source .hf-source-footer{grid-template-columns:1fr;gap:8px}
+ #main#main#main .hub-flow--source .hf-source-model{min-height:180px;max-height:calc(100dvh - 374px)}
+ #main#main#main .hub-flow--source .hf-say{min-height:3em}
+ #main#main#main .hub-flow--source .hf-source-apps ul{column-gap:10px}
+ #main#main#main .hub-flow--source .hf-app-symbol{width:36px;height:36px;flex-basis:36px}
+ #main#main#main .hub-flow--source .hf-source-app b{font-size:14px}
+}
+
+/* Slide 10 uses moving points around the Hub while it collects data. This
+   native cue uses the same paused clock state, never an unpausable GIF. */
+#main#main#main .hub-flow--source .hf-processing{position:absolute;left:13%;top:15%;width:79%;height:79%;fill:none;stroke:#fff;stroke-width:3.5;stroke-dasharray:1 18;stroke-linecap:round;opacity:0;pointer-events:none}
+#main#main#main .hub-flow--source .hf-processing circle{animation:hf-source-collect 2400ms linear infinite;animation-play-state:paused}
+#main#main#main .hub-flow--source .hf:is([data-step="2"],[data-step="4"],[data-step="6"]) .hf-processing{opacity:.85}
+#main#main#main .hub-flow--source .hf:is([data-step="2"],[data-step="4"],[data-step="6"])[data-hf-paused="false"] .hf-processing circle{animation-play-state:running}
+@keyframes hf-source-collect{to{stroke-dashoffset:-76}}
+@media(prefers-reduced-motion:reduce){#main#main#main .hub-flow--source .hf-processing circle{animation:none}}

@@ -1,0 +1,24 @@
+{
+  "source": "User-supplied presentation media",
+  "notes": "Product assets, not whole presentation slides. AJLC is a recorded screen capture, not current readings.",
+  "images": [
+    {
+      "file": "oberlin-hub-menu.png",
+      "source_media": "image101.png",
+      "sha256": "cd733cda861551fad967f9be04688f9cdabe91b0b647a5755fbf56a0b10e9cfa",
+      "treatment": "Unchanged extracted product image"
+    },
+    {
+      "file": "carbon-neutral-controller.png",
+      "source_media": "image151.png",
+      "sha256": "b01c46ee9f2fcf9297ef60f094ea802ae347a222cc3375e12fd12eeaeaf89a96",
+      "treatment": "Unchanged extracted product image"
+    },
+    {
+      "file": "ajlc-electricity-recorded.png",
+      "source_media": "image161.png",
+      "sha256": "4dba0fb91a8062b8b663d60c74733e42abdf24f0e69d212eaab57d9cd8135e03",
+      "treatment": "Unchanged extracted product image"
+    }
+  ]
+}

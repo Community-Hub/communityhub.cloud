@@ -1,0 +1,13 @@
+/* Shared interior platform only: quiet arrows, revealed by the complete content.
+   The controls keep their own layout space; no overlay or persistent text bar. */
+#main#main#main[data-page] .hub-flow .hf-controls{position:static;display:flex;justify-content:flex-end;align-items:center;gap:10px;min-height:44px;margin:12px 0 0;padding:0;background:transparent;box-shadow:none;border:0;opacity:0;pointer-events:none;transition:opacity .15s ease}
+#main#main#main[data-page] .hub-flow .hf-controls[hidden]{display:none}
+#main#main#main[data-page] .hub-flow:hover .hf-controls,
+#main#main#main[data-page] .hub-flow:focus-within .hf-controls{opacity:1;pointer-events:auto}
+#main#main#main[data-page] .hub-flow .hf-nav-button{display:inline-grid;place-items:center;width:44px;height:44px;min-width:44px;min-height:44px;padding:10px;border:1px solid #d4e4cb80;border-radius:50%;color:#f4f4f2;background:transparent;box-shadow:none;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+#main#main#main[data-page] .hub-flow .hf-nav-button svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#main#main#main[data-page] .hub-flow .hf-nav-button:hover:not(:disabled){background:#ffffff14;border-color:#d4e4cb}
+#main#main#main[data-page] .hub-flow .hf-nav-button:focus-visible{outline:2px solid #bfe6a8;outline-offset:3px}
+#main#main#main[data-page] .hub-flow .hf-nav-button:disabled{opacity:.35;cursor:default}
+@media(hover:none){#main#main#main[data-page] .hub-flow .hf-controls{opacity:1;pointer-events:auto}}
+@media(prefers-reduced-motion:reduce){#main#main#main[data-page] .hub-flow .hf-controls,#main#main#main[data-page] .hub-flow .hf-nav-button{transition:none}}

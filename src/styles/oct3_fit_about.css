@@ -1,0 +1,125 @@
+/* Oct 3 visitor review fixes: about */
+@media (min-width:901px){
+  /* About, Phone App: the title band is slimmer on screens this short so every titled scene fits one stop. */
+  #main#main#main#main[data-page="about"]>section>.sec-band,
+  #main#main#main#main[data-page="phone-app"]>section#qr>.sec-band{padding-block:12px}
+  #main#main#main#main[data-page="about"]>section>.sec-band+*,
+  #main#main#main#main[data-page="phone-app"]>section#qr>.sec-band+*{margin-top:12px!important}
+  /* Origin Story: heading, TV and its controls share one stop; the TV is sized to the scene height. */
+  #main#main#main[data-page="about"] #history .about-tv .native-tv-device{margin-bottom:12px}
+  #main#main#main[data-page="about"] #history .about-tv-screen{max-height:calc(100dvh - 285px)}
+  /* Who We Serve: intro and both partner rows share one stop. */
+  #main#main#main[data-page="about"] .resource-partners{padding-top:0}
+  #main#main#main[data-page="about"] .resource-partners .about-audiences-intro{font-size:15px;line-height:1.4;max-width:none}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners{gap:12px 28px;margin-top:12px!important}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners h3{font-size:18px;line-height:1.25}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners p{font-size:14.5px;line-height:1.4;margin-top:2px}
+  #main#main#main[data-page="about"] .resource-partners + .resource-partners{margin-top:12px}
+  /* The platform diagram slide fits the TV: smaller title and caption, diagram in the remaining height. */
+  #main#main#main#main[data-page="about"] #history .about-tv-slide{padding:12px 18px}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn{gap:2px 14px}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn-heading{font-size:clamp(17px,1.9vw,24px)!important;line-height:1.2!important;margin:0!important}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn-cap{font-size:clamp(14px,1.4vw,16px)!important;line-height:1.35!important;margin:4px 0 0!important}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn-art{height:calc(100% - 30px);max-height:calc(100% - 30px);margin:0 auto;align-self:start}
+  /* Phone App: heading, copy, links and phone image share one stop. */
+  #main#main#main#main[data-page="phone-app"] #qr .product-evidence{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px 32px;margin:0;padding:10px 14px}
+  #main#main#main#main[data-page="phone-app"] #qr .product-evidence :is(h3,.product-caption){margin-top:0}
+  #main#main#main#main[data-page="phone-app"] #qr .product-evidence-copy>h3{font-size:19px;margin:0 0 6px}
+  #main#main#main#main[data-page="phone-app"] #qr .feat-list{gap:0 28px}
+  #main#main#main#main[data-page="phone-app"] #qr .feat-list h3{font-size:18px;line-height:1.25;margin:0 0 4px}
+  #main#main#main#main[data-page="phone-app"] #qr .feat-list p{font-size:15.5px;line-height:1.4;margin:0}
+  #main#main#main#main[data-page="phone-app"] #qr .product-related{padding-top:10px;margin-top:10px}
+  #main#main#main#main[data-page="phone-app"] #qr .product-related h3{font-size:16px;margin:0 0 6px}
+  #main#main#main#main[data-page="phone-app"] #qr .zpb-related{gap:2px 24px}
+  #main#main#main#main[data-page="phone-app"] #qr .zpb-related a{padding-block:4px}
+  /* Stories: title, lede, tabs, caption and the TV with its phone controller share one stop; the video is sized to the scene height. */
+  #main#main#main#main[data-page="stories"]>.stories-opening{--sh:clamp(180px,calc(100dvh - 336px),400px)}
+  #main#main#main#main[data-page="stories"]>.stories-opening>.sec-band{padding-block:12px}
+  #main#main#main#main[data-page="stories"]>.stories-opening>.sec-band+*{margin-top:12px!important}
+  #main#main#main#main[data-page="stories"] .stories-opening .meeting-embed{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:24px;align-items:center}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-choices{grid-column:1;grid-row:1;margin:0 0 8px}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-caption{grid-column:2;grid-row:1;margin:0 0 8px}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-story-pair{grid-column:1/-1;grid-row:2;width:100%;max-width:none;margin:0;padding:0;gap:24px;justify-content:center;grid-template-columns:calc(var(--sh) * 1.7778 + 20px) calc((var(--sh) + 30px) * .72)}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-tv-device::before,
+  #main#main#main#main[data-page="stories"] .stories-opening .native-tv-device::after{display:none}
+}
+/* Phone App: the demo's instruction is plain ink, not link green. */
+#main#main#main#main[data-page="phone-app"] .phone-workflow .pw-status{color:var(--ink,#2c2c2c)}
+/* Phones: About scenes fit one screen. */
+@media (max-width:900px){
+  /* Hero photo fills its frame instead of sitting letterboxed. */
+  #main#main#main#main[data-page="about"] .about-origin .postcard img{object-fit:cover!important;width:100%;height:clamp(210px,38dvh,320px);max-height:none!important;aspect-ratio:auto}
+  /* The platform diagram slide: smaller title and caption, diagram scaled into the remaining height. */
+  #main#main#main#main[data-page="about"] #history .about-tv-screen{aspect-ratio:332/440}
+  #main#main#main#main[data-page="about"] #history .about-tv-slide{padding:12px 14px}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn{grid-template-rows:auto auto minmax(0,1fr);gap:6px 0}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn-heading{font-size:19px!important;line-height:1.2!important;margin:0!important}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn-cap{font-size:14px!important;line-height:1.35!important;margin:0!important;max-width:none}
+  #main#main#main#main[data-page="about"] #history .about-tv-screen .conn-art{height:calc(100% - 16px);max-height:calc(100% - 16px);width:auto;max-width:100%;min-height:0;margin:16px auto 0}
+  /* Who We Serve: intro and all six partners in one scene. */
+  #main#main#main[data-page="about"] .resource-partners .about-audiences-intro{font-size:14.5px;line-height:1.4}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners{gap:10px;margin-top:12px!important}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners+.rs-partners{margin-top:10px!important}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners h3{font-size:16px;line-height:1.2;margin:0}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners p{font-size:14px;line-height:1.35;margin:2px 0 0}
+  #main#main#main[data-page="about"] .resource-partners .rs-partners>div{gap:10px}
+  #main#main#main[data-page="about"] .resource-partners .rs-partner-ic{width:26px;height:26px}
+  /* The closing Keep exploring scene starts at the top, with no blank band above it. */
+  #main#main#main[data-page="about"] .page-ending-explore{justify-content:flex-start}
+  /* Phone App: heading, copy, links and image share one phone screen. */
+  #main#main#main#main[data-page="phone-app"]>section#qr>.sec-band{padding-block:12px}
+  #main#main#main#main[data-page="phone-app"]>section#qr>.sec-band+*{margin-top:10px!important}
+  #main#main#main#main[data-page="phone-app"] #qr .product-evidence{gap:10px;margin:0;padding:10px 14px}
+  #main#main#main#main[data-page="phone-app"] #qr .product-evidence-copy>h3{font-size:17px;margin:0 0 4px}
+  #main#main#main#main[data-page="phone-app"] #qr .feat-list{gap:6px}
+  #main#main#main#main[data-page="phone-app"] #qr .feat-list h3{font-size:17px;line-height:1.2;margin:0 0 2px}
+  #main#main#main#main[data-page="phone-app"] #qr .feat-list p{font-size:14.5px;line-height:1.4;margin:0}
+  #main#main#main#main[data-page="phone-app"] #qr .product-related{padding-top:8px;margin-top:8px}
+  #main#main#main#main[data-page="phone-app"] #qr .product-related h3{font-size:16px;margin:0 0 4px}
+  #main#main#main#main[data-page="phone-app"] #qr .zpb-related{gap:0 16px}
+  #main#main#main#main[data-page="phone-app"] #qr .zpb-related a{padding-block:3px}
+}
+/* Stories, desktop: the Science Center scene (heading, three photos, captions, paragraph) shares one stop, with nothing under the next circle. */
+@media (min-width:901px){
+  #main#main#main#main[data-page="stories"] #exhibit>.sec-band{padding-block:12px}
+  #main#main#main#main[data-page="stories"] #exhibit>.sec-band+*{margin-top:12px!important}
+  #main#main#main#main[data-page="stories"] #exhibit .zpa-trio img{height:clamp(150px,calc(100dvh - 350px),260px)!important}
+  #main#main#main#main[data-page="stories"] #exhibit .exhibit-context{font-size:16px;line-height:1.45;margin-top:14px!important}
+}
+/* Stories, phones and tablets: the nine topics are one compact grid in one stop, with the heading. */
+@media (max-width:900px){
+  #main#main#main#main[data-page="stories"] #topics .zpa-topics.topic-groups{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  #main#main#main#main[data-page="stories"] #topics .story-topic-group{display:contents}
+  #main#main#main#main[data-page="stories"] #topics .zpa-topic{flex-direction:column;justify-content:flex-start;gap:8px;padding:12px 3px;text-align:center;border-radius:14px}
+  #main#main#main#main[data-page="stories"] #topics .zpa-topic b{font-size:13px;line-height:1.25;overflow-wrap:normal}
+  #main#main#main#main[data-page="stories"] #topics .zpa-topics.topic-groups{gap:8px}
+  #main#main#main#main[data-page="stories"] #topics .zpa-topic img{width:36px;height:36px}
+}
+/* Stories, phones: the first stop is heading, lede, community tabs, TV and its link; the phone controller starts below the circle zone and has the next stop to itself, so the circle never sits on a controller row. */
+@media (max-width:699px){
+  #main#main#main#main[data-page="stories"] .stories-opening>.wrap{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(0,1fr) auto;row-gap:12px;align-content:start}
+  #main#main#main#main[data-page="stories"] .stories-opening>.wrap::before{content:"";grid-column:1;grid-row:1/6;min-height:calc(100dvh - 167px);pointer-events:none}
+  #main#main#main#main[data-page="stories"] .stories-opening :is(.meeting-embed,[data-native-mount],.native-story-pair){display:contents}
+  #main#main#main#main[data-page="stories"] .stories-opening .lede{grid-column:1;grid-row:1;margin:0}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-choices{grid-column:1;grid-row:2;margin:0}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-tv-device{grid-column:1;grid-row:3;margin:0}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-caption{grid-column:1;grid-row:4;margin:0}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-phone-device{grid-column:1;grid-row:6;margin:0;justify-self:center;height:clamp(440px,calc(100dvh - 250px),691px);display:flex;box-sizing:border-box}
+  #main#main#main#main[data-page="stories"] .stories-opening .native-phone-screen{aspect-ratio:auto;flex:1 1 auto;min-height:0;height:auto}
+}
+/* Stories, phones: the Science Center heading, three photos and paragraph share one stop (two photos side by side, the third full width). */
+@media (max-width:699px){
+  #main#main#main#main[data-page="stories"] #exhibit>.sec-band{padding-block:12px}
+  #main#main#main#main[data-page="stories"] #exhibit>.sec-band+*{margin-top:12px!important}
+  #main#main#main#main[data-page="stories"] #exhibit .zpa-trio{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #main#main#main#main[data-page="stories"] #exhibit .zpa-trio figure:last-child{grid-column:1/-1}
+  #main#main#main#main[data-page="stories"] #exhibit .zpa-trio img{height:clamp(72px,calc((100dvh - 480px) / 2.4),130px)!important;object-fit:cover!important;width:100%}
+  #main#main#main#main[data-page="stories"] #exhibit .zpa-trio figcaption{margin-top:6px;font-size:14px;line-height:1.3}
+  #main#main#main#main[data-page="stories"] #exhibit .exhibit-context{font-size:15px;line-height:1.45;margin-top:12px!important}
+}
+/* Stories: the energy-system scene (heading, illustration, note) shares one stop, with nothing under the next circle. */
+@media (min-width:901px){
+  #main#main#main#main[data-page="stories"] #energy>.sec-band{padding-block:12px}
+  #main#main#main#main[data-page="stories"] #energy>.sec-band+*{margin-top:12px!important}
+  #main#main#main#main[data-page="stories"] #energy img{max-height:calc(100dvh - 300px);object-fit:cover}
+}

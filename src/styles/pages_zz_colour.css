@@ -1,0 +1,27 @@
+/* Item 19 (Tanaka/BG 9:40): text sits on white, green is the one accent.
+   Loaded last so it wins over the page files. Mockups of screens and partner sites keep their own colours. */
+.six,.ppl-sec.ppl-alt,.zpa-sec.zpa-alt,.zpb-sec.zpb-alt{background:#fff;border-top:1px solid #CCCCCB}
+.stanza{background:#fff!important;border:1px solid #CCCCCB;border-top:4px solid var(--leaf);color:var(--ink)}
+.stanza h3,.stanza p,.stanza li,.stanza b,.stanza strong,.stanza span{color:var(--ink)!important}
+.stanza a{color:var(--leaf-deep)!important}
+.grp,.zpa-bundle,.stanza-live,.cwd-sign,.ppl-lane,.rs-flash,figure.pp,.eeme li{background:#fff!important;border:1px solid #CCCCCB;box-shadow:none}
+.cta-band{background:#fff;color:var(--ink);border-top:1px solid #CCCCCB}
+.cta-band h2{color:var(--ink)}
+.cta-band p{color:var(--ink-2)}
+.cta-band .btn-ink{background:var(--leaf-deep);color:#fff!important;border-color:var(--leaf-deep)}
+.cta-band .btn-ink:hover{background:#24642e;border-color:#24642e}
+.hub-sec{background:#fff;color:var(--ink);border-top:1px solid #CCCCCB}
+.hub-colh,.hub-node span,.hub-orbit span{color:var(--ink-2)}
+.hub-node.out:hover{background:#F4F4F2}
+.hub-node,.hub-sec a.hub-node{color:var(--ink)}
+.hub-node em{color:var(--leaf-deep)}
+.hand-link-light{color:var(--leaf-deep)}
+.zpb-cv-cat-b{background:#fff!important;color:var(--ink);border:1px solid #CCCCCB;border-top:4px solid var(--leaf)}
+.zpb-cv-cat-b h3{color:var(--ink)}
+.zpb-cv-cat-b p{color:var(--ink-2);opacity:1}
+.zpb-cv-cat-b .hand-link-light{color:var(--leaf-deep)}
+.rs-tl li{background:transparent;border-bottom:1px solid #CCCCCB;border-radius:0}
+.rs-tl h3{color:var(--ink)}
+.rs-tl p,.rs-funders-list span{color:var(--ink-2)}
+.rs-tl-yr{color:var(--leaf-deep)}
+.hub-node{background:#fff;border:1px solid #CCCCCB}

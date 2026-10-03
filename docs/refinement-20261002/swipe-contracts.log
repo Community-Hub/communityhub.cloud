@@ -1,0 +1,16 @@
+test_all_existing_routes_remain_available (test_site_contracts.SiteContractsTests.test_all_existing_routes_remain_available) ... ok
+test_chart_explanations_are_adjacent_and_closed_initially (test_site_contracts.SiteContractsTests.test_chart_explanations_are_adjacent_and_closed_initially) ... ok
+test_every_local_link_asset_and_fragment_resolves (test_site_contracts.SiteContractsTests.test_every_local_link_asset_and_fragment_resolves) ... ok
+test_hamilton_has_no_public_dashboard_endpoint (test_site_contracts.SiteContractsTests.test_hamilton_has_no_public_dashboard_endpoint) ... ok
+test_home_arrival_is_one_combined_semantic_section (test_site_contracts.SiteContractsTests.test_home_arrival_is_one_combined_semantic_section) ... ok
+test_home_hero_retains_skip_and_forward_only_video (test_site_contracts.SiteContractsTests.test_home_hero_retains_skip_and_forward_only_video) ... ok
+test_lesson_titles_open_verified_official_pdfs (test_site_contracts.SiteContractsTests.test_lesson_titles_open_verified_official_pdfs) ... ok
+test_live_homepage_mission_headline_and_eight_descriptions_are_preserved (test_site_contracts.SiteContractsTests.test_live_homepage_mission_headline_and_eight_descriptions_are_preserved) ... ok
+test_live_organization_mission_team_and_contact_are_preserved (test_site_contracts.SiteContractsTests.test_live_organization_mission_team_and_contact_are_preserved) ... ok
+test_live_testimonial_quotes_attributions_photos_and_primary_links_are_preserved (test_site_contracts.SiteContractsTests.test_live_testimonial_quotes_attributions_photos_and_primary_links_are_preserved) ... ok
+test_original_product_descriptions_remain_on_the_corresponding_pages (test_site_contracts.SiteContractsTests.test_original_product_descriptions_remain_on_the_corresponding_pages) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.837s
+
+OK

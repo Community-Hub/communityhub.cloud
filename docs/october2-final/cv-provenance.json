@@ -1,0 +1,62 @@
+[
+  {
+    "file": "mini-cv.jpg",
+    "bytes": 28186,
+    "sha256": "2609f0fc5f46c6b8d3dd249e52cf304fb32816aa3589f43ba592319d52357234",
+    "dimensions": [
+      960,
+      540
+    ],
+    "community": "Oberlin",
+    "category": "Natural Oberlin",
+    "subject": "Dave Spreng, staff at Oberlin City Refuse and Recycling Department",
+    "source": "User-supplied original CommunityHub source archive; byte-identical asset preserved in SOURCE-MANIFEST.json",
+    "verification": "Actual native-composed preview pixels inspected; context/category/quote match visible text. File naming is not proof of an institution-specific filter.",
+    "limitation": "Live source record IDs for these exact historical previews not recovered; label Cleveland, not GLSC or MidTown specifically."
+  },
+  {
+    "file": "mini-cv-cle.jpg",
+    "bytes": 25364,
+    "sha256": "295e8be7f893e7108c14e0f8fe0028effda68b0a403e5261e9a17d276efcbee3",
+    "dimensions": [
+      960,
+      540
+    ],
+    "community": "Cleveland",
+    "category": "Our Neighbors",
+    "subject": "Teria Buford, Learning to Grow",
+    "source": "User-supplied original CommunityHub source archive; byte-identical asset preserved in SOURCE-MANIFEST.json",
+    "verification": "Actual native-composed preview pixels inspected; context/category/quote match visible text. File naming is not proof of an institution-specific filter.",
+    "limitation": "Live source record IDs for these exact historical previews not recovered; label Cleveland, not GLSC or MidTown specifically."
+  },
+  {
+    "file": "mini-cv-midtown.jpg",
+    "bytes": 30390,
+    "sha256": "c80f078327a8a3e4d40f6db1b4f14083b063d180fe45e8c7cf694c5fe9db6bd7",
+    "dimensions": [
+      960,
+      540
+    ],
+    "community": "Cleveland",
+    "category": "Next Generation",
+    "subject": "Stephanie Corbett, Director of Sustainability, Case Western Reserve University",
+    "source": "User-supplied original CommunityHub source archive; byte-identical asset preserved in SOURCE-MANIFEST.json",
+    "verification": "Actual native-composed preview pixels inspected; context/category/quote match visible text. File naming is not proof of an institution-specific filter.",
+    "limitation": "Live source record IDs for these exact historical previews not recovered; label Cleveland, not GLSC or MidTown specifically."
+  },
+  {
+    "file": "mini-cv-climate.jpg",
+    "bytes": 29180,
+    "sha256": "3baff74da9e52079641eacdbbd7645fcab325807001bf44fe95bd67991699a8b",
+    "dimensions": [
+      960,
+      540
+    ],
+    "community": "Cleveland",
+    "category": "Climate Action",
+    "subject": "Cleveland2030 District2017 Report",
+    "source": "User-supplied original CommunityHub source archive; byte-identical asset preserved in SOURCE-MANIFEST.json",
+    "verification": "Actual native-composed preview pixels inspected; context/category/quote match visible text. File naming is not proof of an institution-specific filter.",
+    "limitation": "Live source record IDs for these exact historical previews not recovered; label Cleveland, not GLSC or MidTown specifically."
+  }
+]

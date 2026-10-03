@@ -1,0 +1,103 @@
+/* October 3 layout pass: text left, image right on desktop; product page richness. Imported last. */
+
+/* ---- Text left, image right (desktop). Stacked (phone) order is copy first, then image, everywhere. ---- */
+
+/* Homepage Engage rows */
+@media (min-width:901px) {
+  #main#main > #engage .eng-p { grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); }
+  #main#main > #engage .eng-copy { grid-column:1; grid-row:1; }
+  #main#main > #engage .eng-media { grid-column:2; grid-row:1; }
+}
+@media (max-width:900px) {
+  #main#main > #engage .eng-copy { order:1; }
+  #main#main > #engage .eng-media { order:2; }
+}
+
+/* Pull quotes with a source photo: quote left, photo right */
+@media (min-width:901px) {
+  #main#main[data-pager] blockquote.pull.has-source-photo { grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); }
+  #main#main[data-pager] > blockquote.pull.has-source-photo { grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); }
+  #main#main[data-pager] blockquote.pull.has-source-photo .pull-source-photo { grid-column:2; grid-row:1 / 3; }
+  #main#main[data-pager] blockquote.pull.has-source-photo :is(p,footer) { grid-column:1; }
+}
+@media (max-width:900px) {
+  #main#main[data-pager] blockquote.pull.has-source-photo .pull-source-photo { grid-column:1; grid-row:auto; order:3; }
+  #main#main[data-pager] blockquote.pull.has-source-photo :is(p,footer) { grid-column:1; }
+}
+
+/* Digital Signage stepper: list left, photo right (markup is now list first) */
+@media (min-width:901px) {
+  #main#main[data-pager][data-page="digital-signage"] #loop .zpb-stepper { grid-template-columns:minmax(0,1fr) minmax(0,1.35fr); }
+}
+
+/* Education: classroom photo right, library explanation left */
+@media (min-width:901px) {
+  #main#main[data-page="education"] .education-evidence-visual > .postcard { grid-column:2; }
+  #main#main[data-page="education"] :is(.education-evidence-heading,.education-evidence-help) { grid-column:1; }
+}
+@media (max-width:900px) {
+  #main#main[data-page="education"] .education-evidence-visual > .postcard { order:2; }
+  #main#main[data-page="education"] .education-evidence-heading { order:1; margin-top:0; }
+}
+
+/* Research: abstract graphic right, paper text left */
+@media (min-width:901px) {
+  #main#main[data-page="research"] .va-card:not([data-paper-format="text"]) { grid-template-columns:minmax(0,1.5fr) minmax(260px,.85fr); }
+  #main#main[data-page="research"] .va-card:not([data-paper-format="text"]) .va-txt { grid-column:1; grid-row:1; }
+  #main#main[data-page="research"] .va-card:not([data-paper-format="text"]) .va-fig { grid-column:2; grid-row:1; }
+}
+@media (max-width:900px) {
+  #main#main[data-page="research"] .va-card .va-txt { order:1; }
+  #main#main[data-page="research"] .va-card .va-fig { order:2; }
+}
+
+/* Story of the Dashboard: caption left, slide right */
+@media (min-width:901px) {
+  #main#main#main[data-page="story-of-dashboard"] #storyboard .sb-view { grid-template-columns:minmax(0,1fr) minmax(0,1.55fr); }
+  #main#main#main[data-page="story-of-dashboard"] #storyboard .sb-note { grid-column:1; grid-row:1; }
+  #main#main#main[data-page="story-of-dashboard"] #storyboard .sb-slide { grid-column:2; grid-row:1; }
+}
+@media (max-width:900px) {
+  #main#main#main[data-page="story-of-dashboard"] #storyboard .sb-note { order:1; }
+  #main#main#main[data-page="story-of-dashboard"] #storyboard .sb-slide { order:2; }
+}
+
+/* ---- Digital Signage product page: what plays, controllers in use, locations ---- */
+#main .ds-shows { display:grid; grid-template-columns:minmax(0,1fr); gap:24px; align-items:center; }
+@media (min-width:901px) { #main .ds-shows { grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:clamp(32px,4vw,64px); } }
+#main .ds-shows-list { list-style:none; margin:0; padding:0; display:grid; gap:16px; }
+#main .ds-shows-list a { display:grid; grid-template-columns:44px minmax(0,1fr); gap:14px; align-items:start; color:inherit; text-decoration:none; }
+#main .ds-shows-list a:hover b { text-decoration:underline; }
+#main .ds-shows-list img { width:44px; height:44px; }
+#main .ds-shows-list b { display:block; font:700 20px/1.3 var(--font-body); }
+#main .ds-shows-list a > span > span { display:block; margin-top:2px; font-size:17px; line-height:1.5; }
+#main .ds-shows-photo { margin:0; }
+#main .ds-shows-photo img { display:block; width:100%; height:auto; max-height:calc(100dvh - var(--story-hdr-h,77px) - 260px); object-fit:cover; border-radius:var(--r-md); }
+#main .ds-shows-photo figcaption { padding-top:10px; font-size:16px; line-height:1.5; }
+
+#main .ds-ctls { display:grid; grid-template-columns:minmax(0,1fr); gap:28px; align-items:start; }
+@media (min-width:901px) { #main .ds-ctls { grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(24px,3vw,48px); } }
+#main .ds-ctls figure { margin:0; }
+#main .ds-ctls img { display:block; margin:0 auto; width:auto; max-width:100%; height:auto; max-height:min(55dvh,420px); object-fit:contain; border-radius:var(--r-md); }
+@media (min-width:901px) { #main .ds-ctls img { height:clamp(220px,calc(100dvh - var(--story-hdr-h,77px) - 430px),420px); } }
+#main .ds-ctls figcaption { padding-top:14px; }
+#main .ds-ctls h3 { margin:0 0 6px; }
+#main .ds-ctls p { margin:0; font-size:17px; line-height:1.5; }
+
+@media (min-width:901px) {
+  #main .place-cards.is-three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  #main[data-pager] .place-cards.is-three .place-card img { aspect-ratio:auto; height:clamp(140px,calc(100dvh - var(--story-hdr-h,77px) - 570px),300px); max-height:none; }
+}
+#main[data-page="digital-signage"] #locations .place-card img[src*="cafe-window-sign"] { object-fit:contain; background:var(--leaf-tint); }
+
+/* Controller scene: keep the TV and phone pair, its cue and the help line on one screen. Width scales both devices, so their heights stay equal. */
+@media (min-width:901px) {
+  #main#main#main[data-page="digital-signage"] #controller .native-story-pair { max-width:calc((100dvh - var(--story-hdr-h,77px) - 355px) * 2.33); margin-inline:auto; }
+}
+@media (min-width:901px) {
+  #main#main #multileveled .stanza .stanza-photo { max-height:calc(100dvh - var(--story-hdr-h,77px) - 485px); }
+}
+@media (min-width:901px) and (max-width:1100px) {
+  #main[data-pager] .place-cards.is-three { gap:16px; }
+  #main[data-pager] .place-cards.is-three .place-card img { height:110px; }
+}

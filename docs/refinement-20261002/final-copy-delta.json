@@ -1,0 +1,14 @@
+{
+  "reviewedVersion": 17,
+  "changedFiles": [
+    {
+      "path": "products.html",
+      "onlyGrammarCorrection": true
+    },
+    {
+      "path": "the-hub.html",
+      "onlyGrammarCorrection": true
+    }
+  ],
+  "otherFilesByteIdentical": 673
+}

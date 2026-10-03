@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync}from'node:fs';
+test('homepage layout work is driven by layout/content events rather than perpetual polling',()=>{const source=readFileSync('src/scripts/pages_home_next.ts','utf8');assert.doesNotMatch(source,/setInterval/);assert.match(source,/ResizeObserver/);assert.match(source,/MutationObserver/);assert.match(source,/visibilitychange/);});

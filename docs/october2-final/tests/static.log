@@ -1,0 +1,15 @@
+test_each_product_has_one_learn_more_link (test_home_narrative.HomeNarrativeTest.test_each_product_has_one_learn_more_link) ... ok
+test_headings (test_home_narrative.HomeNarrativeTest.test_headings) ... ok
+test_leads_to_products_without_new_generic_sales_copy (test_home_narrative.HomeNarrativeTest.test_leads_to_products_without_new_generic_sales_copy) ... ok
+test_story_order (test_home_narrative.HomeNarrativeTest.test_story_order) ... ok
+test_current_live_scenes_expose_matching_partner_links_above_embeds (test_slider_links.SliderLinksTest.test_current_live_scenes_expose_matching_partner_links_above_embeds) ... ok
+test_dashboard_demos_heading_groups_client_dashboards (test_slider_links.SliderLinksTest.test_dashboard_demos_heading_groups_client_dashboards) ... ok
+test_every_embedded_client_dashboard_has_its_matching_destination (test_slider_links.SliderLinksTest.test_every_embedded_client_dashboard_has_its_matching_destination) ... ok
+test_every_story_card_has_original_primary_and_supported_secondary_links (test_slider_links.SliderLinksTest.test_every_story_card_has_original_primary_and_supported_secondary_links) ... ok
+test_slider_keeps_original_primary_product_destinations (test_slider_links.SliderLinksTest.test_slider_keeps_original_primary_product_destinations) ... ok
+test_homepage_offers_source_backed_passive_contexts (test_voices_sources.VoicesSourcesTest.test_homepage_offers_source_backed_passive_contexts) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.220s
+
+OK

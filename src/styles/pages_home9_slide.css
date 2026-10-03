@@ -1,0 +1,81 @@
+/* Task 11 (28 Sep review): People first is a slider of micro stories. Every card carries one or two
+   buttons that lead to the dashboard, case study, toolkit or demo behind the story. */
+.pp-go{display:flex;flex-wrap:wrap;gap:8px;margin:auto 0 0;padding:0 20px 20px}
+.pp-btn{display:inline-block;max-width:100%;padding:9px 14px;border-radius:10px;background:var(--leaf-deep);color:#fff;
+  font-weight:700;font-size:.9rem;line-height:1.25;text-decoration:none}
+.pp-btn:hover{text-decoration:underline}
+.pp-btn2{background:#fff;color:var(--leaf-deep);box-shadow:inset 0 0 0 1.5px var(--leaf-deep)}
+.pp-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (min-width:901px){
+  #main:has(> .hv) .pp-row.story-rail{
+    display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:calc((100% - 44px)/3);
+    gap:22px;align-items:stretch;min-width:0;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+  }
+  #main:has(> .hv) .pp-row.story-rail::-webkit-scrollbar{display:none}
+  #main:has(> .hv) .pp-row.story-rail > *{scroll-snap-align:start;scroll-snap-stop:always}
+  #main:has(> .hv) .pp-row + .story-rail-nav{display:flex}
+  #main:has(> .hv) .pp-row .pp img{aspect-ratio:5/2}
+}
+@media (min-width:901px) and (max-height:820px){
+  #main:has(> .hv) .pp-row .pp img{aspect-ratio:3/1}
+}
+@media (min-width:901px) and (max-width:1179px){
+  #main:has(> .hv) .pp-row.story-rail{grid-auto-columns:calc((100% - 22px)/2)}
+}
+.live-frame .lf-org + .bar{border-top:0}
+.dd-live.dd-wide{min-width:660px}
+.dd-live .dd-cols2{grid-template-columns:1fr 1fr}
+
+/* John (30 Sep): one story at a time, a big photo beside a large quote, cross-fading as on the
+   original communityhub.cloud. Every slide shares one grid cell so the height never jumps. */
+#main .pp-fade{display:grid;margin-top:24px;outline:none}
+#main .pp-fade > .pp{grid-area:1/1;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  grid-template-rows:1fr auto auto auto 1fr;column-gap:48px;align-items:start;background:#fff;border:0;box-shadow:none;border-radius:0;overflow:visible}
+#main .pp-fade.is-js > .pp{opacity:0;visibility:hidden;transition:opacity .9s var(--ease),visibility 0s .9s}
+#main .pp-fade.is-js > .pp.is-on{opacity:1;visibility:visible;transition:opacity .9s var(--ease),visibility 0s}
+#main .pp-fade:not(.is-js) > .pp:not(:first-child){display:none}
+#main .pp-fade .pp img{grid-row:1/6;width:100%;height:clamp(240px,calc(var(--fit-room,100svh) - 330px),440px);
+  aspect-ratio:auto;object-fit:cover;border-radius:var(--r-md)}
+#main .pp-fade .pp blockquote{grid-column:2;grid-row:2;margin:0;padding:0}
+#main .pp-fade .pp blockquote p{font-family:var(--font-display);font-size:clamp(1.25rem,1.1rem + .7vw,1.75rem);line-height:1.35;color:var(--ink)}
+#main .pp-fade .pp figcaption{grid-column:2;grid-row:3;padding:16px 0 0;font-size:1rem}
+#main .pp-fade .pp-go{grid-column:2;grid-row:4;padding:18px 0 0;margin:0}
+.pp-nav{display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap}
+.pp-nav[hidden]{display:none}
+.pp-dots{display:flex;gap:6px}
+.pp-nav button{min-width:36px;height:36px;border-radius:999px;border:1.5px solid var(--line,#d5dcd7);background:#fff;
+  color:var(--ink);font:inherit;font-size:.9rem;cursor:pointer}
+.pp-dots button[aria-current="true"]{background:var(--leaf-deep);border-color:var(--leaf-deep);color:#fff;font-weight:700}
+.pp-nav .pp-play{padding:0 14px;margin-left:auto}
+.pp-nav button:hover{border-color:var(--leaf-deep)}
+.pp-nav button:focus-visible,#main .pp-fade:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (max-width:760px){
+  #main .pp-fade > .pp{grid-template-columns:1fr;grid-template-rows:auto}
+  #main .pp-fade{margin-top:14px}
+  #main .pp-fade .pp img{grid-row:auto;height:auto;aspect-ratio:2/1}
+  #main .pp-fade .pp figcaption{padding-top:8px;font-size:.9375rem}
+  #main .pp-fade .pp-go{padding-top:10px;gap:6px}
+  .pp-nav{margin-top:10px;gap:5px}
+  .pp-dots{gap:4px}
+  .pp-nav button{min-width:30px;height:30px;font-size:.875rem}
+  #main .pp-fade .pp blockquote,#main .pp-fade .pp figcaption,#main .pp-fade .pp-go{grid-column:1;grid-row:auto}
+  #main .pp-fade .pp blockquote{padding-top:12px}
+  #main .pp-fade .pp blockquote p{font-size:1.0625rem;line-height:1.3}
+  .pp-nav .pp-play{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){#main .pp-fade.is-js > .pp{transition:none}}
+
+/* John (30 Sep) also likes the original's dark background, so this one section goes dark. */
+#main section#people{background:#26292b;color:#fff}
+#main section#people h2{color:#fff}
+#main section#people .sec-p{color:#c8cfcb}
+#main section#people .pp-fade > figure.pp{background:transparent!important;border:0!important}
+#main section#people .pp blockquote p{color:#fff}
+#main section#people .pp figcaption{color:#b9c2bd}
+#main section#people .pp figcaption b{color:#fff}
+#main section#people .pp-btn2{background:transparent;color:var(--leaf);box-shadow:inset 0 0 0 1.5px var(--leaf)}
+#main section#people .pp-nav button{background:transparent;border-color:#5a605d;color:#fff}
+#main section#people .pp-nav button:hover{border-color:var(--leaf)}
+#main section#people .pp-dots button[aria-current="true"]{background:var(--leaf-deep);border-color:var(--leaf-deep)}
+#main section#people .pp-nav button:focus-visible,#main section#people .pp-fade:focus-visible{outline-color:#fff}

@@ -1,0 +1,47 @@
+---
+import Brand from './Brand.astro';
+import Chevron from './Chevron.astro';
+import { PRODUCTS, AUDIENCES, CASES, RESOURCES, GROUP_ORDER, DASH_DEMOS, LIVE_DEMOS } from '../content/catalog';
+interface Props { current: string; contents?: string }
+const { current, contents = '' } = Astro.props;
+const productCurrent = current === 'products' || current === 'data-dashboard' || PRODUCTS.some(p => p.slug === current);
+const audienceCurrent = current === 'examples' || current === 'who-its-for' || [...AUDIENCES, ...CASES].some(a => a.slug === current);
+const resourceCurrent = ['resources', 'education', 'research', 'media', 'bring-a-dashboard', 'environmental-dashboard', 'story-of-dashboard'].includes(current);
+---
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <Brand />
+    <nav class="nav" aria-label="Main">
+      <ul class="nav-list">
+        <li class:list={['dd', 'dd-products-owner', { 'is-here': productCurrent }]}><a class="nav-a nav-tab" href="products.html" aria-current={current === 'products' ? 'page' : undefined}>Products</a><button type="button" class="nav-btn nav-caret" aria-expanded="false" aria-controls="dd-products" aria-label="Show the Products menu"><Chevron /></button>
+          <div class="dd-panel dd-wide" id="dd-products"><div class="dd-cols">{GROUP_ORDER.map(group => <div><p class="dd-h">{group}</p>{PRODUCTS.filter(p => p.group === group).map(p => <a href={`${p.slug}.html`}><img class="mi" src={`assets/${p.icon}`} alt="" width="36" height="36" loading="lazy" /><span><b>{p.name}</b><small>{p.short}</small></span></a>)}</div>)}</div><a class="dd-all" href="products.html">See all {PRODUCTS.length} products</a></div></li>
+        <li class:list={['dd', { 'is-here': current === 'dashboards' || current === 'see-it-live' }]}><a class="nav-a nav-tab" href="dashboards.html" aria-current={current === 'dashboards' || current === 'see-it-live' ? 'page' : undefined}>See it live</a><button type="button" class="nav-btn nav-caret" aria-expanded="false" aria-controls="dd-live" aria-label="Show the See it live menu"><Chevron /></button>
+          <div class="dd-panel dd-live dd-wide" id="dd-live"><div class="dd-cols dd-cols2"><div><p class="dd-h">Dashboard demos</p>{DASH_DEMOS.map(([href, icon, title, description]) => <a href={href}><img class="mi" src={`assets/${icon}`} alt="" width="36" height="36" loading="lazy" /><span><b>{title}</b><small>{description}</small></span></a>)}<a class="dd-all" href="dashboards.html">All public dashboards</a></div><div><p class="dd-h">Working now</p>{LIVE_DEMOS.map(([href, icon, title, description]) => <a href={href}><img class="mi" src={`assets/${icon}`} alt="" width="36" height="36" loading="lazy" /><span><b>{title}</b><small>{description}</small></span></a>)}</div></div></div></li>
+        <li class:list={['dd', { 'is-here': audienceCurrent }]}><a class="nav-a nav-tab" href="who-its-for.html" aria-current={current === 'who-its-for' ? 'page' : undefined}>Who it's for</a><button type="button" class="nav-btn nav-caret" aria-expanded="false" aria-controls="dd-who" aria-label="Show the Who it's for menu"><Chevron /></button>
+          <div class="dd-panel dd-who" id="dd-who"><div class="dd-cols dd-cols2"><div>{AUDIENCES.map((a, i) => <>{(i === 0 || AUDIENCES[i - 1].group !== a.group) && <p class="dd-h">{a.group}</p>}<a href={`${a.slug}.html`}><img class="mi" src={`assets/${a.icon}`} alt="" width="36" height="36" loading="lazy" /><span><b>{a.name}</b><small>{a.short}</small></span></a></>)}</div><div><p class="dd-h">Case studies</p>{CASES.map(c => <a class="dd-case" href={`${c.slug}.html`}><span><b>{c.name}</b><small>{c.kind}</small></span></a>)}</div></div><a class="dd-all" href="examples.html">All case studies</a></div></li>
+        <li class:list={['dd', { 'is-here': resourceCurrent }]}><a class="nav-a nav-tab" href="resources.html" aria-current={current === 'resources' ? 'page' : undefined}>Resources</a><button type="button" class="nav-btn nav-caret" aria-expanded="false" aria-controls="dd-res" aria-label="Show the Resources menu"><Chevron /></button>
+          <div class="dd-panel dd-right" id="dd-res">{RESOURCES.map(([href, title, description]) => <a href={href}><span><b>{title}</b><small>{description}</small></span></a>)}<a href="environmental-dashboard.html"><span><b>The Dashboard story</b><small>Why people need feedback from nature</small></span></a></div></li>
+        <li><a class="nav-a" href="pricing.html" aria-current={current === 'pricing' ? 'page' : undefined}>Pricing</a></li>
+        <li><a class="nav-a" href="about.html" aria-current={current === 'about' ? 'page' : undefined}>About</a></li>
+      </ul>
+    </nav>
+    <a class="btn-ink hdr-cta" href="contact.html">Book a demo</a>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="mnav"><span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span><span class="menu-t">Menu</span></button>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden>
+  {contents && <section class="mobile-contents"><h2>On this page</h2><div set:html={contents} /></section>}
+  <a class="btn-ink btn-big mnav-cta" href="contact.html">Book a demo</a>
+  <p class="mnav-h">Dashboard demos</p>
+  <ul class="mnav-live">{DASH_DEMOS.map(([href, icon, title, description]) => <li><a href={href}><img src={`assets/${icon}`} alt="" width="26" height="26" loading="lazy" /><span><b>{title}</b><small>{description}</small></span></a></li>)}</ul>
+  <p class="mnav-h">See it live</p>
+  <ul class="mnav-live">{LIVE_DEMOS.map(([href, icon, title, description]) => <li><a href={href}><img src={`assets/${icon}`} alt="" width="26" height="26" loading="lazy" /><span><b>{title}</b><small>{description}</small></span></a></li>)}</ul>
+  <p class="mnav-h">Products</p>
+  <ul class="mnav-grid">{PRODUCTS.map(p => <li><a href={`${p.slug}.html`}><img class="" src={`assets/${p.icon}`} alt="" width="36" height="36" loading="lazy" />{p.name}</a></li>)}<li><a href="products.html">Browse all products</a></li></ul>
+  <p class="mnav-h">Who it's for</p>
+  <ul class="mnav-grid">{AUDIENCES.map(a => <li><a href={`${a.slug}.html`}><img class="" src={`assets/${a.icon}`} alt="" width="36" height="36" loading="lazy" />{a.name}</a></li>)}<li><a href="examples.html">Case studies</a></li></ul>
+  <ul class="mnav-big">
+    <li><a href="pricing.html">Pricing</a></li><li><a href="dashboards.html">Dashboard demos</a></li><li><a href="education.html">Teacher toolkit</a></li><li><a href="research.html">Research</a></li><li><a href="media.html">Media</a></li><li><a href="bring-a-dashboard.html">Bring a dashboard to your community</a></li><li><a href="environmental-dashboard.html">The Dashboard story</a></li><li><a href="about.html">About</a></li>
+  </ul>
+</div>

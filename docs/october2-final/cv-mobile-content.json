@@ -1,0 +1,48 @@
+{
+  "verification": "Transcribed by visually inspecting all four actual supplied 960x540 native Community Voices preview assets on 2026-10-03. Words and capitalization preserved; line wrapping and whitespace around commas normalized. Quotation marks are presentation punctuation. This is historical source content, not a claim that the current live player shows these records.",
+  "photo_method": "Use the existing original composed asset with CSS clipping to these photo-only pixel bounds. These are source-backed crops, not recovered original camera photographs. Keep the original source file unchanged and render readable semantic quote and attribution separately. Do not label screenshot crops as original-resolution photographs.",
+  "items": [
+    {
+      "file": "mini-cv.jpg",
+      "quote": "Sustainability is saving the planet, and everybody has to have a part of that",
+      "attribution": "Dave Spreng, Staff at Oberlin City Refuse and Recycling Department",
+      "community": "Oberlin",
+      "category": "Natural Oberlin",
+      "photoBounds": {"x": 15, "y": 17, "width": 289, "height": 434},
+      "photoAlt": "Close-up photograph of green plants and moss",
+      "iconFile": "cv-icon-natural.png"
+    },
+    {
+      "file": "mini-cv-cle.jpg",
+      "quote": "The Learning to Grow community is like family",
+      "attribution": "Teria Buford, Learning to Grow",
+      "community": "Cleveland",
+      "category": "Our Neighbors",
+      "photoBounds": {"x": 15, "y": 17, "width": 325, "height": 434},
+      "photoAlt": "An adult holding a child in a classroom",
+      "iconFile": "cv-icon-neighbors.png"
+    },
+    {
+      "file": "mini-cv-midtown.jpg",
+      "quote": "I am really excited to see Ohio schools tackling huge projects that address the scale of the challenge",
+      "attribution": "Stephanie Corbett, Director of Sustainability, Case Western Reserve University",
+      "community": "Cleveland",
+      "category": "Next Generation",
+      "photoBounds": {"x": 15, "y": 91, "width": 451, "height": 285},
+      "photoAlt": "Two students using laptops and headphones in a classroom",
+      "iconFile": "cv-icon-nextgen.png",
+      "limitation": "Filename does not establish MidTown institution attribution. Use Cleveland community label."
+    },
+    {
+      "file": "mini-cv-climate.jpg",
+      "quote": "We strive to reduce the environmental impacts of building construction and operations to make Cleveland a resilient city",
+      "attribution": "Cleveland 2030, District 2017 Report",
+      "attributionNote": "Source pixels read 'Cleveland 2030 , District 2017 Report'. This preserves the source's field ordering; do not silently substitute a different organization or speaker.",
+      "community": "Cleveland",
+      "category": "Climate Action",
+      "photoBounds": {"x": 15, "y": 65, "width": 451, "height": 338},
+      "photoAlt": "Five adults posing together with an award certificate",
+      "iconFile": "cv-icon-climate.png"
+    }
+  ]
+}

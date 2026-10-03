@@ -1,0 +1,6 @@
+---
+import { renderField, type FieldProps } from '../../lib/ui';
+import '../../styles/ui.css';
+type Props = FieldProps;
+---
+<Fragment set:html={renderField(Astro.props)} />

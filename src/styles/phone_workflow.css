@@ -1,0 +1,73 @@
+/* Source-led phone walkthrough: a flat TV, the supplied phone menu, and a
+   small recreated controller. Every selection changes this local example. */
+#main#main#main .phone-workflow{width:100%;min-width:0;color:var(--ch-ink,#2c2c2c)}
+#main#main#main .phone-workflow .pw-status{font:400 17px/1.5 var(--font-body);max-width:78ch;margin:0 0 20px;min-height:1.5em;color:var(--ch-pine,#244b38)}
+#main#main#main .phone-workflow .pw-stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(185px,19vw,234px);gap:clamp(28px,4vw,56px);align-items:center}
+#main#main#main .phone-workflow .pw-tv{margin:0;min-width:0;align-self:center}
+#main#main#main .phone-workflow .pw-tv-bezel{padding:8px 8px 12px;border-radius:9px;background:#222923;max-width:100%}
+#main#main#main .phone-workflow .pw-tv-bezel::before,
+#main#main#main .phone-workflow .pw-tv-bezel::after{content:none}
+#main#main#main .phone-workflow .pw-tv-screen{aspect-ratio:16/9;position:relative;display:block;overflow:hidden;background:#f4f4f2}
+#main#main#main .phone-workflow .pw-tv-screen>img{position:absolute;inset:0;display:block;width:100%;height:100%;max-height:none;object-fit:contain;object-position:center;margin:0;border-radius:0}
+#main#main#main .phone-workflow .pw-tv figcaption{font:400 14px/1.45 var(--font-body);color:#465546;margin:12px 0 0;padding:0;max-width:72ch}
+#main#main#main .phone-workflow .pw-phone-column{min-width:0;width:100%;justify-self:center}
+#main#main#main .phone-workflow .pw-phone{position:relative;padding:14px 7px 16px;background:#222923;border-radius:25px;max-width:100%;margin:0}
+#main#main#main .phone-workflow .pw-phone::before{content:"";display:block;width:34px;height:3px;border-radius:3px;position:absolute;left:calc(50% - 17px);top:6px;background:#818981}
+#main#main#main .phone-workflow .pw-phone-glass{aspect-ratio:750/1334;position:relative;background:#2c2c2c;overflow:hidden;border-radius:13px}
+#main#main#main .phone-workflow .pw-menu{position:absolute;inset:0}
+#main#main#main .phone-workflow .pw-menu>img{display:block;width:100%;height:100%;max-height:none;object-fit:contain;margin:0;border-radius:0}
+#main#main#main .phone-workflow button.pw-controller-entry{position:absolute;left:3%;top:14%;width:47%;height:26%;min-height:44px;margin:0;padding:0;border:2px solid transparent;border-radius:10px;background:transparent;color:white;cursor:pointer;box-shadow:none}
+#main#main#main .phone-workflow button.pw-controller-entry:is(:hover,:focus-visible){border-color:#a1cd54;background:#a1cd5415;outline:2px solid #f4f4f2;outline-offset:2px}
+#main#main#main .phone-workflow .pw-picker{position:absolute;inset:0;display:flex;flex-direction:column;background:#303030;color:#fff;overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#a1cd54 #303030}
+#main#main#main .phone-workflow .pw-source-heading{flex:none;aspect-ratio:398/94;overflow:hidden;background:#c5202d}
+#main#main#main .phone-workflow .pw-source-heading img{display:block;width:100%;height:auto;max-height:none;border-radius:0;margin:0}
+#main#main#main .phone-workflow .pw-picker-prompt{margin:18px 13px 12px;color:#fff;font:400 14px/1.45 var(--font-body)}
+#main#main#main .phone-workflow .pw-choices{display:grid;gap:1px}
+#main#main#main .phone-workflow button.pw-choice{display:flex;align-items:center;gap:9px;text-align:left;width:100%;min-height:58px;border:0;border-radius:0;padding:11px 10px;margin:0;background:#383838;color:#fff;font:400 15px/1.3 var(--font-body);cursor:pointer;box-shadow:none}
+#main#main#main .phone-workflow .pw-choice>img{flex:none;display:block;width:32px;height:32px;object-fit:contain;margin:0;border-radius:0}
+#main#main#main .phone-workflow .pw-choice>span{flex:1;min-width:0}
+#main#main#main .phone-workflow .pw-choice>svg{flex:none;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#main#main#main .phone-workflow button.pw-choice:is(:hover,[aria-pressed="true"]){background:#244b38;color:#fff}
+#main#main#main .phone-workflow button.pw-choice:focus-visible{outline:2px solid #a1cd54;outline-offset:-3px}
+#main#main#main .phone-workflow .pw-selection{margin:17px 13px 10px;font:400 14px/1.45 var(--font-body);color:#e4eddf}
+#main#main#main .phone-workflow .pw-phone-preview{position:relative;margin:0 13px 16px;aspect-ratio:16/9;background:#f4f4f2;overflow:hidden;display:grid;place-items:center}
+#main#main#main .phone-workflow .pw-phone-preview>img{position:absolute;inset:0;display:block;width:100%;height:100%;max-height:none;object-fit:contain;border-radius:0;margin:0}
+#main#main#main .phone-workflow .pw-phone-hint{font:700 14px/1.45 var(--font-body);color:var(--ch-pine,#244b38);text-align:center;margin:10px 0 0;padding:0}
+#main#main#main .phone-workflow .pw-foot{display:flex;align-items:center;justify-content:flex-end;gap:16px;margin-top:18px}
+#main#main#main .phone-workflow .pw-foot>p{font:400 14px/1.45 var(--font-body);color:#465546;max-width:70ch;margin:0}
+#main#main#main .phone-workflow button.pw-replay{display:grid;place-items:center;flex:none;width:44px;height:44px;min-height:44px;border:0;border-radius:6px;background:transparent;color:var(--ch-pine,#244b38);padding:11px;margin:0;cursor:pointer;box-shadow:none}
+#main#main#main .phone-workflow .pw-replay>svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#main#main#main .phone-workflow .pw-replay:is(:hover,:focus-visible){background:#e0e8d8;outline:2px solid var(--ch-pine,#244b38);outline-offset:2px}
+#main#main#main .phone-workflow [hidden]{display:none!important}
+#main#main#main .phone-workflow .pw-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media(hover:hover) and (pointer:fine){
+ #main#main#main .phone-workflow .pw-replay{opacity:0;transition:opacity .15s ease}
+ #main#main#main .phone-workflow:is(:hover,:focus-within) .pw-replay{opacity:1}
+}
+@media(max-width:699px){
+ #main#main#main .phone-workflow .pw-stage{grid-template-columns:minmax(0,1fr);gap:22px}
+ #main#main#main .phone-workflow .pw-tv{width:100%}
+ #main#main#main .phone-workflow .pw-phone-column{width:min(234px,78%)}
+ #main#main#main .phone-workflow .pw-status{font-size:16px;margin-bottom:18px}
+ #main#main#main .phone-workflow .pw-tv-bezel{padding:6px 6px 9px;border-radius:7px}
+ #main#main#main .phone-workflow .pw-foot{align-items:flex-start;margin-top:20px}
+}
+@media(prefers-reduced-motion:reduce){#main#main#main .phone-workflow *{transition:none!important;animation:none!important}}
+/* Keep the working controls and the section title in one desktop view. */
+#main#main#main[data-page="phone-app"]>#controller{padding-block:8px}
+#main#main#main[data-page="phone-app"]>#controller .zpb-sec-body{margin-top:8px}
+#main#main#main[data-page="phone-app"]>#controller .product-chapter-heading:empty{display:none}
+#main#main#main[data-page="phone-app"] .phone-workflow .pw-status{margin-bottom:12px;min-height:1.5em}
+#main#main#main[data-page="phone-app"] .phone-workflow .pw-stage{grid-template-columns:minmax(0,1fr) 200px;gap:32px;align-items:start}
+#main#main#main[data-page="phone-app"] .phone-workflow .pw-tv{width:100%;max-width:650px;justify-self:center}
+#main#main#main[data-page="phone-app"] .phone-workflow .pw-tv figcaption{min-height:41px;margin-top:8px}
+#main#main#main[data-page="phone-app"] .phone-workflow .pw-foot{margin-top:6px}
+@media(max-width:699px){#main#main#main[data-page="phone-app"] .phone-workflow .pw-stage{grid-template-columns:minmax(0,1fr);gap:22px}}
+
+/* Decision 24: the controller is exactly as tall as the screen it drives. The glass keeps its
+   750:1334 ratio, so the column width is solved from the stage width (the TV caps at 650px). */
+@media(min-width:700px){
+/* The container is the wrapper, not the grid itself: cqw on the container resolves against an ancestor, which broke the 700-890px widths. */
+#main#main#main[data-page="phone-app"] .phone-workflow{container-type:inline-size}
+#main#main#main[data-page="phone-app"] .phone-workflow .pw-stage{grid-template-columns:minmax(0,1fr) min(209px,calc(24.02cqw - 5.17px))}
+}

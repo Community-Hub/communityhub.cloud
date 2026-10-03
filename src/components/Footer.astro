@@ -1,0 +1,24 @@
+---
+import { PRODUCTS, AUDIENCES, CASES, RESOURCES, LIVE_DEMOS } from '../content/catalog';
+---
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <nav aria-label="Products"><details class="foot-group" open><summary class="foot-h">Products</summary><ul><li><a href="products.html">All products</a></li>{PRODUCTS.map(p => <li><a href={`${p.slug}.html`}>{p.name}</a></li>)}<li><a href="pricing.html">Pricing</a></li></ul></details></nav>
+      <nav aria-label="See it live"><details class="foot-group" open><summary class="foot-h">See it live</summary><ul>{LIVE_DEMOS.map(([href, , title]) => <li><a href={href}>{title}</a></li>)}<li><a href="dashboards.html">Dashboard demos</a></li></ul></details></nav>
+      <nav aria-label="Who it's for"><details class="foot-group" open><summary class="foot-h">Who it's for</summary><ul>{AUDIENCES.map(a => <li><a href={`${a.slug}.html`}>{a.name}</a></li>)}</ul></details></nav>
+      <nav aria-label="Case studies"><details class="foot-group" open><summary class="foot-h">Case studies</summary><ul>{CASES.map(c => <li><a href={`${c.slug}.html`}>{c.name}</a></li>)}<li><a href="examples.html">All case studies</a></li></ul></details></nav>
+      <nav aria-label="Resources"><details class="foot-group" open><summary class="foot-h">Resources</summary><ul>{RESOURCES.map(([href, title]) => <li><a href={href}>{title}</a></li>)}<li><a href="environmental-dashboard.html">The Dashboard story</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Book a demo</a></li></ul></details></nav>
+    </div>
+    <div class="foot-bot"><p data-receipt>Our work began in Oberlin, Ohio, where the first Environmental Dashboard launched in 2008.</p><p>&copy; 2026 Community Hub. <a href="mailto:connect@communityhub.cloud">connect@communityhub.cloud</a></p></div>
+  </div>
+</footer>
+
+<script>
+  const compactFooter = matchMedia("(max-width:760px)");
+  function arrangeFooter() {
+    for (const group of document.querySelectorAll<HTMLDetailsElement>(".foot-group")) group.open = !compactFooter.matches;
+  }
+  arrangeFooter();
+  compactFooter.addEventListener("change", arrangeFooter);
+</script>

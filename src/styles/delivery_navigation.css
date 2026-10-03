@@ -1,0 +1,48 @@
+/* Menu hierarchy from the September 30 review: name, then a short explanation. */
+.dd-panel {
+  max-height: calc(100dvh - var(--hdr-h) - 28px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.dd-panel a {
+  align-items: flex-start;
+  text-align: left;
+  padding: 11px 10px;
+}
+.dd-panel a > span { min-width: 0; }
+.dd-panel a b, .mnav-live b {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.dd-panel a small, .mnav-live small {
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.dd-h, .mnav-h {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--leaf-deep);
+  line-height: 1.3;
+}
+.dd-cols { gap: 12px 20px; }
+.dd-wide > .dd-all {
+  border-top: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 10px 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+/* Products menu, 30 Sep review: group heading top left above its column, bold names clearly larger than the one-line description, tight even spacing. */
+#dd-products { min-width: 0; width: min(900px, calc(100vw - 32px)); padding: 18px 20px 12px; }
+#dd-products .dd-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; align-items: start; }
+#dd-products .dd-h { margin: 0 0 6px; padding: 0 10px 8px; border-bottom: 2px solid var(--leaf); font-size: 1rem; text-align: left; }
+#dd-products a { gap: 12px; padding: 8px 10px; }
+#dd-products a img { width: 32px; height: 32px; }
+#dd-products a b { font-size: 1.0625rem; line-height: 1.25; }
+#dd-products a small { font-size: .875rem; line-height: 1.35; margin-top: 2px; color: var(--ink-2); }
+#dd-products .dd-all { margin: 8px 0 0; padding: 12px 10px 4px; border-top: 1px solid var(--line); border-bottom: 0; text-align: left; }

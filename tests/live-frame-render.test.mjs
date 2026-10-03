@@ -1,0 +1,7 @@
+import {before,test} from 'node:test';import assert from 'node:assert/strict';import {build} from 'vite';
+let frame, citywide;
+before(async()=>{const r=await build({configFile:false,logLevel:'silent',build:{write:false,minify:false,lib:{entry:'src/lib/content-helpers.ts',formats:['es']}}});const code=(Array.isArray(r)?r[0]:r).output[0].code;({live_frame:frame,cwd_sign:citywide}=await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`))});
+test('retry belongs to stable toolbar, outside replaceable iframe body',()=>{const html=frame('https://example.org/dashboard','Example dashboard','example.org');const bar=html.slice(html.indexOf('class="bar"'),html.indexOf('<div class="lf-body"'));assert.match(bar,/class="lf-load"/);const body=html.slice(html.indexOf('<div class="lf-body"'));assert.doesNotMatch(body,/class="lf-load"/)});
+test('unverified host context uses truthful standalone dashboard wording',()=>{const html=frame('https://example.org/dashboard','Example dashboard','example.org');assert.match(html,/>Open dashboard/);assert.doesNotMatch(html,/Visit embedded version/)});
+
+test('Citywide is the actual public application with native controls, not a local simulation',()=>{const html=citywide();assert.match(html,/https:\/\/www\.environmentaldashboard\.org\/cwd\?show-menu-bar=1/);assert.match(html,/class="live-frame"/);assert.match(html,/data-src="https:\/\/www\.environmentaldashboard\.org\/cwd-files\/dashboard\.php\?interval=&current_state="/);assert.doesNotMatch(html,/data-whatif|data-cwd-tiles|data-wi-range|cwd-scene\.svg/)});

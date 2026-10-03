@@ -1,0 +1,6 @@
+---
+import { renderStatus, type StatusProps } from '../../lib/ui';
+import '../../styles/ui.css';
+type Props = StatusProps;
+---
+<Fragment set:html={renderStatus(Astro.props)} />

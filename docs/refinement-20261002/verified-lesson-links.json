@@ -1,0 +1,813 @@
+{
+  "checkedAt": "2026-10-02T10:52:24.623630+00:00",
+  "status": "verified",
+  "source": "https://environmentaldashboard.org/edresources/searchedresources",
+  "method": "Followed observed GET query, submit, and pagination links. Matched displayed card titles to local titles with only punctuation, case, and and/ampersand normalization. Downloaded PDF response content and verified HTTP status and PDF signature. No guessed PDF paths.",
+  "matched": 35,
+  "verifiedWorking": 35,
+  "unmatched": [],
+  "links": {
+    "Who Cares What's Trending? Curve Fitting with Environmental Dashboard and Desmos": "https://environmentaldashboard.org/images/uploads/2017/11/Who-Cares-Whats-Trending-Curve-Fitting-with-Environmental-Dashboard-Desmos.pdf",
+    "Problem Solving for Conservation with BuildingOS": "https://environmentaldashboard.org/images/uploads/2017/11/John-Petersen-2017-Lesson-Problem-Solving-For-Conservation-with-BuildingOS-v2.pdf",
+    "Electricity and Water Use Signature Assignment": "https://environmentaldashboard.org/images/uploads/2017/11/Electricity-and-Water-Use-Signature-Assignment-2.pdf",
+    "Photography and Community Voices Content": "https://environmentaldashboard.org/images/uploads/2017/09/FAVA-Photography-Lesson-1.pdf",
+    "Oberlin Dashboard: Introducing Electricity": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-2-1.pdf",
+    "Our Role in the Energy System": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-3-1.pdf",
+    "What is a System?": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-1-1.pdf",
+    "Thinking in Systems": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Unit-2017-Thinking-in-Systems.pdf",
+    "Natural Resource Economics": "https://environmentaldashboard.org/images/uploads/2017/07/Hohman-Lesson-Natural-Resource-Economics.pdf",
+    "Bioregional Dashboard Water Systems Field Trip": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-2-Bioregional-Dashboard-Water-Systems-Field-Trip.pdf",
+    "Water Flow Introduction": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-1-Water-Flow-Introduction.pdf",
+    "Water Systems": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Water-Systems-Unit-1.pdf",
+    "Kill-A-Watt": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-3.pdf",
+    "4th Grade Electricity Circuits Unit": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Unit-Template.pdf",
+    "Systems Thinking and Electricity": "https://environmentaldashboard.org/images/uploads/2017/07/Clark-Rosenberg-Revised-2017-Unit.pdf",
+    "Dashboard Scavenger Hunt": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-1.pdf",
+    "How Do Resources Meet Our Needs?": "https://environmentaldashboard.org/images/uploads/2017/07/Walter-Dendorfer-2017-Lesson-How-Do-Resources-Meet-Our-Needs.pdf",
+    "Creating an Energy Budget": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-4-Creating-an-Energy-Budget.pdf",
+    "Monitoring Our Energy Use to Inspire Better Choices": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-3-Monitoring-Our-Energy-Use-to-Inspire-Better-Choices.pdf",
+    "How Much is Energy Use Costing?": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-2-How-Much-is-Energy-Use-Costing.pdf",
+    "Understanding How Energy is Measured": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-1-Understanding-How-Energy-is-Measured.pdf",
+    "Understanding Resource Units and Choices, Consequences, and Budgets": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Unit-Understanding-Resources-Units-1-1.pdf",
+    "The Electricity System Continued": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-2-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+    "Systems Thinking and Energy": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-1-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+    "What's Wrong with this Graph?": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-1-Whats-Wrong-with-this-Graph.pdf",
+    "Can We Change Our Habits?": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Unit-Template-Can-We-Change-Our-Habits.pdf",
+    "Storytelling with Dashboard and Excel": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-3-Storytelling-with-Dashboard-Excel.pdf",
+    "Interpreting Graphs, Big Data, and the Five Number Summary": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-Interpreting-Graphs-Big-Data-The-Five-Number-Summary.pdf",
+    "What's Big Data? and Interpreting Graphs": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Number-Summary-Lesson-1.pdf",
+    "Big Data and the Five Number Summary": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Five-Number-Summary-.pdf",
+    "Can We Learn from Ecolympics?": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-4-Can-We-Learn-from-Ecolympics.pdf",
+    "Spending Energy to Save Energy": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-3-Spending-Energy-to-Save-Energy.pdf",
+    "Graphing Electricity": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-2-Graphing-Electricity.pdf",
+    "Introduction to the Dashboard (Electricity, 2017)": "https://environmentaldashboard.org/images/uploads/2017/06/Clark2017Lesson1-1.pdf",
+    "Introduction to the Dashboard": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-1-Introduction-to-the-Dashboard.pdf"
+  },
+  "entries": [
+    {
+      "sourceTitle": "Who Cares What's Trending? Curve Fitting with Environmental Dashboard & Desmos",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/11/Who-Cares-Whats-Trending-Curve-Fitting-with-Environmental-Dashboard-Desmos.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 8, Grade 9"
+      ],
+      "title": "Who Cares What's Trending? Curve Fitting with Environmental Dashboard and Desmos",
+      "index": 0,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/11/Who-Cares-Whats-Trending-Curve-Fitting-with-Environmental-Dashboard-Desmos.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Problem Solving for Conservation with BuildingOS",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/11/John-Petersen-2017-Lesson-Problem-Solving-For-Conservation-with-BuildingOS-v2.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9, Higher Education"
+      ],
+      "title": "Problem Solving for Conservation with BuildingOS",
+      "index": 1,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/11/John-Petersen-2017-Lesson-Problem-Solving-For-Conservation-with-BuildingOS-v2.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Electricity and Water Use Signature Assignment",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/11/Electricity-and-Water-Use-Signature-Assignment-2.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: unit",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 5, Grade 6, Grade 7, Grade 8, Grade 9, Higher Education"
+      ],
+      "title": "Electricity and Water Use Signature Assignment",
+      "index": 2,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/11/Electricity-and-Water-Use-Signature-Assignment-2.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Photography & Community Voices Content",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/09/FAVA-Photography-Lesson-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 7, Grade 8, Grade 9, Higher Education"
+      ],
+      "title": "Photography and Community Voices Content",
+      "index": 3,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/09/FAVA-Photography-Lesson-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Oberlin Dashboard - Introducing Electricity",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-2-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12"
+      ],
+      "title": "Oberlin Dashboard: Introducing Electricity",
+      "index": 4,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-2-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Our Role in the Energy System",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-3-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12"
+      ],
+      "title": "Our Role in the Energy System",
+      "index": 5,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-3-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "What is a System?",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-1-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=1",
+      "sourceMetadata": [
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12"
+      ],
+      "title": "What is a System?",
+      "index": 6,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-1-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Thinking in Systems",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Unit-2017-Thinking-in-Systems.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Type: unit",
+        "Grade level(s): Grade 10, Grade 11, Grade 12"
+      ],
+      "title": "Thinking in Systems",
+      "index": 7,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Unit-2017-Thinking-in-Systems.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Natural Resource Economics",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Hohman-Lesson-Natural-Resource-Economics.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Author: Christine Hohman",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4"
+      ],
+      "title": "Natural Resource Economics",
+      "index": 8,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Hohman-Lesson-Natural-Resource-Economics.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Bioregional Dashboard Water Systems Field Trip",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-2-Bioregional-Dashboard-Water-Systems-Field-Trip.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Author: Joy Harrison",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4, Grade 5"
+      ],
+      "title": "Bioregional Dashboard Water Systems Field Trip",
+      "index": 9,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-2-Bioregional-Dashboard-Water-Systems-Field-Trip.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Water Flow Introduction",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-1-Water-Flow-Introduction.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Author: Joy Harrison",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4, Grade 5"
+      ],
+      "title": "Water Flow Introduction",
+      "index": 10,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-1-Water-Flow-Introduction.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Water Systems",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Water-Systems-Unit-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Author: Joy Harrison",
+        "Type: unit",
+        "Grade level(s): Grade 3, Grade 4, Grade 5"
+      ],
+      "title": "Water Systems",
+      "index": 11,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Water-Systems-Unit-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Kill-A-Watt",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-3.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: lesson",
+        "Grade level(s): Grade 4, Grade 5"
+      ],
+      "title": "Kill-A-Watt",
+      "index": 12,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-3.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "4th Grade Electricity Circuits Unit",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Unit-Template.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=2",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: unit",
+        "Grade level(s): Grade 4, Grade 5"
+      ],
+      "title": "4th Grade Electricity Circuits Unit",
+      "index": 13,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Unit-Template.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Systems Thinking & Electricity",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Clark-Rosenberg-Revised-2017-Unit.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: unit",
+        "Grade level(s): Grade 4, Grade 5, Grade 6, Grade 7"
+      ],
+      "title": "Systems Thinking and Electricity",
+      "index": 14,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Clark-Rosenberg-Revised-2017-Unit.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Dashboard Scavenger Hunt",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "Dashboard Scavenger Hunt",
+      "index": 15,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "How Do Resources Meet Our Needs?",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Walter-Dendorfer-2017-Lesson-How-Do-Resources-Meet-Our-Needs.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Courtney Dendorfer, Kristi Walter",
+        "Type: lesson",
+        "Grade level(s): Grade 1"
+      ],
+      "title": "How Do Resources Meet Our Needs?",
+      "index": 16,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Walter-Dendorfer-2017-Lesson-How-Do-Resources-Meet-Our-Needs.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Creating an Energy Budget",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-4-Creating-an-Energy-Budget.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Felicia Christian",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4"
+      ],
+      "title": "Creating an Energy Budget",
+      "index": 17,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-4-Creating-an-Energy-Budget.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Monitoring Our Energy Use to Inspire Better Choices",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-3-Monitoring-Our-Energy-Use-to-Inspire-Better-Choices.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Felicia Christian",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4"
+      ],
+      "title": "Monitoring Our Energy Use to Inspire Better Choices",
+      "index": 18,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-3-Monitoring-Our-Energy-Use-to-Inspire-Better-Choices.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "How Much is Energy Use Costing?",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-2-How-Much-is-Energy-Use-Costing.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Felicia Christian",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4"
+      ],
+      "title": "How Much is Energy Use Costing?",
+      "index": 19,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-2-How-Much-is-Energy-Use-Costing.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Understanding How Energy is Measured",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-1-Understanding-How-Energy-is-Measured.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=3",
+      "sourceMetadata": [
+        "Author: Felicia Christian",
+        "Type: lesson",
+        "Grade level(s): Grade 3, Grade 4"
+      ],
+      "title": "Understanding How Energy is Measured",
+      "index": 20,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-1-Understanding-How-Energy-is-Measured.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Understanding Resource Units and Choices, Consequences, and Budgets",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Unit-Understanding-Resources-Units-1-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Felicia Christian",
+        "Type: unit",
+        "Grade level(s): Grade 3, Grade 4"
+      ],
+      "title": "Understanding Resource Units and Choices, Consequences, and Budgets",
+      "index": 21,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Unit-Understanding-Resources-Units-1-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "The Electricity System Continued",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-2-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 7, Grade 8, Grade 9"
+      ],
+      "title": "The Electricity System Continued",
+      "index": 22,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-2-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Systems Thinking and Energy",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-1-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 7, Grade 8, Grade 9"
+      ],
+      "title": "Systems Thinking and Energy",
+      "index": 23,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-1-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "What's Wrong with this Graph?",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-1-Whats-Wrong-with-this-Graph.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "What's Wrong with this Graph?",
+      "index": 24,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-1-Whats-Wrong-with-this-Graph.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Can We Change Our Habits?",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Unit-Template-Can-We-Change-Our-Habits.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: unit",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "Can We Change Our Habits?",
+      "index": 25,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Unit-Template-Can-We-Change-Our-Habits.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Storytelling with Dashboard & Excel",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-3-Storytelling-with-Dashboard-Excel.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 7, Grade 8, Grade 9"
+      ],
+      "title": "Storytelling with Dashboard and Excel",
+      "index": 26,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-3-Storytelling-with-Dashboard-Excel.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Interpreting Graphs, Big Data, & The Five Number Summary",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-Interpreting-Graphs-Big-Data-The-Five-Number-Summary.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=4",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson, unit",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "Interpreting Graphs, Big Data, and the Five Number Summary",
+      "index": 27,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-Interpreting-Graphs-Big-Data-The-Five-Number-Summary.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "What's Big Data? & Interpreting Graphs",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Number-Summary-Lesson-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "What's Big Data? and Interpreting Graphs",
+      "index": 28,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Number-Summary-Lesson-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Big Data & The Five Number Summary",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Five-Number-Summary-.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Type: unit",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "Big Data and the Five Number Summary",
+      "index": 29,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Five-Number-Summary-.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Can We Learn from Ecolympics?",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-4-Can-We-Learn-from-Ecolympics.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "Can We Learn from Ecolympics?",
+      "index": 30,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-4-Can-We-Learn-from-Ecolympics.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Spending Energy to Save Energy",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-3-Spending-Energy-to-Save-Energy.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Author: Jennifer Smillie",
+        "Type: lesson",
+        "Grade level(s): Grade 10, Grade 11, Grade 12, Grade 9"
+      ],
+      "title": "Spending Energy to Save Energy",
+      "index": 31,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-3-Spending-Energy-to-Save-Energy.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Graphing Electricity",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-2-Graphing-Electricity.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: lesson",
+        "Grade level(s): Grade 4, Grade 5"
+      ],
+      "title": "Graphing Electricity",
+      "index": 32,
+      "match": "exact",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-2-Graphing-Electricity.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Introduction to the Dashboard (Electricity 2017)",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/06/Clark2017Lesson1-1.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: lesson",
+        "Grade level(s): Grade 4, Grade 5"
+      ],
+      "title": "Introduction to the Dashboard (Electricity, 2017)",
+      "index": 33,
+      "match": "equivalent-punctuation-or-and-ampersand",
+      "sourceHref": "https://environmentaldashboard.org/images/uploads/2017/06/Clark2017Lesson1-1.pdf\u00a0",
+      "urlCorrection": "Trimmed trailing nonbreaking space from official href",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/06/Clark2017Lesson1-1.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    },
+    {
+      "sourceTitle": "Introduction to the Dashboard",
+      "href": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-1-Introduction-to-the-Dashboard.pdf",
+      "sourceUrl": "https://environmentaldashboard.org/edresources/searchedresources?query=&submit=Search&page=5",
+      "sourceMetadata": [
+        "Author: Shane Clark, Danny Rosenberg",
+        "Type: lesson",
+        "Grade level(s): Grade 4, Grade 5"
+      ],
+      "title": "Introduction to the Dashboard",
+      "index": 34,
+      "match": "exact",
+      "sourceHref": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-1-Introduction-to-the-Dashboard.pdf\u00a0",
+      "urlCorrection": "Trimmed trailing nonbreaking space from official href",
+      "verification": {
+        "httpStatus": 206,
+        "contentType": "application/pdf",
+        "effectiveUrl": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-1-Introduction-to-the-Dashboard.pdf",
+        "downloadedBytes": 1024,
+        "pdfSignature": true,
+        "curlExit": 0,
+        "working": true
+      }
+    }
+  ]
+}

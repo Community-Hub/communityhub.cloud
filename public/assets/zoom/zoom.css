@@ -1,0 +1,36 @@
+/* Scroll-driven zoom from Earth to downtown Oberlin */
+.zoom{position:relative;height:420vh;background:#050a10}
+.zoom-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.zoom-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.zoom-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,10,16,.55) 0%,rgba(5,10,16,0) 38%,rgba(5,10,16,0) 62%,rgba(5,10,16,.6) 100%)}
+.zoom-cap{position:absolute;left:0;right:0;margin:0 auto;max-width:1180px;padding:0 24px;color:#fff;opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}
+.zoom-cap.on{opacity:1;transform:none;pointer-events:auto}
+.zoom-cap.top{top:18vh}
+.zoom-cap.low{bottom:12vh}
+.zoom-cap h1,.zoom-cap h2{font-family:"Comfortaa",system-ui,sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.02;margin:0;text-shadow:0 2px 30px rgba(0,0,0,.45);text-wrap:balance}
+.zoom-cap h1{font-size:clamp(2.3rem,6.4vw,5.6rem);max-width:13em}
+.zoom-cap h1 em{font-style:normal;color:#9BE08F}
+.zoom-cap h2{font-size:clamp(2rem,5.4vw,4.4rem)}
+.zoom-cap p{font-family:"Lato",system-ui,sans-serif;font-size:clamp(1rem,1.5vw,1.25rem);max-width:34em;margin:14px 0 0;line-height:1.5;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.zoom-tag{display:inline-flex;align-items:center;gap:8px;font:700 .8rem "Lato",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:rgba(5,10,16,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px;margin-bottom:14px}
+.zoom-tag i{width:8px;height:8px;border-radius:50%;background:#58BA51;box-shadow:0 0 0 0 rgba(88,186,81,.6);animation:zoomPulse 1.8s infinite}
+@keyframes zoomPulse{70%{box-shadow:0 0 0 10px rgba(88,186,81,0)}100%{box-shadow:0 0 0 0 rgba(88,186,81,0)}}
+.zoom-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.zoom-cta a{font:700 1rem "Comfortaa",system-ui,sans-serif;text-decoration:none;padding:14px 20px;border-radius:12px;background:#58BA51;color:#0D220E}
+.zoom-cta a.ghost{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.zoom-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);color:#fff;font:700 .8rem "Lato",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:calc(1 - var(--p,0) * 12);transition:opacity .2s}
+.zoom-hint::after{content:"";width:2px;height:34px;background:linear-gradient(#fff,rgba(255,255,255,0));animation:zoomHint 1.6s ease-in-out infinite}
+@keyframes zoomHint{0%{transform:scaleY(.2);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(.2);transform-origin:bottom}}
+.zoom-bar{position:absolute;left:0;top:0;height:3px;width:calc(var(--p,0) * 100%);background:#58BA51}
+.zoom-still{height:auto}
+.zoom-still .zoom-stick{position:relative;height:88vh}
+.zoom-still .zoom-cap{opacity:1;transform:none}
+.zoom-still .zoom-cap:not(.first){display:none}
+@media (prefers-reduced-motion:reduce){.zoom-tag i,.zoom-hint::after{animation:none}}
+@media (max-width:700px){.zoom{height:380vh}.zoom-cap.top{top:14vh}.zoom-cap.low{bottom:9vh}}
+.zoom-panel{display:inline-block;max-width:36em;background:rgba(5,10,16,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;padding:22px 24px}
+.zoom-cap.panel.low{bottom:auto;top:12vh}
+@media (max-width:700px){.zoom-panel{padding:16px 16px}.zoom-cap.panel.low{top:10vh}}
+/* no pill badges: captions are plain type with a thin rule */
+.zoom-cap.low h2{padding-top:14px;border-top:2px solid rgba(255,255,255,.7);display:inline-block}
+.zoom-cap.panel h2{border-top:0;padding-top:0}

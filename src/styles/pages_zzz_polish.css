@@ -1,0 +1,179 @@
+/* Polish pass: one radius scale, one card recipe, quieter chrome and choreographed motion.
+   Loaded last. Sections stay white, green stays the one accent (Item 19). */
+:root{--r-sm:10px;--r-md:16px;--r-lg:22px;--r-btn:10px;--line:rgba(20,40,30,.10);--line-2:rgba(20,40,30,.18);
+  --lift:0 1px 2px rgba(20,40,30,.04),0 14px 30px -22px rgba(20,40,30,.28);
+  --lift-hi:0 1px 2px rgba(20,40,30,.05),0 22px 40px -22px rgba(20,60,30,.38)}
+html{accent-color:var(--leaf-deep);scroll-padding-top:calc(var(--hdr-h) + 64px)}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--leaf);color:#fff}
+:focus-visible{outline:2px solid var(--leaf-deep);outline-offset:3px;border-radius:6px}
+.btn-ink:focus-visible,.menu-btn:focus-visible{outline:2px solid var(--leaf-deep);outline-offset:3px}
+
+/* ---------------------------------------------------------------- type */
+h1,h2,h3,.h1,.h2{text-wrap:balance}
+.h1,.h2{letter-spacing:-.012em}
+p,li{text-wrap:pretty}
+.lede{color:var(--ink)}
+.fig,.crumbs,.foot-bot,.mnav-h,.live-tag,.ee-n{font-size:.875rem}
+.dd-panel a small,.dd-h{font-size:.875rem}
+.zpa-bundle h3,.stanza h3,.zpb-cv-cat-b h3,.grp h3,.ppl-lane h3{font-weight:700;line-height:1.2}
+
+/* ---------------------------------------------------------------- header: frosted white, hairline, no shadow */
+.hdr{background:rgba(255,255,255,.8);-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px)}
+.hdr.scrolled{background:rgba(255,255,255,.86);border-color:var(--line);box-shadow:none}
+@media (max-width:900px){.hdr,.hdr.scrolled{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}}
+.nav-a,.nav-btn{position:relative;transition:color .2s var(--ease)}
+.nav-a:hover,.nav-btn:hover,.nav-a[aria-current],.nav-btn[aria-expanded="true"]{background:none;color:var(--leaf-deep)}
+.nav-a[aria-current],.dd.is-here .nav-btn{box-shadow:none}
+.nav-a::after,.nav-btn::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:2px;background:var(--leaf);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-a[aria-current]::after,.dd.is-here .nav-tab::after{transform:scaleX(1)}
+/* Tabs with a menu: the label opens the tab's page, the arrow opens the menu */
+.dd{display:flex;align-items:center}
+.dd .nav-tab{padding-right:2px}
+.dd .nav-tab::after{right:2px}
+.nav-btn.nav-caret{padding-left:4px;padding-right:8px;min-width:28px;min-height:40px;justify-content:center}
+.nav-btn.nav-caret::after{display:none}
+.dd.is-here .nav-tab{color:var(--leaf-deep)}
+/* reading progress: a green hairline under the header */
+.hdr{position:sticky}
+.hdr::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--leaf);transform:scaleX(var(--prog,0));transform-origin:left;pointer-events:none}
+@supports (animation-timeline:scroll()){
+  .hdr::after{animation:hdr-prog linear both;animation-timeline:scroll(root)}
+  @keyframes hdr-prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
+
+/* dropdowns: calm ease, hairline, no overshoot */
+.dd-panel{border-radius:var(--r-md);border:1px solid var(--line);box-shadow:0 1px 2px rgba(20,40,30,.05),0 24px 48px -20px rgba(20,40,30,.3);
+  transform:translateY(-6px);transition:opacity .18s var(--ease),transform .24s var(--ease)}
+.dd-panel.open{transform:none}
+.dd-panel a{border-radius:var(--r-sm);transition:background .15s ease}
+.dd-panel a:hover{background:#f5f6f4}
+.dd-all{background:none;border-radius:0;border-top:1px solid var(--line);margin-top:12px;padding:14px 10px 4px;text-align:left}
+.dd-all:hover{background:none;color:var(--leaf)}
+.menu-btn{background:#fff;border:1px solid var(--line-2)}
+.menu-btn:hover,.menu-btn[aria-expanded="true"]{background:#fff;border-color:var(--leaf-deep)}
+
+/* ---------------------------------------------------------------- buttons */
+.btn-ink{border-radius:var(--r-btn);border-width:1px;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 1px 2px rgba(20,60,30,.22);
+  transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+.btn-ink:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 12px 24px -12px rgba(47,125,58,.6)}
+.btn-ink:active{transform:translateY(0);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.btn-ghost{background:#fff;border:1px solid var(--line-2);box-shadow:none}
+.btn-ghost:hover{background:#fff;color:var(--leaf-deep)!important;border-color:var(--leaf-deep);box-shadow:none}
+.ph2 .ph2-ctas a.btn-ghost{background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* ---------------------------------------------------------------- one card recipe */
+.grp,.zpa-bundle,.stanza-live,.cwd-sign,.ppl-lane,.rs-flash,.stanza,.zpb-cv-cat-b,.zpa-faq details{
+  border:1px solid var(--line)!important;border-radius:var(--r-lg);box-shadow:var(--lift)}
+.stanza,.zpb-cv-cat-b{position:relative}
+.stanza::before,.zpb-cv-cat-b::before{content:"";position:absolute;top:-1px;left:24px;width:40px;height:3px;border-radius:0 0 3px 3px;background:var(--leaf)}
+a.hub-node,a.zpb-cv-cat-b,.ppl-lane a.grp,a.grp,a.zpa-bundle{transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease)}
+a.hub-node:hover,a.zpb-cv-cat-b:hover,a.grp:hover,a.zpa-bundle:hover{transform:translateY(-3px);border-color:rgba(47,125,58,.4)!important;box-shadow:var(--lift-hi)}
+.next-card{border-radius:var(--r-md);box-shadow:var(--lift);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.next-card:hover{transform:translateY(-3px);box-shadow:var(--lift-hi)}
+figure.pp,.postcard img{border-radius:var(--r-md)}
+.zpa-form input,.zpa-form select,.zpa-form textarea{border:1px solid var(--line-2);border-radius:var(--r-sm);transition:border-color .2s,box-shadow .2s}
+.zpa-form input:hover,.zpa-form select:hover,.zpa-form textarea:hover{border-color:rgba(20,40,30,.4)}
+.zpa-form input:focus,.zpa-form select:focus,.zpa-form textarea:focus{outline:none;border-color:var(--leaf-deep);box-shadow:0 0 0 4px rgba(91,185,81,.22)}
+.six,.ppl-sec.ppl-alt,.zpa-sec.zpa-alt,.zpb-sec.zpb-alt,.cta-band,.hub-sec{border-top-color:var(--line)}
+
+/* ---------------------------------------------------------------- jump bars: one quiet tab style */
+.zpa-jump,.zpb-jump,.ppl-jump{background:rgba(255,255,255,.86);border-bottom:1px solid var(--line)}
+.zpa-jump a,.zpb-jump a,.ppl-jump a{position:relative;font-family:var(--font-body);font-weight:600;color:var(--ink-2);transition:color .2s var(--ease)}
+.zpa-jump a.is-on,.zpb-jump a.is-on,.ppl-jump a.is-on{box-shadow:none;color:var(--ink)}
+.zpa-jump a::after,.zpb-jump a::after,.ppl-jump a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--leaf);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.zpa-jump a:hover::after,.zpb-jump a:hover::after,.ppl-jump a:hover::after{transform:scaleX(.4)}
+.zpa-jump a.is-on::after,.zpb-jump a.is-on::after,.ppl-jump a.is-on::after{transform:scaleX(1)}
+.zpa-jump .wrap,.zpb-jump .wrap,.ppl-jump .wrap{-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}
+
+/* ---------------------------------------------------------------- photo hero and next cards */
+.ph2-scrim{background:linear-gradient(0deg,rgba(10,25,18,.74) 0%,rgba(10,25,18,.34) 48%,rgba(10,25,18,.14) 100%)}
+.ph2-copy .h1{text-shadow:0 2px 28px rgba(0,0,0,.3)}
+.ph2 .crumbs,.ph2 .crumbs a{color:#fff}
+
+/* ---------------------------------------------------------------- pager: content starts high, children arrive in order */
+html.motion #main[data-pager]>:not(.ph2)>.wrap{opacity:1;transform:none;transition:none}
+html.motion #main[data-pager]>:not(.ph2)>.wrap>*{opacity:0;transform:translateY(24px);
+  transition:opacity .6s var(--ease),transform .75s var(--ease);transition-delay:calc(var(--i,0) * 80ms)}
+html.motion #main[data-pager]>.is-in>.wrap>*,
+html.motion #main[data-pager]>.page-intro:not(.ch-story-section)>.wrap>*{opacity:1;transform:none}
+
+/* ---------------------------------------------------------------- footer */
+.foot-bot{color:var(--on-dark-2)}
+.foot-cols a{display:inline-block;transition:color .15s ease,transform .2s var(--ease)}
+.foot-cols a:hover{transform:translateX(2px)}
+
+/* Ordinary cross-document navigation is deliberately immediate. The former
+   View Transition opt-in aborted in the supported preview browser. */
+@media (prefers-reduced-motion:reduce){
+  html.motion #main[data-pager]>:not(.ph2)>.wrap>*{opacity:1;transform:none;transition:none}
+  .hdr::after{display:none}
+}
+
+/* ---------------------------------------------------------------- a quote that gets its own screen reads as a statement, not a stretched card */
+#main[data-pager]>blockquote.pull{max-width:none;margin:0;border-radius:0;box-shadow:none;background:#fff;border-top:1px solid var(--line);
+  align-items:center;text-align:center;padding:calc(var(--pg-pad,48px) + var(--pk-t,0px)) var(--gut) calc(var(--pg-pad,48px) + var(--pk-b,0px))}
+#main[data-pager]>blockquote.pull>*{width:auto;max-width:24em}
+#main[data-pager]>blockquote.pull p{font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1.18;letter-spacing:-.01em;text-wrap:balance}
+#main[data-pager]>blockquote.pull footer{margin-top:28px;font-size:1.05rem;max-width:40em}
+html.motion #main[data-pager]>blockquote.pull>*{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .75s var(--ease)}
+html.motion #main[data-pager]>blockquote.pull>footer{transition-delay:.15s}
+html.motion #main[data-pager]>blockquote.pull.is-in>*{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.motion #main[data-pager]>blockquote.pull>*{opacity:1;transform:none;transition:none}}
+
+/* ---------------------------------------------------------------- chapter titles: one line when the screen has room */
+@media (min-width:900px){
+  #main[data-pager] .product-chapter-heading{max-width:none}
+  #main[data-pager] .product-chapter-heading>.h2{max-width:none;text-wrap:pretty}
+  #main[data-pager] .product-chapter-heading>.lede{max-width:62ch}
+}
+
+/* ---------------------------------------------------------------- text cards carry their photo, so a full screen is never just words */
+.stanza .stanza-photo{display:block;width:100%;aspect-ratio:16/9;max-height:30vh;object-fit:cover;border-radius:var(--r-md);margin-bottom:18px}
+.stanza .stanza-photo.is-screen{object-fit:cover;object-position:center}
+#multileveled .stanza .stanza-photo{max-height:none}
+.place-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-bottom:28px}
+.place-card{margin:0}
+#main[data-pager] .place-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;max-height:24vh;object-fit:cover;border-radius:var(--r-md)}
+.place-card figcaption{padding-top:14px}
+.place-card h3{margin:0 0 6px}
+@media (max-width:700px){.place-cards{grid-template-columns:1fr}}
+
+/* Page titles beside an intro image stay on one line */
+@media (min-width:901px){
+  #main#main:not([data-page="the-hub"]) > .product-opening .page-intro-grid > div:first-child .h1{font-size:min(53px,4vw)!important}
+}
+
+/* Community Voices photo beside a partner quote */
+#main#main blockquote.pull.has-source-photo:has(> .pull-scene) { align-content:center; }
+#main#main blockquote.pull:has(> .pull-scene) footer { text-align:left; justify-self:start; }
+.pull-scene { margin:0; display:grid; gap:12px; justify-items:end; }
+.pull-scene img { width:auto; max-width:100%; max-height:62dvh; object-fit:contain; border-radius:12px; }
+.pull-scene figcaption { font-size:16px; line-height:1.4; opacity:.85; justify-self:end; }
+@media (max-width:900px){
+  #main#main .pull-scene { max-height:none; justify-items:start; }
+  #main#main .pull-scene img { max-height:42dvh; }
+  #main#main .pull-scene figcaption { justify-self:start; font-size:14px; }
+}
+
+/* Tab landing pages share the Products directory layout */
+.product-directory-grid.dir-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:900px){.product-directory-grid.dir-2{grid-template-columns:1fr}}
+#main#main:is([data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category ul{grid-template-rows:none;grid-auto-rows:auto;align-content:start}
+#main#main:is([data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category a:not(:has(img)){grid-template-columns:minmax(0,1fr)}
+/* Citywide Dashboard scene tiles beside each data source */
+.zpa-src img.src-scene{width:88px;height:88px;object-fit:contain;margin-top:0}
+@media (max-width:900px){.zpa-src img.src-scene{width:64px;height:64px}}
+/* Character gauges abstract: Flash and Wally react to high, typical and low use */
+.gauge-faces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:16px;background:#fff;border-radius:12px}
+.gauge-faces figure{margin:0;display:grid;justify-items:center;gap:6px}
+.gauge-faces img{width:100%;max-width:120px;height:auto;aspect-ratio:1;object-fit:contain}
+.gauge-faces figcaption{font:600 15px/1.3 var(--font-body);color:var(--ink,#2C2C2C)}
+/* Community Calendar event kinds, drawn with Flash and Wally */
+.cal-kinds{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.cal-kinds li{display:grid;justify-items:center;gap:8px;padding:10px 8px 12px;background:#fff;border-radius:12px}
+.cal-kinds img{width:auto;height:min(170px,22dvh);max-width:100%;object-fit:contain}
+.cal-kinds span{font:600 15px/1.3 var(--font-body);text-align:center}
+@media (max-width:900px){.cal-kinds{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.cal-kinds li{padding:6px 4px 8px;gap:4px}.cal-kinds img{height:min(96px,11dvh)}.cal-kinds span{font-size:14px;line-height:1.2}}
+#main#main .gauge-faces img{max-height:none;min-height:0;object-fit:contain}

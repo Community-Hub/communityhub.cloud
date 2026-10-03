@@ -1,0 +1,63 @@
+/* Latest source-led direction: one quiet page surface, with the original
+   photographs and Dashboard palette accents carrying the changes in subject. */
+:root {
+  --site-surface:color-mix(in srgb,var(--dashboard-green-light) 10%,var(--dashboard-paper));
+  --scene-leaf:var(--site-surface);
+  --scene-water:var(--site-surface);
+  --scene-sun:var(--site-surface);
+  --scene-forest:var(--site-surface);
+}
+html,body { background:var(--site-surface); }
+#main[data-page] { background:var(--site-surface); }
+#main[data-page] > :is(section,blockquote.pull),
+.foot.ch-story-section {
+  background:var(--site-surface)!important;
+  color:var(--dashboard-ink);
+}
+#main[data-page="index"] > :is(.hv,#problem,#engage,#motivate)::before { display:none; }
+.hdr,.hdr.scrolled { background:var(--dashboard-paper); }
+
+/* John (28 and 30 Sep): the opening drone video fills the hero edge to edge and the
+   headline sits over it in white, on a scrim that keeps the words readable. */
+#main[data-page="index"] > .hv { align-items:flex-end; background:#12261c; }
+#main[data-page="index"] > .hv .hv-media { position:absolute; inset:0; width:100%; left:0; right:0; height:auto; aspect-ratio:auto; mask-image:none; }
+#main[data-page="index"] > .hv .hv-vid { object-fit:cover; object-position:center; }
+#main[data-page="index"] > .hv .hv-stills i { background-size:cover; background-position:center; transform:none; }
+#main[data-page="index"] > .hv .hv-scrim { display:block; background:linear-gradient(90deg,rgba(10,25,18,.72) 0%,rgba(10,25,18,.4) 45%,rgba(10,25,18,0) 75%),linear-gradient(180deg,rgba(10,25,18,0) 45%,rgba(10,25,18,.62) 100%); }
+#main[data-page="index"] > .hv .hv-copy { position:relative; z-index:1; padding-right:clamp(24px,5vw,96px); padding-block:clamp(48px,11vh,132px); }
+#main[data-page="index"] > .hv .hv-h,
+#main[data-page="index"] > .hv .hv-h .hv-premise { color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.45); }
+#main[data-page="index"] > .hv .hv-h em { color:#a6de9c; }
+#main[data-page="index"] > .hv .hv-p { color:#fff; font-size:clamp(16px,1.5vw,20px); max-width:46ch; margin-top:18px; text-shadow:0 1px 12px rgba(0,0,0,.5); }
+@media(max-width:900px) {
+  #main[data-page="index"] > .hv { display:flex; flex-direction:column; justify-content:flex-end; }
+  #main[data-page="index"] > .hv .hv-media { position:absolute; inset:0; width:100%; height:100%; aspect-ratio:auto; }
+  #main[data-page="index"] > .hv .hv-scrim { background:linear-gradient(180deg,rgba(10,25,18,.1) 0%,rgba(10,25,18,.35) 40%,rgba(10,25,18,.78) 100%); }
+  #main[data-page="index"] > .hv .hv-copy { flex:none; display:block; padding-top:30px; padding-bottom:72px; }
+}
+
+/* Former dark chapters now share the same readable paper and ink. */
+#main[data-page="index"] > #people,
+#main[data-page="index"] > .eng.tone-dark { color:var(--dashboard-ink); }
+#main[data-page="index"] #people :is(.people-context,.people-context em,.pp blockquote p,.pp figcaption,.pp figcaption b,.pp-btn,.pp-count,.pp-nav button),
+#main[data-page="index"] > .eng.tone-dark :is(.eng-label,.eng-media-title,.eng-copy h3,.eng-copy p,.eng-tabs button,.pc-a,.mini-cap,.mini-cap a,.dv-tabs button,.dv-tabs [role="tab"],.dv-cap,.dv-cap a,.dv-note,.dv-note a,.dv-help,.dv-help a) {
+  color:var(--dashboard-ink);
+}
+#main[data-page="index"] #people .pp-nav button:hover { color:var(--dashboard-ink); background:var(--dashboard-gray); }
+#main[data-page="index"] #people .pp-fade .pp figcaption,
+#main[data-page="index"] #people .pp-fade .pp figcaption b { color:var(--dashboard-ink); }
+#main[data-page="index"] #people :is(.pp-nav button,.pp-fade):focus-visible,
+#main[data-page="index"] > .eng.tone-dark .eng-tabs button:focus-visible { outline-color:var(--dashboard-ink); }
+#main[data-page="index"] > .eng.tone-dark :is(.eng-tabs,.dv-tabs) { border-bottom-color:var(--dashboard-gray); }
+#main[data-page="index"] > .eng.tone-dark :is(.eng-tabs button,.dv-tabs [role="tab"])[aria-selected="true"] { border-bottom-color:var(--dashboard-green); }
+#main[data-pager] > blockquote.pull :is(p,footer),
+#main[data-pager] .pull.has-source-photo :is(p,footer) { color:var(--dashboard-ink); }
+#main:is([data-page="about"],[data-page="contact"]) > :is(#about-mission,.contact-compose) { color:var(--dashboard-ink); }
+#main[data-page="about"] #about-mission :is(h1,h2,.lede,p,.crumbs,.crumbs a),
+#main[data-page="contact"] .contact-compose :is(.contact-intro,.contact-guidance) :is(h1,h2,.lede,p,li,.crumbs,.crumbs a) { color:var(--dashboard-ink); }
+#main[data-page="contact"] .contact-compose :is(.contact-intro,.contact-guidance) a:not(.btn-ink) { color:var(--dashboard-ink); }
+#main[data-page="contact"] .contact-guidance .rs-check svg { color:var(--dashboard-ink); }
+#main[data-page="contact"] :is(.contact-intro,.contact-guidance) a:focus-visible { outline-color:var(--dashboard-ink); }
+.foot.ch-story-section :is(.brand,.foot-line,.foot-h,.foot-cols a,.foot-bot,.foot-bot a) { color:var(--dashboard-ink); }
+.foot.ch-story-section :is(.foot-top,.foot-bot) { border-color:var(--dashboard-gray); }
+.foot.ch-story-section :is(a,summary):focus-visible { outline-color:var(--dashboard-ink); }
