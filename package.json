@@ -15,7 +15,8 @@
     "test:browser": "node scripts/python.mjs scripts/browser-acceptance.py",
     "test:visual": "node scripts/python.mjs tests/visual_parity.py",
     "test:contracts": "node scripts/python.mjs -m unittest discover -s tests -p \"test_site_contracts.py\" -v",
-    "test:browser:diagnostics": "node scripts/python.mjs -m unittest discover -s tests/browser -p \"test_*.py\" -v"
+    "test:browser:diagnostics": "node scripts/python.mjs -m unittest discover -s tests/browser -p \"test_*.py\" -v",
+    "pretest": "node scripts/setup-test-runtime.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
