@@ -10,8 +10,9 @@ npm test still runs check, build, all unit tests, runtime fixture compilation,
 compatible controller/menu regressions, delivered-page browser checks and content
 contracts. The unit suite additionally checks every emitted file against the SHA-256
 manifest captured from https://communityhub-refined.vercel.app. This covers HTML,
-CSS, JavaScript, fonts, real images and video bytes. LF text endings avoid differences
-from Windows checkout conversion. Do not regenerate the reference to hide a failure;
+CSS, JavaScript, fonts, real images and video bytes. Public assets disable Git text
+conversion to preserve the reference's exact mix of LF and CRLF bytes on every platform.
+Do not regenerate the reference to hide a failure;
 an intended website update needs explicit owner acceptance of a new reference.
 
 The live container is tested separately:

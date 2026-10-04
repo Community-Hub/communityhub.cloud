@@ -1,1 +1,4 @@
 * text=auto eol=lf
+# Static assets are copied verbatim. The approved reference includes both LF and
+# CRLF text assets; Git must preserve their bytes on Linux and Windows alike.
+public/** -text
