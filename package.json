@@ -1,0 +1,35 @@
+{
+  "name": "community-hub-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "check": "node scripts/check.mjs",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "test:parity": "node scripts/python.mjs -m unittest discover -s tests -p \"test_migration_parity.py\" -v",
+    "test": "npm run check && npm run build && npm run test:unit && npm run test:fixtures && npm run test:browser && npm run test:contracts",
+    "test:unit": "node --test \"tests/*.test.mjs\"",
+    "test:fixtures": "node scripts/build-test-runtime.mjs",
+    "test:browser": "node scripts/python.mjs scripts/browser-acceptance.py",
+    "test:visual": "node scripts/python.mjs tests/visual_parity.py",
+    "test:contracts": "node scripts/python.mjs -m unittest discover -s tests -p \"test_site_contracts.py\" -v",
+    "test:browser:diagnostics": "node scripts/python.mjs -m unittest discover -s tests/browser -p \"test_*.py\" -v",
+    "pretest": "node scripts/setup-test-runtime.mjs",
+    "precheck": "astro sync"
+  },
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.10",
+    "@types/node": "26.6.3",
+    "astro": "7.3.5",
+    "typescript": "6.0.3",
+    "cookie": "2.0.1"
+  },
+  "devDependencies": {
+    "vite": "8.3.1"
+  }
+}

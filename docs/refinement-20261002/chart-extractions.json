@@ -1,0 +1,53 @@
+[
+  {
+    "source": "deck/h86.jpg",
+    "source_sha256": "ec8e464cc0834fa35b6e034f7bd2b77fad6fe56c53cc12d91253eedcd5291ad7",
+    "output": "evidence/prospect-competition-heatmap.jpg",
+    "crop_pixels": [
+      54,
+      92,
+      956,
+      520
+    ],
+    "output_dimensions": [
+      902,
+      428
+    ],
+    "context": "Prospect Elementary historical Ecolympics heat map; year not specified in the supplied image",
+    "method": "Rectangular extraction only; no retouching, regenerated text, or changed chart values"
+  },
+  {
+    "source": "deck/h87.jpg",
+    "source_sha256": "7c67abf65a54a215b051a8b88f6b48b7ca7708400b82e3f11cfefc04a2c4a621",
+    "output": "evidence/oberlin-dorm-competition-2006-2009.jpg",
+    "crop_pixels": [
+      52,
+      255,
+      697,
+      533
+    ],
+    "output_dimensions": [
+      645,
+      278
+    ],
+    "context": "Oberlin dorm electricity chart, academic years 2006\u201307 through 2008\u201309",
+    "method": "Rectangular extraction only; no retouching, regenerated text, or changed chart values"
+  },
+  {
+    "source": "deck/h04.jpg",
+    "source_sha256": "7d84c69284b8aacab3bf25f4da33c0e48baa10fbdf74beeb5a9c9e4481306438",
+    "output": "evidence/feedback-connections-diagram.jpg",
+    "crop_pixels": [
+      38,
+      94,
+      806,
+      420
+    ],
+    "output_dimensions": [
+      768,
+      326
+    ],
+    "context": "Original feedback diagram: information connects resources and people with community empowerment",
+    "method": "Rectangular extraction of the complete original diagram only, removing slide title and empty slide margins; no regenerated labels or retouching"
+  }
+]

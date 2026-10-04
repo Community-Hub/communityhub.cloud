@@ -1,0 +1,49 @@
+/* John (30 Sep): the original communityhub.cloud colour coding, done cleaner. Charcoal for the stories,
+   To educate and the footer; pale lime for To engage and To motivate and empower; each group opens on a
+   green label block. The green is a shade deeper than the original's so white text on it stays readable. */
+:root{--ch-dark:#2C2C2C;--ch-lime:#F1F7D9;--ch-label:#398d4f;--ch-on-dark:#d9dfdb;--ch-green-on-dark:#8bd585}
+.hv-h .hv-l{display:block}
+.hv-h em{font-style:normal;color:var(--ch-green-on-dark)}
+#main > section#people{background:var(--ch-dark)}
+.foot{background:var(--ch-dark)}
+#main > section.eng.tone-lime{background:var(--ch-lime)}
+#main > section.eng.tone-dark{background:var(--ch-dark);color:#fff}
+.eng-label{display:inline-block;background:var(--ch-label);color:#fff;padding:.28em .7em .32em;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.03em;line-height:1.15;font-size:clamp(1.3rem,1rem + 1.1vw,2.1rem);margin:0}
+.eng-copy p{max-width:40ch}
+.eng-go{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 0!important}
+.eng-go .pc-a{margin:0}
+.tone-dark .eng-copy h3,.tone-dark .eng-copy p{color:#fff}
+.tone-dark .eng-copy p{color:var(--ch-on-dark)}
+.tone-dark .pc-a{color:var(--ch-green-on-dark)}
+.tone-dark .eng-tabs{border-bottom-color:#5a605d}
+.tone-dark .eng-tabs button{color:#fff}
+.tone-dark .eng-tabs button[aria-selected="true"]{border-bottom-color:var(--ch-green-on-dark)}
+.tone-dark .eng-tabs button:focus-visible{outline-color:#fff}
+.tone-dark .mini-cap,.tone-dark .mini-cap a{color:var(--ch-on-dark)}
+.tone-lime .eng-tabs{border-bottom-color:#c9d3ae}
+.tone-dark .dv-tabs{border-bottom-color:#5a605d}
+.tone-dark .dv-tabs button,.tone-dark .dv-tabs [role=tab]{color:#fff}
+.tone-dark .dv-tabs [aria-selected="true"]{border-bottom-color:var(--ch-green-on-dark)}
+.tone-dark .dv-cap,.tone-dark .dv-note,.tone-dark .dv-help,.tone-dark .dv-cap a,.tone-dark .dv-note a,.tone-dark .dv-help a,.tone-dark .mini-cap a{color:var(--ch-on-dark)}
+.tone-dark .story-player{border-color:#5a605d}
+@media (pointer:fine) and (min-width:900px) and (min-height:480px){
+  .eng-media > .cwd-sign{padding:14px 16px}
+  .eng-media .cwd-stage{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)!important;gap:14px}
+  .eng-media .cwd-tiles{grid-template-columns:1fr 1fr!important;gap:6px}
+  #motivate .eng-media .mini{max-width:calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 330px) * 1.6);margin-inline:auto}
+}
+/* Phones: the original's paragraphs are long, so the copy tightens and sits straight above its live view. */
+@media (max-width:699px){
+  .eng-label{font-size:1.15rem}
+  .eng-panels{margin-top:12px}
+  .eng-p{align-content:start;align-items:start;gap:12px}
+  .eng-copy h3{font-size:1.15rem;margin-bottom:4px}
+  .eng-copy p{font-size:.875rem;line-height:1.45;margin-bottom:8px}
+  .eng-go .pc-a{font-size:.875rem!important}
+  .eng-q{display:none}
+  .eng-media > .cwd-sign{padding:10px;border-radius:18px}
+  .eng-media .cwd-views{margin-bottom:6px}
+  .eng-media .cwd-tiles{gap:6px}
+  .eng-media .cwd-tiles > :nth-child(n+3){display:none}
+}

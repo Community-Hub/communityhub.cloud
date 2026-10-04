@@ -1,0 +1,61 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> community-hub-website@1.0.0 build
+> node ./node_modules/astro/bin/astro.mjs build
+
+11:31:52 [types] Generated 96ms
+11:31:52 [build] output: "static"
+11:31:52 [build] mode: "static"
+11:31:52 [build] directory: /workspace/shared/communityhub-refined-site/dist/
+11:31:52 [build] Collecting build info...
+11:31:52 [build] ✓ Completed in 166ms.
+11:31:52 [build] Building static entrypoints...
+11:31:53 [vite] ✓ built in 906ms
+11:31:53 [vite] ✓ built in 395ms
+11:31:53 [build] Rearranging server assets...
+
+ generating static routes 
+11:31:53   ├─ /sitemap.xml (+20ms) 
+11:31:53   ├─ /neighborhoods.html (+13ms) 
+11:31:53   ├─ /cities.html (+3ms) 
+11:31:53   ├─ /museums.html (+2ms) 
+11:31:53   ├─ /campuses.html (+3ms) 
+11:31:53   ├─ /schools.html (+7ms) 
+11:31:53   ├─ /examples.html (+4ms) 
+11:31:53   ├─ /oberlin-college.html (+5ms) 
+11:31:53   ├─ /city-of-oberlin.html (+5ms) 
+11:31:53   ├─ /midtown-cleveland.html (+3ms) 
+11:31:53   ├─ /great-lakes-science-center.html (+3ms) 
+11:31:53   ├─ /hamilton-college.html (+3ms) 
+11:31:53   ├─ /dashboards.html (+5ms) 
+11:31:53   ├─ /products.html (+2ms) 
+11:31:53   ├─ /education.html (+2ms) 
+11:31:53   ├─ /bring-a-dashboard.html (+3ms) 
+11:31:53   ├─ /research.html (+1ms) 
+11:31:53   ├─ /media.html (+20ms) 
+11:31:53   ├─ /environmental-dashboard.html (+2ms) 
+11:31:53   ├─ /story-of-dashboard.html (+3ms) 
+11:31:53   ├─ /about.html (+2ms) 
+11:31:53   ├─ /contact.html (+2ms) 
+11:31:53   ├─ /404.html (+1ms) 
+11:31:53   ├─ /the-hub.html (+2ms) 
+11:31:53   ├─ /data-dashboard.html (+2ms) 
+11:31:53   ├─ /stories.html (+3ms) 
+11:31:53   ├─ /pricing.html (+3ms) 
+11:31:53   ├─ /community-calendar.html (+2ms) 
+11:31:53   ├─ /community-voices.html (+2ms) 
+11:31:53   ├─ /digital-signage.html (+2ms) 
+11:31:53   ├─ /phone-app.html (+2ms) 
+11:31:53   ├─ /web-embeddables.html (+2ms) 
+11:31:53   ├─ /see-it-live.html (+2ms) 
+11:31:53   ├─ /who-its-for.html (+2ms) 
+11:31:53   ├─ /resources.html (+2ms) 
+11:31:53   ├─ /data-hub.html (+1ms) 
+11:31:53   ├─ /building-dashboard.html (+4ms) 
+11:31:53   ├─ /citywide-dashboard.html (+2ms) 
+11:31:53   ├─ /index.html (+4ms) 
+11:31:53 ✓ Completed in 243ms.
+
+11:31:53 [build] ✓ Completed in 1.61s.
+11:31:54 [build] 38 page(s) built in 1.89s
+11:31:54 [build] Complete!

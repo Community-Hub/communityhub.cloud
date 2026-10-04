@@ -1,0 +1,16 @@
+{
+  "/home": "/",
+  "/products-and-services": "/products.html",
+  "/environmental-dashboard": "/environmental-dashboard.html",
+  "/team": "/about.html",
+  "/products-and-services/data-manager": "/the-hub.html",
+  "/products-and-services/dashboard-creator": "/building-dashboard.html",
+  "/products-and-services/citywide-dashboard": "/citywide-dashboard.html",
+  "/products-and-services/community-calendar": "/community-calendar.html",
+  "/products-and-services/community-voices": "/community-voices.html",
+  "/products-and-services/digital-signage-software": "/digital-signage.html",
+  "/products-and-services/story-maker": "/stories.html",
+  "/pricing": "/pricing.html",
+  "/contact-us": "/contact.html",
+  "/products-and-services/phone-app": "/phone-app.html"
+}

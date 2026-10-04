@@ -1,0 +1,136 @@
+/* ================================================================
+   pages_zprod_a.css: The Hub, Citywide Dashboard, Building Dashboard,
+   Stories and Pricing. Every class here is prefixed .zpa- so it can't
+   collide with base.css or another module's pages_*.css. Design
+   tokens and chrome live in base.css; nothing here redefines them.
+   ================================================================ */
+
+/* ---------------------------------------------------------------- on-page jump nav */
+.zpa-jump{position:sticky;top:var(--hdr-h);z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(20,40,30,.08);padding:12px 0}
+.zpa-jump .wrap{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+.zpa-jump .wrap::-webkit-scrollbar{display:none}
+.zpa-jump a{flex:none;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.86rem);color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  padding:6px 4px}
+.zpa-jump a:hover,.zpa-jump a.is-on{color:var(--ink)}
+.dark .zpa-jump{background:rgba(21,14,44,.9);border-color:rgba(255,255,255,.12)}
+.dark .zpa-jump a{color:var(--on-dark-2)}
+.dark .zpa-jump a:hover,.dark .zpa-jump a.is-on{color:#fff}
+
+/* ---------------------------------------------------------------- section shell */
+.zpa-sec{padding:var(--sec) 0}
+.zpa-sec.zpa-alt{background:var(--sky-2)}
+.zpa-sec .fig{margin-bottom:8px}
+.zpa-sec .lede{max-width:62ch}
+.zpa-sec-body{margin-top:26px}
+
+/* ---------------------------------------------------------------- stat strip */
+.zpa-stats{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,48px)}
+.zpa-stat{min-width:120px}
+.zpa-stat b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:normal;color:var(--leaf-deep)}
+.dark .zpa-stat b{color:var(--leaf)}
+.zpa-stat span{display:block;color:var(--ink-2);font-size:.9rem;margin-top:4px;max-width:26ch}
+.dark .zpa-stat span{color:var(--on-dark)}
+
+/* ---------------------------------------------------------------- Data Manager: sourced-integration list */
+.zpa-src{display:grid;grid-template-columns:1fr 1fr;gap:2px 28px}
+.zpa-src li{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(20,40,30,.1)}
+.dark .zpa-src li{border-color:rgba(255,255,255,.14)}
+.zpa-src img{width:34px;height:34px;flex:none;margin-top:2px}
+.zpa-src b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:1rem}
+.zpa-src span{display:block;color:var(--ink-2);font-size:.92rem;margin-top:2px}
+.dark .zpa-src span{color:var(--on-dark)}
+@media (max-width:760px){.zpa-src{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- Flash/Wally mood trio */
+.zpa-moods{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;background:#fff;border-radius:var(--r-card);
+  padding:26px;box-shadow:var(--shadow)}
+.zpa-moods figure{margin:0;text-align:center}
+.zpa-moods img{width:88px;height:88px;margin:0 auto}
+.zpa-moods figcaption{margin-top:8px;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.85rem);color:var(--ink-2)}
+@media (max-width:560px){.zpa-moods{gap:12px;flex-wrap:nowrap}.zpa-moods img{width:76px;height:76px}}
+
+/* ---------------------------------------------------------------- orb legend + grid */
+.orbmap{margin:18px 0 0}
+.orbmap iframe{display:block;width:100%;aspect-ratio:2048/1266;border:0;border-radius:12px;background:#f4f1ea}
+.orbmap figcaption{font-size:max(14px,.8rem);color:var(--ink-2);margin-top:6px}
+.orbmap figcaption a{color:var(--leaf-deep)}
+[data-orbs]{display:block}
+[data-orbs] p.events-fallback{grid-column:1 / -1;color:var(--ink-2)}
+
+/* ---------------------------------------------------------------- image pair / trio */
+.zpa-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.zpa-pair img{width:100%;height:auto;border-radius:12px;border:1px solid #e3e8e5;display:block}
+.zpa-pair figcaption{margin-top:8px;font-size:max(14px,.86rem);color:var(--ink-2)}
+@media (max-width:640px){.zpa-pair{grid-template-columns:1fr}}
+
+.zpa-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.zpa-trio figure{margin:0}
+.zpa-trio img{width:100%;border-radius:16px;aspect-ratio:4/3;object-fit:cover;box-shadow:var(--shadow)}
+.zpa-trio figcaption{margin-top:8px;font-size:max(14px,.84rem);color:var(--ink-2)}
+@media (max-width:820px){.zpa-trio{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.zpa-trio{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- story topic tiles (nine C-Neutral topics) */
+.zpa-topics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.zpa-topic{display:flex;align-items:center;gap:14px;border-radius:18px;padding:16px 18px;background:var(--c-tint,var(--sky-2))}
+.zpa-topic img{width:40px;height:40px;flex:none}
+.zpa-topic b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:.98rem;color:var(--ink)}
+@media (max-width:820px){.zpa-topics{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.zpa-topics{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- in-development notice */
+.zpa-notice{display:flex;gap:12px;align-items:flex-start;background:var(--amber-tint);color:var(--amber-ink);border-radius:16px;
+  padding:16px 20px;margin-top:16px;max-width:66ch}
+.dark .zpa-notice{background:color-mix(in srgb, var(--gold) 16%, transparent);color:var(--gold)}
+.zpa-notice b{font-family:var(--font-display);display:block;margin-bottom:2px}
+
+/* ---------------------------------------------------------------- pricing hero peek */
+.zpa-price-peek{display:flex;flex-direction:column;gap:14px;background:#fff;border-radius:var(--r-card);
+  padding:24px;box-shadow:var(--shadow)}
+.zpa-price-peek div{display:flex;align-items:center;gap:14px}
+.zpa-price-peek img{width:44px;height:44px;flex:none}
+.zpa-price-peek b{font-family:var(--font-display);font-weight:var(--fw-d);font-size:1rem}
+.zpa-price-peek small{display:block;color:var(--ink-2);font-size:max(14px,.82rem);margin-top:1px}
+
+/* ---------------------------------------------------------------- pricing bundles */
+.zpa-bundles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.zpa-bundle{border-radius:var(--r-card);padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.zpa-bundle h3{font-size:1.25rem}
+.zpa-bundle ul{display:grid;gap:6px;margin-top:2px}
+.zpa-bundle li{font-size:.92rem;color:var(--ink-2);padding-left:16px;position:relative}
+.zpa-bundle li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:999px;background:currentColor;opacity:.5}
+.zpa-bundle .price{margin-top:auto;padding-top:10px;font-family:var(--font-display);font-weight:var(--fw-d);font-size:.9rem;color:var(--ink-2);
+  border-top:1px solid rgba(20,40,30,.14)}
+@media (max-width:900px){.zpa-bundles{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- request-a-quote form */
+.zpa-form{display:grid;gap:16px;margin-top:26px;max-width:52ch}
+.zpa-form label{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:.9rem}
+.zpa-form input,.zpa-form select,.zpa-form textarea{display:block;width:100%;margin-top:6px;padding:12px 14px;border-radius:12px;
+  border:2px solid var(--ink);font:1rem/1.5 var(--font-body);background:#fff}
+.zpa-form button{justify-self:start}
+.zpa-out{font-family:var(--font-display);font-weight:var(--fw-d);color:var(--leaf-deep)}
+.zpa-note{color:var(--ink-2);font-size:.88rem;max-width:44ch}
+
+/* ---------------------------------------------------------------- FAQ */
+.zpa-faq{display:grid;gap:10px;max-width:70ch}
+.zpa-faq details{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:6px 20px}
+.zpa-faq summary{cursor:pointer;padding:16px 0;font-family:var(--font-display);font-weight:var(--fw-d);font-size:1rem;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.zpa-faq summary::-webkit-details-marker{display:none}
+.zpa-faq summary::after{content:"+";font-size:1.3rem;color:var(--ink-2);flex:none}
+.zpa-faq details[open] summary::after{content:"\2212"}
+.zpa-faq p{color:var(--ink-2);padding:0 0 18px;margin:0}
+
+/* ---------------------------------------------------------------- factors / what changes the price */
+.zpa-factors{display:grid;gap:2px}
+.zpa-factors li{padding:14px 0;border-bottom:1px solid rgba(20,40,30,.1)}
+.zpa-factors b{display:block;font-family:var(--font-display);font-weight:var(--fw-d)}
+.zpa-factors span{display:block;color:var(--ink-2);font-size:.92rem;margin-top:2px}
+
+/* ---------------------------------------------------------------- data sources strip (reused pattern) */
+.zpa-sources{display:flex;flex-wrap:wrap;gap:16px}
+.zpa-sources div{flex:1;min-width:200px;border-radius:18px;padding:16px 18px;background:var(--c-tint,var(--sky-2));border-left:5px solid var(--c,var(--sky-deep))}
+.zpa-sources b{display:block;font-family:var(--font-display);font-weight:var(--fw-d)}
+.zpa-sources span{display:block;color:var(--ink-2);font-size:.88rem;margin-top:3px}

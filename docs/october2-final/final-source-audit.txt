@@ -1,0 +1,87 @@
+
+PAGE index.html
+
+PRODUCT Digital Signage
+COPY: ['Digital Signage Easy to use interactive digital signage makes it simple for multiple stakeholders to post and update content that connects community members with both organization and location-specific and community-wide information and events Learn more']
+HEADINGS: ['Digital Signage', "Dave's Market · MidTown Cleveland", 'Hotel at Oberlin', 'Oberlin City Schools', 'Great Lakes Science Center · Workshop', 'Great Lakes Science Center · Exhibit', 'Oberlin College · Carbon Neutral Stories']
+LINKS: [('Learn more', 'digital-signage.html')]
+BUTTONS: [('Previous Digital Signage example', ''), ('Next Digital Signage example', ''), ('Pause automatic examples', '')]
+SLIDES 6
+
+PRODUCT Phone App
+COPY: ['Phone App Our phone application is easily customized to meet the communication goals of each community. Viewers can directly access content that interests them on their phone and can also control current content displayed on the digital sign nearest to them by scanning a QR code Learn more']
+HEADINGS: ['Phone App']
+LINKS: [('Learn more', 'phone-app.html')]
+BUTTONS: []
+SLIDES 0
+
+PRODUCT Web Embeddables
+COPY: ['Web Embeddables CH content, such as community calendars, real-time data visualizations, and navigable dashboards can be easily customized and embedded into the websites of any partner organization Learn more']
+HEADINGS: ['Web Embeddables', 'Oberlin · Community Calendar', 'Cleveland · Community Calendar']
+LINKS: [('Learn more', 'web-embeddables.html')]
+BUTTONS: [('Previous Web Embeddables example', ''), ('Next Web Embeddables example', ''), ('Pause automatic examples', '')]
+SLIDES 2
+
+PRODUCT Building Dashboard
+COPY: ['Building Dashboard Building Dashboard tracks and communicates patterns of real-time resource use in buildings in ways that engage, are easy to understand and make connections between resource conservation and resulting environmental and community benefits. Learn more']
+HEADINGS: ['Building Dashboard', 'Oberlin College · Harkness', 'Oberlin City Schools · Elementary School', 'City of Oberlin · Public Library']
+LINKS: [('Learn more', 'building-dashboard.html')]
+BUTTONS: [('Previous Building Dashboard example', ''), ('Next Building Dashboard example', ''), ('Pause automatic examples', '')]
+SLIDES 3
+
+PRODUCT Citywide Dashboard
+COPY: ['Citywide Dashboard Citywide Dashboard is an animated visualization of whole-community flows of electricity, drinking water, and current environmental conditions. It is designed to enhance residents’ understandings of how they are connected to a larger whole — a whole that is ultimately dependent on renewable resource flows and a healthy environment. Learn more']
+HEADINGS: ['Citywide Dashboard', 'Oberlin · Citywide Dashboard', 'Cleveland · Citywide Dashboard']
+LINKS: [('Learn more', 'citywide-dashboard.html')]
+BUTTONS: [('Previous Citywide Dashboard example', ''), ('Next Citywide Dashboard example', ''), ('Pause automatic examples', '')]
+SLIDES 2
+
+PRODUCT Data Hub
+COPY: ['Data Hub Data Hub is a powerful and intuitive package of online data visualization tools. Data Hub makes it easy for managers, educators, students and communicators to translate real-time data acquired from a variety of sources into compelling visualizations that are easily understood and can be shared on websites and digital signage to tell stories of impact and opportunity. Learn more']
+HEADINGS: ['Data Hub', 'Oberlin · Electricity heat map', 'Oberlin · Electricity through the day']
+LINKS: [('Learn more', 'the-hub.html')]
+BUTTONS: [('Previous Data Hub example', ''), ('Next Data Hub example', ''), ('Pause automatic examples', '')]
+SLIDES 2
+
+PRODUCT Stories
+COPY: ["Stories Illustrated stories explain how local systems work, starting with nine from Oberlin College's Sustainable Infrastructure Program. They play on screens, phones and the web. Learn more"]
+HEADINGS: ['Stories', 'Oberlin College · Heating & Cooling', 'Great Lakes Science Center · Climate']
+LINKS: [('Learn more', 'stories.html')]
+BUTTONS: [('Previous Stories example', ''), ('Next Stories example', ''), ('Pause automatic examples', '')]
+SLIDES 2
+
+PRODUCT Community Voices
+COPY: ['Community Voices Community Voices combines images and words drawn from the full diversity of a community to celebrate and cultivate thought and actions that advance ecological, economic, and social resilience. Community Hub’s unique software makes it easy to build, manage, organize and customize content into powerful messages for display on digital signage, phone apps, and websites. Learn more']
+HEADINGS: ['Community Voices', 'Oberlin · Natural Oberlin', 'Cleveland · Our Neighbors', 'Cleveland · Next Generation', 'Cleveland · Climate Action']
+LINKS: [('Learn more', 'community-voices.html')]
+BUTTONS: [('Previous Community Voices example', ''), ('Next Community Voices example', ''), ('Pause automatic examples', '')]
+SLIDES 4
+
+PRODUCT Community Calendar
+COPY: ['Community Calendar Engaged residents who can easily share information and are encouraged to participate are critical to community vibrancy and resilience. Our calendar application is a unique crowd-sourced venue that makes it easy for organizations and community members to share and promote events and announcements within organizations, neighborhoods, and whole cities. Learn more']
+HEADINGS: ['Community Calendar', 'Oberlin · Community Calendar', 'Cleveland · Community Calendar']
+LINKS: [('Learn more', 'community-calendar.html')]
+BUTTONS: [('Previous Community Calendar example', ''), ('Next Community Calendar example', ''), ('Pause automatic examples', '')]
+SLIDES 2
+IFRAMES [('Oberlin College · Harkness', 'https://oberlin.communityhub.cloud/dh-public/ops/dashboard/815'), ('Oberlin City Schools · Elementary School', 'https://oberlin.communityhub.cloud/dh-public/ops/dashboard/529'), ('City of Oberlin · Public Library', 'https://oberlin.communityhub.cloud/dh-public/ops/dashboard/1001'), ('Oberlin Citywide Dashboard', 'https://www.environmentaldashboard.org/cwd-files/dashboard.php?interval=&current_state='), ('Cleveland Citywide Dashboard', 'https://cleveland.communityhub.cloud/citywide-dashboard/index?embed=1&show-menu=0'), ('Oberlin electricity heat map', 'https://oberlin.communityhub.cloud/dh-public/heat-map/969/chart-window/last-60-days?show-header=1&show-chart-title=1'), ('Oberlin electricity time-series chart', 'https://oberlin.communityhub.cloud/dh-public/time-series-chart/embed/0/chart-window/today?variableId=45660')]
+CONTROLLER TEXT: ['Oberlin College · Harkness', 'Oberlin City Schools · Elementary School', 'City of Oberlin · Public Library']
+
+PAGE products.html
+HEADINGS ['Engage', 'Educate', 'Motivate and empower', 'Story of Dashboard', 'Keep exploring']
+IFRAMES []
+CONTROLLER TEXT: []
+
+PAGE digital-signage.html
+HEADINGS ['On this page', 'Digital Signage', 'Events on the screen', 'Shared community content', 'Location Specific Content', 'The shared loop', 'The MidTown Story', "Dave's Market's own content", 'Control Digital Signage', 'Where the screens are', 'Oberlin, Ohio', 'MidTown Cleveland', 'What plays on the screen', 'Keep exploring']
+IFRAMES []
+CONTROLLER TEXT: ['Oberlin College', 'Open full size']
+
+PAGE stories.html
+HEADINGS ['On this page', "Nine stories, from Oberlin College's Sustainable Infrastructure Program", 'The Science Center exhibit', 'Sustainability trail', 'Works well with', 'Keep exploring']
+IFRAMES []
+CONTROLLER TEXT: ['Oberlin College', 'Open full size']
+
+PAGE about.html
+HEADINGS ['A community-centered communication platform', 'Origin Story', 'Feedback work starts', 'U.S. EPA support', 'The first dorm competition', 'Environmental Dashboard', 'Hub Analytics', 'MidTown Cleveland', 'Stories', 'MidTown grows, Hamilton starts a pilot', 'Who We Serve', 'City of Oberlin', 'Oberlin College', 'Oberlin City Schools', 'Great Lakes Science Center', 'MidTown Cleveland', 'Hamilton College', 'Team', 'Keep exploring']
+IFRAMES []
+CONTROLLER TEXT: []

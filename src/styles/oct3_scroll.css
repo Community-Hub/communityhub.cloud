@@ -1,0 +1,48 @@
+/* Oct 3: the down control is on every scene, in one central spot, with its own
+   solid face so it reads over any scene. */
+body>.page-next{bottom:10px;width:44px;height:44px;min-width:44px;max-width:44px;color:#234e3b;background:rgba(255,255,255,.94);border-color:#234e3b;box-shadow:0 2px 10px rgba(44,44,44,.2);filter:none}
+body>.page-next.is-on{opacity:.92}
+body>.page-next.is-on:hover,body>.page-next.is-on:focus-visible{opacity:1}
+
+/* Room for the control: every scene that has a next one keeps the bottom
+   strip (control 44px + 10px gap + breathing room) free of content. The fit
+   script measures padding too, so scenes scale to fit above the strip. */
+:root{--next-room:60px}
+#main#main[data-page]:not([data-page="index"])>.ch-story-section:not(.foot):not(.hv){padding-bottom:max(var(--pg-pad,32px),var(--next-room))!important}
+#main#main.ch-fit-measure[data-page]:not([data-page="index"])>.ch-story-section:not(.foot):not(.hv){padding-bottom:max(var(--pg-pad,48px),var(--next-room))!important}
+/* Community Voices embed: each community and category is kept loaded; the front one shows. */
+.native-view{display:contents}
+.native-view[hidden]{display:none}
+#main#main .native-voices-stage .native-voices-screen{opacity:0;z-index:0}
+#main#main .native-voices-stage .native-voices-screen.is-front{opacity:1;z-index:1}
+#main#main .native-voices-stage[data-loading]::after{content:"Loading\2026";position:absolute;z-index:2;right:10px;bottom:8px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.94);color:#234e3b;font-weight:600;font-size:12px;line-height:1.4;box-shadow:0 1px 6px rgba(44,44,44,.2)}
+/* The home page uses the same single bottom-centre circle as every page; its old per-section arrows stay out of sight. */
+#main#main#main[data-page="index"] .sec-next:not(.page-next){display:none!important}
+/* The hero's Explore link keeps clear of the bottom-centre circle on a phone. */
+@media (max-width:760px){#main#main#main[data-page="index"]>.hv .hv-next{bottom:72px}}
+/* The home opening after Explore (headline band, photo, quote, controls) fits one phone screen with the circle's room free: no tail stop, headline never under the header. */
+@media (max-width:699px){
+html #main#main#main[data-page="index"]>.hv.intro-peek .hv-film{height:160px}
+html #main#main#main[data-page="index"].has-intro-peek #people{padding-top:16px!important}
+html #main#main#main[data-page="index"].has-intro-peek #people .pp-fade .pp img{height:clamp(120px,calc(100dvh - 650px),230px)!important}
+}
+/* Phones: scenes taller than the screen scroll under the circle, so it gets a
+   dock in the page surface; content ends at the dock instead of sitting under
+   the control. */
+@media (max-width:760px){
+body:has(>.page-next.is-on):has(>#main[data-page]:not([data-page="index"]))::after{content:"";position:fixed;left:0;right:0;bottom:0;height:calc(var(--next-room) + 6px);z-index:4;pointer-events:none;background:inherit;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14px);mask-image:linear-gradient(to bottom,transparent 0,#000 14px)}
+body>.page-next{bottom:max(10px,env(safe-area-inset-bottom))}
+/* Small text links keep a finger-sized hit area without moving the layout. */
+#main .crumbs a{display:inline-block;padding-block:8px;margin-block:-8px}
+#main#main#main .live-frame .bar a,#main .now-go{display:inline-flex;align-items:center;min-height:32px}
+/* Home calendar preview: one-line titles keep three rows and the caption above the circle whatever the live titles are. */
+#main#main#main[data-page="index"] .calendar-brief .ev-what{min-width:0}
+#main#main#main[data-page="index"] .calendar-brief .ev-what>b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-clamp:1;overflow:hidden}
+#main#main#main[data-page="index"] .calendar-brief .events-src{margin-top:8px}
+/* Chapter arrows point down on a phone: the content they lead to sits below the heading. */
+#main#main#main[data-page="index"] .chapter-connector{display:inline-block;transform:rotate(90deg);transform-origin:50% 55%}
+/* About carousel: controls sit clear of the dock, dots take a finger. */
+#main#main#main#main[data-page="about"] #history .about-tv .native-tv-device{margin-bottom:14px}
+#main#main#main .about-tv-dots button{position:relative}
+#main#main#main .about-tv-dots button::after{content:"";position:absolute;inset:-13px -3px}
+}

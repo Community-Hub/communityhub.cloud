@@ -1,0 +1,202 @@
+/* Screen fit (pairs with pages_zzzz_fit.js). Loaded last. */
+
+/* Every semantic block has its own room under the sticky chrome, including
+   short quotes, cross-links, and the footer. The first hero precedes the jump
+   bar, and the footer follows it, so neither reserves that bar's height. */
+#main>.ch-story-section{min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)));margin-block:0;box-sizing:border-box;isolation:isolate}
+#main>.ch-story-section:is(.hv,.ph2,.page-hero):first-child{min-height:calc(100dvh - var(--story-base-hdr-h,var(--hdr-h)) - var(--ban-h,0px))}
+.foot.ch-story-section{min-height:calc(100dvh - var(--story-base-hdr-h,var(--hdr-h)));box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;isolation:isolate}
+.foot.ch-story-section>.wrap{width:100%}
+#main>p.ch-story-section{padding:var(--pg-pad,32px) var(--gut);align-content:center}
+
+/* Padding scales with the viewport height. */
+#main[data-pager]{--pg-pad:clamp(14px,4.2dvh,52px)}
+#main[data-pager]>section:not(.ph2),#main[data-pager]>.next,#main[data-pager]>blockquote{
+  justify-content:center;padding-top:var(--pg-pad);padding-bottom:var(--pg-pad)}
+#main[data-pager]>.page-hero{padding-top:calc(var(--pg-pad) * 1.3)}
+#main[data-pager]>blockquote.pull{padding-left:var(--gut);padding-right:var(--gut)}
+#main[data-pager]>.ch-fit>*,#main:has(>.hv)>.ch-fit>*{zoom:var(--fit)}
+/* zoom shrinks the wrap's max-width too; widen it so the column keeps its full visual width */
+#main>.ch-fit>.wrap{max-width:calc(var(--max,1320px) / var(--fit))}
+/* Measuring uses natural content height and unscaled type. */
+#main.ch-fit-measure>*{min-height:0!important;padding-top:var(--pg-pad,48px)!important;padding-bottom:var(--pg-pad,48px)!important}
+#main.ch-fit-measure>*>*{zoom:1!important}
+#main.ch-fit-measure>.hv{padding:0!important}
+
+/* section headings shrink with short screens instead of pushing the content off */
+.zpa-sec .h2,.zpb-sec .h2,.ppl-sec .h2{font-size:clamp(1.7rem,min(4.4vw,6.2dvh),3.4rem)}
+.zpa-sec-body,.zpb-sec-body,.ppl-sec-body{margin-top:clamp(12px,2.6dvh,34px)}
+
+/* pictures inside a screen never run taller than the room left under the heading */
+#main[data-pager] section figure img,#main[data-pager] section .postcard img{max-height:calc(100dvh - var(--story-hdr-h,137px) - 300px);min-height:0;object-fit:cover}
+
+/* media capped by the room a screen really has, centred */
+:root{--fit-room:calc(100dvh - var(--story-hdr-h,137px))}
+#main .sp-stage{width:min(100%,calc((var(--fit-room) - 300px)*16/9));min-width:min(100%,420px);margin-inline:auto}
+#main .story-player{background:#fff}
+#main .lf-body{height:min(var(--h,520px),max(260px,calc(var(--fit-room) - 340px)))}
+#main .orbmap iframe{width:min(100%,calc((var(--fit-room) - 300px)*2048/1266));min-width:min(100%,420px);margin-inline:auto}
+#main .zpb-cv-ph{aspect-ratio:16/9}
+#main .zpb-emb-stage{align-items:start}
+
+/* hero right column: scene beside tiles, glance in two columns */
+.page-hero .ph-grid{align-items:center}
+@media (min-width:1000px){
+  .page-hero .cwd-stage{grid-template-columns:1.5fr 1fr}
+  .page-hero .cwd-tiles{grid-template-columns:1fr}
+  .page-hero .ppl-glance{grid-template-columns:1fr 1fr;column-gap:22px;margin-top:12px!important;padding:14px 18px}
+}
+/* two-column timeline and cards on wide screens */
+@media (min-width:1000px){
+  .rs-tl{max-width:none;grid-template-columns:1fr 1fr;column-gap:32px}
+  .va-grid{gap:14px;margin-top:16px}
+  .va-fig{padding:12px 16px}
+  .va-fig svg{max-height:calc((var(--fit-room) - 380px)/2)}
+}
+
+/* side by side stepper: the picture takes the height of the steps beside it */
+@media (min-width:820px){
+  .zpb-stepper{align-items:stretch}
+  .zpb-stepper-media{position:relative;min-height:clamp(220px,calc(var(--fit-room) - 210px),520px);background:#fff}
+  #main .zpb-stepper-media img,#main[data-pager] .zpb-stepper-media img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain;margin:0}
+}
+@media (max-height:700px) and (min-width:700px){
+  #main{--pg-pad:clamp(10px,3dvh,24px)}
+  .lede{font-size:1.05rem}
+  #main .h2{margin-bottom:0}
+}
+
+/* two maps side by side, research abstracts as one feature plus a 2x2 block, the embed demo as a browser window */
+@media (min-width:1000px){
+  .zpa-sec-body:has(> .orbmap + .orbmap){display:grid;grid-template-columns:1fr 1fr;gap:0 20px;align-items:start}
+  .zpa-sec-body:has(> .orbmap + .orbmap) .orbmap iframe{width:100%;min-width:0}
+  .zpa-sec-body:has(> .orbmap + .orbmap) > :not(.orbmap){grid-column:1 / -1}
+  .va-grid{grid-template-columns:1.1fr 1fr 1fr}
+  .va-card:first-child{grid-column:1;grid-row:1 / span 2}
+  .va-card:first-child .va-fig{flex:1;display:grid;place-items:center}
+}
+@media (min-width:1100px){
+  .zpb-emb-main .zpb-emb-site{max-height:max(320px,calc(var(--fit-room) - 520px));overflow:hidden}
+}
+
+/* long lists become columns, so a screen holds far more of them */
+@media (min-width:1000px){
+  .ppl-dash-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .ppl-dash-grid .lf-body{height:min(var(--h,520px),max(200px,calc((var(--fit-room) - 380px)/2)))!important}
+  .rs-lessons{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 1px;background:var(--line)}
+  .rs-lessons li:nth-child(even){background:#fff}
+  .rs-lessons li{box-shadow:0 -1px 0 var(--line);padding:11px 16px}
+}
+@media (min-width:1300px){.rs-lessons{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* case study hero: headline and glance share the left column, the live sign takes the right */
+@media (min-width:1000px){
+  .page-hero:not(.ph2) h1.h1{font-size:clamp(2.2rem,min(4.4vw,7.2dvh),4.2rem);line-height:1}
+  .page-hero:not(.ph2) .crumbs{margin-bottom:8px}
+  .page-hero .cs-switch{margin:8px 0 16px;padding:6px 0}
+  .page-hero .ph-grid:has(> div:last-child > .ppl-glance){grid-template-columns:1.05fr 1fr;align-items:start;gap:18px 40px}
+  .page-hero .ph-grid:has(> div:last-child > .ppl-glance) > div:last-child{display:contents}
+  .page-hero .ph-grid:has(> div:last-child > .ppl-glance) > div:first-child{grid-column:1;grid-row:1;align-self:end}
+  .page-hero .ph-grid:has(> div:last-child > .ppl-glance) > div:last-child > :not(.ppl-glance){grid-column:2;grid-row:1 / span 2;align-self:center}
+  .page-hero .ph-grid:has(> div:last-child > .ppl-glance) .ppl-glance{grid-column:1;grid-row:2;align-self:start;margin-top:0!important}
+}
+
+@media (min-width:1000px){
+  .ppl-pair img{max-height:calc(var(--fit-room) - 330px);object-fit:cover;width:100%}
+}
+@media (max-height:800px) and (min-width:1000px){
+  #main .zpb-cv-ph{aspect-ratio:2/1}
+}
+@media (min-width:1000px){
+  .dv-frame,.dv-view > .dv-chart{width:min(100%,calc((var(--fit-room) - 360px)*1.6));min-width:min(100%,480px);margin-inline:auto}
+  .zpb-cv-cats{grid-template-columns:repeat(4,1fr);gap:14px}
+}
+@media (max-height:800px) and (min-width:1000px){
+  .rs-vid-th{aspect-ratio:2/1}
+}
+
+/* homepage sections use the same padding scale as the inner pages, so the fit pass can trade it for room */
+@media (min-width:700px){
+  #main:has(> .hv){--pg-pad:clamp(14px,4.2dvh,52px)}
+  #main:has(> .hv) > section:not(.hv){padding-top:var(--pg-pad)!important;padding-bottom:var(--pg-pad)!important}
+}
+@media (min-width:1000px) and (min-height:640px){
+  #main:has(> .hv) .words .pq blockquote p{font-size:clamp(1.2rem,min(2.2vw,3.6dvh),2rem);line-height:1.4}
+  #main:has(> .hv) .words .pq{padding-block:10px 14px;padding-left:24px}
+  #main:has(> .hv) .words .pq figcaption{margin-top:18px;font-size:1rem}
+  #main:has(> .hv) .words .pq-row{margin-top:clamp(28px,6dvh,64px);gap:clamp(28px,3vw,56px)}
+}
+
+/* very short windows: the header switch already carries the trail, so drop the breadcrumb row */
+@media (max-height:620px) and (min-width:700px){
+  .page-hero:not(.ph2) .crumbs{display:none}
+}
+
+/* text beside a picture instead of stacked under it */
+@media (min-width:900px){
+  .ppl-split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,64px);align-items:center}
+  .ppl-split .postcard{margin:0}
+  .ppl-split .postcard img{max-height:calc(var(--fit-room) - 300px);width:100%;object-fit:cover}
+}
+
+/* Citywide widget: tiles as tall as the scene beside them */
+@media (min-width:1000px){
+  #main .cwd-tiles{gap:8px}
+  #main .cwd-tiles .tile{padding:8px 14px}
+  #main .cwd-tiles .v{font-size:1.45rem}
+  #main .cwd-tiles .bar{margin-top:4px}
+}
+
+/* section headings use the full width instead of wrapping to three lines */
+@media (min-width:1000px){
+  .zpa-sec .h2,.zpb-sec .h2,.ppl-sec .h2{max-width:none}
+}
+/* feature list beside the screenshot player */
+@media (min-width:1100px){
+  .zpa-sec-body:has(> .feat-list.c2 + .sp-shots){display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:0 40px;align-items:center}
+  .zpa-sec-body:has(> .feat-list.c2 + .sp-shots) > .feat-list{grid-template-columns:1fr;gap:16px}
+  .zpa-sec-body:has(> .feat-list.c2 + .sp-shots) > .sp-shots{margin-top:0!important}
+  .zpa-sec-body:has(> .feat-list.c2 + .sp-shots) > p{grid-column:1 / -1}
+}
+
+/* the fit pass re-measures blocks above the viewport; anchoring would turn that into a visible scroll jump */
+html,body,#main{overflow-anchor:none}
+
+/* a live phone controller beside the steps: sized by the height it is given */
+.zpb-stepper-media.is-live{box-shadow:none;background:none;border-radius:0;display:flex;justify-content:center}
+.zpb-stepper-media.is-live .mini{width:min(100%,300px);border-radius:18px;border-color:#CCCCCB}
+@media (min-width:820px){
+  .zpb-stepper-media.is-live .mini{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:auto;height:100%;aspect-ratio:390/780}
+}
+/* the embed demo on one screen: examples down the left, the site in the middle, the controls on the right */
+@media (min-width:1100px){
+  .zpb-emb-demo{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:20px;align-items:start}
+  .zpb-emb-demo > .zpb-emb-bar-k{display:none}
+  .zpb-emb-demo .zpb-emb-presets{grid-template-columns:1fr;grid-auto-flow:row;gap:8px;padding:0}
+  .zpb-emb-demo .zpb-emb-pre{padding:8px 10px;gap:10px}
+  .zpb-emb-demo .zpb-emb-aa{width:36px;height:36px}
+  .zpb-emb-demo .zpb-emb-aa span{width:26px;height:26px;font-size:max(14px,.85rem)}
+  .zpb-emb-demo .zpb-emb-stage{margin-top:0;grid-template-columns:minmax(0,1fr) 280px;gap:20px}
+  .zpb-emb-demo .zpb-emb-note{display:none}
+  .zpb-emb-demo .zpb-emb-code{margin-top:10px;padding-top:10px}
+  .zpb-emb-demo .zpb-emb-panel{position:static;padding:16px;gap:12px}
+  .zpb-emb-demo .zpb-emb-field{gap:6px}
+  .zpb-emb-demo .zpb-emb-seg legend{margin-bottom:6px}
+  .zpb-emb-demo .zpb-emb-main .zpb-emb-site{max-height:calc(var(--fit-room) - 290px)}
+}
+@media (min-width:820px) and (max-height:860px){
+  .zpb-step{padding:10px 4px}
+  .zpb-step-bar{margin-top:6px}
+}
+@media (min-width:1100px) and (max-height:860px){
+  .zpb-emb-demo .zpb-emb-panel{padding:12px 14px;gap:8px}
+  .zpb-emb-demo .zpb-emb-panel-h h3{font-size:1rem}
+  .zpb-emb-demo .zpb-emb-reset{padding:5px 10px}
+  .zpb-emb-demo .zpb-emb-code{margin-top:6px;padding-top:6px}
+}
+@media (min-width:1100px){#try .lede{max-width:none}}
+@media (min-width:1100px) and (max-height:780px){
+  .zpb-emb-demo .zpb-emb-panel{max-height:calc(var(--fit-room) - 170px);overflow:auto}
+  .zpb-emb-demo .zpb-emb-main .zpb-emb-site{max-height:calc(var(--fit-room) - 250px)}
+}
+#loop .zpb-stepper-media img{object-fit:contain!important}

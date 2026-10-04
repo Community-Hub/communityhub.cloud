@@ -1,0 +1,2310 @@
+{
+  "assets/art-campus-band.jpg": [
+    960,
+    226
+  ],
+  "assets/art-choose-story.jpg": [
+    960,
+    438
+  ],
+  "assets/art-geothermal-band.jpg": [
+    960,
+    282
+  ],
+  "assets/art-geothermal-full.jpg": [
+    960,
+    540
+  ],
+  "assets/building-dashboard.png": [
+    544,
+    302
+  ],
+  "assets/cafe-window-sign.jpg": [
+    827,
+    220
+  ],
+  "assets/cal-cleveland-full.jpg": [
+    960,
+    676
+  ],
+  "assets/cal-oberlin-full.jpg": [
+    960,
+    676
+  ],
+  "assets/cal-partner-oberlin-cal.jpg": [
+    800,
+    470
+  ],
+  "assets/cal-partner-oberlin.jpg": [
+    960,
+    676
+  ],
+  "assets/calendar.png": [
+    967,
+    539
+  ],
+  "assets/ch-wordmark.png": [
+    1662,
+    255
+  ],
+  "assets/classroom-2040.jpg": [
+    960,
+    644
+  ],
+  "assets/classroom-dashboard.jpg": [
+    960,
+    666
+  ],
+  "assets/cs-ecolympics-table.jpg": [
+    960,
+    680
+  ],
+  "assets/cs-illo-ajlc.png": [
+    1400,
+    477
+  ],
+  "assets/cs-illo-cleveland.png": [
+    436,
+    437
+  ],
+  "assets/cs-oberlin-snow.jpg": [
+    960,
+    540
+  ],
+  "assets/cv-greg-jones.jpg": [
+    960,
+    598
+  ],
+  "assets/cv-icon-climate.png": [
+    242,
+    240
+  ],
+  "assets/cv-icon-downtown.png": [
+    290,
+    240
+  ],
+  "assets/cv-icon-natural.png": [
+    360,
+    152
+  ],
+  "assets/cv-icon-neighbors.png": [
+    354,
+    231
+  ],
+  "assets/cv-icon-nextgen.png": [
+    360,
+    149
+  ],
+  "assets/cv-icon-serving.png": [
+    360,
+    154
+  ],
+  "assets/cv-janet-haar.jpg": [
+    960,
+    412
+  ],
+  "assets/cv-jason-adelman.jpg": [
+    960,
+    640
+  ],
+  "assets/cv-kelley-singleton.jpg": [
+    638,
+    960
+  ],
+  "assets/cv-leigha.jpg": [
+    960,
+    720
+  ],
+  "assets/cv-lillie-estes.jpg": [
+    720,
+    960
+  ],
+  "assets/cv-lydia.jpg": [
+    960,
+    698
+  ],
+  "assets/cv-matthew-dewitt.jpg": [
+    808,
+    960
+  ],
+  "assets/cv-mike-cariglio.jpg": [
+    960,
+    540
+  ],
+  "assets/cv-slideshow-shot.jpg": [
+    960,
+    540
+  ],
+  "assets/cwd-panel-bg.png": [
+    326,
+    835
+  ],
+  "assets/cwd-poster.jpg": [
+    960,
+    680
+  ],
+  "assets/cwd-thumb.jpg": [
+    640,
+    344
+  ],
+  "assets/dash-cleveland-cwd.jpg": [
+    960,
+    540
+  ],
+  "assets/data-hub.png": [
+    1280,
+    712
+  ],
+  "assets/deck/h04.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h08.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h10.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h11.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h12.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h15.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h16.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h17.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h20.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h21.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h22.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h24.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h25.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h26.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h28.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h31.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h36.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h37.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h41.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h42.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h44.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h45.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h46.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h47.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h48.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h49.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h50.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h51.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h51c.jpg": [
+    960,
+    582
+  ],
+  "assets/deck/h52.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h52c.jpg": [
+    960,
+    400
+  ],
+  "assets/deck/h53.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h53c.jpg": [
+    960,
+    414
+  ],
+  "assets/deck/h54.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h55.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h56.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h57.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h59.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h60.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h62.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h66.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h67.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h68.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h70.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h74.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h80.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h82.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h83.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h86.jpg": [
+    960,
+    540
+  ],
+  "assets/deck/h87.jpg": [
+    960,
+    540
+  ],
+  "assets/downtown-shop.jpg": [
+    960,
+    640
+  ],
+  "assets/ecolympics-2024-kwh.jpg": [
+    960,
+    540
+  ],
+  "assets/ecolympics-2024-water.jpg": [
+    960,
+    540
+  ],
+  "assets/ecolympics-2026-standings.jpg": [
+    960,
+    540
+  ],
+  "assets/eng-ctl-exhibit.jpg": [
+    420,
+    578
+  ],
+  "assets/eng-ctl-midtown.jpg": [
+    534,
+    960
+  ],
+  "assets/eng-ctl-sip.jpg": [
+    390,
+    780
+  ],
+  "assets/eng-ctl-story.jpg": [
+    580,
+    653
+  ],
+  "assets/eng-midtown-events.jpg": [
+    960,
+    600
+  ],
+  "assets/eng-sign-daves.jpg": [
+    917,
+    612
+  ],
+  "assets/eng-sign-oc-exhibit.jpg": [
+    960,
+    558
+  ],
+  "assets/farmers-market.jpg": [
+    960,
+    638
+  ],
+  "assets/glsc-exhibit.jpg": [
+    960,
+    764
+  ],
+  "assets/glsc-workshop.jpg": [
+    960,
+    724
+  ],
+  "assets/hero-ch-poster.jpg": [
+    960,
+    540
+  ],
+  "assets/hero-still-1.jpg": [
+    960,
+    540
+  ],
+  "assets/hero-still-2.jpg": [
+    960,
+    540
+  ],
+  "assets/hero-still-3.jpg": [
+    960,
+    540
+  ],
+  "assets/hero-zoom-poster.jpg": [
+    960,
+    540
+  ],
+  "assets/hotel-oberlin-sign.jpg": [
+    960,
+    536
+  ],
+  "assets/icon-air-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-air.png": [
+    256,
+    256
+  ],
+  "assets/icon-building.png": [
+    281,
+    281
+  ],
+  "assets/icon-calendar.png": [
+    282,
+    282
+  ],
+  "assets/icon-campuses-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-campuses.png": [
+    256,
+    256
+  ],
+  "assets/icon-ch.png": [
+    256,
+    256
+  ],
+  "assets/icon-cities-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-cities.png": [
+    256,
+    256
+  ],
+  "assets/icon-cv.png": [
+    281,
+    281
+  ],
+  "assets/icon-cwd.png": [
+    281,
+    282
+  ],
+  "assets/icon-datahub-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-datahub.png": [
+    256,
+    256
+  ],
+  "assets/icon-ecolympics-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-ecolympics.png": [
+    256,
+    256
+  ],
+  "assets/icon-electricity-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-electricity.png": [
+    256,
+    256
+  ],
+  "assets/icon-embed-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-embed.png": [
+    256,
+    256
+  ],
+  "assets/icon-environment-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-environment.png": [
+    256,
+    256
+  ],
+  "assets/icon-jobs-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-jobs.png": [
+    256,
+    256
+  ],
+  "assets/icon-museums-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-museums.png": [
+    256,
+    256
+  ],
+  "assets/icon-neighborhoods-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-neighborhoods.png": [
+    256,
+    256
+  ],
+  "assets/icon-orb-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-orb.png": [
+    256,
+    256
+  ],
+  "assets/icon-phone-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-phone.png": [
+    256,
+    256
+  ],
+  "assets/icon-remote-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-remote.png": [
+    256,
+    256
+  ],
+  "assets/icon-schools-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-schools.png": [
+    256,
+    256
+  ],
+  "assets/icon-signage-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-signage.png": [
+    256,
+    256
+  ],
+  "assets/icon-stories-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-stories.png": [
+    256,
+    256
+  ],
+  "assets/icon-water-solid.png": [
+    256,
+    256
+  ],
+  "assets/icon-water.png": [
+    256,
+    256
+  ],
+  "assets/ill-cleveland.png": [
+    360,
+    361
+  ],
+  "assets/ill-college.png": [
+    360,
+    359
+  ],
+  "assets/ill-town.png": [
+    360,
+    360
+  ],
+  "assets/kid-lightbulb.jpg": [
+    960,
+    640
+  ],
+  "assets/kids-citywide-screen.jpg": [
+    960,
+    606
+  ],
+  "assets/mascot-angry-clean.gif": [
+    182,
+    206
+  ],
+  "assets/mascot-happy-clean.gif": [
+    182,
+    206
+  ],
+  "assets/mascot-neutral-clean.gif": [
+    182,
+    206
+  ],
+  "assets/mascot-squirrel-angry.gif": [
+    182,
+    206
+  ],
+  "assets/mascot-squirrel-happy.gif": [
+    182,
+    206
+  ],
+  "assets/mascot-squirrel-neutral.gif": [
+    182,
+    206
+  ],
+  "assets/mini-cv-cle.jpg": [
+    960,
+    540
+  ],
+  "assets/mini-cv-climate.jpg": [
+    960,
+    540
+  ],
+  "assets/mini-cv-midtown.jpg": [
+    960,
+    540
+  ],
+  "assets/mini-cv.jpg": [
+    960,
+    540
+  ],
+  "assets/mini-cwd.jpg": [
+    960,
+    676
+  ],
+  "assets/mini-oc-embed.jpg": [
+    960,
+    600
+  ],
+  "assets/oberlin-aerial.jpg": [
+    960,
+    540
+  ],
+  "assets/ops-embed-shot.jpg": [
+    960,
+    540
+  ],
+  "assets/orb-dorm.jpg": [
+    491,
+    368
+  ],
+  "assets/phone-app.png": [
+    317,
+    302
+  ],
+  "assets/phone-remote.png": [
+    398,
+    350
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-01-800.jpg": [
+    800,
+    534
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-01.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-07.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-09-800.jpg": [
+    640,
+    960
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-09.jpg": [
+    640,
+    960
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-13.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-33.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-39.jpg": [
+    640,
+    960
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-46.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/big-parade-2023/big-parade-2023-60.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/green-team-2026/green-team-2026-01-800.jpg": [
+    720,
+    960
+  ],
+  "assets/photos/green-team-2026/green-team-2026-01.jpg": [
+    720,
+    960
+  ],
+  "assets/photos/green-team-2026/green-team-2026-03.jpg": [
+    720,
+    960
+  ],
+  "assets/photos/juneteenth-2022/juneteenth-2022-11.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/juneteenth-2022/juneteenth-2022-37-800.jpg": [
+    800,
+    534
+  ],
+  "assets/photos/juneteenth-2022/juneteenth-2022-37.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/midtown-2026/midtown-2026-03.jpg": [
+    720,
+    960
+  ],
+  "assets/photos/oc-students-2025/oc-students-2025-01.jpg": [
+    960,
+    640
+  ],
+  "assets/photos/oc-students-2025/oc-students-2025-03.jpg": [
+    960,
+    720
+  ],
+  "assets/photos/oc-students-2025/oc-students-2025-06-800.jpg": [
+    800,
+    600
+  ],
+  "assets/photos/oc-students-2025/oc-students-2025-06.jpg": [
+    960,
+    720
+  ],
+  "assets/photos/oc-students-2025/oc-students-2025-08.jpg": [
+    960,
+    720
+  ],
+  "assets/photos/oc-students-2025/oc-students-2025-45.jpg": [
+    720,
+    960
+  ],
+  "assets/photos/ocs-2021/ocs-2021-01.jpg": [
+    960,
+    578
+  ],
+  "assets/photos/ocs-2021/ocs-2021-22.jpg": [
+    960,
+    822
+  ],
+  "assets/photos/ofm-2025/ofm-2025-10.jpg": [
+    960,
+    454
+  ],
+  "assets/photos/ofm-2025/ofm-2025-16-800.jpg": [
+    800,
+    380
+  ],
+  "assets/photos/ofm-2025/ofm-2025-16.jpg": [
+    960,
+    454
+  ],
+  "assets/planet/agriculture.png": [
+    123,
+    65
+  ],
+  "assets/planet/city.png": [
+    144,
+    68
+  ],
+  "assets/planet/college.png": [
+    321,
+    272
+  ],
+  "assets/planet/houses.png": [
+    435,
+    231
+  ],
+  "assets/planet/park.png": [
+    408,
+    177
+  ],
+  "assets/planet/power_plant.png": [
+    228,
+    90
+  ],
+  "assets/planet/reservoir.png": [
+    152,
+    50
+  ],
+  "assets/planet/smoke.png": [
+    25,
+    21
+  ],
+  "assets/planet/town.png": [
+    398,
+    319
+  ],
+  "assets/planet/water_tower.png": [
+    130,
+    162
+  ],
+  "assets/planet/watertreatment.png": [
+    376,
+    221
+  ],
+  "assets/planet/wind_turbine_base.png": [
+    67,
+    84
+  ],
+  "assets/planet/wind_turbine_blades.png": [
+    43,
+    39
+  ],
+  "assets/pp-janet-haar-dash.jpg": [
+    960,
+    412
+  ],
+  "assets/pp-linda-arbogast.jpg": [
+    960,
+    666
+  ],
+  "assets/ro-bd.png": [
+    281,
+    281
+  ],
+  "assets/ro-cal.png": [
+    282,
+    282
+  ],
+  "assets/ro-ch.png": [
+    400,
+    396
+  ],
+  "assets/ro-cv.png": [
+    281,
+    281
+  ],
+  "assets/ro-cwd.png": [
+    281,
+    282
+  ],
+  "assets/rs-cwd-oberlin-toledo.jpg": [
+    960,
+    270
+  ],
+  "assets/rs-ecolympics-2024-water.jpg": [
+    960,
+    540
+  ],
+  "assets/rs-empathetic-gauges.jpg": [
+    519,
+    442
+  ],
+  "assets/rs-feedback-loop.png": [
+    341,
+    286
+  ],
+  "assets/sod/01.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/02.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/03.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/04.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/05.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/06.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/07.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/08.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/09.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/10.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/11.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/12.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/13.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/14.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/15.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/16.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/17.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/18.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/19.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/20.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/21.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/22.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/23.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/24.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/25.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/26.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/27.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/28.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/29.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/30.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/31.jpg": [
+    960,
+    720
+  ],
+  "assets/sod/t01.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t02.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t03.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t04.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t05.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t06.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t07.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t08.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t09.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t10.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t11.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t12.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t13.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t14.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t15.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t16.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t17.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t18.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t19.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t20.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t21.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t22.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t23.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t24.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t25.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t26.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t27.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t28.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t29.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t30.jpg": [
+    200,
+    150
+  ],
+  "assets/sod/t31.jpg": [
+    200,
+    150
+  ],
+  "assets/story-agriculture.png": [
+    123,
+    65
+  ],
+  "assets/story-city.png": [
+    144,
+    68
+  ],
+  "assets/story-college.png": [
+    321,
+    272
+  ],
+  "assets/story-houses.png": [
+    435,
+    231
+  ],
+  "assets/story-ic-ajlc.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-climate.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-energy.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-food.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-heating.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-land.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-materials.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-transport.png": [
+    220,
+    220
+  ],
+  "assets/story-ic-water.png": [
+    220,
+    220
+  ],
+  "assets/story-park.png": [
+    408,
+    177
+  ],
+  "assets/story-power-plant.png": [
+    228,
+    90
+  ],
+  "assets/story-reservoir.png": [
+    152,
+    50
+  ],
+  "assets/story-town.png": [
+    398,
+    319
+  ],
+  "assets/story-water-tower.png": [
+    130,
+    162
+  ],
+  "assets/story-watertreatment.png": [
+    376,
+    221
+  ],
+  "assets/street-event.jpg": [
+    800,
+    534
+  ],
+  "assets/student-data-hub.jpg": [
+    960,
+    640
+  ],
+  "assets/team-gaurav.jpg": [
+    464,
+    531
+  ],
+  "assets/team-hitesh.jpg": [
+    400,
+    455
+  ],
+  "assets/team-john.jpg": [
+    500,
+    569
+  ],
+  "assets/team-maddie.jpg": [
+    500,
+    570
+  ],
+  "assets/team-pratyush.jpg": [
+    400,
+    455
+  ],
+  "assets/tile-hamilton.jpg": [
+    600,
+    800
+  ],
+  "assets/tile-midtown.jpg": [
+    600,
+    800
+  ],
+  "assets/town-gown-kids.jpg": [
+    960,
+    680
+  ],
+  "assets/ts-kahn.jpg": [
+    960,
+    510
+  ],
+  "assets/wally-happy-still.png": [
+    182,
+    148
+  ],
+  "assets/wally-happy.webp": [
+    182,
+    148
+  ],
+  "assets/wally-neutral-still.png": [
+    182,
+    148
+  ],
+  "assets/wally-neutral.webp": [
+    182,
+    148
+  ],
+  "assets/zoom/d/f001.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f002.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f003.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f004.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f005.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f006.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f007.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f008.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f009.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f010.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f011.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f012.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f013.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f014.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f015.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f016.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f017.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f018.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f019.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f020.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f021.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f022.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f023.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f024.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f025.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f026.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f027.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f028.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f029.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f030.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f031.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f032.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f033.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f034.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f035.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f036.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f037.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f038.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f039.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f040.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f041.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f042.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f043.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f044.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f045.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f046.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f047.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f048.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f049.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f050.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f051.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f052.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f053.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f054.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f055.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f056.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f057.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f058.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f059.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f060.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f061.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f062.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f063.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f064.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f065.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f066.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f067.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f068.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f069.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f070.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f071.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/d/f072.jpg": [
+    960,
+    540
+  ],
+  "assets/zoom/m/f001.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f002.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f003.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f004.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f005.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f006.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f007.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f008.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f009.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f010.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f011.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f012.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f013.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f014.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f015.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f016.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f017.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f018.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f019.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f020.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f021.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f022.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f023.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f024.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f025.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f026.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f027.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f028.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f029.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f030.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f031.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f032.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f033.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f034.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f035.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f036.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f037.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f038.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f039.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f040.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f041.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f042.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f043.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f044.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f045.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f046.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f047.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f048.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f049.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f050.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f051.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f052.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f053.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f054.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f055.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f056.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f057.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f058.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f059.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f060.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f061.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f062.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f063.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f064.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f065.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f066.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f067.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f068.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f069.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f070.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f071.jpg": [
+    640,
+    800
+  ],
+  "assets/zoom/m/f072.jpg": [
+    640,
+    800
+  ],
+  "assets/sign-farmers-market.jpg": [
+    960,
+    546
+  ],
+  "assets/building-dashboard-original.png": [
+    1280,
+    720
+  ],
+  "assets/cwd-scene-city.png": [
+    360,
+    357
+  ],
+  "assets/cwd-scene-cleve.png": [
+    353,
+    360
+  ],
+  "assets/cwd-scene-creek.png": [
+    268,
+    360
+  ],
+  "assets/cwd-scene-crops.png": [
+    360,
+    360
+  ],
+  "assets/cwd-scene-energy.png": [
+    360,
+    354
+  ],
+  "assets/cwd-scene-house.png": [
+    360,
+    237
+  ],
+  "assets/cwd-scene-peters.png": [
+    360,
+    360
+  ],
+  "assets/cwd-scene-tappan.png": [
+    360,
+    352
+  ],
+  "assets/cwd-scene-tower.png": [
+    354,
+    360
+  ],
+  "assets/cwd-scene-water.png": [
+    353,
+    360
+  ],
+  "assets/cwd-scene-weather.png": [
+    360,
+    359
+  ],
+  "assets/gauge-flash-high.png": [
+    197,
+    260
+  ],
+  "assets/gauge-flash-low.png": [
+    148,
+    260
+  ],
+  "assets/gauge-flash-typical.png": [
+    177,
+    260
+  ],
+  "assets/gauge-wally-high.png": [
+    164,
+    260
+  ],
+  "assets/gauge-wally-low.png": [
+    202,
+    260
+  ],
+  "assets/gauge-wally-typical.png": [
+    166,
+    260
+  ],
+  "assets/icon-air-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-air-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-building-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-calendar-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-campuses-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-campuses-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-ch-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-cities-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-cities-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-cv-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-cwd-96.png": [
+    95,
+    96
+  ],
+  "assets/icon-datahub-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-datahub-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-ecolympics-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-ecolympics-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-electricity-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-electricity-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-embed-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-embed-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-environment-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-environment-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-jobs-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-jobs-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-museums-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-museums-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-neighborhoods-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-neighborhoods-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-orb-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-orb-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-phone-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-phone-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-remote-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-remote-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-schools-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-schools-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-signage-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-signage-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-stories-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-stories-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-water-96.png": [
+    96,
+    96
+  ],
+  "assets/icon-water-solid-96.png": [
+    96,
+    96
+  ],
+  "assets/live-contact-workshop-1600.jpg": [
+    960,
+    724
+  ],
+  "assets/live-contact-workshop-900.jpg": [
+    900,
+    678
+  ],
+  "assets/live-contact-workshop.jpg": [
+    960,
+    724
+  ],
+  "assets/live-home-story-01-1600.jpeg": [
+    960,
+    640
+  ],
+  "assets/live-home-story-01-800.jpeg": [
+    800,
+    534
+  ],
+  "assets/live-home-story-01.jpeg": [
+    960,
+    640
+  ],
+  "assets/live-home-story-02-1600.jpeg": [
+    960,
+    606
+  ],
+  "assets/live-home-story-02-800.jpeg": [
+    800,
+    504
+  ],
+  "assets/live-home-story-02.jpeg": [
+    960,
+    606
+  ],
+  "assets/live-home-story-03-1077.jpg": [
+    960,
+    764
+  ],
+  "assets/live-home-story-03-640.jpg": [
+    640,
+    510
+  ],
+  "assets/live-home-story-03.png": [
+    1077,
+    857
+  ],
+  "assets/live-home-story-04-1600.jpeg": [
+    960,
+    640
+  ],
+  "assets/live-home-story-04-800.jpeg": [
+    800,
+    534
+  ],
+  "assets/live-home-story-04.jpeg": [
+    960,
+    640
+  ],
+  "assets/live-home-story-05.jpeg": [
+    960,
+    412
+  ],
+  "assets/live-home-story-06-1600.jpeg": [
+    960,
+    664
+  ],
+  "assets/live-home-story-06-800.jpeg": [
+    800,
+    554
+  ],
+  "assets/live-home-story-06.jpeg": [
+    960,
+    664
+  ],
+  "assets/live-home-story-07-1600.jpeg": [
+    960,
+    638
+  ],
+  "assets/live-home-story-07-800.jpeg": [
+    800,
+    532
+  ],
+  "assets/live-home-story-07.jpeg": [
+    960,
+    638
+  ],
+  "assets/live-home-story-08.jpeg": [
+    800,
+    534
+  ],
+  "assets/live-team-01-480.jpg": [
+    422,
+    480
+  ],
+  "assets/live-team-01.jpg": [
+    844,
+    960
+  ],
+  "assets/live-team-02-480.jpg": [
+    422,
+    480
+  ],
+  "assets/live-team-02.jpg": [
+    634,
+    720
+  ],
+  "assets/live-team-03-480.jpg": [
+    422,
+    480
+  ],
+  "assets/live-team-03.jpg": [
+    842,
+    960
+  ],
+  "assets/live-team-04-480.jpg": [
+    418,
+    480
+  ],
+  "assets/live-team-04.jpg": [
+    464,
+    531
+  ],
+  "assets/live-team-05-480.jpg": [
+    422,
+    480
+  ],
+  "assets/live-team-05.jpg": [
+    634,
+    720
+  ],
+  "assets/live-team-06-480.jpg": [
+    422,
+    480
+  ],
+  "assets/live-team-06.jpg": [
+    634,
+    720
+  ],
+  "assets/story-ic-ajlc-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-climate-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-energy-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-food-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-heating-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-land-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-materials-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-transport-96.png": [
+    96,
+    96
+  ],
+  "assets/story-ic-water-96.png": [
+    96,
+    96
+  ],
+  "assets/story-watertreatment-96.png": [
+    96,
+    56
+  ],
+  "assets/phone-person-water-display.jpg": [
+    2048,
+    1152
+  ],
+  "assets/hero-first-frame.jpg": [
+    1280,
+    720
+  ],
+  "assets/evidence/prospect-competition-heatmap.jpg": [
+    902,
+    428
+  ],
+  "assets/evidence/oberlin-dorm-competition-2006-2009.jpg": [
+    2017,
+    867
+  ],
+  "assets/evidence/feedback-connections-diagram.jpg": [
+    768,
+    326
+  ],
+  "assets/carbon-neutral-science-center-original.jpeg": [
+    2048,
+    1536
+  ],
+  "assets/source-previews/oberlin-stories-heating-original.png": [
+    960,
+    540
+  ],
+  "assets/source-previews/glsc-stories-climate-original.png": [
+    960,
+    540
+  ]
+}

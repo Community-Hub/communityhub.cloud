@@ -1,0 +1,62 @@
+/* Open product directory; native destinations and semantic scene groups remain intact. */
+#main#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) > .product-directory { background: var(--community-surface) !important; justify-content: flex-start; padding-block: 28px 20px; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-directory-grid { align-items: stretch; margin-top: 18px; gap: 20px; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category { display: flex; flex-direction: column; min-width: 0; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category > h2 { min-height: 0; margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--community-line); font: 700 clamp(25px,2.3vw,32px)/1.2 var(--font-heading); color: #2C2C2C; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category ul { flex: 1; display: grid; grid-template-rows: repeat(3, 1fr); gap: 10px; margin: 0; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category li { min-width: 0; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category a { display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: center; gap: 14px; height: 100%; min-height: 0; padding: 12px 0; background: transparent; border: 0; border-bottom: 1px solid var(--community-line); border-radius: 0; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category a:hover { background: color-mix(in srgb, var(--community-leaf) 10%, transparent); box-shadow: none; text-decoration: underline; text-underline-offset: 4px; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category img { width: 44px; height: 44px; object-fit: contain; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category b { font: 700 24px/1.2 var(--font-heading); overflow-wrap: normal; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-category small { max-width: none; margin-top: 4px; font: 400 15px/1.35 var(--font-body); color: #4a4f4a; }
+#main:is([data-page="products"],[data-page="see-it-live"],[data-page="who-its-for"],[data-page="resources"]) .product-how-link { align-self: flex-start; margin-top: 14px; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: #2C2C2C; }
+
+/* Data Hub model */
+#main#main[data-page] > section.hub-flow { justify-content: center; padding-block: 24px; background: #2C2C2C !important; color: #fff; }
+#main#main .hub-flow .h2 { color: #fff; font-family: var(--font-display); font-size: clamp(26px,3vw,40px); margin: 0 0 20px; }
+.hf-grid { display: grid; grid-template-columns: minmax(0,1.05fr) 28px minmax(0,.8fr) 28px minmax(0,1.15fr) 28px minmax(0,1.05fr); align-items: center; gap: 8px; }
+.hf-col { align-self: stretch; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.hf-col h3 { margin: 0 0 12px; font: 700 clamp(17px,1.4vw,20px)/1.25 var(--font-display); color: #bfe6a8; text-align: left; }
+.hf-col ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.hf-col li > a, .hf-col li > span { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #F1F7D9; color: #2C2C2C; border-radius: 8px; text-decoration: none; }
+.hf-col li > a:hover { background: #fff; box-shadow: inset 4px 0 0 #58BA51; }
+.hf-col li > a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.hf-col li img { width: 40px; height: 40px; flex: none; object-fit: contain; }
+.hf-col li b { font: 700 16px/1.25 var(--font-body); }
+.hf-hub { align-items: center; text-align: center; }
+.hf-hub h3 { text-align: center; }
+.hf-mark { display: grid; place-items: center; width: clamp(120px,12vw,170px); aspect-ratio: 1; border-radius: 50%; background: #58BA51; color: #fff; }
+.hf-mark svg { width: 62%; height: 62%; }
+.hf-link { display: grid; place-items: center; }
+.hf-arrow { width: 28px; height: 28px; fill: none; stroke: #58BA51; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.hf-say { max-width: 62ch; min-height: 2.9em; margin: 10px 0 24px; font: 400 clamp(17px,1.5vw,20px)/1.45 var(--font-body); color: #fff; }
+.hf-controls { display: flex; align-items: center; gap: 14px; margin-top: 20px; }
+.hf-controls[hidden] { display: none; }
+.hf-controls span { font-size: 15px; color: #d6dcd3; min-width: 4.5em; text-align: center; }
+.hf-controls .btn-ghost { color: #fff !important; border-color: #fff; }
+.hf-controls .btn-ghost:hover { background: #fff; color: #2C2C2C !important; }
+.hf-controls .btn-ink { background: #65BC7B; color: #1d2a1d !important; border-color: #65BC7B; }
+.hf-controls button { min-height: 44px; }
+.hf-controls button:disabled { opacity: .45; cursor: default; }
+.hf.is-enhanced [data-hf-step] { transition: opacity .5s ease, transform .5s ease; }
+.hf.is-enhanced [data-hf-step]:not(.is-on) { opacity: 0; visibility: hidden; transform: translateY(8px); }
+@media (prefers-reduced-motion: reduce) { .hf.is-enhanced [data-hf-step] { transition: none; } }
+@media (max-width: 900px) {
+  .hf-grid { grid-template-columns: minmax(0,1fr); gap: 6px; }
+  .hf-link { height: 24px; }
+  .hf-arrow { transform: rotate(90deg); width: 22px; height: 22px; }
+  .hf-col h3 { margin-bottom: 8px; font-size: 17px; }
+  .hf-col ul { gap: 6px; }
+  .hf-col li > a, .hf-col li > span { padding: 6px 10px; gap: 10px; }
+  .hf-col li img { width: 28px; height: 28px; }
+  .hf-hub { flex-direction: row; justify-content: flex-start; gap: 14px; text-align: left; }
+  .hf-hub h3 { margin: 0; text-align: left; }
+  .hf-mark { width: 52px; }
+  .hf-say { margin: 8px 0 14px; font-size: 16px; }
+  .hf-controls { margin-top: 14px; }
+}
+/* Phones: the stacked diagram is taller than the screen, so the step buttons stay pinned in view. */
+@media (max-width: 900px) {
+  .hf-controls { position: sticky; bottom: 0; z-index: 2; margin-inline: -16px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: #2C2C2C; box-shadow: 0 -1px 0 rgba(255,255,255,.12); }
+}

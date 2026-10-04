@@ -1,0 +1,76 @@
+{
+  "capturedOn": "2026-10-01",
+  "provenance": "Descriptions independently extracted from original live official HTML before using them in the local candidate; whitespace normalized, original punctuation retained. No text derived from generated local pages.",
+  "products": {
+    "the-hub": {
+      "name": "Data Hub",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/data-manager/",
+      "description": "Data Hub is a powerful and intuitive package of online data visualization tools. Data Hub makes it easy for managers, educators, students and communicators to translate real-time data acquired from a variety of sources into compelling visualizations that are easily understood and can be shared on websites and digital signage to tell stories of impact and opportunity.",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://www.communityhub.cloud/wp-content/uploads/2021/12/datahubdemo-e1639411289795.png"
+      ]
+    },
+    "building-dashboard": {
+      "name": "Building Dashboard",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/dashboard-creator/",
+      "description": "Building Dashboard tracks and communicates patterns of real-time resource use in buildings in ways that engage, are easy to understand and make connections between resource conservation and resulting environmental and community benefits.",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://www.communityhub.cloud/wp-content/uploads/2021/12/Buildingdash-e1639411178404.png"
+      ]
+    },
+    "citywide-dashboard": {
+      "name": "Citywide Dashboard",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/citywide-dashboard/",
+      "description": "Citywide Dashboard is an animated visualization of whole-community flows of electricity, drinking water, and current environmental conditions. It is designed to enhance residents’ understandings of how they are connected to a larger whole — a whole that is ultimately dependent on renewable resource flows and a healthy environment.",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://environmentaldashboard.org/cwd-files/kiosk.php"
+      ]
+    },
+    "community-calendar": {
+      "name": "Community Calendar",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/community-calendar/",
+      "description": "Engaged residents who can easily share information and are encouraged to participate are critical to community vibrancy and resilience. Our calendar application is a unique crowd-sourced venue that makes it easy for organizations and community members to share and promote events and announcements within organizations, neighborhoods, and whole cities.",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://www.communityhub.cloud/wp-content/uploads/2021/12/Screen-Shot-2021-12-13-at-11.02.33-AM-e1639411431915.png"
+      ]
+    },
+    "community-voices": {
+      "name": "Community Voices",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/community-voices/",
+      "description": "Community Voices combines images and words drawn from the full diversity of a community to celebrate and cultivate thought and actions that advance ecological, economic, and social resilience. Community Hub’s unique software makes it easy to build, manage, organize and customize content into powerful messages for display on digital signage, phone apps, and websites.",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://oberlin.communityhub.cloud/cv-public/digital-signage"
+      ]
+    },
+    "digital-signage": {
+      "name": "Digital Signage",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/digital-signage-software/",
+      "description": "Easy to use interactive digital signage makes it simple for multiple stakeholders to post and update content that connects community members with both organization and location-specific and community-wide information and events",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://www.communityhub.cloud/wp-content/uploads/2021/12/Hotel-Signage-scaled-e1639418142498.jpeg"
+      ]
+    },
+    "phone-app": {
+      "name": "Phone App",
+      "sourceUrl": "https://www.communityhub.cloud/products-and-services/phone-app/",
+      "description": "Our phone application is easily customized to meet the communication goals of each community. Viewers can directly access content that interests them on their phone and can also control current content displayed on the digital sign nearest to them",
+      "sourceSelector": "main p",
+      "sourceMedia": [
+        "https://www.communityhub.cloud/wp-content/uploads/2021/12/remote-e1638975029813.png"
+      ]
+    },
+    "web-embeddables": {
+      "name": "Web Embeddables",
+      "sourceUrl": "https://www.communityhub.cloud/",
+      "description": "CH content, such as community calendars, real-time data visualizations, and navigable dashboards can be easily customized and embedded into the websites of any partner organization",
+      "sourceSelector": "p beginning CH content, such as community calendars",
+      "sourceMedia": []
+    }
+  }
+}

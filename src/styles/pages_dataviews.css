@@ -1,0 +1,29 @@
+/* Task 6: Data Dashboard view tour (build.py data_views) */
+.dv{min-width:0;container-type:inline-size}
+.dv-tabs{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 18px;margin-bottom:10px;border-bottom:1px solid #e3e8e5}
+.dv-tabs [role=tab]{appearance:none;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:6px 0 8px;font:inherit;font-size:.9rem;font-weight:600;color:var(--ink-2);cursor:pointer}
+.dv-tabs [role=tab][aria-selected=true]{color:var(--ink);border-bottom-color:var(--leaf-deep)}
+.dv-help{background:none;border:0;padding:0;font:inherit;font-size:max(14px,.8rem);color:var(--leaf-deep);text-decoration:underline;cursor:pointer}
+.dv-stage{display:grid}
+.dv-view{grid-area:1/1;min-width:0;visibility:hidden;opacity:0;transition:opacity .4s ease,visibility 0s .4s}
+.dv-view.is-on{visibility:visible;opacity:1;transition:opacity .4s ease}
+.dv-source{display:block;margin-bottom:8px;color:var(--leaf-deep);font-size:14px;font-weight:600;line-height:1.4;text-underline-offset:3px}
+.dv-frame{position:relative;border-radius:12px;overflow:hidden}
+.dv-chart{width:100%;min-width:0;aspect-ratio:1280/800;background:#fff;border:1px solid #e3e8e5;border-radius:12px;display:flex;overflow:hidden}
+.dv-chart svg{display:block;flex:1;width:100%;height:100%}
+.dv-wait{margin:auto;padding:16px;text-align:center;color:var(--ink-2);font-size:max(14px,.85rem)}
+.dv-wait a{color:var(--leaf-deep)}
+.dv-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(14px,6cqi,36px);background:#fff;cursor:pointer}
+.dv-note p{max-width:48ch;margin:0;font-size:max(14px,clamp(.8rem,2.7cqi,1.05rem));line-height:1.5;color:var(--ink)}
+.dv-note b{display:block;margin-bottom:6px;font-size:max(14px,.75rem);letter-spacing:.06em;text-transform:uppercase;color:var(--leaf-deep)}
+.dv-view:not(.is-read) .dv-frame > :not(.dv-note){visibility:hidden}
+.dv-view.is-read .dv-note{visibility:hidden;opacity:0;pointer-events:none}
+.dv-cap{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-size:max(14px,.8rem);color:var(--ink-2);margin-top:6px}
+.dv-cap a{color:var(--leaf-deep)}
+.dv svg .dv-ax{font-size:14px;fill:var(--ink-2);font-family:inherit}
+.dv svg .dv-strong{fill:var(--ink);font-weight:700}
+.dv-grid{stroke:#e3e8e5;stroke-width:1}
+.dv-typ{fill:#dfe7e2;stroke:none}
+.dv-today{fill:none;stroke:var(--leaf-deep);stroke-width:2.2;stroke-linejoin:round}
+.dv-now{fill:var(--leaf-deep);stroke:#fff;stroke-width:2}
+@media (prefers-reduced-motion:reduce){.dv-view,.dv-note{transition:none}}

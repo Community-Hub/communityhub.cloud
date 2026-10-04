@@ -1,0 +1,66 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> community-hub-website@1.0.0 build
+> node ./node_modules/astro/bin/astro.mjs build
+
+23:13:30 [types] Generated 69ms
+23:13:30 [build] output: "static"
+23:13:30 [build] mode: "static"
+23:13:30 [build] directory: /workspace/scratch/3dfdf590721a/communityhub-github-working/dist/
+23:13:30 [build] Collecting build info...
+23:13:30 [build] ✓ Completed in 110ms.
+23:13:30 [build] Building static entrypoints...
+23:13:31 [vite] ✓ built in 773ms
+23:13:31 [vite] ✓ built in 368ms
+23:13:31 [build] Rearranging server assets...
+
+ generating static routes 
+23:13:31   ├─ /sitemap.xml (+34ms) 
+23:13:31   ├─ /neighborhoods.html (+10ms) 
+23:13:31   ├─ /cities.html (+3ms) 
+23:13:31   ├─ /museums.html (+4ms) 
+23:13:31   ├─ /campuses.html (+2ms) 
+23:13:31   ├─ /schools.html (+3ms) 
+23:13:32   ├─ /examples.html (+2ms) 
+23:13:32   ├─ /oberlin-college.html (+2ms) 
+23:13:32   ├─ /city-of-oberlin.html (+2ms) 
+23:13:32   ├─ /midtown-cleveland.html (+2ms) 
+23:13:32   ├─ /great-lakes-science-center.html (+2ms) 
+23:13:32   ├─ /hamilton-college.html (+2ms) 
+23:13:32   ├─ /dashboards.html (+2ms) 
+23:13:32   ├─ /products.html (+2ms) 
+23:13:32   ├─ /education.html (+1ms) 
+23:13:32   ├─ /bring-a-dashboard.html (+1ms) 
+23:13:32   ├─ /research.html (+1ms) 
+23:13:32   ├─ /media.html (+1ms) 
+23:13:32   ├─ /environmental-dashboard.html (+2ms) 
+23:13:32   ├─ /story-of-dashboard.html (+1ms) 
+23:13:32   ├─ /about.html (+2ms) 
+23:13:32   ├─ /contact.html (+1ms) 
+23:13:32   ├─ /404.html (+1ms) 
+23:13:32   ├─ /the-hub.html (+2ms) 
+23:13:32   ├─ /data-dashboard.html (+2ms) 
+23:13:32   ├─ /stories.html (+2ms) 
+23:13:32   ├─ /pricing.html (+1ms) 
+23:13:32   ├─ /community-calendar.html (+1ms) 
+23:13:32   ├─ /community-voices.html (+2ms) 
+23:13:32   ├─ /digital-signage.html (+2ms) 
+23:13:32   ├─ /phone-app.html (+1ms) 
+23:13:32   ├─ /web-embeddables.html (+2ms) 
+23:13:32   ├─ /see-it-live.html (+1ms) 
+23:13:32   ├─ /who-its-for.html (+2ms) 
+23:13:32   ├─ /resources.html (+2ms) 
+23:13:32   ├─ /data-hub.html (+1ms) 
+23:13:32   ├─ /building-dashboard.html (+1ms) 
+23:13:32   ├─ /citywide-dashboard.html (+1ms) 
+23:13:32   ├─ /index.html (+3ms) 
+23:13:32 ✓ Completed in 206ms.
+
+23:13:32 [build] ✓ Completed in 1.41s.
+23:13:32 [build] 38 page(s) built in 1.59s
+23:13:32 [build] Complete!
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

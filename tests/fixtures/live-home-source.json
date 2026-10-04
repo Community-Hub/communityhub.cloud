@@ -1,0 +1,231 @@
+{
+  "source_url": "https://www.communityhub.cloud/",
+  "retrieved_at_utc": "2026-10-01T05:15:12.190123+00:00",
+  "source_html_sha256": "13868ab1c8efd3ccb96d956c8a53b7aa863dafc90824483e74d28b4f45bac63c",
+  "normalization": "HTML text entities decoded and whitespace collapsed; punctuation and spelling preserved. Extracted directly from the live HTML, independently of local page source.",
+  "headline": "It has never been more important to act locally while thinking globally",
+  "mission": "Communication innovations have enhanced the capacity to connect across great distances. Yet, they often leave us less connected to local communities in which we live, shop, work, and play and the social and environmental resources on which we depend. CommunityHub’s award-winning communication platform includes sophisticated data acquisition and display applications. Using our tools, organizations, neighborhoods, and cities are motivating and empowering community engagement, connection, and resilience in the face of a rapidly changing environment.",
+  "mission_source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[3]/div/div[2]/div/div/p",
+  "products": [
+    {
+      "name": "Digital Signage",
+      "description": "Easy to use interactive digital signage makes it simple for multiple stakeholders to post and update content that connects community members with both organization and location-specific and community-wide information and events",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[5]/div/div/div[1]/div/div[2]/p"
+    },
+    {
+      "name": "Phone App",
+      "description": "Our phone application is easily customized to meet the communication goals of each community. Viewers can directly access content that interests them on their phone and can also control current content displayed on the digital sign nearest to them",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[6]/div/div/div[2]/div/div[2]/p"
+    },
+    {
+      "name": "Web Embeddables",
+      "description": "CH content, such as community calendars, real-time data visualizations, and navigable dashboards can be easily customized and embedded into the websites of any partner organization",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[7]/div/div/div[1]/div/div[2]/p"
+    },
+    {
+      "name": "Building Dashboard",
+      "description": "Building Dashboard tracks and communicates patterns of real-time resource use in buildings in ways that engage, are easy to understand and make connections between resource conservation and resulting environmental and community benefits.",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[9]/div/div/div[1]/div/div[2]/p"
+    },
+    {
+      "name": "Citywide Dashboard",
+      "description": "Citywide Dashboard is an animated visualization of whole-community flows of electricity, drinking water, and current environmental conditions. It is designed to enhance residents’ understandings of how they are connected to a larger whole — a whole that is ultimately dependent on renewable resource flows and a healthy environment.",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[10]/div/div/div[2]/div/div[2]/p"
+    },
+    {
+      "name": "Data Hub",
+      "description": "Data Hub is a powerful and intuitive package of online data visualization tools. Data Hub makes it easy for managers, educators, students and communicators to translate real-time data acquired from a variety of sources into compelling visualizations that are easily understood and can be shared on websites and digital signage to tell stories of impact and opportunity.",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[11]/div/div/div[1]/div/div[2]/p"
+    },
+    {
+      "name": "Community Calendar",
+      "description": "Engaged residents who can easily share information and are encouraged to participate are critical to community vibrancy and resilience. Our calendar application is a unique crowd-sourced venue that makes it easy for organizations and community members to share and promote events and announcements within organizations, neighborhoods, and whole cities.",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[13]/div/div/div[2]/div/div[2]/p"
+    },
+    {
+      "name": "Community Voices",
+      "description": "Community Voices combines images and words drawn from the full diversity of a community to celebrate and cultivate thought and actions that advance ecological, economic, and social resilience. Community Hub’s unique software makes it easy to build, manage, organize and customize content into powerful messages for display on digital signage, phone apps, and websites.",
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[14]/div/div/div[1]/div/div[2]/p"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "“I really feel that I am a part of the resource use graphs displayed on the dashboards. This feeling motivates me to be more thoughtful when consuming water and electricity”",
+      "who": "Grace Gao",
+      "role": "Oberlin College Student",
+      "attribution": "Grace Gao Oberlin College Student",
+      "primary_cta": {
+        "label": "Learn more: Digital Signage",
+        "url": "https://www.communityhub.cloud/products-and-services/digital-signage-software/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/2062-scaled.jpeg",
+        "local_path": "assets/live-home-story-01.jpeg",
+        "sha256": "03b3d4f996129db85a6214c6b505e52b5ab0f8fa59e8a90b57731659a153a606",
+        "width": 2560,
+        "height": 1707
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[1]"
+    },
+    {
+      "quote": "“When you talk about 21st-century skills - gathering and interpreting data - the Dashboard will be a very important tool”",
+      "who": "Kim Koos",
+      "role": "Elementary Teacher",
+      "attribution": "Kim Koos Elementary Teacher",
+      "primary_cta": {
+        "label": "Learn more: Phone App",
+        "url": "https://www.communityhub.cloud/products-and-services/phone-app/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/children_screen.jpeg",
+        "local_path": "assets/live-home-story-02.jpeg",
+        "sha256": "37476364d6812391a334cae5bc476e9ca262ab3fcedecf8c51db64ca4ece4bbe",
+        "width": 2352,
+        "height": 1483
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[2]"
+    },
+    {
+      "quote": "“The dashboard signage is stitching together the work of Cleveland organizations to make the team effort apparent”",
+      "who": "Scott Volmer",
+      "role": "VP STEM Learning Great Lakes Science Center",
+      "attribution": "Scott Volmer VP STEM Learning Great Lakes Science Center",
+      "primary_cta": {
+        "label": "Learn more: Web Embeddables",
+        "url": null
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/glscscreenedit-01.png",
+        "local_path": "assets/live-home-story-03.png",
+        "sha256": "e5acbc6f6fb852aa73b0023b1aad85022173423ba994f7bc9327f6bb6a277116",
+        "width": 1077,
+        "height": 857
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[3]"
+    },
+    {
+      "quote": "“Oberlin is helping us translate water and energy use in 44 school buildings into teaching and learning in the classroom”",
+      "who": "Bob Mendenhall",
+      "role": "Curriculum Director Toledo",
+      "attribution": "Bob Mendenhall Curriculum Director Toledo",
+      "primary_cta": {
+        "label": "Learn more: Building Dashboard",
+        "url": "https://www.communityhub.cloud/products-and-services/dashboard-creator/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/Studentengagement-scaled.jpeg",
+        "local_path": "assets/live-home-story-04.jpeg",
+        "sha256": "3b77230e4dfedb55a9c8ed9233ea8ab107e1b169a1ad117f8cf0132ad5009f00",
+        "width": 2560,
+        "height": 1707
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[4]"
+    },
+    {
+      "quote": "“Environmental Dashboard enables residents to understand their electricity and water consumption, which in turn helps prevent overuse”",
+      "who": "Janet Haar",
+      "role": "Executive Director, Oberlin Business Partnership",
+      "attribution": "Janet Haar Executive Director, Oberlin Business Partnership",
+      "primary_cta": {
+        "label": "Learn more: Citywide Dashboard",
+        "url": "https://www.communityhub.cloud/products-and-services/citywide-dashboard/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/Haar-e1638938380201.jpeg",
+        "local_path": "assets/live-home-story-05.jpeg",
+        "sha256": "38571c5991bc6fac0f5928c3db438be35d9d9546b6238fe80d443c749e24ac2c",
+        "width": 1000,
+        "height": 430
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[5]"
+    },
+    {
+      "quote": "\"CommunityHub's Digital Signage is central to our community's climate resilience communication strategy\"",
+      "who": "Linda Arbogast",
+      "role": "City of Oberlin Sustainability Coordinator",
+      "attribution": "Linda Arbogast City of Oberlin Sustainability Coordinator",
+      "primary_cta": {
+        "label": "Learn more: Data Hub",
+        "url": "https://www.communityhub.cloud/products-and-services/data-manager/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/953.jpeg",
+        "local_path": "assets/live-home-story-06.jpeg",
+        "sha256": "0c5d1f3b95a0466f8e7b74012fe5e599cd9940ef919a9de784fa88c5c159d085",
+        "width": 2199,
+        "height": 1523
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[6]"
+    },
+    {
+      "quote": "“Community Hub’s events calendar has made our work easier. People in the community are participating — it’s simple, but transformative!”",
+      "who": "Janet Haar, Executive Director Oberlin Business Partnership",
+      "role": "",
+      "attribution": "Janet Haar, Executive Director Oberlin Business Partnership",
+      "primary_cta": {
+        "label": "Learn more: Community Calendar",
+        "url": "https://www.communityhub.cloud/products-and-services/community-calendar/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/1417-scaled.jpeg",
+        "local_path": "assets/live-home-story-07.jpeg",
+        "sha256": "ddff489744a2f486d5110ade7c3579150b92f264589a1efe7101aa125e08d3e4",
+        "width": 2560,
+        "height": 1702
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[7]"
+    },
+    {
+      "quote": "“For a decade we have looked to the CommunityHub team as key partners in translating our energy conservation services into community engagement”",
+      "who": "Geoff Hunter",
+      "role": "President Palmer Conservation Consulting",
+      "attribution": "Geoff Hunter President Palmer Conservation Consulting",
+      "primary_cta": {
+        "label": "Learn more: Community Voices",
+        "url": "https://www.communityhub.cloud/products-and-services/community-voices/"
+      },
+      "image": {
+        "source_url": "https://www.communityhub.cloud/wp-content/uploads/2021/10/5100.jpeg",
+        "local_path": "assets/live-home-story-08.jpeg",
+        "sha256": "8d273ffba0f3865e41948c206d5c2f34cab492ff219f5c33a2d9d6e01b454b3c",
+        "width": 800,
+        "height": 533
+      },
+      "source_xpath": "/html/body/div[1]/div[2]/main/div/section/div/div/div[2]/div/div/div/div/div[2]/ul/li[8]"
+    }
+  ],
+  "palette": {
+    "objective_banner": "#58ba51",
+    "product_background_ancestors": {
+      "Digital Signage": [
+        "#f1f7d9"
+      ],
+      "Phone App": [
+        "#f1f7d9"
+      ],
+      "Web Embeddables": [
+        "#f1f7d9"
+      ],
+      "Building Dashboard": [
+        "#2c2c2c"
+      ],
+      "Citywide Dashboard": [
+        "#2c2c2c"
+      ],
+      "Data Hub": [
+        "#2c2c2c"
+      ],
+      "Community Calendar": [
+        "#f1f7d9"
+      ],
+      "Community Voices": [
+        "#f1f7d9"
+      ]
+    }
+  },
+  "source_notes": [
+    "The Scott Volmer Web Embeddables anchor has no href in the live HTML; local repair uses the existing Web Embeddables route.",
+    "The calendar Janet Haar attribution is one line in the source with no separate sub-element.",
+    "The mission is one p element in the current live HTML; extracted web text line breaks did not reflect a paragraph boundary."
+  ]
+}

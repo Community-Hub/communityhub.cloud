@@ -1,0 +1,380 @@
+/* Editorial evidence refinement. Import after the shared reference stylesheet. */
+#main[data-page="the-hub"] > :is(.product-opening--hub,#visualizer),
+#main[data-page="research"] > :is(#papers-feedback,#papers-voices),
+#main[data-page="schools"] > :is(.content-opening,#toledo) {
+  --polish-muted:#2C2C2C;
+  --polish-accent:#2C2C2C;
+}
+#main[data-page="the-hub"] > .product-opening--hub,
+#main[data-page="research"] > #papers-voices {
+  background:var(--scene-water);
+}
+#main[data-page="the-hub"] > #visualizer,
+#main[data-page="research"] > #papers-feedback,
+#main[data-page="schools"] > .content-opening {
+  background:var(--scene-leaf);
+}
+#main[data-page="schools"] > #toledo {
+  background:var(--scene-sun);
+}
+#main[data-pager]:is([data-page="the-hub"],[data-page="research"],[data-page="schools"]) :is(h1.h1,.wrap h2.h2) {
+  font-family:var(--font-body);
+  font-weight:400;
+  color:var(--polish-ink,#2C2C2C);
+}
+#main:is([data-page="research"],[data-page="schools"]) .page-intro .lede {
+  color:var(--polish-muted,#2C2C2C);
+}
+#main[data-page="research"] .va-txt h3 {
+  font-family:var(--font-body);
+  font-weight:400;
+  color:var(--polish-ink,#2C2C2C);
+}
+#main[data-page="research"] .va-txt :is(.rs-pub-who,p) {
+  color:var(--polish-muted,#2C2C2C);
+}
+#main[data-page="research"] .va-card {
+  border-top-color:var(--polish-line,#CCCCCB);
+}
+#main[data-page="the-hub"] .hub-builder-context p {
+  max-width:72ch;
+}
+#main:is([data-page="the-hub"],[data-page="research"]) :is(.pc-a,.page-intro-actions a) {
+  color:var(--polish-accent,#2C2C2C);
+  text-decoration-thickness:1px;
+  text-underline-offset:5px;
+}
+#main[data-page="the-hub"] .page-intro-actions a {
+  padding:10px 0;
+  min-height:44px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  text-decoration:underline;
+}
+#main[data-page="the-hub"] .page-intro-actions a:hover {
+  color:var(--polish-ink,#2C2C2C);
+  background:transparent;
+}
+#main[data-page="the-hub"] .hub-evidence-gallery .sp-bar {
+  gap:12px;
+  padding:8px 0 0;
+}
+#main[data-page="the-hub"] .hub-evidence-gallery .sp-nav {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:auto;
+  min-width:44px;
+  min-height:44px;
+  height:auto;
+  padding:8px 12px;
+  border:1px solid var(--polish-line,#CCCCCB);
+  border-radius:6px;
+  background:#F4F4F2;
+  color:var(--polish-ink,#2C2C2C);
+  font:700 15px/1.4 var(--font-body);
+  cursor:pointer;
+  transition:background-color .16s ease-out,border-color .16s ease-out;
+}
+#main[data-page="the-hub"] .hub-evidence-gallery .sp-nav:hover {
+  background:#F4F4F2;
+  border-color:#CCCCCB;
+}
+#main[data-page="the-hub"] .hub-evidence-gallery .sp-dots {
+  gap:8px;
+  align-items:center;
+}
+#main[data-page="the-hub"] .hub-evidence-gallery .sp-dots button {
+  min-width:44px;
+  min-height:44px;
+  border-radius:0;
+  background:linear-gradient(var(--polish-line,#CCCCCB),var(--polish-line,#CCCCCB)) center/100% 3px no-repeat;
+}
+
+@media(max-width:699px) {
+  #main[data-page="the-hub"] .hub-evidence-gallery .story-player--text-controls .sp-dots { display:none; }
+  #main[data-page="the-hub"] .hub-evidence-gallery .story-player--text-controls .sp-count {
+    display:block; flex:1; text-align:center; align-content:center; min-height:44px;
+    font:400 15px/1.4 var(--font-body); font-variant-numeric:tabular-nums;
+  }
+}
+#main[data-page="the-hub"] .hub-evidence-gallery .sp-dots button[aria-current="true"] {
+  background-image:linear-gradient(var(--polish-accent,#2C2C2C),var(--polish-accent,#2C2C2C));
+}
+#main:is([data-page="the-hub"],[data-page="research"]) :is(a,button):focus-visible {
+  outline:2px solid var(--polish-accent,#2C2C2C);
+  outline-offset:4px;
+}
+
+/* Toledo's photograph and exact attributed words form one evidence unit. */
+#main[data-page="schools"] #toledo blockquote.pull.has-source-photo {
+  max-width:none;
+  padding:0;
+  margin-block:0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  color:var(--polish-ink,#2C2C2C);
+}
+#main[data-page="schools"] #toledo blockquote.pull.has-source-photo p {
+  color:inherit;
+  font-weight:400;
+}
+#main[data-page="schools"] #toledo blockquote.pull.has-source-photo footer {
+  color:var(--polish-muted,#2C2C2C);
+}
+
+@media(min-width:901px) {
+  #main:is([data-page="the-hub"],[data-page="research"],[data-page="schools"]) .wrap {
+    max-width:var(--polish-rail,1280px);
+    padding-inline:24px;
+  }
+  #main:is([data-page="the-hub"],[data-page="schools"]) > .content-opening {
+    --pg-pad:24px;
+    padding-block:24px;
+  }
+  #main:is([data-page="research"],[data-page="schools"]) .page-intro h1.h1 {
+    font-size:clamp(56px,4.6vw,64px)!important;
+    line-height:1.08!important;
+    letter-spacing:-.025em!important;
+    max-width:23ch;
+  }
+  #main:is([data-page="research"],[data-page="schools"]) .page-intro .lede {
+    font-size:21px;
+    line-height:1.5;
+    max-width:50ch;
+    margin-top:24px;
+  }
+  #main[data-page="schools"] .page-intro-grid {
+    grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);
+    gap:48px;
+  }
+  #main[data-page="schools"] .page-intro-media .postcard img {
+    max-height:500px;
+    object-position:left center;
+  }
+  #main[data-page="the-hub"] .product-opening--hub .page-intro-grid {
+    grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+    gap:40px;
+  }
+  #main[data-page="the-hub"] .page-intro h1.h1 {
+    font-size:clamp(56px,5.5vw,72px)!important;
+    line-height:1.08!important;
+  }
+  #main[data-page="the-hub"] .page-intro .lede {
+    font-size:21px;
+    line-height:1.5;
+    max-width:44ch;
+    margin-top:24px;
+  }
+  #main[data-page="the-hub"] .hub-evidence-gallery .sp-slide img {
+    max-height:430px;
+    object-position:center;
+  }
+  #main[data-page="the-hub"] .hub-evidence-gallery .sp-cap {
+    padding-top:12px;
+    font-size:16px;
+    line-height:1.45;
+    color:var(--polish-ink,#2C2C2C);
+  }
+  #main[data-page="the-hub"] .hub-evidence-gallery .product-caption {
+    margin-top:8px;
+    color:var(--polish-muted,#2C2C2C);
+  }
+  #main[data-page="research"] .resource-paper-collection > .page-intro {
+    margin-bottom:0;
+  }
+  #main[data-page="research"] .page-intro-grid {
+    grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+    gap:56px;
+    align-items:center;
+  }
+  #main[data-page="research"] #papers-feedback .page-intro-media .postcard img {
+    max-height:470px;
+    width:100%;
+  }
+  #main[data-page="research"] .paper-group .h2 {
+    font-size:40px;
+    line-height:1.15;
+    max-width:30ch;
+  }
+  #main[data-page="research"] .va-card {
+    padding-block:24px;
+    gap:40px;
+  }
+  #main[data-page="research"] .va-txt {
+    max-width:none;
+    gap:12px;
+  }
+  #main[data-page="research"] .va-txt .rs-pub-who {
+    font:400 16px/1.5 var(--font-body);
+  }
+  #main[data-page="research"] .va-txt h3 {
+    font-size:28px;
+    line-height:1.2;
+    letter-spacing:-.015em;
+  }
+  #main[data-page="research"] .va-txt p {
+    font-size:19px;
+    line-height:1.5;
+    max-width:68ch;
+  }
+  #main[data-page="research"] .va-txt .pc-a {
+    min-height:44px;
+    align-self:start;
+    margin-top:0;
+    padding-block:8px;
+  }
+  #main[data-page="research"] .va-card[data-paper-format="text"] .va-txt {
+    display:grid;
+    grid-template-columns:minmax(180px,.26fr) minmax(0,.74fr);
+    gap:12px 40px;
+    max-width:none;
+  }
+  #main[data-page="research"] .va-card[data-paper-format="text"] .rs-pub-who {
+    grid-column:1;
+    grid-row:1 / span 4;
+    max-width:25ch;
+  }
+  #main[data-page="research"] .va-card[data-paper-format="text"] .va-txt > :is(h3,p,a) {
+    grid-column:2;
+    margin:0;
+  }
+  #main[data-page="research"] .va-card[data-paper-format="chart"] {
+    grid-template-columns:minmax(0,.42fr) minmax(0,.58fr);
+    align-items:center;
+  }
+  #main[data-page="research"] .va-card[data-paper-format="chart"] .va-fig svg {
+    max-width:none;
+    max-height:none;
+  }
+  #main[data-page="schools"] #toledo .h2 {
+    font-size:clamp(44px,4.2vw,56px);
+    line-height:1.1;
+    max-width:25ch;
+  }
+  #main[data-page="schools"] #toledo .ppl-sec-body {
+    margin-top:32px;
+  }
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo {
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    grid-template-rows:min-content 1fr;
+    gap:24px 48px;
+    align-items:start;
+  }
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo .pull-source-photo {
+    width:100%;
+    max-height:420px;
+    grid-row:1 / span 2;
+    align-self:start;
+    object-position:left top;
+  }
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo p {
+    font:400 clamp(28px,2.5vw,34px)/1.35 var(--font-body);
+    letter-spacing:-.015em;
+    max-width:34ch;
+  }
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo footer {
+    margin:0;
+    font-size:16px;
+    line-height:1.5;
+  }
+}
+
+/* Preserve verified phone scene budgets and the compact four-type Hub guide. */
+@media(max-width:900px) {
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo {
+    gap:18px;
+  }
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo .pull-source-photo {
+    max-height:210px;
+  }
+  #main[data-page="schools"] #toledo blockquote.pull.has-source-photo p {
+    font-size:21px;
+    line-height:1.4;
+  }
+  #main[data-page="the-hub"] .hub-evidence-gallery .sp-bar {
+    gap:8px;
+  }
+  #main[data-page="the-hub"] .hub-evidence-gallery .sp-nav {
+    padding-inline:10px;
+  }
+}
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="schools"] > .content-opening,
+  #main[data-page="research"] > #papers-feedback {
+    --pg-pad:16px;
+    padding-block:16px;
+  }
+  #main[data-page="schools"] .content-opening .page-intro-grid,
+  #main[data-page="research"] #papers-feedback .resource-paper-collection > .page-intro .page-intro-grid {
+    gap:12px;
+  }
+  #main[data-page="schools"] > section.content-opening {
+    padding-top:12px;
+  }
+  #main[data-page="the-hub"] .product-opening--hub .hub-intro-copy h1.h1 {
+    font-size:40px!important;
+    line-height:1.1!important;
+  }
+  #main[data-page="the-hub"] .product-opening--hub .hub-intro-copy .lede {
+    font-size:20px;
+    line-height:1.5;
+  }
+  #main[data-page="the-hub"] #creator .hub-builder-context p {
+    font-size:20px;
+    line-height:1.5;
+  }
+  #main[data-page="the-hub"] #creator blockquote.hub-builder-evidence {
+    max-width:none;
+    padding:0;
+    gap:16px;
+    background:transparent;
+  }
+  #main[data-page="the-hub"] > section#live {
+    --pg-pad:16px;
+    padding-block:16px;
+  }
+  #main[data-page="the-hub"] #live .zpa-sec-body {
+    margin-top:16px;
+  }
+  #main[data-page="the-hub"] #live .hub-live-scene .lf-body {
+    height:240px;
+  }
+  #main[data-page="the-hub"] #live .live-frame figcaption {
+    padding-block:6px;
+  }
+  #main[data-page="the-hub"] #live .product-related {
+    margin-top:12px;
+    padding-top:8px;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  #main[data-page="the-hub"] .hub-evidence-gallery .sp-nav { transition:none; }
+}
+/* Short phones retain each measured result and the complete school decision. */
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="research"] > section:has(.stanza-row.c3) .stanza-row { gap:24px; }
+  #main[data-page="research"] > section:has(.stanza-row.c3) .stanza { padding-block:16px; }
+  #main[data-page="schools"] > section.page-ending { --pg-pad:14px; padding-block:14px; }
+}
+#main[data-page="schools"] .school-result-figure { margin:0; min-width:0; }
+#main[data-page="schools"] .school-result-figure img { display:block; width:100%; height:auto; max-height:360px; object-fit:contain; }
+#main[data-page="schools"] .school-result-figure figcaption { margin-top:8px; color:#2C2C2C; font:400 14px/1.4 var(--font-body); }
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="schools"] #eco .ppl-stats { row-gap:16px; }
+  #main[data-page="schools"] #eco .school-result-figure figcaption { margin-top:6px; }
+}
+
+/* Budget the live frame's reserved interaction row after lazy initialization. */
+#main[data-page="the-hub"] #live .product-related { margin-top:12px; padding-top:8px; }
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="the-hub"] > #live { --pg-pad:8px; padding-block:8px; }
+  #main[data-page="the-hub"] #live .zpa-sec-body { margin-top:6px; }
+  #main[data-page="the-hub"] #live .product-chapter-heading { margin-bottom:6px; }
+  #main[data-page="the-hub"] #live .product-related { margin-top:4px; padding-top:4px; }
+  #main[data-page="the-hub"] #live .product-related a { display:block; min-height:44px; padding-block:0; }
+  #main[data-page="the-hub"] #live .product-related h3 { line-height:1.2; }
+}

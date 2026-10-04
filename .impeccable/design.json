@@ -1,0 +1,591 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T06:22:37.505073+00:00",
+  "title": "Design System: Community Hub",
+  "extensions": {
+    "colorMeta": {
+      "leaf": {
+        "role": "primary",
+        "displayName": "Leaf",
+        "tonalRamp": [
+          "oklch(15% 0.1679 141.80)",
+          "oklch(26% 0.1679 141.80)",
+          "oklch(38% 0.1679 141.80)",
+          "oklch(49% 0.1679 141.80)",
+          "oklch(61% 0.1679 141.80)",
+          "oklch(72% 0.1679 141.80)",
+          "oklch(84% 0.1679 141.80)",
+          "oklch(95% 0.1679 141.80)"
+        ]
+      },
+      "leaf-deep": {
+        "role": "primary",
+        "displayName": "Leaf deep",
+        "tonalRamp": [
+          "oklch(15% 0.1268 146.08)",
+          "oklch(26% 0.1268 146.08)",
+          "oklch(38% 0.1268 146.08)",
+          "oklch(49% 0.1268 146.08)",
+          "oklch(61% 0.1268 146.08)",
+          "oklch(72% 0.1268 146.08)",
+          "oklch(84% 0.1268 146.08)",
+          "oklch(95% 0.1268 146.08)"
+        ]
+      },
+      "leaf-tint": {
+        "role": "primary",
+        "displayName": "Leaf tint",
+        "tonalRamp": [
+          "oklch(15% 0.0235 139.44)",
+          "oklch(26% 0.0235 139.44)",
+          "oklch(38% 0.0235 139.44)",
+          "oklch(49% 0.0235 139.44)",
+          "oklch(61% 0.0235 139.44)",
+          "oklch(72% 0.0235 139.44)",
+          "oklch(84% 0.0235 139.44)",
+          "oklch(95% 0.0235 139.44)"
+        ]
+      },
+      "leaf-on-charcoal": {
+        "role": "primary",
+        "displayName": "Leaf on charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.1067 140.77)",
+          "oklch(26% 0.1067 140.77)",
+          "oklch(38% 0.1067 140.77)",
+          "oklch(49% 0.1067 140.77)",
+          "oklch(61% 0.1067 140.77)",
+          "oklch(72% 0.1067 140.77)",
+          "oklch(84% 0.1067 140.77)",
+          "oklch(95% 0.1067 140.77)"
+        ]
+      },
+      "link-green": {
+        "role": "primary",
+        "displayName": "Link green",
+        "tonalRamp": [
+          "oklch(15% 0.1171 146.60)",
+          "oklch(26% 0.1171 146.60)",
+          "oklch(38% 0.1171 146.60)",
+          "oklch(49% 0.1171 146.60)",
+          "oklch(61% 0.1171 146.60)",
+          "oklch(72% 0.1171 146.60)",
+          "oklch(84% 0.1171 146.60)",
+          "oklch(95% 0.1171 146.60)"
+        ]
+      },
+      "chapter-green": {
+        "role": "primary",
+        "displayName": "Chapter green",
+        "tonalRamp": [
+          "oklch(15% 0.0957 145.47)",
+          "oklch(26% 0.0957 145.47)",
+          "oklch(38% 0.0957 145.47)",
+          "oklch(49% 0.0957 145.47)",
+          "oklch(61% 0.0957 145.47)",
+          "oklch(72% 0.0957 145.47)",
+          "oklch(84% 0.0957 145.47)",
+          "oklch(95% 0.0957 145.47)"
+        ]
+      },
+      "editorial-paper": {
+        "role": "neutral",
+        "displayName": "Editorial paper",
+        "tonalRamp": [
+          "oklch(15% 0.0080 114.22)",
+          "oklch(26% 0.0080 114.22)",
+          "oklch(38% 0.0080 114.22)",
+          "oklch(49% 0.0080 114.22)",
+          "oklch(61% 0.0080 114.22)",
+          "oklch(72% 0.0080 114.22)",
+          "oklch(84% 0.0080 114.22)",
+          "oklch(95% 0.0080 114.22)"
+        ]
+      },
+      "engage-paper": {
+        "role": "primary",
+        "displayName": "Engage paper",
+        "tonalRamp": [
+          "oklch(15% 0.0205 121.84)",
+          "oklch(26% 0.0205 121.84)",
+          "oklch(38% 0.0205 121.84)",
+          "oklch(49% 0.0205 121.84)",
+          "oklch(61% 0.0205 121.84)",
+          "oklch(72% 0.0205 121.84)",
+          "oklch(84% 0.0205 121.84)",
+          "oklch(95% 0.0205 121.84)"
+        ]
+      },
+      "motivate-paper": {
+        "role": "primary",
+        "displayName": "Motivate paper",
+        "tonalRamp": [
+          "oklch(15% 0.0310 137.82)",
+          "oklch(26% 0.0310 137.82)",
+          "oklch(38% 0.0310 137.82)",
+          "oklch(49% 0.0310 137.82)",
+          "oklch(61% 0.0310 137.82)",
+          "oklch(72% 0.0310 137.82)",
+          "oklch(84% 0.0310 137.82)",
+          "oklch(95% 0.0310 137.82)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26% 0.0000 0.00)",
+          "oklch(38% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(72% 0.0000 0.00)",
+          "oklch(84% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "editorial-ink": {
+        "role": "neutral",
+        "displayName": "Editorial ink",
+        "tonalRamp": [
+          "oklch(15% 0.0122 160.49)",
+          "oklch(26% 0.0122 160.49)",
+          "oklch(38% 0.0122 160.49)",
+          "oklch(49% 0.0122 160.49)",
+          "oklch(61% 0.0122 160.49)",
+          "oklch(72% 0.0122 160.49)",
+          "oklch(84% 0.0122 160.49)",
+          "oklch(95% 0.0122 160.49)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26% 0.0000 0.00)",
+          "oklch(38% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(72% 0.0000 0.00)",
+          "oklch(84% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Ink secondary",
+        "tonalRamp": [
+          "oklch(15% 0.0032 106.53)",
+          "oklch(26% 0.0032 106.53)",
+          "oklch(38% 0.0032 106.53)",
+          "oklch(49% 0.0032 106.53)",
+          "oklch(61% 0.0032 106.53)",
+          "oklch(72% 0.0032 106.53)",
+          "oklch(84% 0.0032 106.53)",
+          "oklch(95% 0.0032 106.53)"
+        ]
+      },
+      "story-charcoal": {
+        "role": "neutral",
+        "displayName": "Story charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0100 164.19)",
+          "oklch(26% 0.0100 164.19)",
+          "oklch(38% 0.0100 164.19)",
+          "oklch(49% 0.0100 164.19)",
+          "oklch(61% 0.0100 164.19)",
+          "oklch(72% 0.0100 164.19)",
+          "oklch(84% 0.0100 164.19)",
+          "oklch(95% 0.0100 164.19)"
+        ]
+      },
+      "educate-charcoal": {
+        "role": "neutral",
+        "displayName": "Educate charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0133 163.87)",
+          "oklch(26% 0.0133 163.87)",
+          "oklch(38% 0.0133 163.87)",
+          "oklch(49% 0.0133 163.87)",
+          "oklch(61% 0.0133 163.87)",
+          "oklch(72% 0.0133 163.87)",
+          "oklch(84% 0.0133 163.87)",
+          "oklch(95% 0.0133 163.87)"
+        ]
+      },
+      "platform-charcoal": {
+        "role": "neutral",
+        "displayName": "Platform charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26% 0.0000 0.00)",
+          "oklch(38% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(72% 0.0000 0.00)",
+          "oklch(84% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "footer-green": {
+        "role": "neutral",
+        "displayName": "Footer green",
+        "tonalRamp": [
+          "oklch(15% 0.0496 161.23)",
+          "oklch(26% 0.0496 161.23)",
+          "oklch(38% 0.0496 161.23)",
+          "oklch(49% 0.0496 161.23)",
+          "oklch(61% 0.0496 161.23)",
+          "oklch(72% 0.0496 161.23)",
+          "oklch(84% 0.0496 161.23)",
+          "oklch(95% 0.0496 161.23)"
+        ]
+      },
+      "on-charcoal": {
+        "role": "neutral",
+        "displayName": "On charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0155 145.45)",
+          "oklch(26% 0.0155 145.45)",
+          "oklch(38% 0.0155 145.45)",
+          "oklch(49% 0.0155 145.45)",
+          "oklch(61% 0.0155 145.45)",
+          "oklch(72% 0.0155 145.45)",
+          "oklch(84% 0.0155 145.45)",
+          "oklch(95% 0.0155 145.45)"
+        ]
+      },
+      "editorial-rule": {
+        "role": "neutral",
+        "displayName": "Editorial rule",
+        "tonalRamp": [
+          "oklch(15% 0.0241 139.44)",
+          "oklch(26% 0.0241 139.44)",
+          "oklch(38% 0.0241 139.44)",
+          "oklch(49% 0.0241 139.44)",
+          "oklch(61% 0.0241 139.44)",
+          "oklch(72% 0.0241 139.44)",
+          "oklch(84% 0.0241 139.44)",
+          "oklch(95% 0.0241 139.44)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15% 0.0325 161.17)",
+          "oklch(26% 0.0325 161.17)",
+          "oklch(38% 0.0325 161.17)",
+          "oklch(49% 0.0325 161.17)",
+          "oklch(61% 0.0325 161.17)",
+          "oklch(72% 0.0325 161.17)",
+          "oklch(84% 0.0325 161.17)",
+          "oklch(95% 0.0325 161.17)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Line strong",
+        "tonalRamp": [
+          "oklch(15% 0.0325 161.17)",
+          "oklch(26% 0.0325 161.17)",
+          "oklch(38% 0.0325 161.17)",
+          "oklch(49% 0.0325 161.17)",
+          "oklch(61% 0.0325 161.17)",
+          "oklch(72% 0.0325 161.17)",
+          "oklch(84% 0.0325 161.17)",
+          "oklch(95% 0.0325 161.17)"
+        ]
+      },
+      "tool-paper": {
+        "role": "neutral",
+        "displayName": "Tool paper",
+        "tonalRamp": [
+          "oklch(15% 0.0026 106.45)",
+          "oklch(26% 0.0026 106.45)",
+          "oklch(38% 0.0026 106.45)",
+          "oklch(49% 0.0026 106.45)",
+          "oklch(61% 0.0026 106.45)",
+          "oklch(72% 0.0026 106.45)",
+          "oklch(84% 0.0026 106.45)",
+          "oklch(95% 0.0026 106.45)"
+        ]
+      },
+      "water": {
+        "role": "secondary",
+        "displayName": "Water",
+        "tonalRamp": [
+          "oklch(15% 0.1340 232.86)",
+          "oklch(26% 0.1340 232.86)",
+          "oklch(38% 0.1340 232.86)",
+          "oklch(49% 0.1340 232.86)",
+          "oklch(61% 0.1340 232.86)",
+          "oklch(72% 0.1340 232.86)",
+          "oklch(84% 0.1340 232.86)",
+          "oklch(95% 0.1340 232.86)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Short chapter statement",
+        "purpose": "Comfortaa brand expression; not long quotation or body copy."
+      },
+      "opening": {
+        "displayName": "Local/global opening",
+        "purpose": "Lato opening statement. At <=900px: clamp(42px,13.4vw,54px), line-height 1.04. With announcement visible and viewport height <=740px: clamp(38px,11.5vw,44px); complete contained media is 22dvh."
+      },
+      "headline": {
+        "displayName": "Product index title",
+        "purpose": "Strong Lato directory heading."
+      },
+      "title": {
+        "displayName": "Product title",
+        "purpose": "Homepage selected-product heading."
+      },
+      "body": {
+        "displayName": "Shared reading",
+        "purpose": "Default Lato body text."
+      },
+      "chapter-body": {
+        "displayName": "Chapter reading",
+        "purpose": "Homepage product paragraphs, max 48ch; 16px/1.5 on phones."
+      },
+      "quote": {
+        "displayName": "Human testimony",
+        "purpose": "Original complete quote. <=900px:21px/1.4; <=420px:19px/1.4."
+      },
+      "label": {
+        "displayName": "Caption and support",
+        "purpose": "Lato captions, counters and supporting text, with local size adjustments."
+      },
+      "action": {
+        "displayName": "Shared action",
+        "purpose": "Open Sans shared primary/ghost buttons."
+      },
+      "field": {
+        "displayName": "Field reading",
+        "purpose": "Quote-form control text."
+      },
+      "product-title": {
+        "displayName": "Directory destination",
+        "purpose": "Lato product name in unboxed category rows."
+      }
+    },
+    "shadows": [
+      {
+        "name": "button-rest",
+        "value": "inset 0 1px 0 rgba(255,255,255,.16),0 1px 2px rgba(20,60,30,.22)",
+        "purpose": "Existing shared primary button."
+      },
+      {
+        "name": "button-hover",
+        "value": "inset 0 1px 0 rgba(255,255,255,.16),0 12px 24px -12px rgba(47,125,58,.6)",
+        "purpose": "Existing primary hover; not editorial media."
+      },
+      {
+        "name": "dropdown",
+        "value": "0 1px 2px rgba(20,40,30,.05),0 24px 48px -20px rgba(20,40,30,.3)",
+        "purpose": "Menu separation above the page."
+      },
+      {
+        "name": "lift",
+        "value": "0 1px 2px rgba(20,40,30,.04),0 14px 30px -22px rgba(20,40,30,.28)",
+        "purpose": "Retained interior cards."
+      },
+      {
+        "name": "lift-hi",
+        "value": "0 1px 2px rgba(20,40,30,.05),0 22px 40px -22px rgba(20,60,30,.38)",
+        "purpose": "Retained card/link hover."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 4px rgba(91,185,81,.22)",
+        "purpose": "Existing quote form focus ring."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.2,.7,.2,1)",
+        "purpose": "Shared state changes and story dissolve."
+      },
+      {
+        "name": "button-transition",
+        "value": ".2s",
+        "purpose": "Shared button state transitions."
+      },
+      {
+        "name": "story-photo-dissolve",
+        "value": ".9s",
+        "purpose": "One photograph dissolves; outgoing quote text is hidden immediately."
+      },
+      {
+        "name": "story-advance",
+        "value": "7000ms",
+        "purpose": "Runtime automatic story advance subject to hover, focus, pause, visibility and reduced-motion conditions."
+      },
+      {
+        "name": "platform-reveal",
+        "value": ".3s",
+        "purpose": "Existing stage opacity transition; reduced-motion disables transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "desktop-navigation-collapse",
+        "value": "1160px"
+      },
+      {
+        "name": "homepage-stack",
+        "value": "900px"
+      },
+      {
+        "name": "interior-stack",
+        "value": "699px"
+      },
+      {
+        "name": "compact-phone",
+        "value": "420px"
+      },
+      {
+        "name": "narrow-header",
+        "value": "360px"
+      },
+      {
+        "name": "short-phone-with-announcement-height",
+        "value": "740px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "description": "Shared demo and form action; restrained elevation is inherited functional chrome.",
+      "html": "<button type=\"button\" class=\"ds-primary\">Book a demo</button>",
+      "css": ".ds-primary {display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem/1.2 var(--f-btn, 'Open Sans', Lato, system-ui, sans-serif);padding:14px 24px;border:1px solid var(--leaf-deep, #2f7d3a);border-radius:var(--r-btn,10px);text-decoration:none;cursor:pointer;transition:background .2s var(--ease, cubic-bezier(.2,.7,.2,1)),border-color .2s var(--ease, cubic-bezier(.2,.7,.2,1)),transform .2s var(--ease, cubic-bezier(.2,.7,.2,1)),box-shadow .2s var(--ease, cubic-bezier(.2,.7,.2,1));background:var(--leaf-deep, #2f7d3a);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 1px 2px rgba(20,60,30,.22);} .ds-primary:hover {background:#246530;border-color:#246530;transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 12px 24px -12px rgba(47,125,58,.6);} .ds-primary:active {background:#1d5227;transform:translateY(0);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);} .ds-primary:focus-visible {outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;} @media(prefers-reduced-motion:reduce){.ds-primary{transition:none;}}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Ghost button",
+      "kind": "button",
+      "description": "White secondary action with the same typography and small control radius.",
+      "html": "<button type=\"button\" class=\"ds-ghost\">See it live</button>",
+      "css": ".ds-ghost {display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem/1.2 var(--f-btn, 'Open Sans', Lato, system-ui, sans-serif);padding:14px 24px;border:1px solid var(--leaf-deep, #2f7d3a);border-radius:var(--r-btn,10px);text-decoration:none;cursor:pointer;transition:background .2s var(--ease, cubic-bezier(.2,.7,.2,1)),border-color .2s var(--ease, cubic-bezier(.2,.7,.2,1)),transform .2s var(--ease, cubic-bezier(.2,.7,.2,1)),box-shadow .2s var(--ease, cubic-bezier(.2,.7,.2,1));color:var(--ink, #2C2C2C);background:#fff;border-color:var(--line-2, rgba(20,40,30,.18));box-shadow:none;} .ds-ghost:hover {color:var(--leaf-deep, #2f7d3a);border-color:var(--leaf-deep, #2f7d3a);transform:translateY(-1px);} .ds-ghost:active {transform:translateY(0);} .ds-ghost:focus-visible {outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;} @media(prefers-reduced-motion:reduce){.ds-ghost{transition:none;}}",
+      "refersTo": "button-ghost"
+    },
+    {
+      "name": "Quote form field",
+      "kind": "input",
+      "description": "Existing request-a-quote field, including its real label and focus ring.",
+      "html": "<label class=\"ds-field\">Your name<input autocomplete=\"name\" required></label>",
+      "css": ".ds-field{display:block;max-width:52ch;font:400 .9rem/1.6 var(--f-d, Comfortaa, ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif);color:var(--ink, #2C2C2C);} .ds-field input{display:block;width:100%;margin-top:6px;padding:12px 14px;border:1px solid var(--line-2, rgba(20,40,30,.18));border-radius:var(--r-sm,10px);font:1rem/1.5 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);background:#fff;transition:border-color .2s,box-shadow .2s;} .ds-field input:hover{border-color:rgba(20,40,30,.4);} .ds-field input:focus{outline:none;border-color:var(--leaf-deep, #2f7d3a);box-shadow:0 0 0 4px rgba(91,185,81,.22);} @media(prefers-reduced-motion:reduce){.ds-field input{transition:none;}}",
+      "refersTo": "input"
+    },
+    {
+      "name": "Desktop navigation items",
+      "kind": "nav",
+      "description": "Active and hovered links use green text and a short underline. This preview does not implement dropdown behavior.",
+      "html": "<nav class=\"ds-navigation\" aria-label=\"Main preview\"><a href=\"products.html\" aria-current=\"page\">Products</a><a href=\"pricing.html\">Pricing</a><a href=\"about.html\">About</a></nav>",
+      "css": ".ds-navigation{display:flex;flex-wrap:wrap;gap:4px;background:#fff;} .ds-navigation a{position:relative;display:inline-flex;align-items:center;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink, #2C2C2C);font:400 1rem/1.6 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);transition:color .2s var(--ease, cubic-bezier(.2,.7,.2,1));} .ds-navigation a:after{content:\"\";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:2px;background:var(--leaf,#5BB951);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease, cubic-bezier(.2,.7,.2,1));} .ds-navigation a:hover,.ds-navigation a[aria-current]{color:var(--leaf-deep, #2f7d3a);} .ds-navigation a:hover:after,.ds-navigation a[aria-current]:after{transform:scaleX(1);} .ds-navigation a:focus-visible{outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;} @media(prefers-reduced-motion:reduce){.ds-navigation a,.ds-navigation a:after{transition:none;}}",
+      "refersTo": "navigation-item"
+    },
+    {
+      "name": "Resource grade filter",
+      "kind": "chip",
+      "description": "Retained lesson-library segmented filter. Its rounded shape is local to the tool.",
+      "html": "<div class=\"ds-segment\" role=\"group\" aria-label=\"Grade level\"><button type=\"button\" aria-pressed=\"true\">All</button><button type=\"button\" aria-pressed=\"false\">1 to 5</button><button type=\"button\" aria-pressed=\"false\">6 to 8</button><button type=\"button\" aria-pressed=\"false\">9 to 12</button><button type=\"button\" aria-pressed=\"false\">College</button></div>",
+      "css": ".ds-segment{display:flex;flex-wrap:wrap;gap:6px;padding:4px;border-radius:999px;background:var(--sky-2,#F4F4F2);} .ds-segment button{border:0;background:transparent;border-radius:999px;padding:8px 14px;font:400 max(14px,.85rem)/1.6 var(--f-d, Comfortaa, ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif);color:var(--ink-2,#555553);cursor:pointer;} .ds-segment button[aria-pressed=true]{background:#fff;color:var(--ink, #2C2C2C);box-shadow:var(--shadow,0 1px 0 rgba(20,40,30,.05),0 12px 28px -18px rgba(20,40,30,.35));} .ds-segment button:focus-visible{outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;}",
+      "refersTo": "resource-segment"
+    },
+    {
+      "name": "Retained information card",
+      "kind": "card",
+      "description": "Existing interior card recipe, included as an implementation boundary rather than the model for reconstructed editorial scenes.",
+      "html": "<article class=\"ds-card\"><h3>Data Hub</h3><p>a powerful and intuitive package of online data visualization tools</p><a href=\"the-hub.html\">Learn more <span aria-hidden=\"true\">→</span></a></article>",
+      "css": ".ds-card{position:relative;max-width:34rem;display:flex;flex-direction:column;gap:10px;padding:28px 26px;background:#fff;color:var(--ink, #2C2C2C);border:1px solid var(--line, rgba(20,40,30,.10));border-radius:var(--r-lg,22px);box-shadow:var(--lift,0 1px 2px rgba(20,40,30,.04),0 14px 30px -22px rgba(20,40,30,.28));} .ds-card:before{content:\"\";position:absolute;top:-1px;left:24px;width:40px;height:3px;border-radius:0 0 3px 3px;background:var(--leaf,#5BB951);} .ds-card h3{margin:0;font:700 1.3rem/1.2 var(--f-d, Comfortaa, ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif);} .ds-card p{margin:0;font:400 1.125rem/1.6 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);} .ds-card a{font:400 1rem/1.6 var(--f-d, Comfortaa, ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif);color:var(--leaf-deep, #2f7d3a);text-decoration:none;} .ds-card a:hover{text-decoration:underline;text-underline-offset:4px;} .ds-card a:focus-visible{outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;}"
+    },
+    {
+      "name": "Human story controls",
+      "kind": "custom",
+      "description": "One restrained previous/count/next/pause row on the actual charcoal scene ground. Application script owns the seven-second auto-advance and pause behavior.",
+      "html": "<div class=\"ds-story\"><button type=\"button\" aria-label=\"Previous story\">←</button><span class=\"ds-count\">1 / 8</span><button type=\"button\" aria-label=\"Next story\">→</button><button class=\"ds-play\" type=\"button\" aria-pressed=\"false\">Pause</button></div>",
+      "css": ".ds-story{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:20px;background:#262c29;color:#fff;} .ds-story button{min-width:44px;height:44px;border:0;border-radius:0;background:transparent;color:#fff;font:400 18px/1.6 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);cursor:pointer;} .ds-story .ds-count{min-width:58px;text-align:center;font:400 14px/1.6 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);font-variant-numeric:tabular-nums;color:#d9e2d9;} .ds-story .ds-play{margin-left:10px;padding:0 10px;font-size:14px;border-left:1px solid #59665c;} .ds-story button:hover{color:#a6de9c;} .ds-story button:focus-visible{outline:2px solid var(--ink, #2C2C2C);outline-offset:3px;}",
+      "refersTo": "story-controls"
+    },
+    {
+      "name": "Chapter tabs",
+      "kind": "nav",
+      "description": "Selected product uses a bold reading label and current-color rule; no pill or filled tab shell.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"To engage\"><button type=\"button\" role=\"tab\" aria-selected=\"true\">Digital Signage</button><button type=\"button\" role=\"tab\" aria-selected=\"false\">Phone App</button><button type=\"button\" role=\"tab\" aria-selected=\"false\">Web Embeddables</button></div>",
+      "css": ".ds-tabs{display:flex;gap:22px;background:#eff4e5;color:#242b27;overflow:auto;} .ds-tabs button{flex:none;min-height:44px;padding:8px 0;background:none;border:0;border-bottom:2px solid transparent;border-radius:0;font:400 15px/1.25 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);color:inherit;opacity:.75;cursor:pointer;} .ds-tabs button[aria-selected=true]{opacity:1;font-weight:700;border-bottom-color:currentColor;} .ds-tabs button:focus-visible{outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;border-radius:6px;}",
+      "refersTo": "chapter-tab"
+    },
+    {
+      "name": "Live dashboard toolbar",
+      "kind": "custom",
+      "description": "Compact host context above the real iframe. Partner links appear only when org_link resolves a verified matching source. The toolbar alone does not prove remote content availability.",
+      "html": "<div class=\"ds-livebar\"><span>oberlin.communityhub.cloud</span><a href=\"https://oberlin.communityhub.cloud/\" target=\"_blank\" rel=\"noopener noreferrer\">Open dashboard <span aria-hidden=\"true\">→</span></a></div>",
+      "css": ".ds-livebar{display:flex;flex-wrap:wrap;align-items:center;gap:18px;min-height:44px;padding:8px 14px;background:#f1f5ec;border-bottom:1px solid #cdd9ca;color:var(--ink, #2C2C2C);font:400 1rem/1.6 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);} .ds-livebar>b{font:700 14px/1.4 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);color:#287034;} .ds-livebar>span{margin-right:auto;} .ds-livebar>a{font:700 14px/1.4 var(--f-t, Lato, system-ui, -apple-system, 'Segoe UI', sans-serif);color:inherit;} .ds-livebar>a:focus-visible{outline:2px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;}",
+      "refersTo": "live-toolbar"
+    },
+    {
+      "name": "Next story control",
+      "kind": "button",
+      "description": "Existing header control for deliberate story navigation; the source script supplies the actual next-scene label.",
+      "html": "<button type=\"button\" class=\"ds-next\" aria-label=\"Next section\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 4v16m-6-6 6 6 6-6\"/></svg></button>",
+      "css": ".ds-next{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;padding:0;border:1px solid var(--line-2, rgba(20,40,30,.18));border-radius:12px;background:#fff;color:var(--leaf-deep, #2f7d3a);cursor:pointer;} .ds-next svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;} .ds-next:hover{background:var(--leaf-tint,#EAF6E7);border-color:var(--leaf-deep, #2f7d3a);} .ds-next:focus-visible{outline:3px solid var(--leaf-deep, #2f7d3a);outline-offset:3px;} .ds-next:disabled{cursor:default;opacity:.55;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A documentary of a connected community",
+    "overview": "Community Hub's visual language gives real people, places, installations, and working data room to explain the platform. Original photographs and source writing carry the story. Green retains brand recognition, charcoal gives human testimony a quiet stage, and pale paper supports diagrams and product reading. The interface should be quieter than its subject.\n\nThe reconstructed surfaces use deliberate alignment, natural image proportions, strong Lato reading hierarchy, and short Comfortaa chapter statements. Their composition is editorial and specific to the material. Existing functional controls retain their useful affordances; they are not a template for turning every scene into a rounded card.",
+    "keyCharacteristics": [
+      "Original photography and original writing are the primary evidence.",
+      "Green, charcoal, white, and pale green have distinct roles.",
+      "Comfortaa provides short brand and chapter expression; Lato carries reading and explanation.",
+      "Flat editorial scenes share edges, with restrained controls and clear destinations.",
+      "Motion introduces relationships, allows manual access, and settles into readable content."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Color Rule",
+        "body": "Let original photography and real data supply visual variety. Do not add decorative colors or metrics to fill a composition.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Voice Rule",
+        "body": "Use Comfortaa selectively for short identity statements. Use Lato for long quotations, body copy, product explanation, and diagram labels.",
+        "section": "typography"
+      },
+      {
+        "name": "The Scene Ownership Rule",
+        "body": "Each authored scene has one clear focal subject and a relevant destination. Preserve the narrative in the surface brief; do not turn its exact chapter arrangement into a universal page template.",
+        "section": "layout"
+      },
+      {
+        "name": "The Quiet Frame Rule",
+        "body": "Do not wrap an editorial photograph in another media shell, caption slab, or decorative card. Use the scene itself as the frame.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** retain CommunityHub.cloud's original writing, real photographs, established product names, and truthful destinations.",
+      "**Do** compose around the complete photographic subject and its native proportions.",
+      "**Do** use Comfortaa for short brand expression and Lato for reading, testimony, and explanations.",
+      "**Do** make chapter identity, the focal subject, and the relevant destination clear at first glance.",
+      "**Do** preserve keyboard access, manual controls, reduced motion, and nested scrolling when changing composition.",
+      "**Do** verify the actual desktop, phone, and large-display rendering with loaded fonts and images."
+    ],
+    "donts": [
+      "**Don't** invent testimonials, partner claims, product promises, generated installations, or replacement AI photographs.",
+      "**Don't** turn every page into a full-screen marketing introduction or interchangeable card grid.",
+      "**Don't** restore the rejected density-led composition, decorative constellation, tiny tracked labels, or ornamental metrics.",
+      "**Don't** stack banners, media shells, caption panels, and repeated progress controls around one subject.",
+      "**Don't** crop important heads, stretch a photograph, or hide required source writing to force a scene to fit.",
+      "**Don't** treat successful technical checks or a screenshot folder name as final design acceptance."
+    ]
+  }
+}

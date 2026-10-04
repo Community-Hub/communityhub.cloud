@@ -1,0 +1,333 @@
+/* Product evidence at useful scale. The shared stylesheet owns chapter surfaces. */
+#main:is([data-page="digital-signage"],[data-page="phone-app"],[data-page="web-embeddables"],[data-page="data-dashboard"],[data-page="community-calendar"],[data-page="community-voices"],[data-page="stories"]) {
+  --detail-ink:#2C2C2C;
+  --detail-muted:#2C2C2C;
+}
+#main:not([data-page="the-hub"]) > .product-opening .page-intro-grid {
+  max-width:var(--polish-rail,1280px);
+  padding-inline:24px;
+}
+#main:not([data-page="the-hub"]) > .product-opening .h1 {
+  color:var(--detail-ink);
+  font-family:var(--font-body);
+  font-weight:400;
+  line-height:1.05;
+  letter-spacing:-.025em;
+}
+#main:not([data-page="the-hub"]) > .product-opening :is(.lede,.crumbs,.opening-caption) {
+  color:var(--detail-muted);
+}
+#main:not([data-page="the-hub"]) > .product-opening .page-intro-media {
+  width:100%;
+  max-width:none;
+  min-width:0;
+  justify-self:stretch;
+}
+#main:not([data-page="the-hub"]):not([data-page="community-voices"]) > .product-opening .page-intro-media :is(img,.postcard img,.zpb-cal-hero img) {
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  object-position:left center;
+  border-radius:0;
+}
+#main:not([data-page="the-hub"]) > .product-opening .page-intro-actions .btn-ink {
+  min-height:44px;
+  padding:10px 16px;
+  border-radius:4px;
+  background:#2C2C2C;
+  border-color:#2C2C2C;
+  color:#F4F4F2!important;
+}
+/* Second action: same shape, dark text on the light field, never white on white. */
+#main:not([data-page="the-hub"]) > .product-opening .page-intro-actions .btn-ink.btn-ghost {
+  background:transparent!important;
+  border-color:#2C2C2C;
+  color:#2C2C2C!important;
+}
+#main:not([data-page="the-hub"]) > .product-opening .page-intro-actions .btn-ink.btn-ghost:hover {
+  background:#2C2C2C!important;
+  color:#F4F4F2!important;
+}
+#main:not([data-page="the-hub"]) > .product-opening :is(a,button,select):focus-visible {
+  outline:2px solid #2C2C2C;
+  outline-offset:4px;
+}
+/* Leave the original artwork and diagrams fully visible. */
+#main[data-page="stories"] .product-opening .postcard { background:transparent; }
+#main[data-page="community-voices"] .product-opening .opening-caption {
+  font:400 17px/1.4 var(--font-body);
+  margin-top:14px;
+}
+
+/* The demo's own configurable design remains in charge of its partner website. */
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-browser {
+  border-color:#CCCCCB;
+  border-radius:4px;
+  overflow:hidden;
+}
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-s-head {
+  padding-block:calc(10px * var(--s-d));
+}
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-s-title {
+  padding-block:calc(10px * var(--s-d)) calc(4px * var(--s-d));
+}
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-e-tabs {
+  display:flex;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--s-p) var(--s-soft);
+  max-width:100%;
+  padding-bottom:6px;
+}
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-e-tabs [role="tab"] {
+  flex:0 0 auto;
+  min-height:44px;
+  white-space:nowrap;
+  scroll-margin-inline:8px;
+}
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-site[data-tabs="boxed"] .zpb-emb-e-tabs {
+  overflow-x:auto;
+}
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-e-nav { min-width:0; }
+#main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-note {
+  color:#2C2C2C;
+  max-width:80ch;
+}
+#main[data-page="web-embeddables"] .zpb-emb-appearance > summary {
+  min-height:44px;
+  color:#2C2C2C;
+}
+#main[data-page="web-embeddables"] .zpb-emb-appearance :is(button,select,input):focus-visible {
+  outline:2px solid #2C2C2C;
+  outline-offset:3px;
+}
+
+/* The shield opt-in inserts this sibling toolbar; it never covers the remote. */
+#main[data-page="phone-app"] #controller .zpb-stepper-media.is-live {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:visible;
+}
+#main[data-page="phone-app"] #controller .ch-embed-toolbar {
+  display:flex;
+  flex:none;
+  justify-content:flex-end;
+  align-items:center;
+  width:min(100%,300px);
+  min-height:44px;
+  margin-bottom:4px;
+}
+#main[data-page="phone-app"] #controller .ch-embed-toolbar .ch-embed-toggle {
+  position:static;
+  min-height:44px;
+  min-width:92px;
+  padding:9px 14px;
+  border:1px solid #CCCCCB;
+  border-radius:4px;
+  background:#F4F4F2;
+  color:#2C2C2C;
+  box-shadow:none;
+  font:700 15px/1.4 var(--font-body);
+}
+#main[data-page="phone-app"] #controller .ch-embed-toolbar + .mini {
+  position:relative;
+  inset:auto;
+  transform:none;
+  flex:1;
+  min-height:0;
+  width:auto;
+  max-width:100%;
+  aspect-ratio:390 / 780;
+}
+
+@media(min-width:901px) {
+  #main:not([data-page="the-hub"]) > .product-opening { padding-block:28px; }
+  #main:not([data-page="the-hub"]) > .product-opening .page-intro-grid {
+    grid-template-columns:minmax(0,.4fr) minmax(0,.6fr);
+    gap:40px;
+    align-items:center;
+  }
+  #main:not([data-page="the-hub"]) > .product-opening .h1 {
+    font-size:clamp(52px,5vw,72px)!important;
+  }
+  #main:not([data-page="the-hub"]) > .product-opening .lede {
+    font-size:21px;
+    line-height:1.45;
+    max-width:44ch;
+  }
+  #main:not([data-page="the-hub"]):not([data-page="community-voices"]) > .product-opening .page-intro-media :is(img,.postcard img,.zpb-cal-hero img) {
+    max-height:calc(100dvh - var(--story-hdr-h,77px) - 90px);
+  }
+  #main[data-page="phone-app"] > .product-opening .page-intro-media > img {
+    max-height:calc(100dvh - var(--story-hdr-h,77px) - 110px);
+  }
+  #main[data-page="web-embeddables"] #try .product-chapter-heading .h2 {
+    font:400 clamp(34px,3.3vw,46px)/1.12 var(--font-body);
+    letter-spacing:-.02em;
+  }
+  #main[data-page="web-embeddables"] #try .product-chapter-heading > .lede { max-width:72ch; }
+  #main[data-page="phone-app"] .related-scene {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:64px;
+    align-items:center;
+    padding-block:48px;
+  }
+  #main[data-page="phone-app"] .related-scene > p { font:400 24px/1.5 var(--font-body); }
+  #main[data-page="phone-app"] .related-scene .product-related { border:0; margin:0; padding:0; }
+  #main[data-page="phone-app"] .related-scene .product-related h3 { font:400 32px/1.2 var(--font-body); }
+  #main[data-page="phone-app"] .related-scene .zpb-related { display:grid; grid-template-columns:1fr; gap:12px; }
+  #main[data-page="phone-app"] .related-scene .zpb-related a { font-size:24px; }
+}
+@media(max-width:900px) {
+  #main:not([data-page="the-hub"]) > .product-opening { padding-block:24px; }
+  #main:not([data-page="the-hub"]) > .product-opening .page-intro-grid { grid-template-columns:1fr; gap:22px; }
+  #main:not([data-page="the-hub"]) > .product-opening .h1 { font-size:36px!important; margin:0; }
+  #main:not([data-page="the-hub"]) > .product-opening .lede { font-size:16px; line-height:1.5; }
+  #main:not([data-page="the-hub"]):not([data-page="community-voices"]) > .product-opening .page-intro-media :is(img,.postcard img,.zpb-cal-hero img) { max-height:300px; }
+  #main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-e-nav { padding-top:0; }
+  #main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-embed { margin-top:12px; }
+  #main[data-page="web-embeddables"] .zpb-emb-demo--focused .zpb-emb-e-body { padding:12px; }
+}
+@media(max-width:699px) and (max-height:740px) {
+  #main:not([data-page="the-hub"]) > .product-opening { padding-block:16px; }
+  #main:not([data-page="the-hub"]) > .product-opening .page-intro-grid { gap:18px; }
+  #main:not([data-page="the-hub"]) > .product-opening .h1 { font-size:34px!important; }
+  #main:not([data-page="the-hub"]):not([data-page="community-voices"]) > .product-opening .page-intro-media :is(img,.postcard img,.zpb-cal-hero img) { max-height:240px; }
+}
+
+/* Source screen uses its original photo/quote composition, not hero-image sizing. */
+#main[data-page="community-voices"] > .product-opening .voices-sign .cv img {
+  width:100%; height:100%; max-height:none; object-fit:cover; object-position:center;
+}
+@media(max-width:900px) {
+  #main[data-page="phone-app"] #controller .ch-embed-toolbar,
+  #main[data-page="phone-app"] #controller .ch-embed-toolbar + .mini {
+    width:min(100%,300px,calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 240px) / 2));
+  }
+  #main[data-page="phone-app"] #controller .ch-embed-toolbar + .mini { height:auto; flex:none; }
+}
+@media(max-width:699px) and (max-height:740px) {
+  #main:not([data-page="the-hub"]) > .product-opening .detail-intro-evidence { min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 16px); display:flex; flex-direction:column; justify-content:center; padding-top:24px; padding-bottom:24px; }
+  #main:not([data-page="the-hub"]) > .product-opening .detail-intro-evidence :is(img,.postcard img,.zpb-cal-hero img) { max-height:calc(100dvh - var(--story-hdr-h,77px) - 100px); }
+  #main[data-page="community-voices"] > .product-opening .detail-intro-evidence .voices-sign { width:100%; aspect-ratio:4/3; }
+  #main[data-page="community-voices"] > .product-opening .detail-intro-evidence .voices-sign .cv img { height:100%; max-height:none; }
+}
+
+/* Shared iframe controls now occupy real rows, with their own vertical budget. */
+#main[data-page="web-embeddables"] > #partners { padding-block:8px; }
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="web-embeddables"] > #partners { padding-block:0; }
+  #main[data-page="data-dashboard"] > #building { padding-bottom:16px; }
+  #main[data-page="data-dashboard"] .building-live-scene {
+    min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 16px);
+    display:flex; flex-direction:column; justify-content:center;
+  }
+}
+
+/* Labels belong to the same scene as their source photographs and controls. */
+#main[data-page="digital-signage"] .zpb-stepper-media.has-caption {
+  display:flex; flex-direction:column; justify-content:center; gap:12px; min-height:0;
+}
+#main[data-page="digital-signage"] .zpb-stepper-media.has-caption img {
+  position:static; width:100%; height:auto; max-height:calc(100dvh - var(--story-hdr-h,77px) - 145px);
+  object-fit:contain; flex:none;
+}
+#main[data-page="digital-signage"] .zpb-stepper-media.has-caption figcaption {
+  position:static; margin:0; color:var(--dashboard-ink,#2C2C2C); font:400 16px/1.45 var(--font-body);
+}
+#main[data-page="data-dashboard"] .citywide-control-title { margin:0 0 14px; font:400 24px/1.2 var(--font-body); }
+@media(min-width:1000px) {
+  #main[data-page="data-dashboard"] .citywide-control-title { display:none; }
+}
+
+/* Source description and a useful native dashboard viewport share the desktop scene. */
+@media(min-width:1000px) {
+  #main[data-page="data-dashboard"] > #building { padding-block:16px; }
+  #main[data-page="data-dashboard"] > #building > .chapter-scene {
+    display:grid; grid-template-columns:minmax(0,.34fr) minmax(0,.66fr); gap:32px; align-items:center;
+  }
+  #main[data-page="data-dashboard"] > #building .product-chapter-heading { margin:0; }
+  #main[data-page="data-dashboard"] > #building .zpa-sec-body { min-width:0; margin-top:0; }
+  #main[data-page="data-dashboard"] > #building .live-frame { margin:0; }
+  #main[data-page="data-dashboard"] > #building .lf-body {
+    height:clamp(440px,calc(100dvh - var(--story-hdr-h,77px) - 160px),680px);
+  }
+}
+
+@media(min-width:901px) {
+  #main[data-page="digital-signage"] #controller .zpb-stepper-media.has-caption img {
+    max-height:calc(100dvh - var(--story-hdr-h,77px) - 340px);
+  }
+}
+
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="data-dashboard"] .citywide-controls-scene { margin-top:16px; }
+  #main[data-page="data-dashboard"] .citywide-controls-scene .cwd-views {
+    display:flex; flex-wrap:nowrap; gap:4px; margin-bottom:8px;
+  }
+  #main[data-page="data-dashboard"] .citywide-controls-scene .cwd-views button { flex:1 0 auto; min-width:min-content; padding-inline:4px; }
+  #main[data-page="data-dashboard"] .citywide-controls-scene .whatif { margin-top:10px; padding:12px; gap:10px; }
+  #main[data-page="data-dashboard"] .citywide-controls-scene .wi-mood { flex-direction:row; align-items:center; gap:10px; }
+  #main[data-page="data-dashboard"] .citywide-control-title { margin-bottom:10px; }
+}
+
+/* Final visitor-review repairs preserve complete source evidence scenes. */
+#main[data-page="products"] [data-platform-next][hidden] { display:none; }
+@media(max-width:699px) and (min-height:741px) {
+  #main[data-page="the-hub"] > .product-opening--hub { --pg-pad:4px; padding-block:4px; }
+}
+@media(min-width:901px) {
+  #main[data-page="data-dashboard"] > #heat { --pg-pad:16px; padding-block:16px; }
+  #main[data-page="data-dashboard"] > #heat .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="data-dashboard"] > #heat .zpa-sec-body { margin-top:16px; }
+}
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="data-dashboard"] > #heat .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="data-dashboard"] > #heat .zpa-sec-body { margin-top:16px; }
+  #main[data-page="data-dashboard"] > #heat .dashboard-evidence-copy .zpa-stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  #main[data-page="data-dashboard"] > #moods { --pg-pad:8px; padding-block:8px; }
+  #main[data-page="data-dashboard"] > #moods .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="data-dashboard"] > #moods .zpa-sec-body { margin-top:16px; }
+  #main[data-page="digital-signage"] > #locations { --pg-pad:8px; padding-block:8px; }
+  #main[data-page="digital-signage"] > #locations .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="digital-signage"] > #locations .zpb-sec-body { margin-top:16px; }
+  #main[data-page="digital-signage"] > #locations .feat-list { row-gap:16px; }
+  #main[data-page="digital-signage"] > #locations .product-related { margin-top:12px; padding-top:8px; }
+  #main[data-page="digital-signage"] > #locations .zpb-related a { padding-block:8px; min-height:44px; }
+}
+
+#main[data-page="digital-signage"] .zpb-stepper-media.has-caption {overflow:visible;border-radius:0;background:transparent;}
+
+.product-context-scene,.voice-wall-intro { display:contents; }
+#main[data-page="community-voices"] .zpb-cv-tab { min-height:44px; }
+.product-context-scene > .product-related { grid-column:1/-1; margin-top:14px; }
+@media(max-width:900px) {
+  .product-context-scene { display:block; }
+  .product-context-scene > .product-related { margin-top:24px; }
+}
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-page="community-voices"] .voice-wall-intro { display:block; }
+  #main[data-page="community-voices"] .voice-wall-intro .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="community-voices"] .voice-wall-intro .zpb-cv-tabs { margin-bottom:0; }
+  #main[data-page="data-dashboard"] > #eco { --pg-pad:16px; padding-block:16px; }
+  #main[data-page="data-dashboard"] > #eco .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="data-dashboard"] > #eco .zpa-sec-body { margin-top:16px; }
+  #main[data-page="data-dashboard"] > #eco .dashboard-evidence-scene { gap:16px; }
+  #main[data-page="digital-signage"] #controller .zpb-step { padding-block:10px; }
+  #main[data-page="phone-app"] #controller .zpb-step { padding-block:10px; }
+  #main[data-page="web-embeddables"] > #fits { --pg-pad:8px; padding-block:8px; }
+  #main[data-page="web-embeddables"] > #fits .product-chapter-heading { margin-bottom:16px; }
+  #main[data-page="web-embeddables"] > #fits .zpb-sec-body { margin-top:16px; }
+  #main[data-page="web-embeddables"] > #fits .zpb-fit li { padding-block:6px; }
+}
+
+/* digital signage: location photos and the loop photo use the spare height of their screen */
+@media (min-width:901px){
+  #main[data-pager][data-page="digital-signage"] #locations .place-card img { aspect-ratio:auto; height:clamp(140px, calc(100dvh - var(--story-hdr-h,77px) - 440px), 560px); max-height:none; object-position:50% 45%; }
+  #main[data-pager][data-page="digital-signage"] #loop .zpb-stepper-media.has-caption img { max-height:calc(100dvh - var(--story-hdr-h,77px) - 170px); }
+  #main[data-page="digital-signage"] #loop .zpb-stepper { grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); }
+}

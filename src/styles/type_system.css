@@ -1,0 +1,27 @@
+/* One type system, loaded last. Earlier layers set page titles from 48px to 72px
+   in three different faces and weights; every interior page title now shares one
+   rule. The home hero keeps its own authored title. */
+#main#main#main[data-page]:not([data-page="index"]) h1 {
+  font-family:var(--font-heading)!important; font-weight:700!important;
+  font-size:clamp(32px,3.9vw,56px)!important; line-height:1.1!important;
+  letter-spacing:-.02em!important; text-wrap:balance;
+}
+#main :is(h2,h3) { text-wrap:balance; }
+#main :is(.lede,.note) { max-width:62ch; }
+#main blockquote { line-height:1.5; }
+/* The page title sits in the green band at the size of every other section band, flush under the header. */
+#main#main#main[data-page]:not([data-page="index"]) > section > .sec-band-h1 h1 {
+  font-size:clamp(1.875rem,1.3rem + 1.8vw,2.875rem)!important; margin:0!important; max-width:none;
+}
+#main#main#main[data-page]:not([data-page="index"]) > section:has(> .sec-band-h1) { padding-top:0!important; margin-top:0!important; }
+#main#main#main[data-page]:not([data-page="index"]) > section > .sec-band-h1 + * { margin-top:clamp(20px,4vh,40px)!important; }
+/* Every band sits flush under the header or the previous section, charcoal on green as on the homepage. */
+#main#main#main[data-page]:not([data-page="index"]) > section:has(> .sec-band) { padding-top:0!important; }
+#main#main#main[data-page]:not([data-page="index"]) > section > .sec-band :is(h1,h2) { color:var(--community-pine)!important; }
+/* Under the title band, the opening content reads from the top instead of floating mid-screen. */
+@media (min-width:700px){
+  #main#main#main[data-page]:not([data-page="index"]) > section > .sec-band-h1 ~ :is([class*="grid"],[class*="layout"],[class*="scene"],.wrap),
+  #main#main#main[data-page]:not([data-page="index"]) > section > .sec-band-h1 ~ * :is([class*="grid"],[class*="layout"],.wrap) { align-items:start!important; align-content:start!important; }
+}
+/* Band titles share the homepage band face (To engage / To educate / To motivate). */
+#main#main#main[data-page]:not([data-page="index"]) > section > .sec-band :is(h1,h2) { font-family:var(--font-heading)!important; font-weight:700!important; letter-spacing:normal!important; }

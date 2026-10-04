@@ -1,0 +1,41 @@
+/* Citywide widget on inner pages: one screen. Controls on the left, the drawing in the middle,
+   the readings as a 2x2 grid on the right, all text at 14px or more. */
+@media (min-width:1000px){
+  #main[data-pager] section .cwd-sign{display:grid;grid-template-columns:minmax(200px,.8fr) minmax(0,1.6fr) minmax(280px,1.2fr);
+    grid-template-rows:auto 1fr;grid-template-areas:"whatif views aside" "whatif scene aside";gap:10px 18px;align-items:start;padding:16px}
+  #main[data-pager] section .cwd-stage{display:contents}
+  #main[data-pager] section .cwd-views{grid-area:views;display:flex;flex-wrap:wrap;gap:6px;margin:0}
+  #main[data-pager] section .cwd-views button{font-size:.875rem;padding:5px 12px}
+  #main[data-pager] section .cwd-scene{grid-area:scene;align-self:stretch}
+  #main[data-pager] section .cwd-scene img.sign-img{width:100%;height:auto;aspect-ratio:1259/893;max-height:clamp(200px,calc(var(--fit-room) - 300px),540px);object-fit:cover}
+  #main[data-pager] section .cwd-tip{font-size:.875rem;max-width:none;padding:8px 12px}
+  #main[data-pager] section .cwd-stage>aside{grid-area:aside;align-self:stretch;display:flex;flex-direction:column}
+  #main[data-pager] section .cwd-mode{display:none}
+  #main[data-pager] section .cwd-tiles{flex:1;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px}
+  #main[data-pager] section .cwd-tiles .tile{padding:10px 14px;display:flex;flex-direction:column;justify-content:center;border-radius:14px}
+  #main[data-pager] section .cwd-tiles .t,#main[data-pager] section .cwd-tiles .u,#main[data-pager] section .cwd-tiles .bar{font-size:.875rem}
+  #main[data-pager] section .cwd-tiles .t{line-height:1.2}
+  #main[data-pager] section .cwd-tiles .v{font-size:1.5rem}
+  #main[data-pager] section .cwd-tiles .bar{letter-spacing:0;gap:4px}
+  #main[data-pager] section .cwd-cap{font-size:.875rem;margin-top:8px}
+  #main[data-pager] section .whatif{grid-area:whatif;align-self:stretch;align-content:flex-start;margin:0;padding:12px 14px;gap:10px;box-shadow:none;border:1px solid var(--line);border-radius:14px}
+  #main[data-pager] section .wi-mood{flex-direction:row;align-items:center;gap:8px;min-width:0;width:100%}
+  #main[data-pager] section .wi-mood small,#main[data-pager] section .wi-lab,#main[data-pager] section .wi-scale,
+  #main[data-pager] section .wi-note,#main[data-pager] section .wi-back,#main[data-pager] section .wi-now{font-size:.875rem}
+  #main[data-pager] section .wi-ctl{min-width:0;width:100%}
+  #main[data-pager] section .wi-lab{margin-bottom:6px}
+  /* the section heading sits on one line above the widget */
+  #main[data-pager] section:has(.cwd-sign) .h2{font-size:clamp(1.9rem,3vw,3rem)}
+  #main[data-pager] section:has(.cwd-sign) .lede{max-width:none}
+  #main[data-pager] section:has(.cwd-sign) :is(.zpa-sec-body,.zpb-sec-body,.ppl-sec-body){margin-top:18px}
+}
+/* Flash's mood leads the simulator: a large face, then the question and a full-width slider. */
+@media (min-width:700px){
+  #main[data-pager] section .whatif{flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+  #main[data-pager] section .whatif .wi-mood{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:14px;align-items:center}
+  #main[data-pager] section .whatif .wi-mood .ring{grid-row:1/3;width:clamp(76px,11vh,112px);height:clamp(76px,11vh,112px);border-width:5px}
+  #main[data-pager] section .whatif .wi-mood .ring img{width:86%;height:86%}
+  #main[data-pager] section .whatif .wi-mood b{font-size:1.6rem;line-height:1.1;align-self:end}
+  #main[data-pager] section .whatif .wi-mood small{align-self:start}
+  #main[data-pager] section .whatif .wi-back{align-self:flex-start}
+}

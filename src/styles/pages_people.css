@@ -1,0 +1,168 @@
+/* ================================================================
+   pages_people.css: audience pages, case studies and the live
+   dashboards gallery. Every class here is prefixed .ppl- so it can't
+   collide with base.css or another engineer's pages_*.css. Design
+   tokens and chrome live in base.css; don't redefine them here.
+   ================================================================ */
+
+/* ---------------------------------------------------------------- on-page jump nav */
+.ppl-jump{position:sticky;top:var(--hdr-h);z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(20,40,30,.08);padding:12px 0}
+.ppl-jump .wrap{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+.ppl-jump .wrap::-webkit-scrollbar{display:none}
+.ppl-jump a{flex:none;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.86rem);color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  padding:6px 4px}
+.ppl-jump a:hover,.ppl-jump a.is-on{color:var(--ink)}
+.dark .ppl-jump{background:rgba(21,14,44,.9);border-color:rgba(255,255,255,.12)}
+.dark .ppl-jump a{color:var(--on-dark-2)}
+.dark .ppl-jump a:hover,.dark .ppl-jump a.is-on{color:#fff}
+
+/* ---------------------------------------------------------------- section shell */
+.ppl-sec{padding:var(--sec) 0}
+.ppl-sec.ppl-alt{background:var(--sky-2)}
+.ppl-sec .fig{margin-bottom:8px}
+.ppl-sec .lede{max-width:60ch}
+.ppl-sec-body{margin-top:26px}
+
+/* ---------------------------------------------------------------- stat strip */
+.ppl-stats{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,48px)}
+.ppl-stat{min-width:120px}
+.ppl-stat b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:normal;color:var(--leaf-deep)}
+.dark .ppl-stat b{color:var(--leaf)}
+.ppl-stat span{display:block;color:var(--ink-2);font-size:.9rem;margin-top:4px;max-width:24ch}
+.dark .ppl-stat span{color:var(--on-dark)}
+@media (max-width:560px){.ppl-stats{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px}.ppl-stat{min-width:0}}
+
+/* ---------------------------------------------------------------- installed products list */
+.ppl-installed{display:grid;gap:2px}
+.ppl-installed li a{display:flex;align-items:center;gap:14px;padding:14px 12px;text-decoration:none;color:var(--ink);
+  border-bottom:1px solid rgba(20,40,30,.1);border-radius:12px}
+.ppl-installed li a:hover{background:var(--sky-2)}
+.ppl-ic{width:38px;height:38px;flex:none}
+.ppl-installed b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:1.02rem}
+.ppl-installed small{display:block;color:var(--ink-2);font-size:max(14px,.86rem);margin-top:2px}
+
+/* ---------------------------------------------------------------- FAQ */
+.ppl-faq{display:grid;gap:10px;max-width:70ch}
+.ppl-faq details{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:6px 20px}
+.dark .ppl-faq details{background:rgba(255,255,255,.06);box-shadow:none;border:1px solid rgba(255,255,255,.14)}
+.ppl-faq summary{cursor:pointer;padding:16px 0;font-family:var(--font-display);font-weight:var(--fw-d);font-size:1rem;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ppl-faq summary::-webkit-details-marker{display:none}
+.ppl-faq summary::after{content:"+";font-size:1.3rem;color:var(--ink-2);flex:none}
+.ppl-faq details[open] summary::after{content:"\2212"}
+.ppl-faq p{color:var(--ink-2);padding:0 0 18px;margin:0}
+.dark .ppl-faq p{color:var(--on-dark)}
+
+/* ---------------------------------------------------------------- cross-audience line */
+.ppl-cross{margin-top:22px}
+
+/* ---------------------------------------------------------------- levels of participation (ladder) */
+.ppl-ladder .stanza{position:relative;padding-top:44px}
+.ppl-ladder .stanza .n{position:absolute;top:16px;left:26px;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.74rem);
+  color:var(--ink-2);letter-spacing:.02em}
+
+/* ---------------------------------------------------------------- named quotes, side by side */
+.ppl-quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ppl-quotes .pull{max-width:none}
+@media (max-width:900px){.ppl-quotes{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- simple horizontal bar chart (trust score, emissions) */
+.ppl-bars{display:grid;gap:10px;max-width:640px}
+.ppl-bars li{display:grid;grid-template-columns:11ch 1fr 5ch;align-items:center;gap:10px;font-size:.88rem}
+.ppl-bars .l{color:var(--ink-2)}
+.dark .ppl-bars .l{color:var(--on-dark)}
+.ppl-bars .t{height:10px;border-radius:6px;background:rgba(20,40,30,.08);overflow:hidden}
+.dark .ppl-bars .t{background:rgba(255,255,255,.14)}
+.ppl-bars .t i{display:block;height:100%;width:var(--v,0%);border-radius:6px;background:var(--peri)}
+.ppl-bars li.hi .t i{background:var(--leaf)}
+.ppl-bars .v{font-family:var(--font-display);font-weight:var(--fw-d);text-align:right}
+.ppl-src{margin-top:10px;font-size:max(14px,.8rem);color:var(--ink-2)}
+.dark .ppl-src{color:var(--on-dark-2)}
+
+/* ---------------------------------------------------------------- timeline (case studies + campus history) */
+.ppl-tl{max-width:760px;display:flex;flex-direction:column;gap:0;border-left:3px solid rgba(20,40,30,.14);padding-left:26px}
+.dark .ppl-tl{border-color:rgba(255,255,255,.2)}
+.ppl-tl li{position:relative;padding:0 0 28px}
+.ppl-tl li::before{content:"";position:absolute;left:-32px;top:4px;width:13px;height:13px;border-radius:999px;background:var(--leaf-deep)}
+.dark .ppl-tl li::before{background:var(--leaf)}
+.ppl-tl .yr{display:block;font-family:var(--font-display);font-weight:var(--fw-d);color:var(--leaf-deep);font-size:.92rem;margin-bottom:3px}
+.dark .ppl-tl .yr{color:var(--leaf)}
+.ppl-tl p{margin:0;color:var(--ink-2);max-width:58ch}
+.dark .ppl-tl p{color:var(--on-dark)}
+
+/* ---------------------------------------------------------------- next-story link */
+.ppl-next{display:flex;align-items:center;gap:18px;text-decoration:none;color:inherit;margin-top:10px}
+.ppl-next .postcard{margin:0;width:110px;flex:none}
+.ppl-next .postcard img{width:100%;height:78px;object-fit:cover}
+.ppl-next b{display:block;font-size:1.1rem;margin-top:4px}
+
+/* ---------------------------------------------------------------- pilot / not-yet notice */
+.ppl-notice{display:flex;gap:10px;align-items:flex-start;background:var(--amber-tint);color:var(--amber-ink);border-radius:16px;
+  padding:14px 18px;margin-top:14px;max-width:64ch;font-size:.92rem}
+.ppl-notice b{font-family:var(--font-display)}
+
+/* ---------------------------------------------------------------- case study "at a glance" panel */
+.ppl-glance{background:#fff;border-radius:var(--r-paper);box-shadow:var(--shadow);padding:22px 24px;display:grid;gap:12px;align-self:start}
+.ppl-glance dt{font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.76rem);color:var(--ink-2);letter-spacing:.02em}
+.ppl-glance dd{margin:2px 0 0;font-size:.94rem}
+.ppl-glance dd a{color:var(--leaf-deep)}
+
+/* ---------------------------------------------------------------- case study kind label: plain type above the h1, not a pill */
+.ppl-kind{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.86rem);color:var(--ink-2);margin:0 0 10px}
+.ppl-kind img{width:20px;height:20px}
+
+/* ---------------------------------------------------------------- examples index board */
+.ppl-board{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ppl-board a{display:block;text-decoration:none;color:var(--ink)}
+.ppl-board .postcard{width:100%}
+.ppl-board .postcard img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ppl-board b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:1.05rem;margin-top:6px}
+.ppl-board span{display:block;color:var(--ink-2);font-size:max(14px,.86rem);margin-top:2px}
+@media (max-width:980px){.ppl-board{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.ppl-board{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------- also-featured list (examples index) */
+.ppl-also{display:grid;gap:14px;max-width:80ch}
+.ppl-also li{border-top:1px solid rgba(20,40,30,.1);padding-top:14px}
+.ppl-also h3{font-size:1.05rem}
+.ppl-also p{color:var(--ink-2);margin-top:4px}
+
+/* ---------------------------------------------------------------- dashboards gallery grid */
+.ppl-dash-grid{display:grid;grid-template-columns:1fr;gap:48px}
+@media (max-width:820px){.ppl-dash-grid{grid-template-columns:1fr}}
+.ppl-dash-grid figcaption{font-family:var(--font-display);font-weight:var(--fw-d);font-size:1rem;color:var(--ink)}
+@media (max-width:760px){.ppl-dash-grid .live-frame{--h:360px!important}}
+
+/* ---------------------------------------------------------------- partner org list (MidTown, Cleveland) */
+.ppl-orgs{columns:2;column-gap:32px;max-width:640px}
+.ppl-orgs li{padding:6px 0;border-bottom:1px solid rgba(20,40,30,.08);break-inside:avoid;font-size:.94rem}
+.dark .ppl-orgs li{border-color:rgba(255,255,255,.12)}
+@media (max-width:600px){.ppl-orgs{columns:1}}
+
+/* ---------------------------------------------------------------- role lanes (who uses it) */
+.ppl-lanes{display:flex;flex-direction:column;gap:18px}
+.ppl-lane{border-radius:var(--r-card);padding:22px 24px;background:var(--sky-2)}
+.ppl-lane h3{font-size:1.1rem;margin-bottom:8px}
+.ppl-lane p{color:var(--ink-2);margin:0}
+
+/* ---------------------------------------------------------------- data-source strip (museums, cities) */
+.ppl-sources{display:flex;flex-wrap:wrap;gap:16px}
+.ppl-sources div{flex:1;min-width:200px;border-radius:18px;padding:16px 18px;background:var(--c-tint,var(--sky-2));border-left:5px solid var(--c,var(--sky-deep))}
+.ppl-sources b{display:block;font-family:var(--font-display);font-weight:var(--fw-d)}
+.ppl-sources span{display:block;color:var(--ink-2);font-size:.88rem;margin-top:3px}
+
+/* ---------------------------------------------------------------- photo pair */
+.ppl-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ppl-pair img{width:100%;border-radius:16px;aspect-ratio:16/9;object-fit:cover}
+@media (max-width:640px){.ppl-pair{grid-template-columns:1fr}}
+/* Item 16: on Live dashboards the four readings sit in one row, the link to the demos under them */
+@media (min-width:901px){#now-dash{grid-template-columns:auto auto 1fr;grid-template-areas:"l f c" "l f g";row-gap:10px}
+  #now-dash .now-l{grid-area:l}#now-dash .now-flash{grid-area:f}#now-dash .now-go{grid-area:g;justify-self:end}
+  #now-dash .now-cells{grid-area:c;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}#now-dash .now-cells .cell{min-width:0}}
+/* Item 17: each case study names itself and links to the others */
+.cs-switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin:14px 0 26px;padding:10px 0;border-top:1px solid #CCCCCB;border-bottom:1px solid #CCCCCB}
+.cs-switch .fig{margin:0}
+.cs-switch a{color:var(--ink-2);font-weight:600;font-size:.92rem;text-decoration:none;padding:4px 0}
+.cs-switch a:hover{color:var(--leaf-deep)}
+.cs-switch a[aria-current]{color:var(--leaf-deep);box-shadow:inset 0 -2px 0 var(--leaf)}

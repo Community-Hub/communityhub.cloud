@@ -1,0 +1,114 @@
+/* One surface and action language across all interior page families.
+   Original photographs, charts and embeds retain their own evidence surfaces. */
+#main[data-pager] {
+  --ink:var(--dashboard-ink);
+  --ink-2:var(--dashboard-ink);
+  --leaf-deep:var(--dashboard-ink);
+  --polish-muted:var(--dashboard-ink);
+  --polish-accent:var(--dashboard-ink);
+  color:var(--dashboard-ink);
+  background:var(--dashboard-paper);
+}
+#main[data-pager] > section:where(:not(.product-flow)) {
+  background:radial-gradient(ellipse 65% 135% at 111% 102%,rgb(161 205 84 / 14%) 0%,rgb(194 181 156 / 14%) 68%,transparent 68.2%),var(--scene-leaf);
+  color:var(--dashboard-ink);
+}
+#main[data-pager] > section:where(:nth-of-type(3n+2):not(.product-flow)) {
+  background:radial-gradient(ellipse 70% 140% at 112% 8%,rgb(33 167 223 / 12%) 0%,rgb(180 227 244 / 12%) 68%,transparent 68.2%),var(--scene-water);
+}
+#main[data-pager] > section:where(:nth-of-type(3n):not(.product-flow)) {
+  background:radial-gradient(ellipse 64% 145% at 108% 98%,rgb(91 185 81 / 12%) 0%,rgb(194 181 156 / 12%) 68%,transparent 68.2%),var(--scene-sun);
+}
+#main[data-pager] .wrap {
+  max-width:var(--polish-rail,1280px);
+  padding-inline:24px;
+}
+#main[data-pager] :is(h1.h1,h2.h2,.page-intro h1,.case-headline) {
+  font-family:var(--font-body);
+  font-weight:400;
+  letter-spacing:-.025em;
+  color:inherit;
+}
+#main[data-pager] :is(.crumbs,.postcard-cap,.rs-note,.paper-context,.fig,.dashboard-intro) { color:var(--dashboard-ink); }
+#main[data-pager] :is(.pc-a,.hand-link,.product-how-link,.zpb-related a,.wwith a) {
+  color:var(--dashboard-ink);
+  text-decoration-thickness:1px;
+  text-underline-offset:5px;
+}
+#main[data-pager] :is(.pc-a,.hand-link,.product-how-link,.zpb-related a,.wwith a):hover { color:var(--dashboard-ink); }
+#main[data-pager] :is(.zpb-related,.wwith) a::after { display:none; }
+#main[data-pager] .btn-ink {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:10px 18px; border:1px solid var(--dashboard-ink);
+  border-radius:4px; background:var(--dashboard-ink); color:#fff;
+  font:700 15px/1.4 var(--font-body); box-shadow:none;
+  transition:background-color .16s ease-out,border-color .16s ease-out;
+}
+#main[data-pager] .btn-ink:hover { background:var(--dashboard-ink); border-color:var(--dashboard-ink); transform:none; }
+#main[data-pager] .btn-ink.btn-ghost {
+  color:var(--dashboard-ink)!important; background:var(--dashboard-paper)!important;
+  border-color:var(--dashboard-ink);
+}
+#main[data-pager] .btn-ink.btn-ghost:hover {
+  color:var(--dashboard-ink)!important; background:var(--dashboard-gray)!important;
+}
+#main[data-pager] :is(a,button,input,select,textarea,summary):focus-visible {
+  outline:2px solid var(--dashboard-ink); outline-offset:4px;
+}
+#main[data-pager] :is(input,textarea,select) { accent-color:var(--dashboard-ink); caret-color:var(--dashboard-ink); }
+#main[data-pager] ::selection { background:var(--dashboard-green-light); color:var(--dashboard-ink); }
+#main[data-pager] .page-ending { --polish-muted:var(--dashboard-ink); }
+#main[data-pager] .page-ending :is(h2,.ending-link strong) { color:var(--dashboard-ink); font-family:var(--font-body); }
+#main[data-pager] .page-ending h2 { font-weight:400; letter-spacing:-.025em; }
+#main[data-pager] .ending-link:hover strong { color:var(--dashboard-ink); }
+.foot { background:var(--scene-forest); color:var(--dashboard-paper); }
+.foot > .wrap { max-width:var(--polish-rail,1280px); padding-inline:24px; }
+.foot :is(.foot-line,.foot-cols a,.foot-bot) { color:var(--dashboard-gray); }
+.foot :is(a,summary):focus-visible { outline:2px solid var(--dashboard-gray); outline-offset:4px; }
+@media(max-width:699px) {
+  #main[data-pager] .wrap,.foot > .wrap { padding-inline:20px; }
+}
+@media(max-width:699px) and (max-height:740px) {
+  #main[data-pager] .page-ending { --pg-pad:16px; padding-block:16px; }
+  #main[data-pager] .page-ending-layout { gap:16px; }
+  #main[data-pager] .ending-actions { gap:12px; }
+  #main[data-pager] .ending-link { padding-block:4px; }
+}
+
+/* Testimony shares the same quiet dark stage across all interior families. */
+#main[data-pager] > blockquote.pull { background:var(--scene-forest); color:var(--dashboard-paper); }
+#main[data-pager] > blockquote.pull :is(p,footer) { color:var(--dashboard-paper); }
+
+/* A collapsed footer still owns the full last viewport; expanded groups grow. */
+.foot.ch-story-section { min-height:calc(100dvh - var(--story-base-hdr-h,var(--hdr-h))); }
+
+/* Photo testimonials must shrink to their reading column, including fallback fonts. */
+#main[data-pager] blockquote.pull.has-source-photo {
+  min-width:0;
+  width:100%;
+  max-width:100%;
+}
+#main[data-pager] blockquote.pull.has-source-photo > * {
+  min-width:0;
+  max-width:100%;
+}
+@media(max-width:900px) {
+  #main[data-pager] blockquote.pull.has-source-photo { grid-template-columns:minmax(0,1fr); }
+}
+
+/* Explicit Building Dashboard still/live modes share one evidence viewport. */
+[data-embed-preview] { position:relative; }
+#main [data-embed-preview] > img.embed-preview-image {
+  position:absolute; inset:0; width:100%; height:100%; max-height:none;
+  object-fit:contain; object-position:center; background:var(--dashboard-paper,#F4F4F2);
+  border:0; border-radius:0; transform:none;
+}
+[data-embed-preview][data-preview-active] > iframe { opacity:0!important; }
+[data-embed-preview] > .embed-preview-image[hidden] { display:none!important; }
+
+/* Paint the active chapter through unused viewport space without creating
+   geometry, extra stops, or a layer that can cover content and controls. */
+html.ch-story-controlled #main[data-pager] {
+  background:var(--story-owner-background,var(--dashboard-paper));
+  background-attachment:fixed;
+}

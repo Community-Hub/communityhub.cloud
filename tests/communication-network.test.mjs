@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import{readFileSync,existsSync}from'node:fs';
+test('About preserves source communication network separately from platform dataflow',()=>{assert.ok(existsSync('src/content/communication-network.ts'));const s=readFileSync('src/content/communication-network.ts','utf8');assert.match(s,/City Government/);assert.match(s,/Engaged Citizens/);assert.match(s,/conn-mesh/);assert.doesNotMatch(s,/sod\/14/);assert.match(readFileSync('src/content/resources.ts','utf8'),/communicationNetwork\(\)/);});

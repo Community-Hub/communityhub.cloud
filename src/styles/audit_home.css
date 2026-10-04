@@ -1,0 +1,21 @@
+/* Audit fixes for the homepage scenes (1 Oct). Loaded after every other stylesheet. */
+/* Down arrows: always a 44px box. A layout rule that gives every section child width:100% had stretched the People and Problem arrows across the whole screen, so they swallowed clicks on links in the bottom strip. */
+#main#main[data-page="index"] .sec-next{width:44px;min-width:44px;max-width:44px;height:44px;margin:0;left:50%;right:auto;transform:translateX(calc(-50% + var(--sn-x,0px)))}
+/* An arrow with no free spot stays out of the way; the scene, swipe and keys still lead on. */
+#main#main[data-page="index"] .sec-next.sn-off{opacity:0;visibility:hidden;pointer-events:none}
+#main#main[data-page="index"] .sec-next{transition:opacity .2s ease}
+
+/* Phone: every educate tab shows at once. The strip used to scroll sideways (405px of tabs in 350px) and cut Stories off with no hint; the long names now wrap to two lines and share the row. */
+@media (max-width:600px){
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-tabs{overflow:visible;gap:8px;justify-content:space-between}
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-tabs button{flex:1 1 auto;min-width:min-content;padding:4px 2px;font-size:14px;line-height:1.15;text-align:center;white-space:normal;overflow-wrap:normal}
+}
+
+/* Event rows settle on a row edge when the list scrolls. */
+#main#main[data-page="index"] .ev-mini{scroll-snap-type:y proximity;overscroll-behavior:contain}
+#main#main[data-page="index"] .ev-mini li{scroll-snap-align:start}
+
+/* Story player: the slide (picture and caption) sets the height of its stage. A layered height cap of 100dvh minus 330px had cut the stage short, so the caption spilled below it and sat on top of the Previous, Next and Pause row. */
+#main#main[data-page="index"] #products .story-player--text-controls .sp-stage{height:auto;max-height:none;overflow:visible}
+#main#main[data-page="index"] #products .story-player--text-controls .sp-cap{position:static;padding:10px 0 0;min-height:0}
+#main#main[data-page="index"] #products .story-player--text-controls .sp-bar{position:relative;margin-top:8px;clear:both}

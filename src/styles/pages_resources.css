@@ -1,0 +1,123 @@
+/* pages_resources.css: education, bring-a-dashboard, research, media,
+   environmental-dashboard, about, contact, 404. Classes prefixed .rs- to
+   avoid colliding with base.css or any other module's CSS. */
+
+.rs-sr{position:absolute;left:-9999px;top:auto}
+
+/* ---- shared small bits ---- */
+.rs-tag{font-size:.875rem;color:var(--ink-2);white-space:nowrap}
+.rs-stanza-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.rs-stanza-2{grid-template-columns:1fr}}
+
+/* ---- education: lesson library ---- */
+.rs-lib-tools{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.rs-lib-tools input[type=search]{flex:1;min-width:220px;padding:12px 16px;border-radius:999px;border:2px solid var(--ink);font:inherit;background:#fff}
+.rs-seg{display:flex;gap:6px;flex-wrap:wrap;background:var(--sky-2);border-radius:999px;padding:4px}
+.rs-seg button{border:0;background:transparent;border-radius:999px;padding:8px 14px;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.85rem);color:var(--ink-2);cursor:pointer}
+.rs-seg button[aria-pressed=true]{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.rs-lessons{display:grid;gap:2px;border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow)}
+.rs-lessons li{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fff;padding:14px 18px}
+.rs-lessons li[hidden]{display:none}
+.rs-lessons li:nth-child(even){background:var(--sky-2)}
+.rs-lessons li span{color:var(--ink-2);font-size:.92rem}
+.rs-lessons-empty{margin-top:18px;color:var(--ink-2)}
+
+/* ---- bring-a-dashboard: flow diagram ---- */
+.rs-flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;background:#fff;border-radius:var(--r-paper);box-shadow:var(--shadow);padding:26px 18px}
+.rs-flow-node{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;width:150px}
+.rs-flow-node img{width:44px;height:44px;object-fit:contain}
+.rs-flow-mark{width:44px;height:44px;color:var(--leaf-deep)}
+.rs-flow-node b{font-family:var(--font-display);font-size:.92rem}
+.rs-flow-node span{font-size:max(14px,.8rem);color:var(--ink-2)}
+.rs-flow-hub b{color:var(--leaf-deep)}
+.rs-flow-arrow{width:52px;flex:none;display:flex;align-items:center;justify-content:center}
+.rs-flow-arrow svg{width:100%;height:20px;overflow:visible}
+.rs-flow-line{fill:none;stroke:var(--leaf);stroke-width:2.4}
+.rs-flow-arrow path:not(.rs-flow-line){stroke:var(--leaf)}
+.rs-flow-dot{fill:var(--leaf);offset-path:path("M2 10H52");animation:rsflow 1.6s linear infinite}
+@keyframes rsflow{from{offset-distance:0%}to{offset-distance:100%}}
+html:not(.motion) .rs-flow-dot{animation:none;offset-distance:0%}
+.rs-flow.rs-paused .rs-flow-dot{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.rs-flow-dot{animation:none;offset-distance:0%}}
+@media (max-width:700px){.rs-flow{flex-direction:column}.rs-flow-arrow{width:20px;height:36px}.rs-flow-arrow svg{width:20px;height:100%;transform:rotate(90deg)}}
+
+/* ---- bring-a-dashboard: steps ---- */
+.rs-steps{display:grid;gap:2px;counter-reset:none}
+.rs-steps li{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;background:#fff;border-radius:var(--r-card);box-shadow:var(--shadow);padding:20px 22px}
+.rs-step-n{font-family:var(--font-display);font-weight:var(--fw-d);font-size:1.3rem;color:var(--leaf-deep);background:var(--leaf-tint);border-radius:999px;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.rs-steps h3{font-size:1.12rem}
+.rs-steps p{color:var(--ink-2);margin-top:4px}
+
+.rs-faq details{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:16px 20px;margin-bottom:10px}
+.rs-faq summary{font-family:var(--font-display);font-weight:var(--fw-d);cursor:pointer}
+.rs-faq p{margin-top:10px;color:var(--ink-2)}
+
+/* ---- research: papers ---- */
+.rs-pubs{display:grid;gap:18px;max-width:70ch}
+.rs-pubs li{border-left:4px solid var(--leaf);padding-left:18px}
+.rs-pub-who{font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.85rem);color:var(--ink-2)}
+.rs-pubs p{margin-top:4px}
+
+/* ---- media: player, book, press, videos ---- */
+.rs-player{border-radius:var(--r-paper);overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/3}
+.rs-play{position:relative;display:block;height:100%}
+.rs-play img{width:100%;height:100%;object-fit:cover;display:block}
+.rs-play::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;
+  background:linear-gradient(0deg,rgba(21,14,44,.68),transparent)}
+.rs-watch{position:absolute;left:16px;bottom:14px;font-family:var(--font-display);font-weight:var(--fw-d);font-size:max(14px,.86rem);color:#fff;
+  text-shadow:0 2px 10px rgba(0,0,0,.6);padding-left:12px;border-left:3px solid var(--leaf);transition:transform .2s var(--bounce)}
+.rs-play:hover .rs-watch{transform:translateX(3px)}
+.rs-watch-sm{left:10px;bottom:8px;font-size:max(14px,.72rem);border-left-width:2px;padding-left:8px}
+.rs-book{display:flex;align-items:center;gap:22px;background:#fff;border-radius:var(--r-paper);box-shadow:var(--shadow);padding:22px 26px;max-width:60ch}
+.rs-book-ring{width:64px;height:64px;flex:none}
+.rs-ring{width:100%;height:100%}
+.rs-press{display:grid;gap:16px;max-width:78ch}
+.rs-press li{border-left:4px solid var(--c,var(--leaf));padding-left:16px}
+.rs-vids{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rs-vid{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+.rs-vid-th{position:relative;display:block;border-radius:14px;overflow:hidden;aspect-ratio:16/9}
+.rs-vid-th img{width:100%;height:100%;object-fit:cover}
+.rs-vid-th::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56%;pointer-events:none;
+  background:linear-gradient(0deg,rgba(21,14,44,.68),transparent)}
+.rs-vid b{font-family:var(--font-display);font-size:.98rem;display:block}
+.rs-vid small{color:var(--ink-2)}
+@media (max-width:900px){.rs-vids{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.rs-vids{grid-template-columns:1fr}}
+
+/* ---- environmental-dashboard ---- */
+/* uses shared .stanza-row, .now, .pull; no page-specific rules needed beyond spacing above */
+
+/* ---- about: timeline, funders, partners, team ---- */
+.rs-tl{display:grid;gap:2px;max-width:82ch}
+.rs-tl li{display:grid;grid-template-columns:84px 1fr;gap:16px;background:rgba(255,255,255,.04);border-radius:14px;padding:16px 18px}
+.rs-tl-yr{font-family:var(--font-display);font-weight:var(--fw-d);color:var(--gold)}
+.rs-tl h3{color:#fff;font-size:1.05rem}
+.rs-tl p{color:var(--on-dark);margin-top:4px}
+.rs-funders{margin-top:28px}
+.rs-funders-list{margin-top:10px;display:flex;flex-wrap:wrap;gap:10px 18px}
+.rs-funders-list span{color:var(--on-dark);font-size:.92rem}
+.rs-partners{display:grid;grid-template-columns:1fr 1fr;gap:20px 32px}
+.rs-partners > div{display:flex;gap:14px;align-items:flex-start}
+.rs-partners h3{font-size:1.05rem}
+.rs-partners p{color:var(--ink-2);margin-top:4px}
+.rs-partner-ic{flex:none;margin-top:2px}
+@media (max-width:760px){.rs-partners{grid-template-columns:1fr}}
+.rs-team{display:flex;flex-wrap:wrap;gap:28px 24px}
+.rs-person{width:180px}
+.rs-person .postcard{width:100%}
+.rs-person .postcard img{aspect-ratio:1/1;object-fit:cover}
+@media (max-width:560px){.rs-team{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px}.rs-person{width:auto}}
+
+/* ---- contact ---- */
+.rs-flash{display:flex;align-items:center;gap:14px;background:var(--sky-2);border-radius:var(--r-paper);padding:14px 18px;max-width:44ch}
+.rs-flash img{flex:none;width:96px;max-width:96px;height:auto;border-radius:999px}
+.rs-flash p{min-width:0;overflow-wrap:anywhere;font-size:.92rem;color:var(--ink-2)}
+.rs-check{display:grid;gap:12px}
+.rs-check li{display:flex;align-items:flex-start;gap:10px}
+.rs-check svg{flex:none;color:var(--leaf-deep);margin-top:2px}
+.rs-form{display:grid;gap:16px;margin-top:26px;max-width:52ch}
+.rs-form label{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:.9rem}
+.rs-form input,.rs-form textarea{display:block;width:100%;margin-top:6px;padding:12px 14px;border-radius:12px;border:2px solid var(--ink);font:1rem/1.5 var(--font-body);background:#fff}
+.rs-form button{justify-self:start}
+.rs-out{font-family:var(--font-display);font-weight:var(--fw-d);color:var(--leaf-deep)}
+.rs-note{color:var(--ink-2);font-size:.88rem;max-width:44ch}

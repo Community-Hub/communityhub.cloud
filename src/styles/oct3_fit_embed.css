@@ -1,0 +1,143 @@
+/* Oct 3: Web Embeddables, every scene fits one screen.
+   Budget: the scene is the screen under the header, minus the 60px the next circle keeps free.
+   Each titled section = one scene; heading and tool/grid share it. */
+#main#main#main[data-page="web-embeddables"] { --emb-avail: calc(100dvh - var(--story-hdr-h,77px) - 60px); }
+
+/* compact heading band for all five sections */
+#main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .sec-band { padding-block:10px !important; }
+#main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .sec-band :is(h1,h2) { font-size:clamp(22px,2.3vw,30px) !important; line-height:1.15 !important; }
+#main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .sec-band + * { margin-top:12px !important; }
+#main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .chapter-scene { height:auto; min-height:0; }
+
+@media (min-width:901px) {
+  /* ---- try: preview capped to what the scene has left ---- */
+  #main#main#main[data-page="web-embeddables"] > #try .product-chapter-heading { margin-bottom:6px; }
+  #main#main#main[data-page="web-embeddables"] > #try .product-chapter-heading .lede { font-size:15px; line-height:1.4; margin-top:0 !important; }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-sec-body { margin-top:0; }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-emb-demo--focused .zpb-emb-site { max-height:max(180px, calc(var(--emb-avail) - 244px)); }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-emb-customization { margin-top:6px; }
+
+  /* ---- fits: three steps side by side, nothing sliced ---- */
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-fit { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 32px; align-items:start; }
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-fit li { display:block; padding:16px 0 0; border-bottom:0; border-top:3px solid var(--leaf-deep,#2f7d3a); }
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-fit-n { display:block; width:auto; margin-bottom:8px; font-size:30px; line-height:1; }
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-fit h3 { font-size:clamp(18px,2.3vh,22px); line-height:1.25; margin-bottom:6px; }
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-fit p { font-size:clamp(15px,2.6vh,18px); line-height:1.5; }
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-sec-body { margin-block:auto; }
+
+  /* ---- hold: five items divide evenly (3 + 2), one block, link row inline ---- */
+  #main#main#main[data-page="web-embeddables"] > #hold .source-groups { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:0 32px; align-items:stretch; }
+  #main#main#main[data-page="web-embeddables"] > #hold .source-group,
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src { display:contents; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src li { grid-column:span 2; padding:14px 0; align-items:flex-start; }
+  #main#main#main[data-page="web-embeddables"] > #hold .source-group:nth-child(2) .zpb-src li { grid-column:span 3; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src b { font-size:19px; line-height:1.25; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src span span { font-size:16px; line-height:1.45; }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related { grid-column:1/-1; display:flex; align-items:center; flex-wrap:wrap; gap:0 24px; margin:0; padding:10px 0 0; border-top:0; }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related h3 { margin:0; font:400 15px/1.4 var(--font-body); color:var(--ink-2); }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related .zpb-related { margin:0; gap:0 24px; }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related .zpb-related a { padding-block:4px; min-height:0; font-size:16px; }
+
+  /* ---- partners: tabs and note share a row; the frame takes the rest of the scene ---- */
+  #main#main#main[data-page="web-embeddables"] > #partners .chapter-scene { display:block; }
+  #main#main#main[data-page="web-embeddables"] > #partners .zpb-sec-body { display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:28px; align-items:center; margin-top:0; min-height:0; }
+  #main#main#main[data-page="web-embeddables"] > #partners .live-tabs { grid-column:1; grid-row:1; margin:0 0 8px; justify-content:flex-start; border-bottom:0; gap:8px; }
+  #main#main#main[data-page="web-embeddables"] > #partners .zpb-sec-body > p { grid-column:2; grid-row:1; margin:0 0 8px !important; max-width:none !important; font-size:14px; line-height:1.4; }
+  #main#main#main[data-page="web-embeddables"] > #partners .live-frame { grid-column:1/-1; grid-row:2; display:block; min-height:0; }
+  #main#main#main[data-page="web-embeddables"] > #partners .live-frame .bar { padding-block:6px; }
+  #main#main#main[data-page="web-embeddables"] > #partners .lf-body { height:max(150px, calc(var(--emb-avail) - 200px)); min-height:0; flex:none; }
+
+  /* ---- examples: three equal cards, image height from the room left ---- */
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio { grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:1fr; align-items:stretch; gap:20px; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio a { display:flex; flex-direction:column; height:100%; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio figure { flex:none; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio img { aspect-ratio:auto; height:clamp(110px, calc(var(--emb-avail) - 270px), 260px); object-position:top left; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio figcaption { flex:1; }
+}
+
+/* partner frame (all sizes): scaled live view over a saved picture; a slow load shows the picture and a retry */
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel .lf-body { --sc:.42; overflow:hidden; background:#fff top left/cover no-repeat; }
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel .lf-body > iframe { position:absolute; top:0; left:0; width:calc(100% / var(--sc)); height:calc(100% / var(--sc)); max-width:none; transform:scale(var(--sc)); transform-origin:0 0; }
+#main#main#main[data-page="web-embeddables"] .zpb-sec-body:has(.live-tabs button:nth-of-type(1)[aria-selected="true"]) #zpb-webemb-live-panel .lf-body { background-image:url("/assets/eng-midtown-events.jpg"); }
+#main#main#main[data-page="web-embeddables"] .zpb-sec-body:has(.live-tabs button:nth-of-type(2)[aria-selected="true"]) #zpb-webemb-live-panel .lf-body { background-image:url("/assets/cal-partner-oberlin.jpg"); }
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel .lf-wait { inset:auto auto 8px 8px; padding:4px 12px; border-radius:99px; background:rgba(255,255,255,.94); font-size:14px; }
+/* A slow remote page remains mounted and visible while it finishes loading.
+   Its real retry/open-site controls explain recovery instead of hiding it. */
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel .lf-notice { display:block; }
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel .lf-retry,
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel .lf-saved { display:none; }
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel.needs-retry .lf-saved { display:none; }
+#main#main#main[data-page="web-embeddables"] #zpb-webemb-live-panel.needs-retry .lf-retry { display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border:1px solid #648259; border-radius:6px; background:#f7faf2; color:var(--ch-pine,#244b38); font:700 14px/1.2 var(--font-body); cursor:pointer; }
+
+
+/* ---- phone: one titled section per scene, content kept clear of the next circle ---- */
+@media (max-width:900px) {
+  #main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) { display:flex; flex-direction:column; }
+  #main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .sec-band { flex:none; }
+  #main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .chapter-scene { flex:1 1 auto; display:flex; flex-direction:column; gap:0 !important; padding-top:0 !important; padding-bottom:0 !important; }
+  #main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) .zpb-sec-body { margin-block:auto; margin-top:auto; }
+  #main#main#main[data-page="web-embeddables"] > section:is(#try,#fits,#hold,#partners,#examples) > .sec-band :is(h1,h2) { font-size:20px !important; line-height:1.2 !important; }
+
+  /* try */
+  #main#main#main[data-page="web-embeddables"] > #try .product-chapter-heading { margin:0 0 6px; }
+  #main#main#main[data-page="web-embeddables"] > #try .product-chapter-heading .lede { font-size:14px; line-height:1.35; margin:0 !important; }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-sec-body { margin-top:0; }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-emb-preset-field { gap:2px; margin-bottom:6px; }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-emb-demo--focused .zpb-emb-site { max-height:max(150px, calc(var(--emb-avail) - 428px)); }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-emb-customization { margin-top:6px; }
+  #main#main#main[data-page="web-embeddables"] > #try .zpb-emb-note { font-size:13px; line-height:1.35; margin:6px 0 0; }
+
+  /* fits */
+  #main#main#main[data-page="web-embeddables"] > #fits .zpb-fit li { padding-block:22px; }
+
+  /* hold: five items, then the link row, all inside one scene */
+  #main#main#main[data-page="web-embeddables"] > #hold .source-groups { display:grid; grid-template-columns:minmax(0,1fr); gap:0; }
+  #main#main#main[data-page="web-embeddables"] > #hold .source-group,
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src { display:contents; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src li { padding:8px 0; gap:12px; align-items:flex-start; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src li img { width:28px; height:28px; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src b { font-size:16px; line-height:1.25; }
+  #main#main#main[data-page="web-embeddables"] > #hold .zpb-src span span { font-size:14px; line-height:1.4; }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related { display:flex; flex-wrap:wrap; align-items:center; gap:0 16px; margin:0; padding:8px 0 0; border-top:0; }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related h3 { flex:1 0 100%; margin:0; font:400 14px/1.4 var(--font-body); color:var(--ink-2); }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related .zpb-related { display:flex; flex-wrap:wrap; margin:0; gap:0 16px; }
+  #main#main#main[data-page="web-embeddables"] > #hold .product-related .zpb-related a { padding-block:4px; min-height:0; font-size:15px; }
+
+  /* partners */
+  #main#main#main[data-page="web-embeddables"] > #partners .live-tabs { flex-direction:row; flex-wrap:nowrap; gap:8px; margin:0 0 8px; }
+  #main#main#main[data-page="web-embeddables"] > #partners .live-tabs button { flex:1 1 0; min-width:0; justify-content:center; padding-inline:8px; font-size:14px; }
+  #main#main#main[data-page="web-embeddables"] > #partners .live-frame .bar { padding-block:6px; }
+  #main#main#main[data-page="web-embeddables"] > #partners .lf-body { height:max(160px, calc(var(--emb-avail) - 296px)); min-height:0; --sc:.4; }
+  #main#main#main[data-page="web-embeddables"] > #partners .zpb-sec-body > p { margin:8px 0 0 !important; font-size:14px; line-height:1.4; max-width:none !important; }
+
+  /* examples: three equal rows, text left and picture right */
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio { grid-template-columns:minmax(0,1fr); grid-auto-rows:1fr; gap:10px; height:calc(var(--emb-avail) - 92px); }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio a { display:grid; grid-template-columns:minmax(0,1fr) 38%; align-items:stretch; height:100%; min-height:0; overflow:hidden; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio figure { grid-column:2; grid-row:1; margin:0; min-height:0; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio figcaption { grid-column:1; grid-row:1; padding:10px 12px; min-width:0; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio img { width:100%; height:100%; aspect-ratio:auto; object-fit:cover; object-position:top left; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio figcaption p { font-size:13px; line-height:1.35; margin:2px 0 0; }
+  #main#main#main[data-page="web-embeddables"] > #examples .zpb-trio figcaption h3 { font-size:16px; margin:0; }
+}
+
+/* ---- phone-app, phone width: status line + TV + phone sit between the header and the next circle at the controller stop.
+   The replay button moves beside the phone (out of flow) and the phone column shrinks to the room left. ---- */
+@media (max-width:699px) {
+  #main#main#main[data-page="phone-app"] .phone-workflow { position:relative; --pa-avail:calc(100dvh - var(--story-hdr-h,77px) - 72px); }
+  #main#main#main[data-page="phone-app"] .phone-workflow .pw-status { font-size:15px; line-height:1.4; min-height:2.8em; margin-bottom:8px; }
+  #main#main#main[data-page="phone-app"] .phone-workflow .pw-stage { gap:12px; }
+  #main#main#main[data-page="phone-app"] .phone-workflow .pw-tv figcaption { font-size:13px; line-height:1.35; min-height:2.7em; margin-top:6px; }
+  #main#main#main[data-page="phone-app"] .phone-workflow .pw-phone-column { width:clamp(150px, calc((var(--pa-avail) - 346px) * 0.562 + 14px), 78%); }
+  #main#main#main[data-page="phone-app"] .phone-workflow .pw-foot { position:absolute; right:0; bottom:0; margin:0; width:44px; height:44px; }
+
+  /* Landing (scrollY 0): the phone would poke up under the next circle and be cut by the screen edge, so it stays out of sight until the page moves to the controller stop (it fades in over the first 120px of scroll). Without scroll-driven animation support it simply shows as before. The TV caption keeps two lines in every state so the stop never changes height when a channel is chosen. */
+  @supports (animation-timeline: scroll()) {
+    #main#main#main[data-page="phone-app"] .phone-workflow .pw-phone-column { animation: pa-phone-in linear both; animation-timeline: scroll(root block); animation-range: 0px 120px; }
+  }
+}
+@keyframes pa-phone-in { from { opacity:0; visibility:hidden; } to { opacity:1; visibility:visible; } }
+
+/* ---- final "Keep exploring" stop on a phone: content starts under the header instead of floating in the middle of a tall band (phone-app, stories, see-it-live). ---- */
+@media (max-width:699px) {
+  #main#main#main:is([data-page="phone-app"],[data-page="stories"],[data-page="see-it-live"]) .page-ending-explore { justify-content:flex-start; }
+}

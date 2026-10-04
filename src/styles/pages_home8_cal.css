@@ -1,0 +1,26 @@
+/* Task 9: Community Calendar and Jobs Board, toggled by hand (no rotation) */
+.ct-tabs{display:flex;flex-wrap:wrap;column-gap:20px;row-gap:2px;border-bottom:1px solid #CCCCCB;margin-bottom:10px}
+.ct-tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;padding:6px 0;font:inherit;font-size:.9375rem;color:var(--ink);cursor:pointer}
+.ct-tabs button[aria-selected="true"]{border-bottom-color:var(--leaf-deep);color:var(--leaf-deep);font-weight:600}
+.ct-tabs button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.ct-panel[hidden]{display:none}
+.ct-shot{display:block;border:1px solid #CCCCCB;border-radius:12px;overflow:hidden;background:#fff}
+.ct-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+/* one media height for both cards, set by the free room: the Voices player sizes its text by its own
+   height (quote about 4.8%), so it needs about 250px for 12px text and 290px for 14px */
+.ct{--ct-h:clamp(120px,calc(var(--fit-room,100vh) - 350px),330px)}
+#main .ct .ev-mini,.ct .ct-shot{height:var(--ct-h);max-height:none}
+.ct .ev-mini{overflow-y:auto;overscroll-behavior-y:contain}
+.ct .events-src{display:none}
+.ct .mini-cap{font-size:.875rem}
+/* Task 10: Community Voices tabs; the player keeps its 1280x720 frame (scaled), shrinking with the room so the pair fits one screen */
+#main:has(> .hv) .pc .ct .mini{max-width:calc(var(--ct-h) * var(--w) / var(--h))}
+/* phones: the fit script leaves them at natural size, so the media takes what the screen has left after the
+   heading, card head, tab bar, caption, link and rail buttons (about 560px); tabs keep one row and scroll sideways */
+@media (max-width:699px){
+  .ct{--ct-h:clamp(150px,calc(var(--fit-room,100vh) - 570px),300px)}
+  .ct-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .ct-tabs[data-more]{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+  .ct-tabs::-webkit-scrollbar{display:none}
+  .ct-tabs button{flex:none;white-space:nowrap}
+}

@@ -1,0 +1,15 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { pages } from '../content/site';
+import { redirects } from '../lib/site';
+import type { PageDefinition, RedirectDefinition } from '../lib/types';
+export function getStaticPaths() {
+  return [
+    ...pages.filter(page => page.slug !== 'index').map(page => ({ params: { slug: page.slug }, props: { page } })),
+    ...redirects.map(redirect => ({ params: { slug: redirect.slug }, props: { redirect } })),
+  ];
+}
+type Props = { page: PageDefinition; redirect?: never } | { redirect: RedirectDefinition; page?: never };
+const { page, redirect } = Astro.props;
+---
+{page ? <PageLayout page={page} /> : redirect && <html lang="en"><head><meta charset="utf-8" /><meta http-equiv="refresh" content={`0; url=${redirect.to}`} /><link rel="canonical" href={`https://www.communityhub.cloud/${redirect.to}`} /><title>{redirect.title}</title></head><body><p>This page moved. <a href={redirect.to}>Continue to {redirect.title}</a>.</p></body></html>}

@@ -1,0 +1,50 @@
+[
+  {
+    "quote": "\u201cI really feel that I am a part of the resource use graphs displayed on the dashboards. This feeling motivates me to be more thoughtful when consuming water and electricity\u201d",
+    "attribution": "Grace Gao Oberlin College Student",
+    "image": "assets/cwd-poster.jpg",
+    "alt": "Oberlin's Citywide Dashboard, a drawing of the town with live gauges beside it"
+  },
+  {
+    "quote": "\u201cWhen you talk about 21st-century skills, gathering and interpreting data, the Dashboard will be a very important tool\u201d",
+    "attribution": "Kim Koos Elementary Teacher",
+    "image": "assets/kids-citywide-screen.jpg",
+    "alt": "Elementary students crowd around a Citywide Dashboard screen in an Oberlin school hallway"
+  },
+  {
+    "quote": "\u201cThe dashboard signage is stitching together the work of Cleveland organizations to make the team effort apparent\u201d",
+    "attribution": "Scott Volmer VP STEM Learning, Great Lakes Science Center",
+    "image": "assets/glsc-exhibit.jpg",
+    "alt": "Visitors at the Environmental Dashboard exhibit at the Great Lakes Science Center in Cleveland"
+  },
+  {
+    "quote": "\u201cOberlin is helping us translate water and energy use in 44 school buildings into teaching and learning in the classroom\u201d",
+    "attribution": "Bob Mendenhall Curriculum Director, Toledo",
+    "image": "assets/classroom-dashboard.jpg",
+    "alt": "Students and teachers in a classroom with a dashboard projected on the board"
+  },
+  {
+    "quote": "\u201cEnvironmental Dashboard enables residents to understand their electricity and water consumption, which in turn helps prevent overuse\u201d",
+    "attribution": "Janet Haar Executive Director, Oberlin Business Partnership",
+    "image": "assets/pp-janet-haar-dash.jpg",
+    "alt": "Janet Haar on Main Street in Oberlin, outside the Oberlin Business Partnership"
+  },
+  {
+    "quote": "\u201cCommunity Hub's Digital Signage is central to our community's climate resilience communication strategy\u201d",
+    "attribution": "Linda Arbogast Sustainability Coordinator, City of Oberlin",
+    "image": "assets/pp-linda-arbogast.jpg",
+    "alt": "A workshop in a library, with a Community Hub dashboard on the screen at the front of the room"
+  },
+  {
+    "quote": "\u201cCommunity Hub's events calendar has made our work easier. People in the community are participating. It's simple, but transformative!\u201d",
+    "attribution": "Janet Haar Executive Director, Oberlin Business Partnership",
+    "image": "assets/street-event.jpg",
+    "alt": "A crowd at a street event at College and Main in downtown Oberlin"
+  },
+  {
+    "quote": "\u201cFor a decade we have looked to the Community Hub team as key partners in translating our energy conservation services into community engagement\u201d",
+    "attribution": "Geoff Hunter President, Palmer Conservation Consulting",
+    "image": "assets/ts-kahn.jpg",
+    "alt": "A building dashboard chart of a week of electricity use, with Flash the squirrel reacting beside it"
+  }
+]

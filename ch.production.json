@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "namespace": "ch-wordpress",
+  "resourceFile": "clusters/prod-cluster/ch-wordpress/communityhub-website.yaml",
+  "imagePullSecret": "gh-reg-cred",
+  "deployment": {
+    "name": "communityhub-website",
+    "replicas": 2,
+    "port": 8080,
+    "healthPath": "/healthz"
+  },
+  "service": { "name": "communityhub-website", "port": 80 },
+  "routes": [
+    {
+      "file": "clusters/prod-cluster/ch-wordpress/application.yaml",
+      "ingress": "communityhub-wordpress-ingress",
+      "host": "communityhub.cloud",
+      "path": "/",
+      "from": { "name": "communityhub-wordpress", "port": 80 }
+    },
+    {
+      "file": "clusters/prod-cluster/ch-wordpress/application.yaml",
+      "ingress": "communityhub-wordpress-ingress",
+      "host": "www.communityhub.cloud",
+      "path": "/",
+      "from": { "name": "communityhub-wordpress", "port": 80 }
+    }
+  ]
+}

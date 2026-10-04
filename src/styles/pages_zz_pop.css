@@ -1,0 +1,85 @@
+/* Inner pages carry the homepage's weight: a full-width photo hero, bigger section
+   headings that rise in as you scroll, and "Keep going" cards so no page is a dead end.
+   Loaded after pages_zz_colour.css. Sections stay white (Item 19). */
+
+/* ---------------------------------------------------------------- photo hero (H.hero with a postcard) */
+.ph2{position:relative;min-height:min(72vh,680px);display:flex;align-items:flex-end;overflow:hidden;padding:0;background:#12261c;color:#fff}
+.ph2-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:ph2-in 1.4s var(--ease) both}
+.ph2-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,25,18,.25) 0%,rgba(10,25,18,.1) 35%,rgba(10,25,18,.78) 100%)}
+.ph2-copy{position:relative;z-index:1;padding-top:110px;padding-bottom:clamp(36px,6vw,72px);width:100%}
+.ph2-copy>*{animation:ph2-up .8s var(--ease) both}
+.ph2-copy .h1{animation-delay:.1s;max-width:14em;color:#fff;text-wrap:balance}
+.ph2-copy .lede{animation-delay:.22s;margin-top:16px;max-width:52ch;color:rgba(255,255,255,.92)}
+.ph2-copy .fig{color:#bfe8b8;margin-bottom:10px}
+.ph2 .crumbs,.ph2 .crumbs a{color:rgba(255,255,255,.85)}
+.ph2-ctas{animation-delay:.34s;margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.ph2-ctas .hand-link{color:#fff}
+.ph2 .ph2-ctas a.btn-ghost{color:#fff!important;border-color:rgba(255,255,255,.7);background:transparent}
+.ph2 .ph2-ctas a.btn-ghost:hover{background:rgba(255,255,255,.12)}
+@keyframes ph2-in{from{transform:scale(1.06)}to{transform:none}}
+@keyframes ph2-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (max-width:700px){.ph2{min-height:78vh}.ph2-copy{padding-top:90px}}
+@media (prefers-reduced-motion:reduce){.ph2-media,.ph2-copy>*{animation:none}}
+
+/* ---------------------------------------------------------------- section headings with presence */
+.zpa-sec .h2,.zpb-sec .h2,.ppl-sec .h2{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.04;max-width:18em;text-wrap:balance}
+.zpa-sec .fig,.zpb-sec .fig,.ppl-sec .fig{color:var(--leaf-deep)}
+.zpa-sec-body,.zpb-sec-body,.ppl-sec-body{margin-top:34px}
+
+/* ---------------------------------------------------------------- on-page jump bars */
+.zpa-jump a,.zpb-jump a,.ppl-jump a{font-size:.95rem}
+.zpa-jump a.is-on,.zpb-jump a.is-on,.ppl-jump a.is-on{box-shadow:inset 0 -3px 0 var(--leaf)}
+@media (max-width:700px){.zpa-jump .wrap,.zpb-jump .wrap,.ppl-jump .wrap{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}}
+
+/* ---------------------------------------------------------------- keep going (H.next_steps) */
+.next{padding:clamp(56px,7vw,96px) 0}
+.next .fig{color:var(--leaf-deep);margin-bottom:8px}
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+.next-card{position:relative;display:flex;align-items:flex-end;min-height:230px;border-radius:14px;overflow:hidden;text-decoration:none;color:#fff;background:#12261c}
+.next-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.next-card::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,25,18,0) 25%,rgba(10,25,18,.82) 100%)}
+.next-card span{position:relative;z-index:2;padding:20px 22px}
+.next-card b{display:block;font-family:var(--font-display);font-weight:var(--fw-d);font-size:1.35rem;line-height:1.15}
+.next-card small{display:block;margin-top:6px;font-size:.92rem;color:rgba(255,255,255,.88)}
+.next-card b::after{content:" \2192";transition:margin .15s ease}
+.next-card:hover img{transform:scale(1.05)}
+.next-card:hover b::after{margin-left:4px}
+@media (max-width:860px){.next-grid{grid-template-columns:1fr}.next-card{min-height:170px}}
+.cal-open{max-width:none!important;display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:22px}
+
+/* ---------------------------------------------------------------- one screen at a time (main[data-pager])
+   Same stops as the homepage: each block fills the screen under the header and jump bar,
+   and its content rises in as it arrives. */
+#main[data-pager]>.ph2{min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - var(--ban-h,0px))}
+#main[data-pager]>section:not(.ph2),#main[data-pager]>.next,#main[data-pager]>blockquote{min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)));display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+#main[data-pager]>section:not(.ph2)>*,#main[data-pager]>.next>*,#main[data-pager]>blockquote>*{width:100%}
+html.motion #main[data-pager]>:not(.ph2)>.wrap{opacity:0;transform:translateY(56px) scale(.97);transition:opacity .7s var(--ease),transform .9s var(--ease)}
+html.motion #main[data-pager]>.is-in>.wrap{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.motion #main[data-pager]>:not(.ph2)>.wrap{opacity:1;transform:none;transition:none}}
+
+/* Only the controller's current section participates in a swipe. Visibility
+   preserves its layout dimensions, including during the screen-fit measurement. */
+html.ch-story-isolated .ch-story-section:not(.is-in),
+html.ch-story-isolated .ch-story-section:not(.is-in) *{visibility:hidden!important;pointer-events:none!important}
+html.ch-story-isolated .ch-story-section.is-in [data-reveal],
+html.ch-story-isolated .ch-story-section.is-in[data-reveal]{opacity:1;transform:none;transition-delay:0s}
+/* A stagger delay with the default transition-property:all also delays visibility.
+   Section ownership changes immediately; only the reveal motion is staggered. */
+html.ch-story-isolated .ch-story-section [data-reveal-group]>*{transition-property:opacity,transform}
+/* The sticky jump bar is persistent chrome, outside the section reveal cycle. */
+html.ch-story-controlled.ch-story-isolated #main[data-pager]>:is([data-zpa-jump],[data-zpb-jump],[data-ppl-jump])>.wrap>*{opacity:1;transform:none;transition:none}
+
+/* Live dashboards remain previews until explicitly activated. The return control
+   stays outside the iframe, where touch and keyboard can always reach it. */
+#main iframe.ch-embed-shield:not(.ch-live){pointer-events:none}
+#main iframe.ch-embed-shield.ch-live{pointer-events:auto}
+.ch-embed-host{position:relative}
+.ch-embed-toggle{position:absolute;top:10px;right:10px;z-index:5;padding:8px 12px;border:1px solid #b9cebd;border-radius:6px;background:#fff;color:#143c21;font:600 max(14px,13px)/1.25 var(--font-body);box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer}
+.ch-embed-toggle:hover{background:#eff7ef}
+.ch-embed-toggle:focus-visible{outline:3px solid #397a47;outline-offset:3px}
+.ch-embed-toggle[aria-pressed="true"]{background:#143c21;color:#fff;border-color:#fff}
+
+/* Embed controls reserve page space instead of covering the remote interface. */
+.ch-embed-toolbar{display:flex;flex:none;align-items:center;justify-content:flex-end;min-height:44px;margin-bottom:4px}
+.ch-embed-toolbar .ch-embed-toggle{position:static;min-height:44px;min-width:112px;padding:8px 0;border:0;border-bottom:1px solid currentColor;border-radius:0;background:transparent;color:inherit;box-shadow:none;font:700 14px/1.4 var(--font-body)}
+.ch-embed-toolbar .ch-embed-toggle:hover,.ch-embed-toolbar .ch-embed-toggle[aria-pressed="true"]{background:transparent;color:inherit;border-color:currentColor}

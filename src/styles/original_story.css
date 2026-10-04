@@ -1,0 +1,24 @@
+/* Products-only original slide viewer. The frame includes the source's own
+   explanatory strip; never crop it or add competing rewritten text. */
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story{height:calc(100dvh - var(--story-hdr-h,77px));min-height:0;display:flex;flex-direction:column;padding:0 0 34px;background:var(--ch-field);color:var(--ch-ink)}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story>.sec-band{flex:none}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story>.wrap{display:flex;flex-direction:column;flex:1;min-height:0;max-width:1320px;padding-top:16px!important;margin-top:0!important}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-view{display:flex;flex-direction:column;flex:1;min-height:0;margin:0;gap:8px}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-slide{flex:1;min-height:0;width:100%;max-width:100%;max-height:none;aspect-ratio:auto;background:transparent;border-radius:0;overflow:visible;margin:0}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-slide>a{display:block;width:100%;height:100%}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-slide img{display:block;width:100%;height:100%;max-height:none;object-fit:contain;object-position:center}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-nav{display:flex;flex:none;align-self:center;height:44px;gap:14px;margin:0;opacity:0;pointer-events:none;transition:opacity .15s ease}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story:is(:hover,:focus-within) .sb-nav{opacity:1;pointer-events:auto}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-nav button{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:10px;border:1px solid #648259;border-radius:50%;background:transparent;color:var(--ch-pine)}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .original-story-source{flex:none;min-height:32px;margin:8px 0 0;font:400 14px/1.5 var(--font-body);text-align:center}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .original-story-source a{color:var(--ch-pine);display:inline-block;padding-block:6px;text-underline-offset:4px}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-strip[hidden]{display:none}
+@media(hover:none){#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-nav{opacity:1;pointer-events:auto}}
+@media(prefers-reduced-motion:reduce){#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-nav{transition:none}}
+@media(max-width:699px){
+ #main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story{padding-bottom:42px}
+ #main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story>.wrap{padding-top:10px!important}
+ #main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .original-story-source{font-size:14px;max-width:28ch;align-self:center}
+}
+#main#main#main:is([data-page="products"],[data-page="the-hub"]) .original-story .sb-nav button:disabled{opacity:.35;cursor:default}

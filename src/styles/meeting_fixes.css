@@ -1,0 +1,95 @@
+/* October 1 review: scoped controls, complete source applications and room for native UI. */
+#main#main .hv .hv-skip .sec-next { width:56px;height:56px;min-width:56px;border-radius:50%;border:2px solid #fff;background:#194638;color:#fff;display:grid;place-items:center;box-shadow:0 4px 14px #102a2333; }
+#main#main #people > .wrap {position:relative;padding-inline:66px;}
+#main#main #people .pp-nav {position:static;display:flex;justify-content:center;align-items:center;gap:12px;margin-top:14px;}
+#main#main #people .pp-nav[hidden] {display:none;}
+#main#main #people .pp-arrow {position:absolute;top:42%;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;padding:10px;background:#194638;color:#fff;border:0;}
+#main#main #people [data-pp-prev] {left:8px;}
+#main#main #people [data-pp-next] {right:8px;}
+#main#main #people .pp-play {width:44px;height:44px;padding:12px;display:grid;place-items:center;}
+#main#main #people .pp-nav svg {width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+#main#main .meeting-embed, #main#main .native-scroll-feature, #main#main .phone-demo {width:100%;min-width:0;}
+#main#main .native-choices {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+#main#main .native-choices button, #main#main .phone-demo button {font:600 16px/1.25 var(--font-body);min-height:44px;padding:10px 14px;background:#f5f6eb;border:1px solid #194638;color:#194638;border-radius:4px;cursor:pointer;}
+#main#main .native-choices button[aria-pressed=true],#main#main .phone-demo button[aria-pressed=true] {background:#194638;color:#fff;}
+#main#main .native-heading {display:flex;align-items:center;gap:12px;margin:8px 0 12px;font-size:21px;}
+#main#main .native-heading img {width:52px;height:44px;object-fit:contain;}
+#main#main .native-caption, #main#main .native-scroll-help {font-size:15px;line-height:1.45;margin:10px 0;color:inherit;}
+#main#main .native-caption a {text-decoration:underline;text-underline-offset:3px;}
+#main#main .native-story-pair {display:grid;grid-template-columns:minmax(0,1.65fr) minmax(225px,1fr);gap:12px;align-items:stretch;}
+#main#main .native-story-pair iframe {width:100%;height:420px;border:0;background:#fff;min-width:0;}
+#main#main .native-application {display:block;width:100%;height:480px;border:0;background:#fff;}
+#main#main .native-scroll {height:400px;overflow-y:auto;overflow-x:hidden;scrollbar-color:#194638 #e6eddb;scrollbar-width:auto;}
+#main#main .native-scroll iframe {width:100%;display:block;border:0;max-height:none!important;transform-origin:top left;position:absolute!important;background:#fff;}
+#main#main .native-photo {margin:0;}
+#main#main .native-photo img {width:100%;height:auto;max-height:450px;object-fit:contain;}
+#main#main .native-photo figcaption {font-size:15px;line-height:1.4;margin-top:10px;}
+#main#main .phone-demo-pair {display:grid;grid-template-columns:minmax(0,1.8fr) minmax(210px,.8fr);gap:28px;align-items:center;}
+#main#main .demo-display {margin:0;border:12px solid #263b34;border-bottom-width:26px;border-radius:8px;background:#fff;position:relative;}
+#main#main .demo-display img {width:100%;aspect-ratio:16/10;object-fit:contain;display:block;}
+#main#main .demo-display figcaption {font-size:14px;text-align:center;padding:8px;color:#194638;}
+#main#main .demo-phone {border:9px solid #263b34;border-top-width:25px;border-bottom-width:25px;border-radius:26px;background:#fff;padding:16px;min-height:340px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
+#main#main .demo-phone p {font-size:17px;line-height:1.4;margin:0 0 12px;}
+#main#main .demo-phone button {width:100%;margin-bottom:10px;}
+#main#main .phone-demo [hidden] {display:none!important;}
+#main#main .hf.is-enhanced [data-hf-step]:not(.is-on) {visibility:hidden;pointer-events:none;}
+#main#main .hf.is-enhanced [data-hf-step].is-new {outline:2px solid #397048;outline-offset:3px;}
+@media(max-width:699px){
+ #main#main #people > .wrap {padding-inline:48px;}
+ #main#main #people .pp-arrow {width:40px;height:40px;}
+ #main#main #people [data-pp-prev] {left:2px;}
+ #main#main #people [data-pp-next] {right:2px;}
+ #main#main .native-story-pair {grid-template-columns:minmax(0,1fr);}
+ #main#main .native-story-pair .native-story-screen {height:220px;}
+ #main#main .native-story-pair .native-story-controller {height:400px;}
+ #main#main .native-application {height:500px;}
+ #main#main .native-scroll {height:350px;}
+ #main#main .phone-demo-pair {grid-template-columns:minmax(0,1fr);gap:22px;}
+ #main#main .demo-phone {width:min(280px,100%);justify-self:center;}
+}
+@media(prefers-reduced-motion:reduce){#main#main .hf [data-hf-step]{transition:none!important;}}
+
+#main#main .native-scroll-canvas {position:relative;width:100%;}
+#main#main .native-application-viewport {overflow:auto;max-width:100%;position:relative;scrollbar-color:#194638 #e6eddb;}
+#main#main [data-kind="voices"] .native-application {transform-origin:top left;max-width:none;}
+#main#main .hub-flow .h2 {color:#fff!important;}
+#main#main .hf.is-enhanced .hf-col.is-new {outline:none;}
+#main#main .native-scroll-help {display:block!important;}
+@media(max-width:699px){#main#main [data-kind="voices"] .native-application {min-width:0;} }
+
+#main#main .native-voices-screen {display:block;width:100%;height:clamp(230px,calc(100dvh - 450px),340px);border:0;background:#fff;}
+#main#main [data-kind="voices"] .native-heading img {background:#194638;padding:4px;border-radius:3px;}
+#main#main .native-categories {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-top:10px;align-items:stretch;}
+#main#main .native-categories button {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f5f6eb;color:#194638;border:1px solid transparent;border-radius:4px;padding:6px 3px;min-height:74px;font:600 12px/1.25 var(--font-body);cursor:pointer;}
+#main#main .native-categories button[aria-pressed=true] {border-color:#194638;background:#dce9c9;}
+#main#main .native-categories img {height:36px;width:42px;object-fit:contain;}
+@media(max-width:699px){
+ #main#main .native-categories {grid-template-columns:repeat(4,minmax(0,1fr));}
+ #main#main .native-voices-screen {height:230px;}
+ #main#main .native-categories button {min-height:72px;}
+}
+
+#main#main#main[data-page] > section.hub-flow > .sec-band :is(h1,h2) {color:#fff!important;}
+@media(max-width:900px){
+ #main#main .hf-grid {max-height:calc(100dvh - 360px);min-height:180px;overflow-y:auto;overflow-x:hidden;padding:4px 10px 4px 4px;scrollbar-color:#a6d995 #39473d;}
+ #main#main .hf-say {min-height:0;margin-bottom:12px;}
+ #main#main .hf-controls {margin-top:14px;}
+}
+
+#main#main .native-voices-stage {position:relative;width:min(100%,calc((100dvh - 390px)*1.777));aspect-ratio:1100/619;margin-inline:auto;overflow:hidden;}
+#main#main .native-voices-stage .native-voices-screen {position:absolute;inset:0;max-width:none;transform-origin:top left;pointer-events:none;}
+#main#main .native-voices-hint {display:none;}
+#main#main .native-heading img {background:#194638;padding:4px;border-radius:3px;}
+@media(max-width:699px){
+ #main#main .native-voices-stage {width:100%;height:500px;aspect-ratio:auto;}
+ #main#main .native-voices-content {max-height:calc(100dvh - 320px);min-height:260px;overflow-y:auto;scrollbar-color:#194638 #e6eddb;}
+ #main#main .native-voices-hint {display:block;font-size:14px;margin:6px 0 10px;}
+}
+
+/* The brief Web example shares the existing live calendar feed. Its events
+   belong to the outer page; only Building has a scroll-through canvas. */
+#main#main#main[data-page="index"] .calendar-brief {height:auto;max-height:none;overflow:visible;}
+/* Keep one product action in homepage copy. Detailed pages retain source and
+   full-size recovery actions; hidden native targets still support live updates. */
+#main#main#main[data-page="index"] :is(.native-caption > a,.dv-source,.dv-cap > a,#motivate .mini-cap){display:none;}
+#main#main#main[data-page="index"] .native-caption{margin:0;padding:0;}

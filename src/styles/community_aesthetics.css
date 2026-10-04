@@ -1,0 +1,148 @@
+/* Community Hub: humanist lettering, source photography and an open directory.
+   This presentation layer leaves story ownership and embedded product UI alone. */
+@font-face {
+  font-family: 'Alegreya Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/alegreya-sans/bold.ttf') format('truetype');
+}
+
+:root {
+  --font-heading: 'Alegreya Sans', 'Lato', sans-serif;
+  --community-pine: #244b38;
+  --community-field: #eef2e8;
+  --community-water: #e6f0ef;
+  --community-leaf: #5bb951;
+  --community-line: #bccbbd;
+  --community-ink: #2c2c2c;
+  --community-surface: var(--community-field) linear-gradient(118deg, var(--community-field), #f4f4f2 62%, var(--community-water));
+}
+
+::selection { background:var(--community-pine); color:#fff; }
+html { scrollbar-color:var(--community-pine) var(--community-field); }
+input, textarea { caret-color:var(--community-pine); }
+a { text-underline-offset:.22em; }
+:where(a,button,input,textarea,select,summary):focus-visible {
+  outline:3px solid currentColor;
+  outline-offset:4px;
+}
+.hdr,.hdr.scrolled { background:#f4f4f2; border-bottom-color:var(--community-line); }
+.hdr .hdr-cta { background:var(--community-pine); border-color:var(--community-pine); }
+.hdr .hdr-cta:hover { background:#173b2a; }
+.dd-panel { border-radius:6px; }
+
+/* Page titles are lettering, not identical neon bars. The subtle field spans
+   the whole scene, allowing the original photos and data to supply the color. */
+#main#main[data-page]:not([data-page="index"]) > section:not(.hub-flow):not(.cta-band),
+#main#main[data-page]:not([data-page="index"]) > :is(.cta-band,blockquote.pull),
+.foot.ch-story-section { background:var(--community-surface)!important; }
+#main[data-page]:not([data-page="index"]) > section > .sec-band {
+  background:transparent;
+  padding-block:clamp(16px,2.4vh,24px);
+  border-bottom:1px solid var(--community-line);
+}
+#main[data-page] :is(.product-category > h2,.page-ending h2,.ending-link strong) {
+  font-family:var(--font-heading);
+}
+.foot.ch-story-section .foot-line { font-family:var(--font-heading); font-weight:700; }
+
+/* Opening composition: the town remains the subject. All-white lettering has
+   consistent contrast as the existing drone footage moves behind it. */
+#main#main[data-page="index"] > .hv { transition:none; }
+#main#main[data-page="index"] > .hv .hv-copy {
+  align-items:flex-start;
+  justify-content:center;
+  padding-inline:clamp(24px,6vw,100px);
+  padding-block:32px 76px;
+  text-align:left;
+}
+#main#main[data-page="index"] > .hv .hv-h,
+#main#main[data-page="index"] > .hv.full .hv-h {
+  max-width:19ch;
+  margin:0;
+  font:700 clamp(48px,min(6.7vw,10.5dvh),88px)/1.01 var(--font-heading);
+  letter-spacing:-.025em;
+  text-align:left;
+  text-wrap:balance;
+  text-shadow:0 2px 14px rgba(0,0,0,.22);
+  transition:none;
+}
+#main#main[data-page="index"] > .hv .hv-h .hv-premise {
+  display:block;
+  max-width:28ch;
+  margin-bottom:18px;
+  font:400 clamp(20px,2.3vw,30px)/1.25 var(--font-body);
+  letter-spacing:0;
+  white-space:normal;
+}
+#main#main[data-page="index"] > .hv .hv-h .hv-l {
+  display:block;
+  white-space:normal;
+}
+#main#main[data-page="index"] > .hv .hv-h em { color:#fff; font-style:normal; text-shadow:none; }
+#main#main[data-page="index"] > .hv .hv-scrim {
+  background:linear-gradient(90deg,rgba(8,28,18,.82),rgba(8,28,18,.48) 50%,rgba(8,28,18,.12)),
+    linear-gradient(0deg,rgba(8,28,18,.42),transparent 40%);
+}
+#main#main[data-page="index"] > .hv .hv-next {
+  background:var(--community-field); color:var(--community-pine);
+  border:0; border-radius:4px; min-height:44px;
+  font-family:var(--font-body); font-weight:700;
+  display:inline-flex; align-items:center; justify-content:center;
+  left:auto; right:clamp(24px,6vw,100px); bottom:24px;
+  width:auto; padding:10px 22px; transform:none; opacity:1; z-index:4;
+}
+
+/* The same humanist headings connect each chapter without styling the
+   typography inside live dashboards or changing their drawing dimensions. */
+#main#main[data-page="index"] #people .people-context,
+#main#main[data-page="index"] #problem .why-sol,
+#main#main[data-page="index"] :is(#engage,#products,#motivate) :is(.chapter-heading .h2,.eng-copy h3) {
+  font-family:var(--font-heading);
+  font-weight:700;
+  letter-spacing:-.015em;
+}
+#main#main[data-page="index"] #problem { background:var(--community-surface)!important; }
+#main#main[data-page="index"] #problem .why-sol::after { display:none; }
+#main#main[data-page="index"] #engage { background:var(--community-surface)!important; --b:var(--community-pine); --bt:#fff; }
+#main#main[data-page="index"] #products { --b:var(--community-field); }
+#main#main[data-page="index"] #motivate { background:var(--community-surface)!important; --b:var(--community-pine); --bt:#fff; }
+#main#main[data-page="index"] #people .people-context { color:#d5eacb; }
+#main#main[data-page="index"] #people .people-context em { color:inherit; font-style:normal; }
+#main#main[data-page="index"] #people .pp-fade .pp img { border-radius:0; }
+#main#main[data-page="index"] #people .pp-btn { border-radius:4px; }
+
+/* A caption and its actions follow the full image, never its old height cap. */
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .story-player--text-controls .sp-stage {
+  height:auto; max-height:none; overflow:visible;
+}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .story-player--text-controls .sp-cap {
+  position:static; padding:10px 0 0; min-height:0;
+}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .story-player--text-controls .sp-bar {
+  position:relative; margin-top:8px; clear:both;
+}
+
+/* A single opening event; scene cuts stay immediate, including reduced motion.
+   Defaults remain visible even if animation support is unavailable. */
+@media (prefers-reduced-motion:no-preference) {
+  #main#main[data-page="index"] > .hv .hv-premise { animation:community-opening 650ms cubic-bezier(.16,1,.3,1) both; }
+  #main#main[data-page="index"] > .hv .hv-l { animation:community-opening 900ms cubic-bezier(.16,1,.3,1) 110ms both; }
+  @keyframes community-opening {
+    from { opacity:.15; transform:translateY(16px); clip-path:inset(0 0 10% 0); }
+    to { opacity:1; transform:translateY(0); clip-path:inset(0); }
+  }
+}
+@media(max-width:699px) {
+  #main#main[data-page="index"] > .hv .hv-copy { padding:32px 24px 84px; }
+  #main#main[data-page="index"] > .hv .hv-h,
+  #main#main[data-page="index"] > .hv.full .hv-h { font-size:clamp(44px,11.8vw,64px); max-width:16ch; }
+  #main#main[data-page="index"] > .hv .hv-h .hv-premise { font-size:22px; margin-bottom:20px; max-width:23ch; }
+}
+@media(max-height:500px) and (min-width:700px) {
+  #main#main[data-page="index"] > .hv .hv-h,
+  #main#main[data-page="index"] > .hv.full .hv-h { font-size:42px; max-width:24ch; }
+  #main#main[data-page="index"] > .hv .hv-h .hv-premise { font-size:20px; margin-bottom:8px; }
+  #main#main[data-page="index"] > .hv .hv-copy { padding-block:16px 54px; }
+}

@@ -1,0 +1,203 @@
+/* John (30 Sep review): the homepage reads as coloured sections, not pale surfaces.
+   Charcoal people, white who we are, lime engage, charcoal educate, green motivate.
+   This file loads last and uses a doubled id so it beats the earlier layered rules. */
+#main#main[data-page="index"]{--j-lime:#F1F7D9;--j-char:#2C2C2C;--j-green:#58BA51;--j-btn:#65BC7B;--j-ongreen:#8FD688}
+
+/* ---------- People: dark slider under the green title ---------- */
+#main#main[data-page="index"] #people{background:var(--j-char)!important;color:#fff;border:0;box-shadow:none;min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h,72px)));display:flex;align-items:flex-start;padding:clamp(20px,4.5vh,52px) 0 56px}
+#main#main[data-page="index"] #people > .wrap{width:100%}
+#main#main[data-page="index"] #people .people-context{margin:0;max-width:none;font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,1rem + 1.6vw,2.375rem);line-height:1.2;color:var(--j-green);text-align:left}
+#main#main[data-page="index"] #people .people-context em{font-style:normal;color:var(--j-green)}
+#main#main[data-page="index"] #people .pp-fade{margin-top:clamp(14px,3vh,28px)}
+#main#main[data-page="index"] #people .pp-fade > .pp{background:transparent;color:#fff}
+#main#main[data-page="index"] #people .pp-fade .pp img{object-fit:contain;object-position:left center;background:transparent;border-radius:var(--r-md);height:clamp(220px,calc(100dvh - var(--story-hdr-h,72px) - 250px),460px)}
+#main#main[data-page="index"] #people .pp blockquote p{color:#fff}
+#main#main[data-page="index"] #people .pp figcaption,#main#main[data-page="index"] #people .pp figcaption b{color:#fff}
+#main#main[data-page="index"] #people .pp figcaption{color:#d9dedb}
+#main#main[data-page="index"] #people .pp-btn{background:var(--j-btn);color:var(--j-char);border-radius:8px;box-shadow:none;padding:10px 18px;text-decoration:none;font-weight:700}
+#main#main[data-page="index"] #people .pp-btn:hover{text-decoration:underline}
+#main#main[data-page="index"] #people .pp-go{display:flex;flex-wrap:wrap;gap:12px}
+#main#main[data-page="index"] #people .pp-btn2{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px var(--j-btn)}
+#main#main[data-page="index"] #people .pp-nav button{background:transparent;border:1.5px solid #6a6f6c;color:#fff;border-radius:8px;min-width:44px;height:40px;padding:0 14px}
+#main#main[data-page="index"] #people .pp-nav button:hover{border-color:var(--j-btn);background:transparent;color:#fff}
+#main#main[data-page="index"] #people .pp-count{color:#d9dedb;font-size:.9375rem}
+#main#main[data-page="index"] #people .pp-nav{margin-top:14px}
+#main#main[data-page="index"] #people .pp-nav .pp-play{margin-left:auto}
+
+/* ---------- Who we are: title at the top, icon row, then the diagram ---------- */
+#main#main[data-page="index"] #problem{background:#fff!important;color:var(--j-char);display:flex;align-items:flex-start;padding:clamp(20px,4.5vh,52px) 0 56px;min-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h,72px)))}
+#main#main[data-page="index"] #problem .why-grid{width:100%;align-items:start;gap:clamp(24px,4vw,64px)}
+#main#main[data-page="index"] #problem .why-sol{margin:0 0 16px;font-size:clamp(2rem,1.4rem + 1.6vw,2.75rem);line-height:1.1;color:var(--j-char)}
+#main#main[data-page="index"] #problem .why-sol::after{content:"";display:block;width:64px;height:4px;margin-top:12px;background:var(--j-green)}
+#main#main[data-page="index"] #problem .why-copy p{color:var(--j-char);max-width:60ch}
+#main#main[data-page="index"] #problem .roll{--w:clamp(44px,5vw,64px);justify-content:flex-start;margin:0 0 18px;max-width:none}
+#main#main[data-page="index"] #problem .roll img:not(.roll-c){width:var(--w)}
+#main#main[data-page="index"] #problem .roll .roll-c{width:calc(var(--w) * 1.6)}
+#main#main[data-page="index"] #problem[data-sequence-phase] .roll img:not(.roll-c){width:var(--w);margin:0 calc(var(--w) * -.14)}
+#main#main[data-page="index"] #problem[data-sequence-phase="connect"] .roll img:not(.roll-c),
+#main#main[data-page="index"] #problem[data-sequence-phase="web"] .roll img:not(.roll-c),
+#main#main[data-page="index"] #problem[data-sequence-phase="complete"] .roll img:not(.roll-c){opacity:1}
+#main#main[data-page="index"] #problem .conn{max-width:520px;justify-self:center;width:100%}
+#main#main[data-page="index"] #problem .conn-heading{max-width:none;margin:0 0 10px;text-align:center;font:700 clamp(1.125rem,.9rem + .8vw,1.5rem)/1.25 var(--font-display);color:var(--j-char)}
+#main#main[data-page="index"] #problem .conn-art{max-width:min(100%,calc(100dvh - 330px));min-width:260px;margin:0 auto}
+#main#main[data-page="index"] #problem .conn-cap{max-width:none;min-height:0;margin:10px 0 0;text-align:center;font:400 1rem/1.45 var(--font-body);color:var(--j-char)}
+#main#main[data-page="index"] #problem .conn .cn img,
+#main#main[data-page="index"] #problem .conn .conn-core img{background:#fff;border-radius:50%;box-shadow:0 0 0 5px #fff}
+#main#main[data-page="index"] #problem .cn span{background:#fff;color:var(--j-char);font-size:.875rem}
+/* Nothing of the diagram shows until the icon row has finished. */
+#main#main[data-page="index"] #problem .conn[data-stage="0"] :is(.conn-heading,.conn-art,.conn-cap){opacity:0}
+#main#main[data-page="index"] #problem .conn :is(.conn-heading,.conn-art,.conn-cap){transition:opacity .6s ease}
+#main#main[data-page="index"] #problem .conn[data-stage="1"] .conn-cap,#main#main[data-page="index"] #problem .conn[data-stage="2"] .conn-cap{opacity:0}
+/* The web holds still once drawn. */
+#main#main[data-page="index"] #problem .conn-flow line,#main#main[data-page="index"] #problem .conn[data-stage="3"] .conn-flow line{animation:none;opacity:0}
+#main#main[data-page="index"] #problem .conn-lines .nl{stroke:var(--j-green);stroke-width:2.5;opacity:.9}
+#main#main[data-page="index"] #problem .conn[data-stage="1"] .nl,#main#main[data-page="index"] #problem .conn[data-stage="2"] .nl,#main#main[data-page="index"] #problem .conn[data-stage="0"] .nl{opacity:0}
+#main#main[data-page="index"] #problem .conn[data-stage="3"] .cl{opacity:.35}
+
+/* ---------- Engage / Educate / Motivate: coloured sections with a strong banner ---------- */
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .chapter-heading{margin:0 0 clamp(14px,2.4vh,26px);padding:clamp(12px,2vh,20px) 0;
+  box-shadow:0 0 0 100vmax var(--b);clip-path:inset(0 -100vmax);background:var(--b);color:var(--bt)}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .chapter-heading .h2{margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(1.875rem,1.3rem + 1.8vw,2.875rem);line-height:1.1;color:var(--bt)}
+#main#main[data-page="index"] #engage{--b:var(--j-green);--bt:var(--j-char);background:var(--j-lime)!important;color:var(--j-char)}
+#main#main[data-page="index"] #products{--b:var(--j-lime);--bt:var(--j-char);background:var(--j-char)!important;color:#fff}
+#main#main[data-page="index"] #motivate{--b:var(--j-char);--bt:#fff;background:var(--j-green)!important;color:var(--j-char)}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage{background:inherit!important}
+/* The coloured banner sits directly under the header; the panels below it take the rest of the screen. */
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage{justify-content:flex-start;padding-top:0}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage > .wrap{flex:1;display:flex;flex-direction:column;min-height:0}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage .eng-panels{margin-block:auto}
+/* Keep every panel clear of the down arrow at the foot of the screen. */
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage{padding-bottom:50px}
+#main#main[data-page="index"] #motivate .ct{--ct-h:clamp(120px,calc(var(--fit-room,100vh) - 400px),330px)}
+#main#main[data-page="index"] #products :is(.eng-copy,.eng-copy h3,.eng-copy p,.eng-media-title,.mini-cap,.eng-q,.eng-q footer){color:#fff}
+#main#main[data-page="index"] #products :is(.eng-copy,.eng-media) a:not(.pp-btn){color:var(--j-ongreen);text-decoration-color:var(--j-ongreen)}
+#main#main[data-page="index"] #motivate :is(.eng-copy,.eng-copy h3,.eng-copy p,.eng-media-title,.mini-cap,.eng-q,.eng-q footer){color:var(--j-char)}
+#main#main[data-page="index"] #motivate :is(.eng-copy,.eng-media) a:not(.pp-btn){color:var(--j-char);text-decoration-color:var(--j-char)}
+#main#main[data-page="index"] #engage :is(.eng-copy,.eng-media) a{color:var(--j-char)}
+/* Tabs and the engage selector live inside the banner. */
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-tab{color:var(--bt);border-color:transparent;font-size:.9375rem}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-tab[aria-selected="true"]{color:var(--bt);border-bottom:3px solid var(--bt)}
+#main#main[data-page="index"] #engage .eng-choice select{color:var(--j-char);background:#fff}
+
+/* ---------- Down arrow on each section ---------- */
+.sec-next{position:absolute;left:50%;bottom:10px;z-index:5;transform:translateX(-50%);display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:transparent;color:currentColor;opacity:.6;cursor:pointer}
+.sec-next:hover{opacity:1}
+.sec-next:focus-visible{outline:2px solid currentColor;outline-offset:2px;opacity:1}
+.page-next{position:fixed;bottom:10px;color:var(--j-char,#2C2C2C);opacity:0;pointer-events:none;transition:opacity .3s ease,color .3s ease}
+.page-next.is-on{opacity:.6;pointer-events:auto}
+.page-next:not(.is-on){visibility:hidden}
+.page-next.is-on:hover,.page-next.is-on:focus-visible{opacity:1}
+.page-next.on-dark{color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.page-next.at-side{left:auto;right:16px;transform:none}
+.page-next.on-card{background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(44,44,44,.22)}
+.page-next.on-card.is-on{opacity:.9}
+@media print{.page-next{display:none}}
+#main#main[data-page="index"] #people .sec-next{color:#fff}
+#main#main[data-page="index"] :is(#people,#problem,#engage,#products,#motivate){position:relative}
+#main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage{position:sticky}
+#main#main[data-page="index"] #engage .sec-next{color:var(--j-char)}
+#main#main[data-page="index"] #products .sec-next{color:#fff}
+#main#main[data-page="index"] #motivate .sec-next{color:var(--j-char)}
+@media (prefers-reduced-motion:reduce){#main#main[data-page="index"] #problem .conn :is(.conn-heading,.conn-art,.conn-cap){transition:none}}
+
+/* Panels stop 50px higher so no caption or link runs under the down arrow. */
+@media (pointer:fine) and (min-width:901px) and (min-height:480px){
+  #main#main[data-page="index"] .eng .sp-stage{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 330px);height:min(52vw,calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 330px))}
+  #main#main[data-page="index"] .eng-phones img{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 340px)}
+  #main#main[data-page="index"] .eng-live .mini{width:min(100%,calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 340px) / 2));max-width:calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 380px) / 2)}
+  #main#main[data-page="index"] .eng-lives .mini{max-width:calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 430px) * .8)}
+  #main#main[data-page="index"] .eng-browser img{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 350px)}
+  #main#main[data-page="index"] #products .eng-media .mini{max-width:calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 330px) * 1.6);margin-inline:auto}
+  #main#main[data-page="index"] #motivate .ct{--ct-h:clamp(120px,calc(var(--fit-room,100vh) - 430px),330px)}
+  #main#main[data-page="index"] #motivate .eng-media .mini{max-width:calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 350px) * 1.6);margin-inline:auto}
+  #main#main[data-page="index"] #motivate .eng-media .ev-mini{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 320px)}
+}
+
+/* Who we are: a calmer build. Icons roll in, then the heading and diagram fade, then the lines draw one by one. */
+@media (prefers-reduced-motion:no-preference){
+  html.motion #main#main[data-page="index"] #problem .roll .roll-c{transition:transform 1.2s var(--bounce),opacity .8s var(--ease)}
+  html.motion #main#main[data-page="index"] #problem .roll.on img:not(.roll-c){transition:transform 1.6s var(--bounce),opacity .9s var(--ease);transition-delay:calc(max(var(--k), var(--k) * -1) * .5s + .6s)}
+  #main#main[data-page="index"] #problem .conn :is(.conn-heading,.conn-art){transition:opacity 1.2s ease .4s}
+  #main#main[data-page="index"] #problem .conn .conn-core{transition:opacity 1s ease .9s}
+  #main#main[data-page="index"] #problem .conn-lines .cl{transition:stroke-dashoffset 1.8s ease calc(1.2s + var(--i) * .35s),opacity 1s ease 1.2s}
+  #main#main[data-page="index"] #problem .conn-lines .nl{transition:stroke-dashoffset 1.6s ease calc(3s + var(--i) * .3s),opacity .8s ease calc(3s + var(--i) * .3s)}
+  #main#main[data-page="index"] #problem .conn .conn-cap{transition:opacity 1.2s ease 5.4s}
+}
+
+/* Short laptop windows (about 560-700px tall): the pinned stage keeps each
+   panel on one screen by tightening the text column, not hiding it. */
+@media (pointer:fine) and (min-width:901px) and (min-height:480px) and (max-height:700px){
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-stage{padding-bottom:14px}
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-p{grid-template-columns:minmax(260px,1.25fr) minmax(0,2fr)}
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-copy > p:not(.eng-go){font-size:17px;line-height:1.45;margin-bottom:10px}
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-copy .eng-q{font-size:15px;line-height:1.4}
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-copy .eng-q p{font-size:15px;line-height:1.4}
+  #main#main[data-page="index"] :is(#engage,#products,#motivate) .eng-copy .eng-go{font-size:17px}
+  #main#main[data-page="index"] .remote-phone button{min-height:40px;font-size:15px}
+  #main#main[data-page="index"] .remote-hint{font-size:16px}
+  #main#main[data-page="index"] #motivate .ev-mini .events-list > li:nth-child(n+3){display:none}
+}
+
+/* Phone: the Who we are text must fit its screen, so section padding above the first scene never adds a near-duplicate stop. */
+@media (max-width: 900px) {
+  #main#main[data-page="index"] #problem { padding-top: 0; }
+}
+
+/* Hero, after communityhub.cloud: one centred statement over the drone video, emphasis in brand green. */
+#main[data-page="index"] > .hv { align-items:center; justify-content:center; }
+#main[data-page="index"] > .hv .hv-scrim { display:block; background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(20,20,20,.55) 0%,rgba(20,20,20,.3) 70%,rgba(20,20,20,.18) 100%); }
+#main[data-page="index"] > .hv .hv-copy { display:flex; flex-direction:column; justify-content:center; align-items:center; width:100%; max-width:none; margin-block:auto; padding-block:clamp(32px,8vh,96px); padding-inline:16px; text-align:center; }
+#main[data-page="index"] > .hv .hv-h { margin:0 auto; max-width:none; font-family:var(--font-display); font-weight:700; font-size:clamp(2rem,3.5vw,4.5rem); line-height:1.16; letter-spacing:-.01em; color:#fff; text-align:center; text-wrap:balance; text-shadow:0 2px 24px rgba(0,0,0,.55); }
+#main[data-page="index"] > .hv .hv-h .hv-premise,
+#main[data-page="index"] > .hv .hv-h .hv-l { display:block; font:inherit; color:inherit; margin:0; }
+#main[data-page="index"] > .hv .hv-h em { font-style:normal; color:#58BA51; text-shadow:0 2px 20px rgba(0,0,0,.7); }
+@media (max-width: 760px) {
+  #main[data-page="index"] > .hv { justify-content:center; }
+  #main[data-page="index"] > .hv .hv-copy { padding-block:24px 72px; }
+  #main[data-page="index"] > .hv .hv-h .hv-premise,
+  #main[data-page="index"] > .hv .hv-h .hv-l { display:inline; }
+  #main[data-page="index"] > .hv .hv-h { font-size:clamp(2rem,8.4vw,2.75rem); }
+}
+@media (min-width: 761px) {
+  #main[data-page="index"] > .hv .hv-h .hv-premise,
+  #main[data-page="index"] > .hv .hv-h .hv-l { max-width:none; white-space:nowrap; }
+}
+
+/* First screen: the drone video on its own. The stories are the next screen.
+   S is the room under the header and the announcement. */
+@media (min-width: 761px) {
+  #main#main[data-page="index"] { --s1:calc(100dvh - var(--story-hdr-h,77px) - var(--ban-h,0px)); }
+  #main#main[data-page="index"] > .hv { position:relative; min-height:0 !important; height:max(220px,calc(var(--s1) * .4)) !important; overflow:hidden; }
+  #main#main[data-page="index"] > .hv .hv-scrim { background:linear-gradient(180deg,rgba(20,20,20,.15) 0%,rgba(20,20,20,.35) 55%,#2C2C2C 100%),radial-gradient(ellipse 60% 70% at 50% 45%,rgba(20,20,20,.45),rgba(20,20,20,0) 75%); }
+  #main#main[data-page="index"] > .hv .hv-copy { padding-block:12px 28px; }
+  #main#main[data-page="index"] > .hv .hv-h { font-size:clamp(1.75rem,min(3.4vw,6.4dvh),4.25rem); }
+  #main#main[data-page="index"] > .hv .hv-next { display:none; }
+  /* The video keeps the whole screen while playing and after it ends. */
+  #main#main[data-page="index"] > .hv { transition:height .9s cubic-bezier(.65,0,.35,1); }
+  #main#main[data-page="index"] > .hv.full { height:var(--s1) !important; }
+  #main#main[data-page="index"] > .hv.full .hv-scrim { background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(20,20,20,.45),rgba(20,20,20,0) 75%); }
+  #main#main[data-page="index"] > .hv.full .hv-h { font-size:clamp(2rem,min(4.4vw,8dvh),5.5rem); }
+  #main#main[data-page="index"] > .hv .hv-h { transition:font-size .9s cubic-bezier(.65,0,.35,1); }
+  #main#main[data-page="index"] #people { position:relative; min-height:calc(100dvh - var(--story-hdr-h,77px)) !important; height:auto; padding-block:clamp(24px,5dvh,56px) clamp(44px,8dvh,72px) !important; justify-content:center; align-items:center; }
+  #main#main[data-page="index"] #people .pp-fade { margin-top:0; }
+  #main#main[data-page="index"] #people .pp-fade .pp img { height:calc(100dvh - var(--story-hdr-h,77px) - clamp(190px,26dvh,260px)) !important; min-height:150px; max-height:none; }
+  #main#main[data-page="index"] #people .pp blockquote p { font-size:clamp(1.0625rem,min(1.7vw,3.1dvh),1.625rem); line-height:1.4; }
+  #main#main[data-page="index"] #people .pp-nav { margin-top:clamp(8px,1.4dvh,14px); }
+  /* The story timer: a green line along the seam between the video and the stories. */
+  #main#main[data-page="index"] #people::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background:#58BA51; transform:scaleX(0); transform-origin:left; z-index:2; }
+  #main#main[data-page="index"] #people:has(.pp-fade.is-timing)::before { animation:pp-timer 7s linear forwards; }
+}
+@keyframes pp-timer { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { #main#main[data-page="index"] #people::before { display:none; } }
+
+/* Skip control along the foot of the playing video: a progress line and a plain button. */
+#main#main[data-page="index"] > .hv .hv-skip { position:absolute; left:0; right:0; bottom:0; z-index:3; height:72px; transition:opacity .4s ease; }
+#main#main[data-page="index"] > .hv:not(.live) .hv-skip, #main#main[data-page="index"] > .hv.done .hv-skip { opacity:0; pointer-events:none; }
+#main#main[data-page="index"] > .hv .hv-prog { position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(255,255,255,.22); }
+#main#main[data-page="index"] > .hv .hv-prog i { display:block; height:100%; background:#58BA51; transform:scaleX(0); transform-origin:left; transition:transform .25s linear; }
+#main#main[data-page="index"] > .hv [data-hv-skip] { color:#fff; bottom:12px; opacity:.85; filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); }
+@media (max-width: 760px) { #main#main[data-page="index"] > .hv.live:not(.done) .hv-next { display:none; } }
+/* Tablet portrait stacks the photo over the quote, so the photo takes about half the screen. */
+@media (min-width: 761px) and (max-width: 1023px) and (orientation: portrait) {
+  #main#main[data-page="index"] #people .pp-fade .pp img { height:calc((100dvh - var(--story-hdr-h,77px)) * .45) !important; }
+}

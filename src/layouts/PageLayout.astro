@@ -1,0 +1,53 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import logo from '../components/logo-symbol.svg?raw';
+import '../styles/index.css';
+import type { PageDefinition } from '../lib/types';
+interface Props { page: PageDefinition }
+const { page } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    {page.slug === 'index' && <script is:inline>
+      // Decide before the browser restores its saved offset or paints a later
+      // scene. A deliberate homepage visit starts at the film; Back/Forward and
+      // section links keep their native destination.
+      (() => {
+        const navigation = performance.getEntriesByType('navigation')[0];
+        if (location.hash || navigation?.type === 'back_forward') return;
+        const previous = history.scrollRestoration;
+        history.scrollRestoration = 'manual';
+        const restore = () => { history.scrollRestoration = previous; };
+        scrollTo({ top: 0, behavior: 'instant' });
+        addEventListener('pageshow', () => {
+          requestAnimationFrame(() => requestAnimationFrame(restore));
+        }, { once: true });
+        addEventListener('pagehide', restore, { once: true });
+      })();
+    </script>}
+    <title>{page.fullTitle}</title>
+    <meta name="description" content={page.description} />
+    <link rel="canonical" href={page.canonical} />
+    <meta property="og:title" content={page.fullTitle} />
+    <meta property="og:description" content={page.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://www.communityhub.cloud/assets/hotel-oberlin-sign.jpg" />
+    <meta name="theme-color" content="#eef2e8" />
+    <link rel="icon" href="assets/icon-ch.png" />
+    <link rel="stylesheet" href="fonts/community/fonts.css" />
+    <link rel="preconnect" href="https://oberlin.communityhub.cloud" crossorigin />
+    <script is:inline>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')}catch(e){}try{if(localStorage.getItem('ch-aashe-off'))document.documentElement.classList.add('no-aashe')}catch(e){}</script>
+    {page.jsonld && <script type="application/ld+json" set:html={JSON.stringify(page.jsonld).replaceAll('<', '\\u003c')} />}
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false" set:html={logo} />
+    <Header current={page.current} contents={page.contents} />
+    <main id="main" data-page={page.slug} data-pager={page.pager || undefined} data-natural-type={page.pager || undefined} set:html={page.body} />
+    <Footer />
+    <script>import '../scripts/index';</script>
+  </body>
+</html>

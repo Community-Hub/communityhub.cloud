@@ -1,0 +1,89 @@
+/* Task 8: To Engage. Three panels under one heading: signs, phones, partner websites. */
+.eng-tabs{display:none}
+.eng-p{display:grid;gap:20px;align-items:center}
+.eng-copy h3{font-size:1.5rem;line-height:1.2;margin:0 0 8px}
+.eng-copy p{margin:0 0 12px;max-width:34ch}
+.eng-copy .pc-a{display:inline-block}
+.eng-media{min-width:0}
+.eng-panels{margin-top:18px}
+.eng .story-player{box-shadow:none;border:1px solid #CCCCCB;border-radius:18px}
+.eng .sp-stage{aspect-ratio:3/2}
+.eng .sp-slide img{object-fit:cover}
+.eng-phones{display:flex;gap:14px;justify-content:center;align-items:flex-end}
+.eng-phones figure{margin:0;flex:1 1 0;min-width:0;max-width:220px;text-align:center}
+.eng-phones img{width:100%;border-radius:18px;border:1px solid #CCCCCB;background:#fff}
+.eng-phones figcaption,.eng-emb figcaption{font-size:.875rem;line-height:1.35;margin-top:6px;color:var(--ink)}
+.eng-emb{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start}
+.eng-emb figure{margin:0;min-width:0}
+.eng-browser{border:1px solid #CCCCCB;border-radius:14px;overflow:hidden;background:#fff}
+.eng-browser::before{content:"";display:block;height:22px;border-bottom:1px solid #CCCCCB;
+  background:radial-gradient(circle at 12px 11px,#ccc 4px,transparent 5px),radial-gradient(circle at 26px 11px,#ccc 4px,transparent 5px),radial-gradient(circle at 40px 11px,#ccc 4px,transparent 5px)}
+.eng-browser img{display:block;width:100%}
+.eng-emb .mini{margin:0}
+.eng-lives{display:grid;gap:12px;align-content:start}
+.eng-live .mini{border-radius:18px;border-color:#CCCCCB}
+.eng-live .mini-cap{text-align:left}
+
+@media (min-width:901px){
+  .eng-p{grid-template-columns:minmax(220px,1fr) minmax(0,2.4fr);gap:32px}
+  .eng-p:has(.eng-emb){grid-template-columns:minmax(200px,.75fr) minmax(0,3fr)}
+}
+/* Desktop with a mouse: the heading stays put for one stop per panel (--n). */
+@media (pointer:fine) and (min-width:901px) and (min-height:480px){
+  #main:has(> .hv) > section.eng:not(.hv){display:block;position:relative;padding:0!important;
+    height:calc(var(--n,3) * (100dvh - var(--story-hdr-h,var(--hdr-h))) - (var(--n,3) - 1) * 65px)}
+  .eng-stage{position:sticky;top:var(--story-hdr-h,var(--hdr-h));height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)));
+    display:flex;flex-direction:column;justify-content:center;padding-block:24px;box-sizing:border-box}
+  .eng-snap{position:absolute;left:0;width:1px;height:1px;scroll-snap-align:start;pointer-events:none}
+  .eng-snap{top:calc(var(--k) * (100dvh - var(--story-hdr-h,var(--hdr-h)) - 65px))}
+  .eng-tabs{display:flex;gap:28px;margin-top:14px;border-bottom:1px solid #CCCCCB}
+  .eng-tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 0;margin-bottom:-1px;
+    font:inherit;font-size:1rem;color:var(--ink);opacity:.6;cursor:pointer}
+  .eng-tabs button[aria-selected="true"]{opacity:1;border-bottom-color:var(--leaf-deep);font-weight:600}
+  .eng-tabs button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .eng-panels{display:grid;margin-top:20px}
+  .eng-p{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(24px);transition:opacity .35s,transform .35s,visibility 0s .35s}
+  .eng[data-i="0"] .eng-p:nth-child(1),.eng[data-i="1"] .eng-p:nth-child(2),.eng[data-i="2"] .eng-p:nth-child(3),.eng[data-i="3"] .eng-p:nth-child(4){
+    opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .35s}
+  .eng .sp-stage{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 280px);aspect-ratio:auto;height:min(52vw,calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 280px))}
+  .eng-phones img{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 290px);width:auto;max-width:100%}
+  .eng-live .mini{width:min(100%,calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 330px) / 2));margin-inline:auto}
+  .eng-lives .mini{max-width:calc((100dvh - var(--story-hdr-h,var(--hdr-h)) - 380px) * .8)}
+  .eng-browser img{max-height:calc(100dvh - var(--story-hdr-h,var(--hdr-h)) - 300px);object-fit:cover;object-position:top}
+}
+@media (prefers-reduced-motion:reduce){.eng-p{transition:none!important;transform:none!important}}
+/* To motivate and empower has two cards: give each half the row on desktop. */
+@media (min-width:1180px){#main:has(> .hv) .six.two .pc-grid.story-rail{grid-auto-columns:calc((100% - 20px)/2)}}
+.eng-q{margin:0 0 14px;padding-left:14px;border-left:3px solid var(--leaf-deep);max-width:34ch}
+.eng-q p{margin:0 0 4px;font-size:.9375rem;line-height:1.4}
+.eng-q footer{font-size:.875rem;opacity:.75}
+/* On phones, retain the partner header at a useful width and give both live
+   examples equal room below it. A narrow side column made captions taller
+   than their previews and pushed the section heading out of view. */
+@media (max-width:699px){
+  .eng-emb{grid-template-columns:minmax(0,1fr);gap:12px}
+  .eng-browser{display:block}
+  .eng-browser img{max-height:150px;object-fit:cover;object-position:top}
+  .eng-emb>figure figcaption{font-size:max(14px,.75rem);line-height:1.35}
+  .eng-lives{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px;row-gap:6px}
+  .eng-lives>.mini{grid-row:1}
+  .eng-lives>.mini-cap{grid-row:2;margin:0;font-size:max(14px,.75rem);line-height:1.35}
+}
+
+/* Phone App: a recreated MidTown controller drives a live sign beside it */
+.eng-remote{display:grid;gap:14px;width:100%}
+.remote-hint{margin:0;font-size:1.125rem;font-weight:700;color:var(--ink)}
+.remote-row{display:grid;grid-template-columns:minmax(220px,.42fr) 1fr;gap:28px;align-items:center}
+.remote-phone{display:grid;gap:2px;padding:12px 10px 18px;background:#2C2C2C;border-radius:28px;border:6px solid #1d1d1d;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.remote-top{margin:0 0 8px;padding:10px 12px;border-radius:14px 14px 4px 4px;background:#F6E39A;color:#c2410c;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-align:center;line-height:1.25}
+.remote-phone button{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 12px;border:0;border-radius:10px;background:transparent;color:#fff;font:inherit;font-size:16px;text-align:left;cursor:pointer;transition:background .2s}
+.remote-phone button img{width:28px;height:28px;border-radius:50%;background:#fff;object-fit:contain}
+.remote-phone button:hover{background:#3d3d3d}
+.remote-phone button[aria-pressed="true"]{background:#58BA51;color:#fff;font-weight:700}
+.remote-phone button:focus-visible{outline:3px solid #F1F7D9;outline-offset:2px}
+.remote-sign{margin:0}
+.remote-sign .mini{border:10px solid #2C2C2C;border-radius:14px;transition:background-image .3s}
+.remote-sign .mini iframe{pointer-events:none}
+.remote-real{margin:0;font-size:max(14px,.9rem)}
+.remote-real a{color:var(--leaf-deep)}
+@media (max-width:760px){.remote-row{grid-template-columns:1fr}.remote-phone{order:2}}

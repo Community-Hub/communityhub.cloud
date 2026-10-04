@@ -1,0 +1,49 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> community-hub-website@1.0.0 check
+> node ./node_modules/astro/bin/astro.mjs check
+
+15:51:04 [types] Generated 91ms
+15:51:04 [check] Getting diagnostics for Astro files in /workspace/scratch/3dfdf590721a/swipe-revision-recovery/work/community-hub-source...
+[96msrc/scripts/base.ts[0m:[93m771[0m:[93m19[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m771[0m           ids.map(function (id) {
+[7m   [0m [93m                  ~~~~~~~~[0m
+[96msrc/scripts/base.ts[0m:[93m768[0m:[93m16[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m768[0m       function load(view: string) {
+[7m   [0m [93m               ~~~~[0m
+[96msrc/scripts/base.ts[0m:[93m642[0m:[93m23[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m642[0m         NOW_ORDER.map(function (id) {
+[7m   [0m [93m                      ~~~~~~~~[0m
+
+[96msrc/scripts/pages_dataviews.ts[0m:[93m286[0m:[93m23[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m286[0m       fetch(url).then(function (r) {
+[7m   [0m [93m                      ~~~~~~~~[0m
+
+[96msrc/scripts/pages_home8_cal.ts[0m:[93m70[0m:[93m12[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m70[0m   function get(u: string) {
+[7m  [0m [93m           ~~~[0m
+
+[96msrc/scripts/pages_zprod_b.ts[0m:[93m749[0m:[93m14[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m749[0m     function getText(url: string) {
+[7m   [0m [93m             ~~~~~~~[0m
+[96msrc/scripts/pages_zprod_b.ts[0m:[93m736[0m:[93m14[0m - [93mwarning[0m[90m ts(80006): [0mThis may be converted to an async function.
+
+[7m736[0m     function getJSON(url: string): Promise<unknown> {
+[7m   [0m [93m             ~~~~~~~[0m
+
+Result (78 files): 
+- 0 errors
+- 0 warnings
+- 7 hints
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

@@ -1,2 +1,21 @@
+node_modules
+dist/
+.astro/
+.venv/
+reference/
+tests/artifacts/
+tests/runtime/
 .DS_Store
-config.codekit3
+
+# Machine-local settings, generated QA caches, and credentials
+.impeccable/config.local.json
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+.npmrc
+*.pem
+*.key
+.vercel
