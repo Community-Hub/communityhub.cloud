@@ -13,7 +13,7 @@ HTML revalidates; hashed Astro assets remain immutable.
 
 Primary CUA review observed home desktop/mobile, Explore revealing testimonials,
 Next moving 1/8 to 2/8, and mobile Menu opening/closing useful links. Final runtime
-home was reloaded and captured at desktop and 390x844 after the LF-only rebuild.
+home was reloaded and captured at desktop and 390x844 after the asset parity rebuild.
 
 An independent reviewer inspected final-desktop.jpg and final-mobile.jpg in the
 Change root's validation folder. Desktop matches the captured deployed reference;

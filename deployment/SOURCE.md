@@ -13,7 +13,7 @@ The complete tracked source and public assets were imported. UI and content
 remain as supplied; deployment files are added separately. Old static files
 and the Bootstrap submodule were removed from this Change's worktree.
 
-Build with Node 22.12 or newer: npm ci, npm run check, npm run build.
+Build with Node 22.15 or newer: npm ci, npm run check, npm run build.
 The Dockerfile packages dist in Nginx on port 8080. Pages retain their flat
 .html URLs; missing paths use 404.html with HTTP status 404. /healthz is a
 container health endpoint. HTML revalidates; hashed Astro assets are immutable.
@@ -38,7 +38,8 @@ Team maps to the supplied About team listing; Story Maker maps to Stories.
 Both slash forms and query strings are preserved. WordPress default sample-page
 and hello-world content have no intended replacement and return a true 404.
 
-LF line endings are enforced for text files so Windows builds match the deployed
-reference. No writing, design or interaction changes were made. Acceptance tests
+Public assets preserve their original bytes, including mixed LF and CRLF line
+endings, so fresh checkouts on every platform match the deployed reference.
+No writing, design or interaction changes were made. Acceptance tests
 compare every emitted file against hashes of the deployed Vercel reference captured
 on 4 October 2026. Update those hashes only for an explicitly approved new version.

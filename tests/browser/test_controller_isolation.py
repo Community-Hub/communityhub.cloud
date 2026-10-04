@@ -23,10 +23,18 @@ class ControllerIsolationTests(unittest.TestCase):
         self.page = self.context.new_page()
         self.page.set_content(FIXTURE)
         self.page.add_script_tag(content=SOURCE.read_text())
-        self.page.wait_for_timeout(80)
+        self.wait_ready()
 
     def tearDown(self):
         self.context.close()
+
+    def wait_ready(self):
+        # A fixed delay can expire before headless Chromium's first layout frame
+        # on CI. Measure the fixture and require actual controller readiness.
+        self.page.wait_for_function(
+            "window.chStory && chStory.frames().length > 0 && chStory.current() !== null",
+            timeout=8000,
+        )
 
     def settle(self):
         self.page.wait_for_function("!document.documentElement.classList.contains('ch-moving')")
@@ -105,7 +113,7 @@ class ControllerIsolationTests(unittest.TestCase):
                               .replace('<section id="one">', '<nav data-zpa-jump style="height:40px">Jump</nav><section id="one">')
                               .replace('.foot { height: 400px; }', '.foot { height: 900px; }'))
         self.page.add_script_tag(content=SOURCE.read_text())
-        self.page.wait_for_timeout(80)
+        self.wait_ready()
         first_footer = self.page.evaluate("chStory.frames().find(f => f.els[0].classList.contains('foot')).y")
         self.page.evaluate('y => scrollTo(0, y)', first_footer)
         self.assertAlmostEqual(self.page.locator('.foot').bounding_box()['y'], 80, delta=3)
