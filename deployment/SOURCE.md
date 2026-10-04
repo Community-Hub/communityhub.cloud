@@ -30,3 +30,15 @@ and are not proof of this import. Import provenance is the Git commit above.
 Delivery adaptations: npm dependencies are pinned to the supplied lock versions;
 Astro uses normal CLI resolution for workspace compatibility; Python discovery
 and Node test globs use double quotes on Windows. No UI source was changed.
+
+Legacy redirects map the live WordPress sitemap routes to matching static pages.
+Data Manager maps to the-hub.html and Dashboard Creator to building-dashboard.html,
+matching the original product provenance in src/content/live-products.json.
+Team maps to the supplied About team listing; Story Maker maps to Stories.
+Both slash forms and query strings are preserved. WordPress default sample-page
+and hello-world content have no intended replacement and return a true 404.
+
+LF line endings are enforced for text files so Windows builds match the deployed
+reference. No writing, design or interaction changes were made. Acceptance tests
+compare every emitted file against hashes of the deployed Vercel reference captured
+on 4 October 2026. Update those hashes only for an explicitly approved new version.

@@ -1,24 +1,30 @@
 # Local review — 4 October 2026
 
 Imported source: 90f637ed080f0ba5e0cabb9382716c078c52b248.
-Runtime image: ch-communityhub:5993, local image ID sha256:bfe0034d3851819d577a096354e93ea3f009b0f435f1b4d9d78b4ba69418a7fe.
+Final local runtime: sha256:c0a945b8fa63cd5c9dd2cbabb919f5701547443d1e53e48c5d37eb2bb4480e51.
 
-Container build: Astro check and production build passed; 38 pages generated.
-HTTP: /, /about.html and /digital-signage.html return 200. Missing page and
-missing asset return 404 with the custom HTML error page and no-store header.
-/healthz returns 200 text/plain. HTML uses no-cache.
+The actual Nginx container serves all 686 emitted files byte-for-byte identically
+to https://communityhub-refined.vercel.app (captured 4 October 2026), including
+38 HTML pages, JavaScript, CSS, images, video and fonts. LF normalization removes
+Windows-only text differences. No writing, design or interactions were changed.
+All legacy redirect forms preserve query strings and reach matching static pages.
+Missing routes/assets return the supplied status-404 page; /healthz responds 200.
+HTML revalidates; hashed Astro assets remain immutable.
 
-Independent visitor review: desktop 1265×712 and mobile 390×844.
-Tested home, index.html, products.html, digital-signage.html, contact.html,
-dashboards.html#great-lakes-science-center and the City of Oberlin dashboard tab.
-Hero video, photographs and navigation load. Mobile menu opens/closes, Explore
-advances to testimonials and Next changes the story from 1/8 to 2/8.
-No accidental overlap or local asset failure observed. Contact prepares email;
-no email was sent. External GLSC dashboard loaded after its loading state.
+Primary CUA review observed home desktop/mobile, Explore revealing testimonials,
+Next moving 1/8 to 2/8, and mobile Menu opening/closing useful links. Final runtime
+home was reloaded and captured at desktop and 390x844 after the LF-only rebuild.
 
-Follow-up: narrow embedded dashboard sidebar consumes most visible width.
-The supplied Open dashboard action remains available. This is inherited source
-or external embed behavior, not an established hosting regression.
+An independent reviewer inspected final-desktop.jpg and final-mobile.jpg in the
+Change root's validation folder. Desktop matches the captured deployed reference;
+mobile matches the earlier local view. Complete headline and controls remain readable
+and unobscured. No visible migration blocker in those bounded final home views.
+The reviewer did not independently execute final interactions or certify other pages.
 
-This bounded review is not a full browser-suite pass, Preview Proof or Prod
-verification. Local npm validation and the complete inventory remain pending.
+Earlier visitor review also covered products, digital signage, Contact and GLSC/
+Oberlin dashboard tabs. Narrow embedded dashboard width is inherited behavior;
+the full dashboard link remains available. External dashboards require QA checks.
+
+The owner selected delivered-version acceptance, retaining historical browser tests
+as diagnostics. tests/deployment/README.md documents coverage and those limits.
+This is Local evidence, not shared Preview Proof or Prod verification.

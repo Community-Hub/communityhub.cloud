@@ -150,7 +150,13 @@ test('a build changing during packaging is rejected and staging is cleaned', asy
     while (!stopped) {
       const temporary = join(f.root, 'changing.html');
       await writeFile(temporary, `<p>${n++}</p>`);
-      await rename(temporary, join(f.dist, 'index.html'));
+      try {
+        await rename(temporary, join(f.dist, 'index.html'));
+      } catch (error) {
+        // Windows can briefly deny replacement while the packager holds a read handle.
+        // Keep trying mutations; the unchanged assertions below still require rejection.
+        if (process.platform !== 'win32' || error.code !== 'EPERM') throw error;
+      }
       await new Promise(resolve => setTimeout(resolve, 2));
     }
   })();
