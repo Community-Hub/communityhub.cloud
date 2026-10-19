@@ -1,0 +1,19 @@
+{
+  "captured": "2026-10-09",
+  "source": "Notion display directory: fb6d0c1d16c1406fb97b204a74c2a8dc",
+  "treatment": "Browser screenshots of actual controller interfaces. No remote commands sent. Homepage displays recorded images.",
+  "images": [
+    {
+      "file": "science-center-controller-live.jpg.webp",
+      "sourceRecord": "https://app.notion.com/1cbf8e6eb4dd80208bb5ed06f3ae18a6",
+      "url": "https://oberlin.communityhub.cloud/digital-signage-v2-fe/remote/oc-carbon-neutral-display",
+      "capture": "Phone viewport, 390 by 720 pixels"
+    },
+    {
+      "file": "elementary-controller-live.jpg.webp",
+      "sourceRecord": "https://app.notion.com/883d3b6e5d2e427f81f1b165eb4579b0",
+      "url": "https://oberlin.communityhub.cloud/digital-signage/remote/custom/oberlin-k8-school",
+      "capture": "Phone viewport, 390 by 720 pixels"
+    }
+  ]
+}

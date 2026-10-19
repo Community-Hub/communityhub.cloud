@@ -1,4 +1,7 @@
-# Local review — 4 October 2026
+# Local review — 4 October 2026 (historical — Astro/Nginx runtime)
+
+> Historical: this reviewed the retired Astro/Nginx container. The current
+> runtime is the React/TanStack Node server; see the root `README.md`.
 
 Imported source: 90f637ed080f0ba5e0cabb9382716c078c52b248.
 Final local runtime: sha256:c0a945b8fa63cd5c9dd2cbabb919f5701547443d1e53e48c5d37eb2bb4480e51.

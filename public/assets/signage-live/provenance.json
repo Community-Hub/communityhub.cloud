@@ -1,0 +1,15 @@
+{
+  "captured": "2026-10-09",
+  "sourceRecord": "https://app.notion.com/p/883d3b6e5d2e427f81f1b165eb4579b0",
+  "display": "https://config.communityhub.cloud/digital-signage/web-view/view?communitySubdomain=oberlin&displayId=97",
+  "controller": "https://oberlin.communityhub.cloud/digital-signage/remote/custom/oberlin-k8-school",
+  "method": "Browser screenshots of the corresponding live display after selecting each controller category and waiting beyond its opening icon. Static captures, not live embeds.",
+  "selections": {
+    "citywide.png.webp": "Citywide Dashboard",
+    "story-content.png.webp": "Story Content > Energy Use",
+    "events-calendar.png.webp": "Events Calendar",
+    "community-voices.png.webp": "Community Voices",
+    "live-data.png.webp": "Live Data > Oberlin Elementary - Electricity, Water & Gas",
+    "ops-elementary.png.webp": "OPS - Elementary"
+  }
+}

@@ -1,0 +1,200 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import {
+  keyAction,
+  normalizeWheelDelta,
+  scrollerCanMove,
+  StepLock,
+  swipeStep,
+  TouchGesture,
+  WheelGesture,
+} from "./gesture.ts";
+
+/** Feeds a decaying trackpad flick (about 1.1s) and returns every step it produced. */
+function flick(g: WheelGesture, start: number, peak: number, dir: 1 | -1 = 1) {
+  const steps: number[] = [];
+  for (let k = 0; k < 70; k++) {
+    const d = Math.max(1, Math.round(peak * Math.exp(-k / 18)));
+    const r = g.next(d * dir, start + k * 16, false);
+    if (r.kind === "step") steps.push(r.direction);
+  }
+  return steps;
+}
+
+test("one mouse notch steps once at any viewport", () => {
+  for (const delta of [30, 53, 100, 120]) {
+    const g = new WheelGesture();
+    const r = g.next(delta, 1000, false);
+    // 30px is above the 28px intent gate, so even the smallest notch moves one stop.
+    assert.deepEqual(r, { kind: "step", direction: 1 }, `delta ${delta}`);
+  }
+});
+
+test("sub-intent jitter does nothing", () => {
+  const g = new WheelGesture();
+  for (let k = 0; k < 3; k++) assert.equal(g.next(8, 1000 + k * 10, false).kind, "consume");
+});
+
+test("slow drag accumulates to one step", () => {
+  const g = new WheelGesture();
+  let steps = 0;
+  for (let k = 0; k < 45; k++) if (g.next(6, 1000 + k * 16, false).kind === "step") steps++;
+  assert.equal(steps, 1);
+});
+
+test("an inertial flick moves exactly one stop, in both directions", () => {
+  assert.deepEqual(flick(new WheelGesture(), 0, 120), [1]);
+  assert.deepEqual(flick(new WheelGesture(), 0, 30), [1]);
+  assert.deepEqual(flick(new WheelGesture(), 0, 120, -1), [-1]);
+});
+
+test("a tail longer than 260ms from the step does not re-fire", () => {
+  const g = new WheelGesture();
+  const steps: number[] = [];
+  // 2.4s of slowly decaying events, each a few px, never silent for 260ms
+  for (let k = 0; k < 150; k++) {
+    const d = Math.max(2, Math.round(80 * Math.exp(-k / 40)));
+    if (g.next(d, k * 16, false).kind === "step") steps.push(1);
+  }
+  assert.equal(steps.length, 1);
+});
+
+test("two flicks separated by silence are two gestures", () => {
+  const g = new WheelGesture();
+  const first = flick(g, 0, 100);
+  const second = flick(g, 2000, 100);
+  assert.deepEqual([first.length, second.length], [1, 1]);
+});
+
+test("a deliberate counter-swipe cancels the old burst", () => {
+  const g = new WheelGesture();
+  assert.equal(g.next(100, 0, false).kind, "step");
+  // opposite stroke 100ms later, still inside the 260ms window
+  const r = [g.next(-60, 100, false), g.next(-60, 116, false)];
+  assert.ok(r.some((x) => x.kind === "step" && x.direction === -1));
+});
+
+test("a fresh swipe inside the inertia tail starts a new gesture", () => {
+  const g = new WheelGesture();
+  let steps = 0;
+  for (let k = 0; k < 40; k++) {
+    // tail decaying from 40 to about 4
+    const d = Math.max(2, Math.round(40 * Math.exp(-k / 12)));
+    if (g.next(d, k * 16, false).kind === "step") steps++;
+  }
+  // deliberate second swipe at 640ms, well above the tail floor
+  const t = 40 * 16;
+  if (g.next(110, t, false).kind === "step") steps++;
+  assert.equal(steps, 2);
+});
+
+test("inner scroller owns the whole burst, then hands off only after silence", () => {
+  const g = new WheelGesture();
+  // pointer over a scroller with room: every event is native
+  assert.equal(g.next(100, 0, true).kind, "native");
+  assert.equal(g.next(100, 50, true).kind, "native");
+  // scroller reaches its edge mid-burst: the page must not take the rest of the burst
+  assert.equal(g.next(100, 100, false).kind, "consume");
+  assert.equal(g.next(100, 150, false).kind, "consume");
+  // 300ms of silence, then a new gesture at the edge steps the page once
+  assert.deepEqual(g.next(100, 450, false), { kind: "step", direction: 1 });
+});
+
+test("wheel deltaMode is normalised", () => {
+  assert.equal(normalizeWheelDelta(3, 1, 900), 48);
+  assert.equal(normalizeWheelDelta(1, 2, 900), 900);
+  assert.equal(normalizeWheelDelta(77, 0, 900), 77);
+  assert.equal(new WheelGesture().next(normalizeWheelDelta(3, 1, 900), 0, false).kind, "step");
+});
+
+test("scrollerCanMove respects edges and 2px tolerance", () => {
+  const m = { scrollTop: 0, scrollHeight: 800, clientHeight: 400 };
+  assert.equal(scrollerCanMove(m, 1), true);
+  assert.equal(scrollerCanMove(m, -1), false);
+  assert.equal(scrollerCanMove({ ...m, scrollTop: 400 }, 1), false);
+  assert.equal(scrollerCanMove({ ...m, scrollTop: 400 }, -1), true);
+  assert.equal(scrollerCanMove({ scrollTop: 0, scrollHeight: 401, clientHeight: 400 }, 1), false);
+});
+
+const key = (k: string, extra: Partial<Parameters<typeof keyAction>[0]> = {}) => ({
+  key: k,
+  shiftKey: false,
+  ctrlKey: false,
+  metaKey: false,
+  altKey: false,
+  repeat: false,
+  ...extra,
+});
+const body = { editable: false, activator: false };
+
+test("keyboard map", () => {
+  assert.equal(keyAction(key("ArrowDown"), body), "next");
+  assert.equal(keyAction(key("PageDown"), body), "next");
+  assert.equal(keyAction(key(" "), body), "next");
+  assert.equal(keyAction(key(" ", { shiftKey: true }), body), "prev");
+  assert.equal(keyAction(key("ArrowUp"), body), "prev");
+  assert.equal(keyAction(key("PageUp"), body), "prev");
+  assert.equal(keyAction(key("Home"), body), "first");
+  assert.equal(keyAction(key("End"), body), "last");
+  assert.equal(keyAction(key("ArrowLeft"), body), null);
+});
+
+test("keyboard ignores modifiers, held keys, fields and Space on buttons", () => {
+  assert.equal(keyAction(key("ArrowDown", { repeat: true }), body), null);
+  assert.equal(keyAction(key("ArrowDown", { metaKey: true }), body), null);
+  assert.equal(keyAction(key("ArrowDown", { altKey: true }), body), null);
+  assert.equal(keyAction(key("ArrowDown"), { editable: true, activator: false }), null);
+  assert.equal(keyAction(key(" "), { editable: false, activator: true }), null);
+  assert.equal(keyAction(key("ArrowDown"), { editable: false, activator: true }), "next");
+});
+
+test("StepLock drops steps inside the window", () => {
+  const lock = new StepLock(300);
+  assert.equal(lock.take(1000), true);
+  assert.equal(lock.take(1100), false);
+  assert.equal(lock.take(1299), false);
+  assert.equal(lock.take(1300), true);
+});
+
+test("touch: 60px swipe steps, 20px does not, 400px steps once", () => {
+  const swipe = (dy: number, ms: number) => {
+    const t = new TouchGesture();
+    t.start(1, 100, 600, 0);
+    t.move(1, 100, 600 - dy / 2);
+    t.move(1, 100, 600 - dy);
+    return t.end(1, 600 - dy, ms);
+  };
+  assert.equal(swipe(60, 200), 1);
+  assert.equal(swipe(20, 500), 0);
+  assert.equal(swipe(400, 200), 1);
+  assert.equal(swipe(-150, 200), -1);
+  assert.equal(swipe(20, 40), 1); // short but fast flick
+});
+
+test("touch: horizontal drags and second fingers are ignored; cancel resets", () => {
+  const t = new TouchGesture();
+  t.start(1, 100, 600, 0);
+  t.start(2, 100, 100, 0); // second finger does not restart
+  t.move(1, 160, 590);
+  assert.equal(t.axis, "horizontal");
+  assert.equal(t.end(1, 300, 100), 0);
+  assert.equal(t.active, false);
+
+  t.start(3, 100, 600, 0);
+  t.move(3, 100, 500);
+  t.cancel();
+  assert.equal(t.active, false);
+  assert.equal(t.end(3, 400, 100), 0);
+  // a cancelled touch cannot leave the next one stuck
+  t.start(4, 100, 600, 0);
+  t.move(4, 100, 540);
+  assert.equal(t.end(4, 540, 150), 1);
+});
+
+test("swipeStep: horizontal strokes only", () => {
+  assert.equal(swipeStep(-80, 5, 300), 1);
+  assert.equal(swipeStep(80, -5, 300), -1);
+  assert.equal(swipeStep(-20, 0, 400), 0);
+  assert.equal(swipeStep(-20, 0, 40), 1);
+  assert.equal(swipeStep(-80, 90, 300), 0);
+});

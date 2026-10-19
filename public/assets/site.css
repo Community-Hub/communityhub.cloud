@@ -114,7 +114,7 @@ p{margin:0}
 .cwd-scene{position:relative;container-type:inline-size;background:#e6f4fb}
 .cwd-scene svg{display:block;width:100%;height:auto}
 .cwd-tip{position:absolute;left:16.5%;right:6%;top:3.2%;font-family:"Futura","Century Gothic",var(--display);font-weight:500;color:#4d4d4d;font-size:clamp(11px,2.05cqw,24px);line-height:1.3}
-.cwd-panel{background:#23466f url(cwd-panel-bg.png) center/cover;padding:12px 10px;display:grid;gap:8px;align-content:start;container-type:inline-size}
+.cwd-panel{background:#23466f url(cwd-panel-bg.png.webp) center/cover;padding:12px 10px;display:grid;gap:8px;align-content:start;container-type:inline-size}
 .cwd-mode{justify-self:center;background:#FFF6C9;color:#1c1c1c;border:2px solid #1c1c1c;border-radius:4px;font-family:"Futura","Century Gothic",var(--display);font-weight:600;font-size:clamp(12px,7cqw,17px);padding:2px 12px 1px;transform:rotate(-1.5deg);box-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .tiles{display:grid;gap:8px;grid-template-columns:1fr 1fr}
 @media (min-width:720px){.tiles{grid-template-columns:1fr}}

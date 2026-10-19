@@ -1,0 +1,110 @@
+{
+  "_note": "Community Voices filters for the rotating slider (4 s per slide, about 16 s per filter, then the next filter; title above the slider is `title`, 'Place – Filter'). Source: the Environmental Dashboard Community Voices app (environmentaldashboard.org/community-voices) is an Angular app whose share dialog builds `<hub>/cv-public/embeddable?<filters>`; its filter list is public JSON at <hub>/api/v1/community-voices/slide/filter. Oberlin's hub (oberlin.communityhub.cloud) is the Environmental Dashboard's. Verified 7 Oct 2026: every url returns 200, the page carries no X-Frame-Options or CSP header, and `interval=4000` sets the slide time in ms (default 7000). Each load holds 10 slides (the player's cap). environmentaldashboard.org/cv-public/* itself returns 503, so these point at the hub host. Categories are per hub: Oberlin 17-23, Cleveland 1-3,5-12. `fallback` are the MidTown Cleveland entries (image tag 36 = 'MidTown' in the Cleveland filter list), to use only if John prefers them or the Oberlin hub fails.",
+  "rotation": {
+    "secondsPerSlide": 4,
+    "secondsPerFilter": 16,
+    "slidesPerFilter": 4
+  },
+  "filters": [
+    {
+      "place": "City of Oberlin",
+      "filter": "Climate Action",
+      "title": "City of Oberlin – Climate Action",
+      "categoryId": 23,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=23&interval=4000"
+    },
+    {
+      "place": "City of Oberlin",
+      "filter": "Heritage",
+      "title": "City of Oberlin – Heritage",
+      "categoryId": 20,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=20&interval=4000"
+    },
+    {
+      "place": "City of Oberlin",
+      "filter": "Natural Oberlin",
+      "title": "City of Oberlin – Natural Oberlin",
+      "categoryId": 21,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=21&interval=4000"
+    },
+    {
+      "place": "City of Oberlin",
+      "filter": "Neighbors",
+      "title": "City of Oberlin – Neighbors",
+      "categoryId": 22,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=22&interval=4000"
+    },
+    {
+      "place": "City of Oberlin",
+      "filter": "Next Generation",
+      "title": "City of Oberlin – Next Generation",
+      "categoryId": 19,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=19&interval=4000"
+    },
+    {
+      "place": "City of Oberlin",
+      "filter": "Our Downtown",
+      "title": "City of Oberlin – Our Downtown",
+      "categoryId": 18,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=18&interval=4000"
+    },
+    {
+      "place": "City of Oberlin",
+      "filter": "Serving Our Community",
+      "title": "City of Oberlin – Serving Our Community",
+      "categoryId": 17,
+      "url": "https://oberlin.communityhub.cloud/cv-public/embeddable?categories=17&interval=4000"
+    }
+  ],
+  "fallback": [
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Serving Our Community",
+      "title": "MidTown Cleveland – Serving Our Community",
+      "categoryId": 12,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=12&interval=4000"
+    },
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Our Neighbors",
+      "title": "MidTown Cleveland – Our Neighbors",
+      "categoryId": 8,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=8&interval=4000"
+    },
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Work & Shop",
+      "title": "MidTown Cleveland – Work & Shop",
+      "categoryId": 11,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=11&interval=4000"
+    },
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Next Generation",
+      "title": "MidTown Cleveland – Next Generation",
+      "categoryId": 7,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=7&interval=4000"
+    },
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Heritage",
+      "title": "MidTown Cleveland – Heritage",
+      "categoryId": 9,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=9&interval=4000"
+    },
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Natural Cleveland",
+      "title": "MidTown Cleveland – Natural Cleveland",
+      "categoryId": 10,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=10&interval=4000"
+    },
+    {
+      "place": "MidTown Cleveland",
+      "filter": "Climate Action",
+      "title": "MidTown Cleveland – Climate Action",
+      "categoryId": 2,
+      "url": "https://cleveland.communityhub.cloud/cv-public/embeddable?image_tags=36&categories=2&interval=4000"
+    }
+  ]
+}
