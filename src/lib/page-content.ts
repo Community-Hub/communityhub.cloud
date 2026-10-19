@@ -76,13 +76,13 @@ const OBERLIN: SlideFrame[] = [
 ];
 const CAMPUS: SlideFrame[] = [
   {
-    src: "/assets/glsc-exhibit.jpg",
+    src: "/assets/live-home-story-03.png",
     alt: "A screen and touch kiosk at the Great Lakes Science Center, Cleveland",
     title: placeTitle("Great Lakes Science Center", "Exhibit"),
     caption: "A screen and touch kiosk at the Great Lakes Science Center, Cleveland.",
   },
   {
-    src: "/assets/glsc-workshop.jpg",
+    src: "/assets/glsc-exhibit.jpg",
     alt: "Students and staff in front of a dashboard screen and a touch tablet",
     title: placeTitle("Great Lakes Science Center", "Workshop"),
     caption: "Students and staff in front of a dashboard screen and a touch tablet.",

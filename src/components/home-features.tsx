@@ -8,6 +8,7 @@ import { usePreviewRotation } from "@/lib/use-preview-rotation";
 import { useSwipe } from "@/lib/use-swipe";
 import { homeFeatureStories } from "@/lib/home-feedback";
 import { cn } from "@/lib/utils";
+import { imageSize } from "@/lib/image-dimensions";
 
 /** Oct 7 pp. 4-5: the image, quote and its controls move as one clearly bounded story. */
 export function HomeFeatures() {
@@ -36,7 +37,7 @@ export function HomeFeatures() {
       <div className="home-feature-stage">
         {layers.map(n => <div key={n} aria-hidden={n !== at || undefined} inert={n !== at || undefined}
           className={cn("home-feature-content", n === at ? slide.prev !== null && (slide.dir > 0 ? "sb-in-next" : "sb-in-prev") : ["home-feature-leaving", slide.dir > 0 ? "sb-out-next" : "sb-out-prev"])}>
-          <img src={features[n].img} alt={features[n].alt} className="home-feature-image" />
+          <img src={features[n].img} alt={features[n].alt} width={imageSize(features[n].img)?.width} height={imageSize(features[n].img)?.height} className="home-feature-image" />
           <div className="home-feature-quote">
             <blockquote>“{features[n].quote}”</blockquote>
             <p className="mt-4 font-bold">{features[n].speaker}</p>

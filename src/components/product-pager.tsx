@@ -7,6 +7,7 @@ import { site } from "@/lib/site";
 import { PhoneWalkthrough } from "@/components/phone-walkthrough";
 import { PlayPauseButton, useAutoplay } from "@/components/play-pause";
 import { cn } from "@/lib/utils";
+import { imageSize } from "@/lib/image-dimensions";
 
 export type ProductSlide = {
   label: string;
@@ -83,7 +84,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
               {hasMedia && <div className={cn("product-detail-media min-w-0", slide.wide && "product-detail-media-wide", slide.phoneWalkthrough && "product-detail-walkthrough", slide.images && "product-detail-controllers", slide.nativeSize && "product-detail-native", page === "/phone-app" && "phone-product-media")}>
                 {slide.captionAbove && slide.caption && <p className="mb-3 t-body font-bold">{slide.caption}</p>}
                 {slide.phoneWalkthrough ? <Walkthrough /> : page === "/phone-app" && slide.src ? (
-                  <img className="phone-product-image" src={slide.src} alt={slide.alt ?? slide.title} />
+                  <img className="phone-product-image" src={slide.src} alt={slide.alt ?? slide.title} width={imageSize(slide.src)?.width} height={imageSize(slide.src)?.height} />
                 ) : page === "/phone-app" && slide.images ? (
                   <div className="phone-controller-examples">{slide.images.map(image => <figure key={image.src}>
                     <img src={image.src} alt={image.alt ?? image.label ?? "Controller"} />

@@ -107,11 +107,11 @@ export const demos = [
     visit: { href: "https://greatscience.com/explore/exhibits/environmental-dashboard", label: "Visit Great Lakes Science Center" },
     name: "Great Lakes Science Center",
     title: placeTitle("Great Lakes Science Center", "Citywide Dashboard"),
-    image: "/assets/glsc-exhibit.jpg",
+    image: "/assets/live-home-story-03.png",
     embed: "https://cleveland.communityhub.cloud/dh-public/glsc-embed",
     alt: "Visitors at the dashboard exhibit at the Great Lakes Science Center, with a wall screen and a touch kiosk",
     note: "Cleveland’s dashboard, fed by the center’s own monitoring equipment, Lake Erie (USGS) and an EPA air quality station.",
-    photo: { src: "/assets/glsc-exhibit.jpg", alt: "Visitors at the exhibit at the Great Lakes Science Center" },
+    photo: { src: "/assets/live-home-story-03.png", alt: "Visitors at the exhibit at the Great Lakes Science Center" },
     facts: [
       "The Great Lakes Science Center is one of Community Hub’s ongoing implementations.",
       "Its data comes from the center’s own monitoring equipment, Lake Erie (USGS) and an EPA air quality station in Cleveland.",

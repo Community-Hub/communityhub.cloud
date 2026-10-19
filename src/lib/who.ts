@@ -107,7 +107,7 @@ export const whoStops: WhoStop[] = [
       {
         title: placeTitle("Great Lakes Science Center", "Exhibit"),
         caption: "Visitors at the exhibit at the Great Lakes Science Center.",
-        src: "/assets/glsc-exhibit.jpg",
+        src: "/assets/live-home-story-03.png",
         alt: "Visitors at the exhibit at the Great Lakes Science Center",
       },
     ],

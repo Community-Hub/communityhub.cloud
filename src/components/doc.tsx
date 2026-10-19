@@ -2,6 +2,7 @@ import { useLocation } from "@tanstack/react-router";
 import { Children, isValidElement, useEffect, useRef, useState } from "react";
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { siteIndex } from "@/lib/site-registry";
+import { imageSize } from "@/lib/image-dimensions";
 import { FooterChapter } from "@/components/site-footer";
 import { Chapter, Storyboard } from "@/components/storyboard";
 
@@ -110,12 +111,15 @@ export function Split({ media, mediaFirst = false, stacked = false, children }: 
   );
 }
 
-/** One picture sized from the shared screen budget. */
+/** One picture sized from the shared screen budget. Intrinsic width/height reserve its aspect box before it loads. */
 export function Shot({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  const size = imageSize(src);
   return (
     <img loading="lazy" decoding="async"
       src={src}
       alt={alt}
+      width={size?.width}
+      height={size?.height}
       className={`block h-auto max-h-(--shot-h) max-w-full rounded-md border border-line bg-paper object-contain object-left-top shadow-[0_1px_3px_rgba(36,75,56,0.07)] ${className}`}
     />
   );
