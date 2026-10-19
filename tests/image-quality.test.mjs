@@ -1,0 +1,5 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';
+// JPEG SOF0/SOF2 width reader: key homepage photos must stay retina-sharp (>=1400px wide).
+function jpegWidth(path){const b=readFileSync(path);assert.equal(b[0],0xff);assert.equal(b[1],0xd8);let i=2;while(i<b.length-9){assert.equal(b[i],0xff);const m=b[i+1];if(m===0xc0||m===0xc2){return b.readUInt16BE(i+7);}i+=2+b.readUInt16BE(i+2);}return 0;}
+test('key homepage photographs are full resolution, not compressed thumbnails',()=>{for(const f of ['public/assets/hotel-oberlin-sign.jpg','public/assets/glsc-exhibit.jpg','public/assets/kids-citywide-screen.jpg','public/assets/hero-first-frame.jpg']){assert.ok(jpegWidth(f)>=1400,`${f} is ${jpegWidth(f)}px wide`);}});
+test('slick polish stylesheet is imported by the site entry',()=>{assert.ok(readFileSync('src/styles/index.css','utf8').includes('slick-polish.css'));assert.ok(readFileSync('src/styles/slick-polish.css','utf8').includes('prefers-reduced-motion'));});

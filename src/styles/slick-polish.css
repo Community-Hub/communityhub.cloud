@@ -1,0 +1,16 @@
+/* Slick production polish: one consistent finish over the existing system.
+   Content, copy, destinations and behavior are unchanged. */
+.hdr { box-shadow: 0 1px 0 rgb(44 44 44 / .08), 0 12px 32px -20px rgb(44 44 44 / .35); }
+.nav-a, .nav-btn { transition: color 160ms ease, background-color 160ms ease; }
+.hv-h { letter-spacing: -.015em; text-wrap: balance; }
+.hv-h em { white-space: nowrap; }
+.pp-btn { transition: background-color 160ms ease, color 160ms ease, transform 160ms ease; }
+.pp-btn:active { transform: scale(.98); }
+.sec-next { transition: background-color 160ms ease, color 160ms ease, transform 160ms ease; }
+.sec-next:active { transform: scale(.94); }
+img { image-rendering: auto; }
+:focus-visible { outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-a, .nav-btn, .pp-btn, .sec-next { transition: none; }
+  .pp-btn:active, .sec-next:active { transform: none; }
+}
