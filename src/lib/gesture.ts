@@ -15,9 +15,12 @@ export class WheelGesture {
   private started = -Infinity;
   /** Recent magnitudes of the page-owned burst: the decaying inertia tail. */
   private recent: [number, number][] = [];
+  /** Largest magnitude since the step was taken: a valley far below it marks where momentum died. */
+  private peak = 0;
 
   reset() {
     this.recent = [];
+    this.peak = 0;
     this.last = -Infinity;
     this.owner = null;
     this.direction = 0;
@@ -43,6 +46,7 @@ export class WheelGesture {
       this.intent = 0;
       this.reversed = 0;
       this.recent = [];
+      this.peak = 0;
     }
 
     if (magnitude < 1) {
@@ -91,15 +95,34 @@ export class WheelGesture {
     this.started = time;
     this.intent = 0;
     this.recent = [];
+    this.peak = 0;
     return { kind: "step", direction: direction > 0 ? 1 : -1 };
   }
 
-  /** Momentum only decays, so a large delta far above the recent floor is a new stroke. */
+  /**
+   * Momentum only decays, so re-acceleration far above the recent floor is a new stroke.
+   * Early on (before 160ms) the rise counts only after a real valley: the tail first fell
+   * to at most 55% of its post-step peak. That keeps a single stroke whose peak arrives
+   * just after the step from being read as a second swipe, while a fast repeat — whose
+   * ramp starts from the dead tail — is answered as soon as it is recognisable.
+   * No tail events for 150ms means momentum is over: a lone full-size event is a new
+   * notch or stroke, never inertia restarting from silence.
+   */
   private freshSwipe(magnitude: number, time: number) {
     this.recent = this.recent.filter(([t]) => time - t <= 150);
-    const floor = this.recent.length ? Math.min(...this.recent.map(([, m]) => m)) : Infinity;
-    if (magnitude >= 1) this.recent.push([time, magnitude]);
-    return time - this.started >= 160 && magnitude >= 14 && magnitude >= floor * 1.6 + 6;
+    const quiet = this.recent.length === 0;
+    const floor = quiet ? Infinity : Math.min(...this.recent.map(([, m]) => m));
+    const peakBefore = this.peak;
+    if (magnitude >= 1) {
+      this.recent.push([time, magnitude]);
+      if (magnitude > this.peak) this.peak = magnitude;
+    }
+    if (magnitude < 14) return false;
+    const since = time - this.started;
+    if (quiet) return since >= 70 && magnitude >= 28;
+    if (magnitude < floor * 1.6 + 6) return false;
+    if (since >= 160) return true;
+    return since >= 70 && floor <= peakBefore * 0.55;
   }
 }
 

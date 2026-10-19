@@ -126,7 +126,12 @@ export function Storyboard({
     [go, count],
   );
 
-  /** Every path that moves one stop goes through here: wheel, touch, keys, Next. */
+  /**
+   * Keys and the Next button go through the lock, so an accidental double press can't skip a stop.
+   * Classified gestures (below) skip it: WheelGesture already emits at most one step per gesture
+   * and TouchGesture one per touch, so the lock only ever dropped deliberate fast repeats —
+   * and because the classifier had already claimed that burst, the rest of the swipe was eaten too.
+   */
   const commit = useCallback(
     (dir: Dir, inner = true) => {
       if (!lock.current.take(performance.now())) return;
@@ -134,6 +139,9 @@ export function Storyboard({
     },
     [step],
   );
+
+  /** Wheel and touch steps: independently classified, one per gesture, so no lock. */
+  const commitGesture = useCallback((dir: Dir) => step(dir), [step]);
 
   const register = useCallback((chapter: number, fn: DirHandler | null) => {
     if (fn) handler.current.set(chapter, fn);
@@ -189,7 +197,7 @@ export function Storyboard({
       const decision = wheel.next(delta, event.timeStamp, canScroll);
       if (decision.kind === "native") return;
       event.preventDefault();
-      if (decision.kind === "step") commit(decision.direction);
+      if (decision.kind === "step") commitGesture(decision.direction);
     };
 
     // Touch: one finger, vertical lock, one step per touch; a scroller that can still move owns the touch.
@@ -227,7 +235,7 @@ export function Storyboard({
       const t = Array.from(event.changedTouches).find((c) => c.identifier === touch.touchId);
       if (!t) return;
       const dir = touch.end(t.identifier, t.clientY, event.timeStamp);
-      if (dir && !nativeTouch) commit(dir);
+      if (dir && !nativeTouch) commitGesture(dir);
     };
     const onTouchCancel = () => touch.cancel();
 
@@ -276,7 +284,7 @@ export function Storyboard({
       window.removeEventListener("touchcancel", onTouchCancel);
       window.removeEventListener("keydown", onKey);
     };
-  }, [commit, go, count, lead]);
+  }, [commit, commitGesture, go, count, lead]);
 
   const stops = lead ? [lead, ...labels] : labels;
   const activeStop = lead ? (index === 0 ? (film ? 0 : 1) : index + 1) : index;

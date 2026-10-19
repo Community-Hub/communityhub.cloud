@@ -88,6 +88,82 @@ test("a fresh swipe inside the inertia tail starts a new gesture", () => {
   assert.equal(steps, 2);
 });
 
+/** One physical trackpad swipe: finger ramp (5 events) then momentum decay, events every 12ms. */
+function swipeEvents(start: number, peak = 42, dir: 1 | -1 = 1) {
+  const mags = [0.07, 0.18, 0.38, 0.68, 1].map((f) => Math.max(1, Math.round(peak * f)));
+  for (let k = 1; k < 26; k++) mags.push(Math.max(1, Math.round(peak * 0.82 * Math.exp(-k / 6))));
+  return mags.map((m, i) => ({ d: m * dir, t: start + i * 12 }));
+}
+
+/** Swipes back to back: a new finger stroke cuts the previous momentum tail at `gap` ms. Returns [time, dir] per step. */
+function fastSwipes(gaps: number[], peak = 42, dirs: (1 | -1)[] = [1, 1, 1]) {
+  const g = new WheelGesture();
+  const events: { d: number; t: number }[] = [];
+  let start = 0;
+  gaps.forEach((gap, i) => {
+    events.push(...swipeEvents(start, peak, dirs[i]).filter((e) => e.t < start + gap || i === gaps.length - 1));
+    start += gap;
+  });
+  const steps: [number, number][] = [];
+  for (const e of events.sort((a, b) => a.t - b.t)) {
+    const r = g.next(e.d, e.t, false);
+    if (r.kind === "step") steps.push([e.t, r.direction]);
+  }
+  return steps;
+}
+
+test("fast repeated swipes each step once, well under the old 200ms lock", () => {
+  for (const gap of [110, 140, 180]) {
+    const steps = fastSwipes([gap, 10_000]);
+    assert.equal(steps.length, 2, `gap ${gap}: ${JSON.stringify(steps)}`);
+    // The second stroke must be answered promptly, not held to a fixed post-step deadline.
+    assert.ok(steps[1][0] - steps[0][0] < 200, `gap ${gap}: second step at ${steps[1][0] - steps[0][0]}ms after first`);
+    assert.ok(steps[1][0] - gap <= 72, `gap ${gap}: answered ${steps[1][0] - gap}ms after the second stroke began`);
+  }
+});
+
+test("three fast swipes are three steps; the decaying tails add none", () => {
+  assert.deepEqual(
+    fastSwipes([140, 140, 10_000]).map(([, d]) => d),
+    [1, 1, 1],
+  );
+});
+
+test("a fast reversal steps back under 200ms", () => {
+  for (const gap of [110, 140]) {
+    const steps = fastSwipes([gap, 10_000], 42, [1, -1]);
+    assert.deepEqual(steps.map(([, d]) => d), [1, -1], `gap ${gap}`);
+    assert.ok(steps[1][0] - steps[0][0] < 200, `gap ${gap}`);
+  }
+});
+
+test("one ramped swipe still steps exactly once (its post-step peak is not a fresh swipe)", () => {
+  assert.equal(fastSwipes([10_000]).length, 1);
+  assert.equal(fastSwipes([10_000], 90).length, 1);
+  assert.equal(fastSwipes([10_000], 22).length, 1);
+});
+
+test("a small bump in the decaying tail does not re-fire", () => {
+  const g = new WheelGesture();
+  let steps = 0;
+  const feed = (d: number, t: number) => {
+    if (g.next(d, t, false).kind === "step") steps++;
+  };
+  for (const e of swipeEvents(0, 42).filter((e) => e.t < 300)) feed(e.d, e.t);
+  // tail is down to a few px by now; a 12px wobble is momentum noise, not a stroke
+  feed(12, 312);
+  feed(9, 324);
+  feed(5, 336);
+  assert.equal(steps, 1);
+});
+
+test("discrete mouse notches 120ms apart are two gestures", () => {
+  const g = new WheelGesture();
+  assert.deepEqual(g.next(100, 0, false), { kind: "step", direction: 1 });
+  assert.deepEqual(g.next(100, 120, false), { kind: "step", direction: 1 });
+  assert.deepEqual(g.next(100, 240, false), { kind: "step", direction: 1 });
+});
+
 test("inner scroller owns the whole burst, then hands off only after silence", () => {
   const g = new WheelGesture();
   // pointer over a scroller with room: every event is native
