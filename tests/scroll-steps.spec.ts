@@ -67,6 +67,83 @@ test("/digital-signage scrolls normally and can leave the controller in either d
   await expect(page).toHaveURL(/#try-the-phone$/);
 });
 
+/**
+ * Dispatches one synthetic trackpad swipe (finger ramp + momentum decay, logical timestamps) at the visible chapter.
+ * Logical time advances 1000ms between calls so each call starts from silence inside the classifier,
+ * while strokes inside one call stay as close together as `gaps` says — the fast-repeat case.
+ */
+async function swipe(page: Page, gaps: number[], dirs: (1 | -1)[] = [1, 1, 1]) {
+  // One evaluate per stroke, with a real task boundary between them: a browser delivers fast
+  // strokes across frames and React renders the new beat in between, which the inner-step
+  // handler reads. The logical timestamps still keep the strokes `gap` ms apart.
+  for (let i = 0; i < gaps.length; i++) {
+    await page.evaluate(
+      ({ gap, dir, first, last }) => {
+        const w = window as unknown as { __swipeT?: number };
+        const start = first ? (w.__swipeT = (w.__swipeT ?? performance.now()) + 1000) : w.__swipeT!;
+        const mags = [0.07, 0.18, 0.38, 0.68, 1].map((f) => Math.max(1, Math.round(42 * f)));
+        for (let k = 1; k < 26; k++) mags.push(Math.max(1, Math.round(42 * 0.82 * Math.exp(-k / 6))));
+        const target = document.querySelector("section:not([inert])")!;
+        mags.forEach((m, k) => {
+          const t = start + k * 12;
+          if (!last && t >= start + gap) return; // the next finger stroke cuts this momentum tail
+          const ev = new WheelEvent("wheel", { deltaY: m * dir, bubbles: true, cancelable: true });
+          Object.defineProperty(ev, "timeStamp", { value: t });
+          target.dispatchEvent(ev);
+        });
+        w.__swipeT = start + gap;
+      },
+      { gap: gaps[i], dir: dirs[i], first: i === 0, last: i === gaps.length - 1 },
+    );
+    await page.waitForTimeout(50);
+  }
+}
+
+test("home Educate: fast repeated swipes walk the examples one per swipe, and back", async ({ page }) => {
+  await open(page, "/#educate/building");
+  await expect(page).toHaveURL(/#educate\/building$/);
+  // Two deliberate strokes 140ms apart (inside the old 200ms lock): building -> city -> hub, no skip, no drop.
+  await swipe(page, [140, 10_000]);
+  await expect(page).toHaveURL(/#educate\/hub$/, { timeout: 5000 });
+  // One swipe with its full momentum tail moves exactly one more beat.
+  await swipe(page, [10_000]);
+  await expect(page).toHaveURL(/#educate\/stories$/, { timeout: 5000 });
+  // Fast reversal strokes walk back one per swipe.
+  await swipe(page, [140, 10_000], [-1, -1]);
+  await expect(page).toHaveURL(/#educate\/city$/, { timeout: 5000 });
+});
+
+test("home Educate: two fast touch flicks each step once", async ({ page }) => {
+  await open(page, "/#educate/building");
+  await expect(page).toHaveURL(/#educate\/building$/);
+  // Flick 1 ends at base+80, flick 2 at base+210: ends 130ms apart in logical time (inside the
+  // old lock). Separate evaluates put a real render between them, as separate frames would.
+  for (const offset of [0, 130]) {
+    await page.evaluate((offset) => {
+      const w = window as unknown as { __touchBase?: number };
+      const t0 = (w.__touchBase ??= performance.now() + 1000) + offset;
+      const target = document.querySelector("section:not([inert])")!;
+      const fire = (type: string, y: number, t: number, active: boolean) => {
+        const touchObj = new Touch({ identifier: 1, target, clientX: 300, clientY: y });
+        const ev = new TouchEvent(type, {
+          bubbles: true,
+          cancelable: true,
+          touches: active ? [touchObj] : [],
+          changedTouches: [touchObj],
+        });
+        Object.defineProperty(ev, "timeStamp", { value: t });
+        target.dispatchEvent(ev);
+      };
+      fire("touchstart", 600, t0, true);
+      fire("touchmove", 560, t0 + 40, true);
+      fire("touchmove", 520, t0 + 70, true);
+      fire("touchend", 520, t0 + 80, false);
+    }, offset);
+    await page.waitForTimeout(50);
+  }
+  await expect(page).toHaveURL(/#educate\/hub$/, { timeout: 5000 });
+});
+
 test("/demos: a wheel over the live embed does not step the tabs", async ({ page }) => {
   await open(page, "/demos");
   const first = await selected(page);

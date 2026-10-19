@@ -176,6 +176,49 @@ test("inner scroller owns the whole burst, then hands off only after silence", (
   assert.deepEqual(g.next(100, 450, false), { kind: "step", direction: 1 });
 });
 
+test("a fresh stroke at a scroller's edge hands off to the page without waiting for silence", () => {
+  const g = new WheelGesture();
+  const steps: number[] = [];
+  const feed = (d: number, t: number, can: boolean) => {
+    const r = g.next(d, t, can);
+    if (r.kind === "step") steps.push(t);
+    return r;
+  };
+  // A scroller with a few px of travel owns the first stroke and reaches its edge almost at once.
+  assert.equal(feed(30, 0, true).kind, "native");
+  assert.equal(feed(40, 12, true).kind, "native");
+  // The rest of that same burst at the edge is still consumed, never stepped.
+  assert.equal(feed(35, 24, false).kind, "consume");
+  // A deliberate second stroke 140ms in (ramp from the dead tail) steps the page once.
+  feed(3, 140, false);
+  feed(8, 152, false);
+  feed(16, 164, false);
+  feed(29, 176, false);
+  feed(42, 188, false);
+  feed(30, 200, false);
+  feed(18, 212, false);
+  assert.equal(steps.length, 1, JSON.stringify(steps));
+  assert.ok(steps[0] <= 200, `stepped at ${steps[0]}`);
+});
+
+test("a discrete notch at a scroller's edge hands off; a scroller with room keeps every stroke", () => {
+  const g = new WheelGesture();
+  assert.equal(g.next(120, 0, true).kind, "native"); // scrolls the last few px to the edge
+  assert.deepEqual(g.next(120, 120, false), { kind: "step", direction: 1 });
+
+  const room = new WheelGesture();
+  let steps = 0;
+  for (const start of [0, 140]) {
+    for (const e of swipeEvents(start, 42)) {
+      if (e.t >= start + 140 && start === 0) break;
+      const r = room.next(e.d, e.t, true);
+      if (r.kind === "step") steps++;
+      assert.equal(r.kind, "native");
+    }
+  }
+  assert.equal(steps, 0);
+});
+
 test("wheel deltaMode is normalised", () => {
   assert.equal(normalizeWheelDelta(3, 1, 900), 48);
   assert.equal(normalizeWheelDelta(1, 2, 900), 900);

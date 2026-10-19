@@ -17,10 +17,13 @@ export class WheelGesture {
   private recent: [number, number][] = [];
   /** Largest magnitude since the step was taken: a valley far below it marks where momentum died. */
   private peak = 0;
+  /** Ms since the previous event. Momentum arrives every few ms; a 70ms+ hole ends it. */
+  private gap = Infinity;
 
   reset() {
     this.recent = [];
     this.peak = 0;
+    this.gap = Infinity;
     this.last = -Infinity;
     this.owner = null;
     this.direction = 0;
@@ -36,6 +39,7 @@ export class WheelGesture {
   next(delta: number, time: number, canScroll: boolean): WheelDecision {
     if (!Number.isFinite(delta) || !Number.isFinite(time)) return { kind: "consume" };
     if (time - this.last > 260 || time < this.last) this.reset();
+    this.gap = time - this.last;
     this.last = time;
     const direction = Math.sign(delta);
     const magnitude = Math.abs(delta);
@@ -55,6 +59,8 @@ export class WheelGesture {
           this.owner = "native";
           this.direction = direction;
           this.started = time;
+          this.recent = [];
+          this.peak = 0;
         }
         return { kind: "native" };
       }
@@ -77,12 +83,29 @@ export class WheelGesture {
     }
 
     if (this.owner === "page") return { kind: "consume" };
-    if (this.owner === "native") return { kind: canScroll ? "native" : "consume" };
+    if (this.owner === "native") {
+      if (canScroll) {
+        this.track(magnitude, time);
+        return { kind: "native" };
+      }
+      // At the scroller's edge the burst is still consumed, but a fresh stroke is a new
+      // gesture: hand it to the page now instead of holding it until 260ms of silence.
+      // Without this, a scroller with a few px of travel eats the first swipe invisibly
+      // and then eats the fast repeat too.
+      if (!this.freshSwipe(magnitude, time)) return { kind: "consume" };
+      this.owner = null;
+      this.intent = 0;
+      this.recent = [];
+      this.peak = 0;
+    }
     if (canScroll) {
       this.owner = "native";
       this.direction = direction;
       this.started = time;
       this.intent = 0;
+      this.recent = [];
+      this.peak = 0;
+      this.track(magnitude, time);
       return { kind: "native" };
     }
     if (direction !== this.direction) {
@@ -119,10 +142,21 @@ export class WheelGesture {
     }
     if (magnitude < 14) return false;
     const since = time - this.started;
-    if (quiet) return since >= 70 && magnitude >= 28;
+    // A full-size event after a 70ms+ hole in the stream is a discrete notch or a new
+    // stroke: momentum never pauses that long and resumes at full magnitude.
+    if (since >= 70 && magnitude >= 28 && (quiet || this.gap >= 70)) return true;
     if (magnitude < floor * 1.6 + 6) return false;
     if (since >= 160) return true;
     return since >= 70 && floor <= peakBefore * 0.55;
+  }
+
+  /** Records a magnitude in the tail window without judging it (native-owned events). */
+  private track(magnitude: number, time: number) {
+    this.recent = this.recent.filter(([t]) => time - t <= 150);
+    if (magnitude >= 1) {
+      this.recent.push([time, magnitude]);
+      if (magnitude > this.peak) this.peak = magnitude;
+    }
   }
 }
 
