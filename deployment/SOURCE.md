@@ -1,4 +1,7 @@
-# Imported website source
+# Imported website source (historical — Astro import, superseded)
+
+> Historical: this records the earlier Astro import. The current runtime is
+> the React/TanStack site; see the root `README.md`. Kept unchanged below.
 
 Source: https://github.com/2024frank/communityhub-website-refined
 

@@ -1,0 +1,57 @@
+{
+  "presentationId": "1tnVqH82ZGUBu5vYytrPv9QxCUl0JsLTclrmNr7di_8Y",
+  "presentationTitle": "260401 MidTown Partner Presentation",
+  "slideNumber": 23,
+  "slideId": "g1374d91cf02_1_0",
+  "notes": "Unmodified source assets used in an illustrated sequence. The website does not operate a real public sign.",
+  "assets": [
+    {
+      "file": "midtown-qr.png",
+      "imageId": "g1374d91cf02_1_5"
+    },
+    {
+      "file": "midtown-controller.png.webp",
+      "imageId": "g1374d91cf02_1_9"
+    },
+    {
+      "file": "midtown-vision-plan.png.webp",
+      "imageId": "g1374d91cf02_1_35"
+    },
+    {
+      "file": "squirrel-phone.png",
+      "imageId": "g1374d91cf02_1_1"
+    },
+    {
+      "file": "holding-phone.png",
+      "imageId": "g1374d91cf02_1_7"
+    },
+    {
+      "file": "tapping-hand.png",
+      "imageId": "g1374d91cf02_1_33"
+    },
+    {
+      "file": "monitor.png",
+      "imageId": "g1374d91cf02_1_25"
+    },
+    {
+      "file": "midtown-idle.png.webp",
+      "imageId": "g1374d91cf02_1_10"
+    }
+  ],
+  "visionPlanScreens": {
+    "presentationId": "1Uvt4oujempXKVR5a8iW-DeOkBGL1s6A3b8MS7ABJqnM",
+    "presentationTitle": "Neighborhood Vision Plan",
+    "linkSource": "MidTown Partner Presentation slide 23, linked Vision Plan selection ellipse g1374d91cf02_1_34",
+    "assets": [
+      {
+        "file": "vision-plan-screen-2.png.webp",
+        "slideId": "g13cc68126d9_0_41"
+      },
+      {
+        "file": "vision-plan-screen-3.png.webp",
+        "slideId": "g13cc68126d9_0_5"
+      }
+    ],
+    "notes": "Original slide thumbnails displayed as a local excerpt after selecting Vision Plan. No public sign is controlled."
+  }
+}

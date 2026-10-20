@@ -1,13 +1,20 @@
 node_modules
 dist/
-.astro/
+.output/
+.vercel/
+.nitro/
 .venv/
 reference/
 tests/artifacts/
-tests/runtime/
+test-results/
+playwright-report/
+.cms-media/
+*.db
+*.sqlite*
 .DS_Store
 
 # Machine-local settings, generated QA caches, and credentials
+.local/
 .impeccable/config.local.json
 __pycache__/
 *.py[cod]
@@ -18,4 +25,4 @@ __pycache__/
 .npmrc
 *.pem
 *.key
-.vercel
+*.log

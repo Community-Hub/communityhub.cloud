@@ -1,0 +1,161 @@
+{
+  "_note": "Ported from projects/community-hub/site/src/data/embeds.json on 7 Oct 2026. Every URL is one communityhub.cloud, environmentaldashboard.org or Google already publishes. Added here: `place` and `sublocation` (display title is 'Place – Sublocation', see PRIMARY_PLACES in src/lib/content.ts), and the `midtown-calendar` entry, which is the exact URL midtowncleveland.org/events frames itself. place is null where the repo does not say which primary place an embed belongs to. 'Oberlin Public Schools' is pending John's confirmation (Oberlin City Schools is the older name). `visitLabel` overrides the legend link text; `readable` adds a Read the story link.",
+  "dashboards": [
+    {
+      "id": "harkness",
+      "name": "Oberlin College's Harkness Co-op dashboard",
+      "title": "Harkness Co-op",
+      "place": "Oberlin College",
+      "sublocation": "Harkness Co-op",
+      "src": "https://oberlin.communityhub.cloud/dh-public/oc-embed?active-page=exploreData&active-data-dashboard=815",
+      "visit": "https://oberlin.communityhub.cloud/dh-public/oc-embed?active-page=exploreData&active-data-dashboard=815"
+    },
+    {
+      "id": "campus",
+      "name": "Oberlin College's whole-campus dashboard",
+      "title": "Whole campus",
+      "place": "Oberlin College",
+      "sublocation": "Whole campus",
+      "src": "https://oberlin.communityhub.cloud/dh-public/oc-embed?active-page=exploreData&active-data-dashboard=1081",
+      "visit": "https://www.oberlin.edu/arts-and-sciences/departments/environmental-studies/dashboard"
+    },
+    {
+      "id": "great-lakes-science-center",
+      "name": "Great Lakes Science Center's environmental dashboard",
+      "title": "Great Lakes Science Center",
+      "place": "Great Lakes Science Center",
+      "sublocation": "Environmental dashboard",
+      "src": "https://cleveland.communityhub.cloud/dh-public/glsc-embed",
+      "visit": "https://greatscience.com/explore/exhibits/environmental-dashboard"
+    },
+    {
+      "id": "oberlin-city-schools",
+      "name": "Oberlin Public Schools' environmental dashboard",
+      "title": "Oberlin Public Schools",
+      "place": "Oberlin Public Schools",
+      "sublocation": "Environmental dashboard",
+      "src": "https://oberlin.communityhub.cloud/dh-public/ops-embed",
+      "visit": "https://www.oberlinschools.net/#h.78ca501b910ca40b_115"
+    },
+    {
+      "id": "city-of-oberlin",
+      "name": "City of Oberlin's community dashboard",
+      "title": "City of Oberlin",
+      "place": "City of Oberlin",
+      "sublocation": "Community dashboard",
+      "src": "https://oberlin.communityhub.cloud/dh-public/city-of-oberlin",
+      "visit": "https://cityofoberlin.com/city-government/departments/sustainability/",
+      "visitLabel": "Visit City of Oberlin"
+    }
+  ],
+  "datahub": [
+    {
+      "id": "citywide",
+      "name": "Oberlin's Citywide Dashboard, a whole city's data, living and animated",
+      "title": "Citywide Dashboard",
+      "place": "City of Oberlin",
+      "sublocation": "Citywide dashboard",
+      "src": "https://www.environmentaldashboard.org/cwd-files/dashboard.php?interval=&current_state="
+    },
+    {
+      "id": "heat-map",
+      "name": "Whole-city electricity use in Oberlin, as a heat map of the last 60 days",
+      "title": "Whole City Electricity Use",
+      "place": "City of Oberlin",
+      "sublocation": "Whole city electricity use",
+      "src": "https://oberlin.communityhub.cloud/dh-public/heat-map/969/chart-window/last-60-days?show-header=1&show-chart-title=1"
+    },
+    {
+      "id": "embeddable",
+      "name": "A live Oberlin electricity chart, embedded in a web page",
+      "title": "Web embeddable chart",
+      "place": null,
+      "sublocation": null,
+      "src": "https://oberlin.communityhub.cloud/dh-public/time-series-chart/embed/0/chart-window/today?variableId=45660"
+    },
+    {
+      "id": "orb-map",
+      "name": "The orb map: Oberlin's electricity use as glowing orbs. It replays yesterday's data, hour by hour.",
+      "title": "Orb map",
+      "place": null,
+      "sublocation": null,
+      "src": "https://oberlin.communityhub.cloud/dh-public/ops/dashboard/1081?active-tab=Orb+Map+Visualization"
+    }
+  ],
+  "calendar": [
+    {
+      "id": "midtown-calendar",
+      "name": "The MidTown Cleveland community calendar",
+      "title": "Community calendar",
+      "place": "MidTown Cleveland",
+      "sublocation": "Community calendar",
+      "src": "https://cleveland.communityhub.cloud/calendar/?embed=1&show-menu=1",
+      "visit": "https://midtowncleveland.org/events/",
+      "visitLabel": "Visit MidTown Cleveland"
+    },
+    {
+      "id": "calendar",
+      "name": "The Cleveland community calendar",
+      "title": "Community calendar",
+      "place": "MidTown Cleveland",
+      "sublocation": "Community calendar",
+      "src": "https://cleveland.communityhub.cloud/calendar/?embed=1&show-menu-bar=1"
+    },
+    {
+      "id": "jobs",
+      "name": "Local jobs, from the Cleveland community calendar",
+      "title": "Jobs board",
+      "place": "MidTown Cleveland",
+      "sublocation": "Jobs board",
+      "src": "https://cleveland.communityhub.cloud/calendar/jobs?show-menu-bar=1"
+    },
+    {
+      "id": "oberlin-calendar",
+      "name": "The Oberlin community calendar",
+      "title": "Oberlin calendar",
+      "place": "City of Oberlin",
+      "sublocation": "Community calendar",
+      "src": "https://oberlin.communityhub.cloud/calendar/"
+    }
+  ],
+  "stories": [
+    {
+      "id": "glsc-stories",
+      "name": "Great Lakes Science Center: Our Lake story",
+      "title": "Great Lakes Science Center: Our Lake story",
+      "place": "Great Lakes Science Center",
+      "sublocation": "Our Lake story",
+      "src": "https://cleveland.communityhub.cloud/dh-public/glsc-embed?active-page=exploreStories"
+    },
+    {
+      "id": "stories",
+      "name": "Oberlin College: Heating & Cooling story, how campus heats and cools with geothermal",
+      "title": "Oberlin College: Heating & Cooling",
+      "place": "Oberlin College",
+      "sublocation": "Heating & Cooling",
+      "src": "https://oberlin.communityhub.cloud/dh-public/oc-embed?active-page=exploreStories",
+      "source": "https://docs.google.com/presentation/d/1IQ-xVTkfJP4P3UY-FY8DltGmR8Lzo5r5TFJbf5RyfxI/preview",
+      "readable": "https://communityhub.cloud/oberlin-college.html"
+    }
+  ],
+  "storyOfDashboard": {
+    "id": "story-of-dashboard",
+    "generated": true,
+    "name": "The story of Dashboard, a slide deck",
+    "title": "The story of Dashboard",
+    "place": null,
+    "sublocation": null,
+    "src": "https://docs.google.com/presentation/d/e/2PACX-1vQfRVKa9JNw8GIXMMFZYf0XpjAwswzrJftYMBl7cBu-cJpzIgNcjBZo1X1jjMBrgofuabYMISCxdDLs/embed?start=true&loop=true&delayms=5000",
+    "srcReduced": "https://docs.google.com/presentation/d/e/2PACX-1vQfRVKa9JNw8GIXMMFZYf0XpjAwswzrJftYMBl7cBu-cJpzIgNcjBZo1X1jjMBrgofuabYMISCxdDLs/embed?start=false&loop=true&delayms=5000",
+    "visit": "https://environmentaldashboard.org/story-of-dashboard"
+  },
+  "signage": {
+    "id": "signage",
+    "name": "Oberlin digital signage",
+    "title": "Digital signage",
+    "place": null,
+    "sublocation": null,
+    "src": "https://oberlin.communityhub.cloud/cv-public/digital-signage",
+    "stillOnly": true
+  }
+}

@@ -1,0 +1,1224 @@
+[
+  {
+    "title": "Who Cares What's Trending? Curve Fitting with Environmental Dashboard & Desmos",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 8",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "AP",
+      "honors",
+      "special needs",
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Graphing",
+      "Statistics",
+      "Systems Thinking"
+    ],
+    "dashboard_feature": [
+      "BuildingOS"
+    ],
+    "standards": [],
+    "author": null,
+    "description": "Intro lesson on linear, quadratic and exponential functions, fitting dashboard data in Desmos.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/11/Who-Cares-Whats-Trending-Curve-Fitting-with-Environmental-Dashboard-Desmos.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Problem Solving for Conservation with BuildingOS",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9",
+      "Higher Education"
+    ],
+    "student_levels": [
+      "AP",
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Climate",
+      "Data Interpretation",
+      "Economics",
+      "Graphing",
+      "Statistics",
+      "Systems Thinking",
+      "Units",
+      "Water Quality",
+      "Writing"
+    ],
+    "dashboard_feature": [
+      "BuildingOS"
+    ],
+    "standards": [],
+    "author": null,
+    "description": "Advanced exercise using BuildingOS to ask and answer questions about building resource use, leading to student projects.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/11/John-Petersen-2017-Lesson-Problem-Solving-For-Conservation-with-BuildingOS-v2.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Photography & Community Voices Content",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 7",
+      "Grade 8",
+      "Grade 9",
+      "Higher Education"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Social Studies"
+    ],
+    "topics": [
+      "Climate",
+      "Community",
+      "Ecosystems",
+      "Weather"
+    ],
+    "dashboard_feature": [
+      "Community Voices"
+    ],
+    "standards": [],
+    "author": null,
+    "description": "Middle-school photography class tied to Community Voices and dashboard water and energy data.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/09/FAVA-Photography-Lesson-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Oberlin Dashboard - Introducing Electricity",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Ecosystems",
+      "Systems Thinking"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [],
+    "author": null,
+    "description": "Introduces the dashboard and systems of electricity, water and consumption.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-2-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Our Role in the Energy System",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Ecosystems",
+      "Systems Thinking"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [],
+    "author": null,
+    "description": "Ties systems thinking to measuring kilowatts, kilowatt hours and personal energy consumption.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-3-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "What is a System?",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Ecosystems",
+      "Systems Thinking"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [],
+    "author": null,
+    "description": "Teaches what systems are and how their parts work together, using the dashboard.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Lesson-1-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Natural Resource Economics",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Economics",
+      "Ecosystems",
+      "Graphing"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Christine Hohman",
+    "description": "Students use the dashboard to see what everyday resources cost.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Hohman-Lesson-Natural-Resource-Economics.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Bioregional Dashboard Water Systems Field Trip",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Ecosystems",
+      "Systems Thinking",
+      "Water Quality"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Joy Harrison",
+    "description": "Field trip on local water and riparian ecosystems within an ecosystems study.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-2-Bioregional-Dashboard-Water-Systems-Field-Trip.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Water Flow Introduction",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Ecosystems",
+      "Systems Thinking",
+      "Water Quality"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Joy Harrison",
+    "description": "Introduces the Citywide dashboard and places personal water use in a local watershed context.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Lesson-1-Water-Flow-Introduction.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Kill-A-Watt",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Hands-on activity to build a feel for how much a watt of electricity is.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-3.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Dashboard Scavenger Hunt",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "honors",
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Ecosystems",
+      "Graphing",
+      "Regression",
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard",
+      "Community Voices"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Scavenger hunt to learn the dashboard's features and how resource use is shown.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "How Do Resources Meet Our Needs?",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 1"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Economics",
+      "Ecosystems"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "International Baccalaureate (IB)",
+      "Ohio Learning Standards"
+    ],
+    "author": "Courtney Dendorfer, Kristi Walter",
+    "description": "Uses Building Dashboard graphics to show how resources meet community needs.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Walter-Dendorfer-2017-Lesson-How-Do-Resources-Meet-Our-Needs.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Creating an Energy Budget",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Language Arts",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Economics",
+      "Graphing",
+      "Regression",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Felicia Christian",
+    "description": "Builds an energy budget and highlights sustainable changes that conserve energy.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-4-Creating-an-Energy-Budget.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Monitoring Our Energy Use to Inspire Better Choices",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Language Arts",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Economics",
+      "Graphing",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Felicia Christian",
+    "description": "Students track building kWh use and cost per hour on the building dashboard.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-3-Monitoring-Our-Energy-Use-to-Inspire-Better-Choices.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "How Much is Energy Use Costing?",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Language Arts",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Economics",
+      "Graphing",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Felicia Christian",
+    "description": "Students research how much energy they use over time and what it costs.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-2-How-Much-is-Energy-Use-Costing.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Understanding How Energy is Measured",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Language Arts",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Economics",
+      "Graphing",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Felicia Christian",
+    "description": "Explains why and when energy is measured in kW and kWh, with a hands-on lab.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Lesson-1-Understanding-How-Energy-is-Measured.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "The Electricity System Continued",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 7",
+      "Grade 8",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Ecosystems",
+      "Systems Thinking",
+      "Writing"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Second lesson of a unit on how parts of the electricity system interact.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-2-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Systems Thinking and Energy",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 7",
+      "Grade 8",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Ecosystems",
+      "Systems Thinking",
+      "Writing"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "First lesson of a unit on systems thinking, brainstorming how energy parts connect.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Lesson-1-Clark-Rosenberg-Revised-2017-Unit-2.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "What's Wrong with this Graph?",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "honors",
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Graphing",
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Builds graph-reading skills so students can use dashboard data well.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-1-Whats-Wrong-with-this-Graph.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Storytelling with Dashboard & Excel",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 7",
+      "Grade 8",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Graphing",
+      "Regression",
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Common Core"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Students find trends in data tables using Excel and the dashboard.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-3-Storytelling-with-Dashboard-Excel.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Interpreting Graphs, Big Data, & The Five Number Summary",
+    "type": "Lesson, Unit",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Graphing",
+      "Statistics",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Introduces BuildingOS, interpreting datasets, and the five-number summary.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-2-Interpreting-Graphs-Big-Data-The-Five-Number-Summary.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "What's Big Data? & Interpreting Graphs",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Graphing",
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Introduces big data and reviews statistical vocabulary using dashboard graphs.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Number-Summary-Lesson-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Can We Learn from Ecolympics?",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "honors",
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Ecosystems",
+      "Graphing",
+      "Regression",
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Students table and graph dashboard data from before, during or after Ecolympics.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-4-Can-We-Learn-from-Ecolympics.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Spending Energy to Save Energy",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "honors",
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Ecosystems",
+      "Regression",
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard",
+      "Community Voices"
+    ],
+    "standards": [
+      "Common Core"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Students judge whether dashboard information is useful for saving energy.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Lesson-3-Spending-Energy-to-Save-Energy.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Graphing Electricity",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Electricity",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Students graph how electricity use changes across the day and explain why.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-2-Graphing-Electricity.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Introduction to the Dashboard (Electricity 2017)",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Introduces the dashboard's electricity features (2017 version).",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/06/Clark2017Lesson1-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Introduction to the Dashboard",
+    "type": "Lesson",
+    "grade_levels": [
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Introduces the dashboard's electricity features.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Lesson-1-Introduction-to-the-Dashboard.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Electricity and Water Use Signature Assignment",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 5",
+      "Grade 6",
+      "Grade 7",
+      "Grade 8",
+      "Grade 9",
+      "Higher Education"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Climate",
+      "Data Interpretation",
+      "Graphing",
+      "Statistics",
+      "Systems Thinking",
+      "Units",
+      "Weather",
+      "Writing"
+    ],
+    "dashboard_feature": [
+      "BuildingOS"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": null,
+    "description": "Hands-on assignment on patterns and magnitude of utility use and its environmental impact.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/11/Electricity-and-Water-Use-Signature-Assignment-2.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Thinking in Systems",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Data Interpretation",
+      "Ecosystems",
+      "Systems Thinking"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": null,
+    "description": "Unit on how building choices affect community and environment, using systems thinking.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/08/Shurr-Unit-2017-Thinking-in-Systems.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Water Systems",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Ecosystems",
+      "Systems Thinking",
+      "Water Quality"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Joy Harrison",
+    "description": "Introduces the Citywide dashboard and local watershed water use across a lesson sequence.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Harrison-2017-Water-Systems-Unit-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "4th Grade Electricity Circuits Unit",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 4",
+      "Grade 5"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Elementary unit on electricity and circuits with the dashboard.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/06/Clark-2017-Unit-Template.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Systems Thinking & Electricity",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 4",
+      "Grade 5",
+      "Grade 6",
+      "Grade 7"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Community",
+      "Ecosystems",
+      "Systems Thinking",
+      "Writing"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "Citywide Dashboard"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Shane Clark, Danny Rosenberg",
+    "description": "Two-lesson unit on how individual actions affect the wider community's electricity use.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Clark-Rosenberg-Revised-2017-Unit.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Understanding Resource Units and Choices, Consequences, and Budgets",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 3",
+      "Grade 4"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Language Arts",
+      "Mathematics",
+      "Science"
+    ],
+    "topics": [
+      "Data Interpretation",
+      "Economics",
+      "Graphing",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Ohio Learning Standards"
+    ],
+    "author": "Felicia Christian",
+    "description": "Unit on resource units, choices, consequences and budgets using the dashboard.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Christian-2017-Unit-Understanding-Resources-Units-1-1.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Can We Change Our Habits?",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Regression",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards"
+    ],
+    "standards": [
+      "Common Core",
+      "Ohio Learning Standards"
+    ],
+    "author": "Jennifer Smillie",
+    "description": "Unit on whether and how people can change resource-use habits, using dashboard data.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Unit-Template-Can-We-Change-Our-Habits.pdf",
+    "thumbnail": null
+  },
+  {
+    "title": "Big Data & The Five Number Summary",
+    "type": "Unit",
+    "grade_levels": [
+      "Grade 10",
+      "Grade 11",
+      "Grade 12",
+      "Grade 9"
+    ],
+    "student_levels": [
+      "standard"
+    ],
+    "subjects": [
+      "Integrated STEM",
+      "Mathematics",
+      "Science",
+      "Social Studies"
+    ],
+    "topics": [
+      "Statistics",
+      "Systems Thinking",
+      "Units"
+    ],
+    "dashboard_feature": [
+      "Building Dashboard, Storyboards or Cards",
+      "BuildingOS"
+    ],
+    "standards": [
+      "Common Core"
+    ],
+    "author": null,
+    "description": "Unit on big data and the five-number summary applied to dashboard datasets.",
+    "url": "https://environmentaldashboard.org/images/uploads/2017/07/Smillie-2017-Big-Data-The-Five-Number-Summary-.pdf",
+    "thumbnail": null
+  }
+]

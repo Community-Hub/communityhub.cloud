@@ -1,0 +1,4 @@
+{
+  "installCommand": "npm install --omit=dev --no-audit --no-fund",
+  "buildCommand": "NITRO_PRESET=vercel npm run build"
+}

@@ -1,0 +1,482 @@
+{
+ "/assets/art-campus-band.jpg": {
+  "height": 226,
+  "width": 960
+ },
+ "/assets/art-choose-story.jpg": {
+  "height": 438,
+  "width": 960
+ },
+ "/assets/art-geothermal-full.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/building-dashboard-original.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/cafe-window-sign.jpg": {
+  "height": 220,
+  "width": 827
+ },
+ "/assets/cal-partner-oberlin-cal.jpg": {
+  "height": 470,
+  "width": 800
+ },
+ "/assets/cal-partner-oberlin.jpg": {
+  "height": 676,
+  "width": 960
+ },
+ "/assets/classroom-dashboard.jpg": {
+  "height": 666,
+  "width": 960
+ },
+ "/assets/cs-illo-ajlc.png": {
+  "height": 273,
+  "width": 800
+ },
+ "/assets/cs-illo-cleveland.png": {
+  "height": 437,
+  "width": 436
+ },
+ "/assets/cs-oberlin-snow.jpg": {
+  "height": 450,
+  "width": 800
+ },
+ "/assets/cv-slideshow-shot.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/cwd-poster.jpg": {
+  "height": 567,
+  "width": 800
+ },
+ "/assets/cwd-thumb.jpg": {
+  "height": 344,
+  "width": 640
+ },
+ "/assets/data-hub.png": {
+  "height": 712,
+  "width": 1280
+ },
+ "/assets/deck/h04.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/deck/h10.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/deck/h55.jpg": {
+  "height": 450,
+  "width": 800
+ },
+ "/assets/deck/h82.jpg": {
+  "height": 450,
+  "width": 800
+ },
+ "/assets/deck/h86.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/ecolympics-2024-kwh.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/ecolympics-2024-water.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/ecolympics-2026-standings.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/eng-ctl-exhibit.jpg": {
+  "height": 578,
+  "width": 420
+ },
+ "/assets/eng-ctl-midtown.jpg": {
+  "height": 960,
+  "width": 534
+ },
+ "/assets/eng-ctl-sip.jpg": {
+  "height": 780,
+  "width": 390
+ },
+ "/assets/eng-ctl-story.jpg": {
+  "height": 653,
+  "width": 580
+ },
+ "/assets/eng-midtown-events.jpg": {
+  "height": 600,
+  "width": 960
+ },
+ "/assets/eng-sign-daves-full.jpg": {
+  "height": 800,
+  "width": 739
+ },
+ "/assets/eng-sign-daves.jpg": {
+  "height": 612,
+  "width": 917
+ },
+ "/assets/glsc-exhibit.jpg": {
+  "height": 1205,
+  "width": 1600
+ },
+ "/assets/hero-first-frame.jpg": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/hotel-oberlin-sign.jpg": {
+  "height": 536,
+  "width": 960
+ },
+ "/assets/icon-calendar.png": {
+  "height": 282,
+  "width": 282
+ },
+ "/assets/icon-ch.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/icon-cv.png": {
+  "height": 281,
+  "width": 281
+ },
+ "/assets/icon-cwd.png": {
+  "height": 282,
+  "width": 281
+ },
+ "/assets/icon-datahub.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/icon-embed.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/icon-orb.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/icon-phone.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/icon-signage.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/icon-stories.png": {
+  "height": 256,
+  "width": 256
+ },
+ "/assets/kids-citywide-screen.jpg": {
+  "height": 606,
+  "width": 960
+ },
+ "/assets/live-contact-workshop.jpg": {
+  "height": 724,
+  "width": 960
+ },
+ "/assets/live-home-story-01.jpeg": {
+  "height": 640,
+  "width": 960
+ },
+ "/assets/live-home-story-02.jpeg": {
+  "height": 606,
+  "width": 960
+ },
+ "/assets/live-home-story-03.png": {
+  "height": 857,
+  "width": 1077
+ },
+ "/assets/live-home-story-04.jpeg": {
+  "height": 640,
+  "width": 960
+ },
+ "/assets/live-home-story-05.jpeg": {
+  "height": 412,
+  "width": 960
+ },
+ "/assets/live-home-story-06.jpeg": {
+  "height": 664,
+  "width": 960
+ },
+ "/assets/live-home-story-07.jpeg": {
+  "height": 638,
+  "width": 960
+ },
+ "/assets/live-home-story-08.jpeg": {
+  "height": 534,
+  "width": 800
+ },
+ "/assets/mini-oc-embed.jpg": {
+  "height": 600,
+  "width": 960
+ },
+ "/assets/oberlin-aerial.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/ops-embed-shot.jpg": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/orb-dorm.jpg": {
+  "height": 368,
+  "width": 491
+ },
+ "/assets/orb-map-oberlin.jpg": {
+  "height": 906,
+  "width": 1600
+ },
+ "/assets/orb-poster-ajlc.jpg": {
+  "height": 1268,
+  "width": 1959
+ },
+ "/assets/orb-poster-kahn.jpg": {
+  "height": 1268,
+  "width": 1959
+ },
+ "/assets/orb-poster-key.jpg": {
+  "height": 518,
+  "width": 800
+ },
+ "/assets/orb-poster-noah.jpg": {
+  "height": 1268,
+  "width": 1959
+ },
+ "/assets/originals/kahn-dashboard-slide66.jpg": {
+  "height": 1018,
+  "width": 1920
+ },
+ "/assets/originals/kahn-dashboard-slide67.jpg": {
+  "height": 1022,
+  "width": 1920
+ },
+ "/assets/originals/kahn-dashboard-slide68.jpg": {
+  "height": 1019,
+  "width": 1920
+ },
+ "/assets/originals/kahn-dashboard-slide70.jpg": {
+  "height": 912,
+  "width": 1920
+ },
+ "/assets/originals/science-center-exhibit-complete.jpg": {
+  "height": 1536,
+  "width": 2048
+ },
+ "/assets/phone-person-water-display.jpg": {
+  "height": 450,
+  "width": 800
+ },
+ "/assets/phone-workflow/ajlc-electricity-recorded.png": {
+  "height": 936,
+  "width": 1708
+ },
+ "/assets/phone-workflow/carbon-neutral-controller.png": {
+  "height": 810,
+  "width": 398
+ },
+ "/assets/phone-workflow/elementary-controller-live.jpg": {
+  "height": 692,
+  "width": 375
+ },
+ "/assets/phone-workflow/holding-phone.png": {
+  "height": 450,
+  "width": 800
+ },
+ "/assets/phone-workflow/midtown-controller.png": {
+  "height": 1798,
+  "width": 1012
+ },
+ "/assets/phone-workflow/midtown-idle.png": {
+  "height": 800,
+  "width": 800
+ },
+ "/assets/phone-workflow/midtown-qr.png": {
+  "height": 512,
+  "width": 512
+ },
+ "/assets/phone-workflow/monitor.png": {
+  "height": 512,
+  "width": 512
+ },
+ "/assets/phone-workflow/oberlin-hub-menu.png": {
+  "height": 1334,
+  "width": 750
+ },
+ "/assets/phone-workflow/science-center-controller-live.jpg": {
+  "height": 720,
+  "width": 390
+ },
+ "/assets/phone-workflow/science-center-touchpad.jpg": {
+  "height": 600,
+  "width": 800
+ },
+ "/assets/phone-workflow/squirrel-phone.png": {
+  "height": 600,
+  "width": 800
+ },
+ "/assets/phone-workflow/stories-on-phone.png": {
+  "height": 820,
+  "width": 1880
+ },
+ "/assets/phone-workflow/tapping-hand.png": {
+  "height": 450,
+  "width": 800
+ },
+ "/assets/phone-workflow/vision-plan-screen-2.png": {
+  "height": 900,
+  "width": 1600
+ },
+ "/assets/phone-workflow/vision-plan-screen-3.png": {
+  "height": 900,
+  "width": 1600
+ },
+ "/assets/photos/big-parade-2023/big-parade-2023-01.jpg": {
+  "height": 533,
+  "width": 800
+ },
+ "/assets/photos/big-parade-2023/big-parade-2023-13.jpg": {
+  "height": 533,
+  "width": 800
+ },
+ "/assets/photos/juneteenth-2022/juneteenth-2022-11.jpg": {
+  "height": 533,
+  "width": 800
+ },
+ "/assets/photos/juneteenth-2022/juneteenth-2022-37.jpg": {
+  "height": 533,
+  "width": 800
+ },
+ "/assets/photos/oc-students-2025/oc-students-2025-01.jpg": {
+  "height": 640,
+  "width": 960
+ },
+ "/assets/photos/oc-students-2025/oc-students-2025-06.jpg": {
+  "height": 600,
+  "width": 800
+ },
+ "/assets/photos/oc-students-2025/oc-students-2025-08.jpg": {
+  "height": 600,
+  "width": 800
+ },
+ "/assets/photos/ofm-2025/ofm-2025-10.jpg": {
+  "height": 378,
+  "width": 800
+ },
+ "/assets/photos/ofm-2025/ofm-2025-16.jpg": {
+  "height": 378,
+  "width": 800
+ },
+ "/assets/platform-explanation/interactive-signage.jpg": {
+  "height": 1066,
+  "width": 1600
+ },
+ "/assets/rs-empathetic-gauges.jpg": {
+  "height": 442,
+  "width": 519
+ },
+ "/assets/sign-farmers-market.jpg": {
+  "height": 546,
+  "width": 960
+ },
+ "/assets/signage-live/citywide.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/signage-live/community-voices.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/signage-live/events-calendar.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/signage-live/live-data.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/signage-live/ops-elementary.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/signage-live/story-content.png": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/signage-partners/asian-town-center.jpg": {
+  "height": 600,
+  "width": 800
+ },
+ "/assets/signage-partners/fatima-family-center.jpg": {
+  "height": 600,
+  "width": 800
+ },
+ "/assets/signage-partners/foundry-lofts.jpg": {
+  "height": 2048,
+  "width": 1536
+ },
+ "/assets/signage-partners/ichc-health-clinic.jpg": {
+  "height": 2048,
+  "width": 1536
+ },
+ "/assets/signage-partners/learning-to-grow.jpg": {
+  "height": 360,
+  "width": 480
+ },
+ "/assets/signage-partners/midtown-inc.jpg": {
+  "height": 1536,
+  "width": 2048
+ },
+ "/assets/sod/11.jpg": {
+  "height": 720,
+  "width": 960
+ },
+ "/assets/source-previews/glsc-stories-climate-original.png": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/source-previews/oberlin-stories-heating-original.png": {
+  "height": 540,
+  "width": 960
+ },
+ "/assets/squirrel-cue-still.png": {
+  "height": 160,
+  "width": 113
+ },
+ "/assets/student-data-hub.jpg": {
+  "height": 640,
+  "width": 960
+ },
+ "/assets/tile-midtown.jpg": {
+  "height": 800,
+  "width": 600
+ },
+ "/assets/v1/Buildingdash-e1639411178404.png": {
+  "height": 302,
+  "width": 544
+ },
+ "/assets/v1/CH.png": {
+  "height": 424,
+  "width": 428
+ },
+ "/assets/v1/CVicon.png": {
+  "height": 281,
+  "width": 281
+ },
+ "/assets/v1/CWD.png": {
+  "height": 282,
+  "width": 281
+ },
+ "/assets/v1/bdash.png": {
+  "height": 281,
+  "width": 281
+ },
+ "/assets/v1/calicon_v2.png": {
+  "height": 282,
+  "width": 282
+ }
+}
