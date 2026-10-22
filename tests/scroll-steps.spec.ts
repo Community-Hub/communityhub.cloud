@@ -144,6 +144,22 @@ test("home Educate: two fast touch flicks each step once", async ({ page }) => {
   await expect(page).toHaveURL(/#educate\/hub$/, { timeout: 5000 });
 });
 
+test("fast swipes cross an outer boundary without leaving the selected scene in motion", async ({ page }) => {
+  await open(page, "/#educate/stories");
+  await swipe(page, [140, 10_000]);
+  await expect(page).toHaveURL(/#motivate\/voices$/);
+  const active = page.locator("section:not([inert])");
+  await expect(active).toHaveCount(1);
+  const position = await active.evaluate((section) => ({
+    top: section.getBoundingClientRect().top,
+    transition: getComputedStyle(section.parentElement!).transitionDuration,
+  }));
+  expect(Math.abs(position.top)).toBeLessThan(1);
+  expect(position.transition).toBe("0s");
+  await swipe(page, [140, 10_000], [-1, -1]);
+  await expect(page).toHaveURL(/#educate\/stories$/);
+});
+
 test("/demos: a wheel over the live embed does not step the tabs", async ({ page }) => {
   await open(page, "/demos");
   const first = await selected(page);

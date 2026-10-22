@@ -84,7 +84,6 @@ export function Storyboard({
   const handler = useRef(new Map<number, DirHandler>());
   const entry = useRef(0);
   const lock = useRef(new StepLock(200));
-  const placed = useRef(false);
 
   /** Single writer of the position. `entryDir` is the direction of travel (0 for a jump). */
   const go = useCallback((next: number, entryDir = 0) => {
@@ -155,14 +154,13 @@ export function Storyboard({
     return () => window.removeEventListener("ch:film", onFilm);
   }, []);
 
-  // Position: one writer, a CSS transform. No live drag, so reduced motion has nothing to jolt.
-  useEffect(() => {
+  // Cut to the accepted scene before paint. Animating this transform makes fast swipes
+  // chase a moving target and briefly exposes chapters that are already inert.
+  useLayoutEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.style.transition = reduce || !placed.current ? "none" : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)";
+    track.style.transition = "none";
     track.style.transform = `translate3d(0, calc(${index} * -100dvh), 0)`;
-    placed.current = true;
     // Off-screen chapters can't take focus, so Tab and find-in-page never desync the view.
     Array.from(track.children).forEach((el, i) => el.toggleAttribute("inert", i !== index));
   }, [index, count]);
