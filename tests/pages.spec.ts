@@ -71,9 +71,11 @@ test.describe("links to the new pages", () => {
   });
 
   test("Keep exploring on a product page offers Who it's for and Pricing", async ({ page }) => {
-    await page.goto("/dashboard-builder");
-    const more = page.locator("[data-keep-exploring-more]");
+    await page.goto("/dashboard-builder#keep-exploring");
+    const more = page.getByRole("region", { name: "Keep exploring", exact: true });
     await expect(more.getByRole("link", { name: "Who it’s for" })).toHaveAttribute("href", "/who");
-    await expect(more.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
+    await expect(more.getByRole("link", { name: "Bundles and services", exact: true })).toHaveAttribute("href", "/pricing");
+    await more.getByRole("link", { name: "Who it’s for" }).click();
+    await expect(page).toHaveURL(/\/who(?:#.*)?$/);
   });
 });

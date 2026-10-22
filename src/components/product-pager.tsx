@@ -103,7 +103,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
               <ul className="mt-6 grid gap-5 md:grid-cols-3">
                 {slide.links.map(link => <li key={link.href} className="border-t border-pine/30 pt-3"><AppLink href={link.href} className="link t-body">{link.label}</AppLink><p className="mt-1 t-body text-ink/80">{link.note}</p></li>)}
               </ul>
-              <div className="mt-8 border-t border-pine/30 pt-5"><h3 className="t-h3">Let’s talk about your community</h3><p className="mt-2 max-w-2xl t-body">Tell us who you want to reach and what you want to share.</p><p className="mt-3 flex flex-wrap gap-x-6"><AppLink href={site.contactHref} className="link">Contact us</AppLink><AppLink href={PRICING_HREF} className="link">Bundles and services</AppLink>{home && <AppLink href={home.href} className="link">{home.label}</AppLink>}</p></div>
+              <div className="mt-8 border-t border-pine/30 pt-5"><h3 className="t-h3">Let’s talk about your community</h3><p className="mt-2 max-w-2xl t-body">Tell us who you want to reach and what you want to share.</p><p className="mt-3 flex flex-wrap gap-x-6"><AppLink href={site.contactHref} className="link">Contact us</AppLink><AppLink href={PRICING_HREF} className="link">Bundles and services</AppLink><AppLink href="/who" className="link">Who it’s for</AppLink>{home && <AppLink href={home.href} className="link">{home.label}</AppLink>}</p></div>
             </>}
           </div>
         </div>
