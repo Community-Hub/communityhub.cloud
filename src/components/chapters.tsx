@@ -159,7 +159,7 @@ export function StoriesChapter() {
             <source src="/assets/hero-ch-fwd-720.mp4" type="video/mp4" />
           </video>
           <div className={cn("absolute inset-0", peek ? "bg-pine/55" : "bg-gradient-to-t from-pine/80 via-pine/55 to-pine/50")} />
-          <div className="relative z-10 flex h-full items-center justify-center px-6 text-center max-md:pr-12">
+          <div className="relative z-10 flex h-full flex-col items-center justify-center gap-5 px-6 text-center max-md:pr-12">
             <h1
               className={cn(
                 "max-w-5xl text-balance font-display leading-tight text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,.55)]",
@@ -167,6 +167,7 @@ export function StoriesChapter() {
               )}
             >{copy.chapters.StoriesChapter.h11}<br />{copy.chapters.StoriesChapter.h12}{" "}<span className="text-lime">{copy.chapters.StoriesChapter.span1}</span>{" "}{copy.chapters.StoriesChapter.h13}{" "}<span className="text-lime">{copy.chapters.StoriesChapter.span2}</span>
             </h1>
+            {!peek && <p className="max-w-xl text-base leading-relaxed text-paper md:text-xl">Community Hub is a community-centered communication platform.</p>}
           </div>
         </div>
         {peek && <div className="h-[3px] shrink-0 bg-lime" />}
