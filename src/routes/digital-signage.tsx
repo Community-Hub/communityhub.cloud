@@ -98,7 +98,7 @@ function DigitalSignageSections() {
                 <img
                   src={copy.digitalSignage.DigitalSignage.img_src1}
                   alt={copy.digitalSignage.DigitalSignage.img_alt1}
-                  className="w-full rounded-md object-fill md:aspect-[1.3/1]"
+                  className="h-auto w-full rounded-md object-contain"
                 />
                 <figcaption className="mt-3 t-small text-ink/70">{copy.digitalSignage.DigitalSignage.p2}</figcaption>
               </figure>
