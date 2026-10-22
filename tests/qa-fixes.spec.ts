@@ -29,7 +29,7 @@ test("the hero film has no Pause or Skip button; the chevron opens the stories",
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("[inert]").first()).toBeAttached();
   await expect(page.getByRole("button", { name: /skip the film|pause film|play film/i })).toHaveCount(0);
-  await page.getByRole("button", { name: "Show the stories", exact: true }).click();
+  await page.getByRole("button", { name: "Next: Voices", exact: true }).click();
   await expect(page.getByRole("button", { name: "Pause stories" })).toBeVisible();
   await page.locator("[data-feature-box]").hover();
   await page.getByRole("button", { name: "Pause stories" }).click();

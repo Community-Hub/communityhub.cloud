@@ -63,7 +63,7 @@ test("/digital-signage scrolls normally and can leave the controller in either d
   await page.getByRole('button',{name:'Try the phone',exact:true}).click();
   await page.getByRole('button',{name:'Previous section',exact:true}).click();
   await expect(page).toHaveURL(/#use-your-phone$/);
-  await page.getByRole('button',{name:'Next section',exact:true}).click();
+  await page.getByRole('button',{name:/^Next:/,exact:true}).click();
   await expect(page).toHaveURL(/#try-the-phone$/);
 });
 

@@ -309,11 +309,12 @@ export function Storyboard({
         {index < count - 1 && (
           <button
             type="button"
-            aria-label={film && index === 0 ? "Show the stories" : "Next section"}
+            aria-label={`Next: ${film && index === 0 ? labels[0] : labels[index + 1]}`}
             onClick={() => commit(1, false)}
-            className="fixed right-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-30 grid size-11 place-items-center rounded-full border border-pine/70 bg-paper text-pine shadow-[0_2px_10px_rgba(36,75,56,0.22)] transition-[background-color,color,transform] duration-150 hover:bg-pine hover:text-paper focus-visible:bg-pine focus-visible:text-paper active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 md:right-auto md:bottom-5 md:left-1/2 md:-translate-x-1/2"
+            className="fixed right-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-30 flex h-11 max-w-[calc(100%-3rem)] items-center gap-2 rounded-full border border-pine/70 px-3 bg-paper text-pine shadow-[0_2px_10px_rgba(36,75,56,0.22)] transition-[background-color,color,transform] duration-150 hover:bg-pine hover:text-paper focus-visible:bg-pine focus-visible:text-paper active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 md:right-auto md:bottom-5 md:left-1/2 md:-translate-x-1/2"
           >
-            <ChevronDown className="size-5" strokeWidth={2.25} />
+            <span className="truncate text-sm">Next: {film && index === 0 ? labels[0] : labels[index + 1]}</span>
+            <ChevronDown className="size-5 shrink-0" strokeWidth={2.25} />
           </button>
         )}
         <ol className="fixed right-0 top-16 bottom-0 z-30 flex flex-col justify-center max-md:pb-16 md:right-1">

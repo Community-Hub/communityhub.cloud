@@ -16,7 +16,7 @@ test.describe("/who", () => {
     await page.goto("/who#cities");
     await expect(page.locator("[data-slider-box]").first()).toBeVisible();
     await expect(page.locator("[data-slider-box] iframe").first()).toBeAttached();
-    await page.getByRole("button", { name: "Next section" }).click();
+    await page.getByRole("button", { name: /^Next:/ }).click();
     await expect(page.locator("[data-who-example]")).toBeVisible();
     await expect(page.getByText("How to take part")).toBeVisible();
     await expect(page.getByRole("link", { name: "Contact us" }).last()).toHaveAttribute("href", /^mailto:/);
@@ -24,7 +24,7 @@ test.describe("/who", () => {
 
   test("schools has no take-part block", async ({ page }) => {
     await page.goto("/who#schools");
-    await page.getByRole("button", { name: "Next section" }).click();
+    await page.getByRole("button", { name: /^Next:/ }).click();
     await expect(page.locator("[data-who-example]")).toBeVisible();
     await expect(page.locator("[data-who-involve]")).toHaveCount(0);
   });

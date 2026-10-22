@@ -42,7 +42,7 @@ test("natural-aspect photos carry intrinsic width/height matching the loaded fil
 });
 
 async function nextButtonCenter(page: import("@playwright/test").Page) {
-  const box = await page.getByRole("button", { name: /Next section|Show the stories/ }).boundingBox();
+  const box = await page.getByRole("button", { name: /^Next:/ }).boundingBox();
   expect(box).not.toBeNull();
   return { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2, width: box!.width };
 }
