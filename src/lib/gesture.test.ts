@@ -32,13 +32,15 @@ test("one mouse notch steps once at any viewport", () => {
 
 test("sub-intent jitter does nothing", () => {
   const g = new WheelGesture();
-  for (let k = 0; k < 3; k++) assert.equal(g.next(8, 1000 + k * 10, false).kind, "consume");
+  for (let k = 0; k < 3; k++)
+    assert.equal(g.next(8, 1000 + k * 10, false).kind, "consume");
 });
 
 test("slow drag accumulates to one step", () => {
   const g = new WheelGesture();
   let steps = 0;
-  for (let k = 0; k < 45; k++) if (g.next(6, 1000 + k * 16, false).kind === "step") steps++;
+  for (let k = 0; k < 45; k++)
+    if (g.next(6, 1000 + k * 16, false).kind === "step") steps++;
   assert.equal(steps, 1);
 });
 
@@ -84,14 +86,19 @@ test("a fresh swipe inside the inertia tail starts a new gesture", () => {
   }
   // deliberate second swipe at 640ms, well above the tail floor
   const t = 40 * 16;
-  if (g.next(110, t, false).kind === "step") steps++;
+  for (const [i, d] of [12, 35, 110].entries()) {
+    if (g.next(d, t + i * 12, false).kind === "step") steps++;
+  }
   assert.equal(steps, 2);
 });
 
 /** One physical trackpad swipe: finger ramp (5 events) then momentum decay, events every 12ms. */
 function swipeEvents(start: number, peak = 42, dir: 1 | -1 = 1) {
-  const mags = [0.07, 0.18, 0.38, 0.68, 1].map((f) => Math.max(1, Math.round(peak * f)));
-  for (let k = 1; k < 26; k++) mags.push(Math.max(1, Math.round(peak * 0.82 * Math.exp(-k / 6))));
+  const mags = [0.07, 0.18, 0.38, 0.68, 1].map((f) =>
+    Math.max(1, Math.round(peak * f)),
+  );
+  for (let k = 1; k < 26; k++)
+    mags.push(Math.max(1, Math.round(peak * 0.82 * Math.exp(-k / 6))));
   return mags.map((m, i) => ({ d: m * dir, t: start + i * 12 }));
 }
 
@@ -101,7 +108,11 @@ function fastSwipes(gaps: number[], peak = 42, dirs: (1 | -1)[] = [1, 1, 1]) {
   const events: { d: number; t: number }[] = [];
   let start = 0;
   gaps.forEach((gap, i) => {
-    events.push(...swipeEvents(start, peak, dirs[i]).filter((e) => e.t < start + gap || i === gaps.length - 1));
+    events.push(
+      ...swipeEvents(start, peak, dirs[i]).filter(
+        (e) => e.t < start + gap || i === gaps.length - 1,
+      ),
+    );
     start += gap;
   });
   const steps: [number, number][] = [];
@@ -117,8 +128,14 @@ test("fast repeated swipes each step once, well under the old 200ms lock", () =>
     const steps = fastSwipes([gap, 10_000]);
     assert.equal(steps.length, 2, `gap ${gap}: ${JSON.stringify(steps)}`);
     // The second stroke must be answered promptly, not held to a fixed post-step deadline.
-    assert.ok(steps[1][0] - steps[0][0] < 200, `gap ${gap}: second step at ${steps[1][0] - steps[0][0]}ms after first`);
-    assert.ok(steps[1][0] - gap <= 72, `gap ${gap}: answered ${steps[1][0] - gap}ms after the second stroke began`);
+    assert.ok(
+      steps[1][0] - steps[0][0] < 200,
+      `gap ${gap}: second step at ${steps[1][0] - steps[0][0]}ms after first`,
+    );
+    assert.ok(
+      steps[1][0] - gap <= 72,
+      `gap ${gap}: answered ${steps[1][0] - gap}ms after the second stroke began`,
+    );
   }
 });
 
@@ -132,7 +149,11 @@ test("three fast swipes are three steps; the decaying tails add none", () => {
 test("a fast reversal steps back under 200ms", () => {
   for (const gap of [110, 140]) {
     const steps = fastSwipes([gap, 10_000], 42, [1, -1]);
-    assert.deepEqual(steps.map(([, d]) => d), [1, -1], `gap ${gap}`);
+    assert.deepEqual(
+      steps.map(([, d]) => d),
+      [1, -1],
+      `gap ${gap}`,
+    );
     assert.ok(steps[1][0] - steps[0][0] < 200, `gap ${gap}`);
   }
 });
@@ -155,6 +176,34 @@ test("a small bump in the decaying tail does not re-fire", () => {
   feed(9, 324);
   feed(5, 336);
   assert.equal(steps, 1);
+});
+
+test("one long accelerating stroke stays latched", () => {
+  const g = new WheelGesture();
+  const steps = [];
+  for (let k = 0; k < 35; k++) {
+    if (g.next(4 + k * 3, k * 16, false).kind === "step") steps.push(k);
+  }
+  assert.equal(steps.length, 1);
+});
+
+test("an isolated large momentum spike does not become a new swipe", () => {
+  for (const dir of [1, -1]) {
+    const g = new WheelGesture();
+    let steps = 0;
+    for (const e of swipeEvents(0, 90).filter((e) => e.t < 300)) {
+      if (g.next(e.d * dir, e.t, false).kind === "step") steps++;
+    }
+    for (const [d, t] of [
+      [38, 300],
+      [12, 312],
+      [6, 324],
+      [2, 336],
+    ]) {
+      if (g.next(d * dir, t, false).kind === "step") steps++;
+    }
+    assert.equal(steps, 1);
+  }
 });
 
 test("discrete mouse notches 120ms apart are two gestures", () => {
@@ -223,7 +272,10 @@ test("wheel deltaMode is normalised", () => {
   assert.equal(normalizeWheelDelta(3, 1, 900), 48);
   assert.equal(normalizeWheelDelta(1, 2, 900), 900);
   assert.equal(normalizeWheelDelta(77, 0, 900), 77);
-  assert.equal(new WheelGesture().next(normalizeWheelDelta(3, 1, 900), 0, false).kind, "step");
+  assert.equal(
+    new WheelGesture().next(normalizeWheelDelta(3, 1, 900), 0, false).kind,
+    "step",
+  );
 });
 
 test("scrollerCanMove respects edges and 2px tolerance", () => {
@@ -232,10 +284,16 @@ test("scrollerCanMove respects edges and 2px tolerance", () => {
   assert.equal(scrollerCanMove(m, -1), false);
   assert.equal(scrollerCanMove({ ...m, scrollTop: 400 }, 1), false);
   assert.equal(scrollerCanMove({ ...m, scrollTop: 400 }, -1), true);
-  assert.equal(scrollerCanMove({ scrollTop: 0, scrollHeight: 401, clientHeight: 400 }, 1), false);
+  assert.equal(
+    scrollerCanMove({ scrollTop: 0, scrollHeight: 401, clientHeight: 400 }, 1),
+    false,
+  );
 });
 
-const key = (k: string, extra: Partial<Parameters<typeof keyAction>[0]> = {}) => ({
+const key = (
+  k: string,
+  extra: Partial<Parameters<typeof keyAction>[0]> = {},
+) => ({
   key: k,
   shiftKey: false,
   ctrlKey: false,
@@ -262,9 +320,15 @@ test("keyboard ignores modifiers, held keys, fields and Space on buttons", () =>
   assert.equal(keyAction(key("ArrowDown", { repeat: true }), body), null);
   assert.equal(keyAction(key("ArrowDown", { metaKey: true }), body), null);
   assert.equal(keyAction(key("ArrowDown", { altKey: true }), body), null);
-  assert.equal(keyAction(key("ArrowDown"), { editable: true, activator: false }), null);
+  assert.equal(
+    keyAction(key("ArrowDown"), { editable: true, activator: false }),
+    null,
+  );
   assert.equal(keyAction(key(" "), { editable: false, activator: true }), null);
-  assert.equal(keyAction(key("ArrowDown"), { editable: false, activator: true }), "next");
+  assert.equal(
+    keyAction(key("ArrowDown"), { editable: false, activator: true }),
+    "next",
+  );
 });
 
 test("StepLock drops steps inside the window", () => {
@@ -316,4 +380,15 @@ test("swipeStep: horizontal strokes only", () => {
   assert.equal(swipeStep(-20, 0, 400), 0);
   assert.equal(swipeStep(-20, 0, 40), 1);
   assert.equal(swipeStep(-80, 90, 300), 0);
+});
+
+test("a delayed decaying momentum event stays in its original gesture", () => {
+  const sparse = new WheelGesture();
+  assert.equal(sparse.next(120, 0, false).kind, "step");
+  assert.equal(sparse.next(80, 120, false).kind, "consume");
+  const g = new WheelGesture();
+  assert.equal(g.next(120, 0, false).kind, "step");
+  assert.equal(g.next(100, 16, false).kind, "consume");
+  assert.equal(g.next(80, 100, false).kind, "consume");
+  assert.equal(g.next(60, 230, false).kind, "consume");
 });

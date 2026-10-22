@@ -3,7 +3,8 @@
  * Ported from the refined site's WheelGesture; the design is one gesture, one stop.
  */
 
-export type WheelDecision = { kind: "native" | "consume" } | { kind: "step"; direction: 1 | -1 };
+export type WheelDecision =
+  { kind: "native" | "consume" } | { kind: "step"; direction: 1 | -1 };
 
 /** Wheel events carry no start or end signal, so a burst stays owned until 260ms of silence. */
 export class WheelGesture {
@@ -17,12 +18,14 @@ export class WheelGesture {
   private recent: [number, number][] = [];
   /** Largest magnitude since the step was taken: a valley far below it marks where momentum died. */
   private peak = 0;
-  /** Ms since the previous event. Momentum arrives every few ms; a 70ms+ hole ends it. */
+  private valley = false;
+  /** Ms since the previous event, used to recognize separated full-size wheel notches. */
   private gap = Infinity;
 
   reset() {
     this.recent = [];
     this.peak = 0;
+    this.valley = false;
     this.gap = Infinity;
     this.last = -Infinity;
     this.owner = null;
@@ -37,20 +40,26 @@ export class WheelGesture {
    * @param canScroll true when the pointer is over an inner scroller that can still move this way
    */
   next(delta: number, time: number, canScroll: boolean): WheelDecision {
-    if (!Number.isFinite(delta) || !Number.isFinite(time)) return { kind: "consume" };
+    if (!Number.isFinite(delta) || !Number.isFinite(time))
+      return { kind: "consume" };
     if (time - this.last > 260 || time < this.last) this.reset();
     this.gap = time - this.last;
     this.last = time;
     const direction = Math.sign(delta);
     const magnitude = Math.abs(delta);
 
-    if (this.owner === "page" && direction === this.direction && this.freshSwipe(magnitude, time)) {
+    if (
+      this.owner === "page" &&
+      direction === this.direction &&
+      this.freshSwipe(magnitude, time)
+    ) {
       // A second deliberate swipe began inside the first one's inertia tail: hand ownership back.
       this.owner = null;
       this.intent = 0;
       this.reversed = 0;
       this.recent = [];
       this.peak = 0;
+      this.valley = false;
     }
 
     if (magnitude < 1) {
@@ -61,6 +70,7 @@ export class WheelGesture {
           this.started = time;
           this.recent = [];
           this.peak = 0;
+          this.valley = false;
         }
         return { kind: "native" };
       }
@@ -76,7 +86,9 @@ export class WheelGesture {
         this.intent = this.reversed;
         this.reversed = 0;
       } else {
-        return { kind: this.owner === "native" && canScroll ? "native" : "consume" };
+        return {
+          kind: this.owner === "native" && canScroll ? "native" : "consume",
+        };
       }
     } else {
       this.reversed = 0;
@@ -97,6 +109,7 @@ export class WheelGesture {
       this.intent = 0;
       this.recent = [];
       this.peak = 0;
+      this.valley = false;
     }
     if (canScroll) {
       this.owner = "native";
@@ -105,6 +118,7 @@ export class WheelGesture {
       this.intent = 0;
       this.recent = [];
       this.peak = 0;
+      this.valley = false;
       this.track(magnitude, time);
       return { kind: "native" };
     }
@@ -118,36 +132,44 @@ export class WheelGesture {
     this.started = time;
     this.intent = 0;
     this.recent = [];
-    this.peak = 0;
+    this.peak = magnitude;
+    this.valley = false;
     return { kind: "step", direction: direction > 0 ? 1 : -1 };
   }
 
-  /**
-   * Momentum only decays, so re-acceleration far above the recent floor is a new stroke.
-   * Early on (before 160ms) the rise counts only after a real valley: the tail first fell
-   * to at most 55% of its post-step peak. That keeps a single stroke whose peak arrives
-   * just after the step from being read as a second swipe, while a fast repeat — whose
-   * ramp starts from the dead tail — is answered as soon as it is recognisable.
-   * No tail events for 150ms means momentum is over: a lone full-size event is a new
-   * notch or stroke, never inertia restarting from silence.
-   */
+  /** A repeat needs decay after the peak and a new rising stroke, or a discrete notch. */
   private freshSwipe(magnitude: number, time: number) {
     this.recent = this.recent.filter(([t]) => time - t <= 150);
     const quiet = this.recent.length === 0;
     const floor = quiet ? Infinity : Math.min(...this.recent.map(([, m]) => m));
     const peakBefore = this.peak;
+    const valleyBefore = this.valley;
+    const previous = this.recent.at(-1)?.[1] ?? Infinity;
+    const beforePrevious = this.recent.at(-2)?.[1] ?? Infinity;
     if (magnitude >= 1) {
       this.recent.push([time, magnitude]);
-      if (magnitude > this.peak) this.peak = magnitude;
+      if (magnitude > this.peak) {
+        this.peak = magnitude;
+        this.valley = false;
+      } else if (magnitude <= this.peak * 0.55) {
+        this.valley = true;
+      }
     }
     if (magnitude < 14) return false;
     const since = time - this.started;
-    // A full-size event after a 70ms+ hole in the stream is a discrete notch or a new
-    // stroke: momentum never pauses that long and resumes at full magnitude.
-    if (since >= 70 && magnitude >= 28 && (quiet || this.gap >= 70)) return true;
+    // Scheduling gaps can occur inside momentum. A separated notch must also
+    // regain the previous peak; a delayed decaying sample stays latched.
+    if (
+      since >= 110 &&
+      magnitude >= Math.max(28, peakBefore) &&
+      (quiet || this.gap >= 110)
+    )
+      return true;
     if (magnitude < floor * 1.6 + 6) return false;
-    if (since >= 160) return true;
-    return since >= 70 && floor <= peakBefore * 0.55;
+    // A low value before the original peak is not a valley. Require an actual
+    // decay followed by a sustained new ramp, not one noisy momentum sample.
+    const rising = magnitude > previous && previous > beforePrevious;
+    return since >= 70 && valleyBefore && rising;
   }
 
   /** Records a magnitude in the tail window without judging it (native-owned events). */
@@ -155,13 +177,22 @@ export class WheelGesture {
     this.recent = this.recent.filter(([t]) => time - t <= 150);
     if (magnitude >= 1) {
       this.recent.push([time, magnitude]);
-      if (magnitude > this.peak) this.peak = magnitude;
+      if (magnitude > this.peak) {
+        this.peak = magnitude;
+        this.valley = false;
+      } else if (magnitude <= this.peak * 0.55) {
+        this.valley = true;
+      }
     }
   }
 }
 
 /** deltaMode 1 is lines, 2 is pages. */
-export function normalizeWheelDelta(deltaY: number, deltaMode: number, pageHeight: number) {
+export function normalizeWheelDelta(
+  deltaY: number,
+  deltaMode: number,
+  pageHeight: number,
+) {
   if (deltaMode === 1) return deltaY * 16;
   if (deltaMode === 2) return deltaY * pageHeight;
   return deltaY;
@@ -185,10 +216,18 @@ export type KeyAction = "next" | "prev" | "first" | "last";
  * modifiers, held keys, text fields, and Space on a control that Space activates.
  */
 export function keyAction(
-  e: { key: string; shiftKey: boolean; ctrlKey: boolean; metaKey: boolean; altKey: boolean; repeat: boolean },
+  e: {
+    key: string;
+    shiftKey: boolean;
+    ctrlKey: boolean;
+    metaKey: boolean;
+    altKey: boolean;
+    repeat: boolean;
+  },
   focus: { editable: boolean; activator: boolean },
 ): KeyAction | null {
-  if (e.ctrlKey || e.metaKey || e.altKey || e.repeat || focus.editable) return null;
+  if (e.ctrlKey || e.metaKey || e.altKey || e.repeat || focus.editable)
+    return null;
   switch (e.key) {
     case "ArrowDown":
     case "PageDown":
@@ -268,7 +307,8 @@ export class TouchGesture {
     if (this.phase === "pending") {
       const dx = Math.abs(x - this.x0);
       const dy = Math.abs(y - this.y0);
-      if (Math.max(dx, dy) >= 8) this.phase = dy > dx ? "vertical" : "horizontal";
+      if (Math.max(dx, dy) >= 8)
+        this.phase = dy > dx ? "vertical" : "horizontal";
     }
     return this.phase;
   }

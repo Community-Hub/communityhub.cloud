@@ -160,6 +160,19 @@ test("fast swipes cross an outer boundary without leaving the selected scene in 
   await expect(page).toHaveURL(/#educate\/stories$/);
 });
 
+test("one sustained swipe changes only one scene despite continued acceleration", async ({ page }) => {
+  await open(page, "/#who");
+  for (let k = 0; k < 35; k++) {
+    await page.evaluate((k) => {
+      const event = new WheelEvent("wheel", { deltaY: 4 + k * 3, bubbles: true, cancelable: true });
+      Object.defineProperty(event, "timeStamp", { value: 1000 + k * 16 });
+      document.querySelector("section:not([inert])")!.dispatchEvent(event);
+    }, k);
+    await page.waitForTimeout(16);
+  }
+  await expect(page).toHaveURL(/#engage\/signage$/);
+});
+
 test("/demos: a wheel over the live embed does not step the tabs", async ({ page }) => {
   await open(page, "/demos");
   const first = await selected(page);
