@@ -19,7 +19,7 @@ function Resources() {
   return (
     <DocShell stops={STOPS}>
       <DocSection label={pc.resources.TITLE} title={pc.resources.TITLE} as="h1" lede={pc.resources.LEDE}>
-        <ul className="grid grid-cols-2 gap-2 md:gap-3">
+        <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3">
           {ITEMS.map((item) => (
             <li key={item.name} className="relative flex min-w-0 flex-col gap-1 rounded-md border border-line bg-paper p-3 md:p-4">
               <h2 className="text-[1.0625rem] font-bold leading-snug md:text-xl">{item.name}</h2>
