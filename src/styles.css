@@ -516,20 +516,20 @@ html:has(.doc) {
 /* Assemble the identity when its section is entered; settle into the source composition. */
 @media (prefers-reduced-motion: no-preference) {
   .home-who .home-identity[data-animate="in"] .home-identity-icon {
-    animation: identity-assemble 850ms cubic-bezier(.22,1,.36,1) both;
+    animation: identity-assemble 1600ms cubic-bezier(.4,0,.2,1) both;
   }
   .home-who .home-identity-icon:nth-child(1) { --identity-from: 65%; }
   .home-who .home-identity-icon:nth-child(2) { --identity-from: 35%; }
   .home-who .home-identity-icon:nth-child(3) { --identity-from: 0%; }
   .home-who .home-identity-icon:nth-child(4) { --identity-from: -35%; }
   .home-who .home-identity-icon:nth-child(5) { --identity-from: -65%; }
-  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(1),
-  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(5) { animation-delay: 420ms; }
-  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(2),
-  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(4) { animation-delay: 200ms; }
+  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(2) { animation-delay: 1600ms; }
+  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(4) { animation-delay: 3200ms; }
+  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(1) { animation-delay: 4800ms; }
+  .home-who .home-identity[data-animate="in"] .home-identity-icon:nth-child(5) { animation-delay: 6400ms; }
 }
 @keyframes identity-assemble {
-  from { opacity: 0; transform: translateX(var(--identity-from, 0%)) scale(.72); }
+  from { opacity: 0; transform: translateX(var(--identity-from, 0%)) scale(.9); }
   to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
@@ -827,3 +827,7 @@ header nav a:hover { text-underline-offset: 5px; }
 [data-testid="stop-dot"][aria-current="true"] span { transform: scale(1.35); }
 [data-testid="stop-dot"]:hover span { transform: scale(1.2); }
 @media (prefers-reduced-motion: reduce) { [data-testid="stop-dot"] span { transition: none; } }
+
+/* Keep directory category titles on one line within their own columns. */
+.product-directory-group { container-type: inline-size; }
+.product-directory-heading { font-size: clamp(1rem, 6.2cqw, 2rem); white-space: nowrap; }

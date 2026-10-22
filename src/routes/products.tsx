@@ -17,8 +17,8 @@ function iconFor(id: string) {
 
 function GroupBlock({ group, heading = true }: { group: (typeof GROUPS)[number]; heading?: boolean }) {
   return (
-    <div>
-      {heading && <h2 className="border-b border-pine/30 pb-2 t-h3">{group.kicker}</h2>}
+    <div className="product-directory-group">
+      {heading && <h2 className="product-directory-heading border-b border-pine/30 pb-2 t-h3">{group.kicker}</h2>}
       <ul>
         {group.items.map((item) => (
           <li key={item.id} className="border-b border-pine/15">
