@@ -10,6 +10,21 @@ async function open(page: Page, route: string) {
 
 const selected = (page: Page) => page.locator("section:not([inert]) [role=tab][aria-selected=true]").first().innerText();
 
+test("desktop Pricing ignores hidden bundle tabs when swiping to services", async ({ page }) => {
+  await open(page, "/pricing");
+  await page.mouse.move(120, 140);
+  await page.mouse.wheel(0, 120);
+  await expect(page).toHaveURL(/#services$/);
+});
+
+test("phone Pricing still steps its visible bundle tabs", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page, "/pricing");
+  await page.mouse.move(15, 110);
+  await page.mouse.wheel(0, 120);
+  await expect(page.locator("[data-bundle]")).toHaveAttribute("data-bundle", "data");
+});
+
 test("/demos: a wheel outside the embed steps the place tabs before the page moves on", async ({ page }) => {
   await open(page, "/demos");
   const first = await selected(page);

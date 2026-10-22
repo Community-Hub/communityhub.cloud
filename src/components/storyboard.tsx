@@ -46,6 +46,9 @@ export function useInnerStep(ref: RefObject<Element | null>, take: (dir: Dir) =>
       const detail = (event as CustomEvent<InnerStep>).detail;
       const el = ref.current;
       if (detail.handled || !el || !detail.chapter.contains(el)) return;
+      // Responsive alternatives stay mounted, but an invisible pager must not
+      // consume a swipe intended for the visible scene.
+      if (el.getClientRects().length === 0 || getComputedStyle(el).visibility === "hidden") return;
       if (takeRef.current(detail.dir)) detail.handled = true;
     };
     window.addEventListener("ch:inner", on);
