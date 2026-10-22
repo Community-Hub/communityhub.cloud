@@ -114,7 +114,7 @@ function Demos() {
     <DocShell stops={STOPS}>
       <DocSection label={pc.demos.TITLE} title={pc.demos.TITLE} as="h1" lede={pc.demos.LEDE} cut={14} minShot={10}>
         <TabRow idBase="demo-places" label={copy.demos.Demos.TabRow_label1} noun="place" items={demos} at={at} onPick={pick} />
-        <figure ref={figureRef} {...tabPanel("demo-places", demo.id)} data-swipe-own style={{ touchAction: "pan-y pinch-zoom" }} className="mt-3 overflow-hidden rounded-md border border-line bg-paper">
+        <figure ref={figureRef} {...tabPanel("demo-places", demo.id)} data-demo-preview data-swipe-own style={{ touchAction: "pan-y pinch-zoom" }} className="mt-3 overflow-hidden rounded-md border border-line bg-paper">
           <figcaption className="flex flex-wrap items-center justify-between gap-x-3 border-b border-line px-4 py-1">
             <b className="hidden md:inline">{demo.title}</b>
             <AppLink href={demo.visit.href} className="link">

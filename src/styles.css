@@ -831,3 +831,11 @@ header nav a:hover { text-underline-offset: 5px; }
 /* Keep directory category titles on one line within their own columns. */
 .product-directory-group { container-type: inline-size; }
 .product-directory-heading { font-size: clamp(1rem, 6.2cqw, 2rem); white-space: nowrap; }
+
+/* Phone dashboards use the card width; place controls sit below the real embed. */
+@media (max-width: 767px) {
+  [data-demo-preview][data-swipe-own]:has(> [data-tab-pager]) { padding-inline: 0; }
+  [data-demo-preview] > [data-tab-pager] { display: flex; justify-content: center; padding: .25rem .75rem; }
+  [data-demo-preview] [data-slider-arrows] { display: flex; gap: 1rem; }
+  [data-demo-preview] [data-tab-pager] .slider-arrow-button { position: static; transform: none; opacity: 1; pointer-events: auto; }
+}
