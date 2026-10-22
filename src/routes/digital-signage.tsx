@@ -36,7 +36,7 @@ function Shot({ src, alt, caption, fill = false }: { src: string; alt: string; c
 function Sheet({ id, label, children, single = false }: { id: string; label: string; children: ReactNode; single?: boolean }) {
   return (
     <Chapter label={label} className="bg-field text-ink">
-      <div id={id} data-allow-scroll className="h-[calc(100%-var(--chrome-bottom))] overflow-y-auto px-4 pt-16 pr-8 pb-6 md:h-full md:px-8 md:pt-20 md:pr-12 md:pb-24">
+      <div id={id} data-allow-scroll className="h-[calc(100%-var(--chrome-bottom))] overflow-y-auto px-4 pt-16 pr-8 pb-6 md:px-8 md:pt-20 md:pr-12 md:pb-24">
       <div
         className={cn(
           "mx-auto h-full min-h-0 min-w-0 w-full max-w-6xl",
