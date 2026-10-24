@@ -1137,8 +1137,6 @@ body [data-home-product] [data-product-composition], body [data-home-product] [d
 .btn-sm { min-height: 2.5rem; padding: 0 1rem; font-size: 0.875rem; }
 .btn-primary { background: var(--color-pine); border-color: var(--color-pine); color: var(--color-paper); }
 .btn-primary:hover { background: var(--color-ink); border-color: var(--color-ink); }
-.btn-secondary { background: transparent; border-color: color-mix(in srgb, var(--color-pine) 35%, var(--color-line)); color: var(--color-pine); }
-.btn-secondary:hover { background: var(--color-field); border-color: var(--color-pine); }
 .btn:focus-visible { outline: 2px solid var(--color-pine); outline-offset: 2px; }
 .btn svg { width: 1rem; height: 1rem; flex: none; }
 .scene-next {
@@ -1161,5 +1159,16 @@ body [data-home-product] [data-product-composition], body [data-home-product] [d
 }
 .btn-light { background: var(--color-paper); border-color: var(--color-paper); color: var(--color-pine); }
 .btn-light:hover { background: var(--color-field); border-color: var(--color-field); }
-.btn-outline-light { background: transparent; border-color: color-mix(in srgb, var(--color-paper) 55%, transparent); color: var(--color-paper); }
-.btn-outline-light:hover { background: color-mix(in srgb, var(--color-paper) 12%, transparent); border-color: var(--color-paper); }
+
+.home-hero-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  color: var(--color-paper);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+.home-hero-text-link:hover { color: var(--color-lime); }

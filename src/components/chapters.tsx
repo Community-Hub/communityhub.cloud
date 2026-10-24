@@ -180,7 +180,7 @@ export function StoriesChapter() {
                   </p>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <AppLink href="/products" className="btn btn-light">Explore products and services</AppLink>
-                    <a href={site.contactHref} className="btn btn-outline-light">Contact us</a>
+                    <a href={site.contactHref} className="home-hero-text-link">Contact us</a>
                   </div>
                   <p className="mt-5 max-w-xl text-[0.8125rem] font-medium text-paper/70 max-sm:hidden">
                     Oberlin College · City of Oberlin · Great Lakes Science Center
