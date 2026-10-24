@@ -26,7 +26,7 @@ export function SiteHeader() {
       <div className="flex h-16 items-center gap-4 px-4 md:px-6">
         <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           <img src={copy.siteHeader.SiteHeader.img_src1} alt="" className="size-8 rounded-full object-contain md:bg-paper" />
-          <span className="font-display text-lg tracking-tight">{copy.siteHeader.SiteHeader.span1}<span className="text-leaf md:text-paper">{copy.siteHeader.SiteHeader.span2}</span>
+          <span className="font-display text-lg tracking-tight">{copy.siteHeader.SiteHeader.span1}{" "}<span className="text-leaf md:text-paper">{copy.siteHeader.SiteHeader.span2}</span>
           </span>
         </a>
         <nav className="ml-auto hidden items-center gap-5 text-sm font-bold md:flex">

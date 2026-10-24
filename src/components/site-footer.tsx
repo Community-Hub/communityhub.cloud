@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { AppLink } from "@/components/app-link";
 import { Chapter } from "@/components/storyboard";
-import { SCHOOLS_NAME } from "@/lib/names";
-import { BRING_HREF, ORB_HREF, PRICING_HREF, WHO_HREF } from "@/lib/links";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -41,6 +39,15 @@ export function SiteFooter() {
           </a>
         </p>
       </div>
+      <nav aria-label="Legal" className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-line pt-3 t-small">
+        <AppLink href="/privacy-policy" className="inline-flex min-h-11 items-center font-bold text-pine underline decoration-2 underline-offset-4">
+          Privacy Policy
+        </AppLink>
+        <AppLink href="/terms-of-service" className="inline-flex min-h-11 items-center font-bold text-pine underline decoration-2 underline-offset-4">
+          Terms of Service
+        </AppLink>
+        <span className="text-ink/80">Community Hub Inc · Oberlin, Ohio</span>
+      </nav>
     </footer>
   );
 }

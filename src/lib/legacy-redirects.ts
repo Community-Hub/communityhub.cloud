@@ -86,6 +86,8 @@ export const PUBLIC_ROUTES: readonly string[] = [
   "/digital-signage",
   "/phone-app",
   "/pricing",
+  "/privacy-policy",
+  "/terms-of-service",
   "/products",
   "/research",
   "/resources",

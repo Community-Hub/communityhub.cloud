@@ -21,6 +21,7 @@ import { Route as DemosRouteImport } from './routes/demos'
 import { Route as DigitalSignageRouteImport } from './routes/digital-signage'
 import { Route as PhoneAppRouteImport } from './routes/phone-app'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ResourcesRouteImport } from './routes/resources'
@@ -28,6 +29,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as StoryRouteImport } from './routes/story'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ToolkitRouteImport } from './routes/toolkit'
 import { Route as WebEmbeddablesRouteImport } from './routes/web-embeddables'
 import { Route as WhoRouteImport } from './routes/who'
@@ -96,6 +98,11 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -129,6 +136,11 @@ const StoriesRoute = StoriesRouteImport.update({
 const StoryRoute = StoryRouteImport.update({
   id: '/story',
   path: '/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolkitRoute = ToolkitRouteImport.update({
@@ -180,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/digital-signage': typeof DigitalSignageRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/resources': typeof ResourcesRoute
@@ -187,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
   '/story': typeof StoryRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
   '/who': typeof WhoRoute
@@ -208,6 +222,7 @@ export interface FileRoutesByTo {
   '/digital-signage': typeof DigitalSignageRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/resources': typeof ResourcesRoute
@@ -215,6 +230,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
   '/story': typeof StoryRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
   '/who': typeof WhoRoute
@@ -237,6 +253,7 @@ export interface FileRoutesById {
   '/digital-signage': typeof DigitalSignageRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/resources': typeof ResourcesRoute
@@ -244,6 +261,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
   '/story': typeof StoryRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
   '/who': typeof WhoRoute
@@ -267,6 +285,7 @@ export interface FileRouteTypes {
     | '/digital-signage'
     | '/phone-app'
     | '/pricing'
+    | '/privacy-policy'
     | '/products'
     | '/research'
     | '/resources'
@@ -274,6 +293,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/story'
+    | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
     | '/who'
@@ -295,6 +315,7 @@ export interface FileRouteTypes {
     | '/digital-signage'
     | '/phone-app'
     | '/pricing'
+    | '/privacy-policy'
     | '/products'
     | '/research'
     | '/resources'
@@ -302,6 +323,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/story'
+    | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
     | '/who'
@@ -323,6 +345,7 @@ export interface FileRouteTypes {
     | '/digital-signage'
     | '/phone-app'
     | '/pricing'
+    | '/privacy-policy'
     | '/products'
     | '/research'
     | '/resources'
@@ -330,6 +353,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/story'
+    | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
     | '/who'
@@ -352,6 +376,7 @@ export interface RootRouteChildren {
   DigitalSignageRoute: typeof DigitalSignageRoute
   PhoneAppRoute: typeof PhoneAppRoute
   PricingRoute: typeof PricingRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProductsRoute: typeof ProductsRoute
   ResearchRoute: typeof ResearchRoute
   ResourcesRoute: typeof ResourcesRoute
@@ -359,6 +384,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoriesRoute: typeof StoriesRoute
   StoryRoute: typeof StoryRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   ToolkitRoute: typeof ToolkitRoute
   WebEmbeddablesRoute: typeof WebEmbeddablesRoute
   WhoRoute: typeof WhoRoute
@@ -454,6 +480,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -501,6 +534,13 @@ declare module '@tanstack/react-router' {
       path: '/story'
       fullPath: '/story'
       preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/toolkit': {
@@ -568,6 +608,7 @@ const rootRouteChildren: RootRouteChildren = {
   DigitalSignageRoute: DigitalSignageRoute,
   PhoneAppRoute: PhoneAppRoute,
   PricingRoute: PricingRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProductsRoute: ProductsRoute,
   ResearchRoute: ResearchRoute,
   ResourcesRoute: ResourcesRoute,
@@ -575,6 +616,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoriesRoute: StoriesRoute,
   StoryRoute: StoryRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   ToolkitRoute: ToolkitRoute,
   WebEmbeddablesRoute: WebEmbeddablesRoute,
   WhoRoute: WhoRoute,
