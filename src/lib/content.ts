@@ -796,7 +796,7 @@ export const orbBeats: ProductBeat[] = [
     title: "Your Environmental Orb",
     icon: "/assets/icon-orb.png",
     href: "/dashboard-builder",
-    body: "Its color compares resource use now to typical use, so residents can steward what they control.",
+    body: "Its colour compares use now with what is typical for that building, hour and day — red to green for electricity, pink to white for water. One glance tells a resident whether to act.",
     frames: [
       {
         src: "/assets/orb-poster-ajlc.jpg",

@@ -1,6 +1,3 @@
-import { pc } from "@/lib/page-content";
-import { copy } from "@/lib/copy";
-import { site } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   EducateChapter,
@@ -17,15 +14,21 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: pc.meta.home.title },
-      { name: "description", content: "Community Hub is a community-centered communication platform. " + site.mission.split(". ")[0] + "." },
+      { title: "Community Hub — Community data, made legible" },
+      {
+        name: "description",
+        content: "Community Hub turns energy, water and air-quality data into dashboards, signage and stories that cities, campuses and schools can understand — and act on.",
+      },
+      { property: "og:title", content: "Community Hub — Community data, made legible" },
+      {
+        property: "og:description",
+        content: "Live community data, published where people already are: dashboards, digital signage, Data Hub, calendars and community voices.",
+      },
     ],
   }),
 });
 
-const hero = copy.chapters.StoriesChapter;
-/** The film's own stop is named by the heading it carries. */
-const heroName = [hero.h11, hero.h12, hero.span1, hero.h13, hero.span2].join(" ");
+const heroName = "Act locally. Think globally.";
 
 function Home() {
   return (

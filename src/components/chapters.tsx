@@ -1,4 +1,5 @@
 import { useRouterState } from "@tanstack/react-router";
+import { AppLink } from "@/components/app-link";
 import { HomeFeatures } from "@/components/home-features";
 import { useEffect, useRef, useState } from "react";
 import { Chapter, useStory } from "@/components/storyboard";
@@ -158,16 +159,37 @@ export function StoriesChapter() {
           >
             <source src="/assets/hero-ch-fwd-720.mp4" type="video/mp4" />
           </video>
-          <div className={cn("absolute inset-0", peek ? "bg-pine/55" : "bg-gradient-to-t from-pine/80 via-pine/55 to-pine/50")} />
-          <div className="relative z-10 flex h-full flex-col items-center justify-center gap-5 px-6 text-center max-md:pr-12">
-            <h1
-              className={cn(
-                "max-w-5xl text-balance font-display leading-tight text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,.55)]",
-                peek ? "max-sm:sr-only text-2xl md:text-4xl" : "text-[2rem] leading-[1.18] sm:text-4xl md:text-6xl",
+          <div className={cn("absolute inset-0", peek ? "bg-pine/60" : "bg-gradient-to-t from-ink/90 via-ink/55 to-ink/15")} />
+          <div className={cn("relative z-10 flex h-full flex-col px-6 md:px-12", peek ? "items-start justify-center" : "justify-end pb-24 md:pb-28")}>
+            <div className="w-full max-w-4xl">
+              <h1
+                className={cn(
+                  "max-w-4xl text-balance font-display font-semibold tracking-[-0.04em] text-paper",
+                  peek ? "max-sm:sr-only text-2xl md:text-4xl" : "text-[clamp(3rem,5.6vw,5.25rem)] leading-[0.96]",
+                )}
+              >
+                Act locally.<br />Think globally.
+              </h1>
+              {!peek && (
+                <>
+                  <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/90 md:text-xl">
+                    Community Hub turns community data into dashboards, signage and stories that
+                    people understand — and act on.
+                  </p>
+                  <div className="mt-7 flex flex-wrap items-center gap-4">
+                    <AppLink href="/demos" className="inline-flex min-h-12 items-center rounded-[4px] bg-paper px-5 text-sm font-semibold text-pine hover:bg-field">
+                      Explore the dashboards
+                    </AppLink>
+                    <AppLink href="/work" className="inline-flex min-h-12 items-center text-sm font-semibold text-paper underline decoration-2 underline-offset-4 hover:text-lime">
+                      See where it runs
+                    </AppLink>
+                  </div>
+                  <p className="mt-6 max-w-xl text-[0.8125rem] font-medium text-paper/70">
+                    Oberlin College · City of Oberlin · Great Lakes Science Center
+                  </p>
+                </>
               )}
-            >{copy.chapters.StoriesChapter.h11}<br />{copy.chapters.StoriesChapter.h12}{" "}<span className="text-lime">{copy.chapters.StoriesChapter.span1}</span>{" "}{copy.chapters.StoriesChapter.h13}{" "}<span className="text-lime">{copy.chapters.StoriesChapter.span2}</span>
-            </h1>
-            {!peek && <p className="max-w-xl text-base leading-relaxed text-paper md:text-xl">Community Hub is a community-centered communication platform.</p>}
+            </div>
           </div>
         </div>
         {peek && <div className="h-[3px] shrink-0 bg-lime" />}
@@ -190,14 +212,18 @@ export function WhoChapter() {
   return (
     <Chapter label={copy.chapters.WhoChapter.Chapter_label1} className="bg-white text-ink">
       <div data-allow-scroll data-scroll-restoration-id="home-who" className="home-who wrap screen-pad h-full">
-        <div className="home-identity" data-animate={index === 1 ? "in" : "out"} aria-label="Community Hub">
-          {WHO_ICONS.map(icon => <img key={icon.src} src={icon.src} alt={"hero" in icon ? "Community Hub" : ""}
-            className={cn("home-identity-icon", "hero" in icon && "home-identity-center")} />)}
+        <div className="home-identity-wrap">
+          <div className="home-identity" data-animate={index === 1 ? "in" : "out"} aria-label="Community Hub">
+            {WHO_ICONS.map(icon => <img key={icon.src} src={icon.src} alt={"hero" in icon ? "Community Hub" : ""}
+              className={cn("home-identity-icon", "hero" in icon && "home-identity-center")} />)}
+          </div>
+          <p className="home-identity-note">Built in Oberlin, Ohio since 2008.<br />Working in campuses, cities and schools across Northeast Ohio and beyond.</p>
         </div>
         <div className="home-who-copy space-y-4">
           <h2 className="t-h2 text-pine">Community Hub is a <span className="whitespace-nowrap">community-centered</span> communication platform.</h2>
           <p className="home-mission" data-problem>{homeMission.problem}</p>
           <p className="home-mission">{homeMission.solution}</p>
+          <p className="pt-1"><AppLink href="/about" className="link font-bold">About Community Hub</AppLink></p>
         </div>
       </div>
     </Chapter>

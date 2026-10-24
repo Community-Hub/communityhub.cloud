@@ -17,7 +17,7 @@ export function SiteFooter() {
       <div className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 sm:gap-8">
         {FOOTER.map((col, i) => (
           <div key={col.title} className={i === 0 ? "max-sm:row-span-2" : undefined}>
-            <p className="eyebrow">{col.title}</p>
+            <p className="mb-1 text-[0.9375rem] font-semibold text-pine">{col.title}</p>
             {/* On a short screen the long Products list runs in two columns so the footer still fits. */}
             <ul className={i === 0 ? "mt-1 short:sm:columns-2 short:sm:gap-x-4" : "mt-1"}>
               {col.links.map((link) => (
