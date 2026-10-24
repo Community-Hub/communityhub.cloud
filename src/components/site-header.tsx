@@ -43,7 +43,7 @@ export function SiteHeader() {
           ))}
           <a
             href={site.contactHref}
-            className="btn btn-primary btn-sm"
+            className="inline-flex min-h-10 items-center rounded-[4px] bg-pine px-4 text-sm font-semibold text-paper transition-colors duration-150 hover:bg-ink focus-visible:outline-pine motion-reduce:transition-none"
           >{copy.siteHeader.SiteHeader.a1}</a>
         </nav>
         <button

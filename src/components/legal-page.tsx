@@ -189,7 +189,7 @@ export function LegalPage({
               {legal.entity} · {legal.address} · We respond within 30 days.
             </p>
           </div>
-          <a className="btn btn-primary" href={`mailto:${terms ? legal.supportEmail : legal.privacyEmail}?subject=${encodeURIComponent(terms ? "Terms question" : "Privacy request")}`}>
+          <a className="legal-contact-button" href={`mailto:${terms ? legal.supportEmail : legal.privacyEmail}?subject=${encodeURIComponent(terms ? "Terms question" : "Privacy request")}`}>
             <Mail aria-hidden="true" strokeWidth={1.8} /> {terms ? "Email Community Hub" : "Email the privacy team"}
           </a>
         </div>

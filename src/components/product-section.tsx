@@ -419,7 +419,7 @@ export function ProductSection({
             <p className="line-clamp-3 max-w-xl t-body mt-3 md:line-clamp-none short:md:mt-2">{item.body}</p>
             {cta && (
               <div className="mt-1 md:mt-3 short:md:mt-1">
-                <AppLink href={cta.href} className="btn btn-secondary btn-sm">
+                <AppLink href={cta.href} className="link">
                   {cta.label}
                 </AppLink>
               </div>
