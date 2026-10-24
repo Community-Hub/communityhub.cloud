@@ -926,3 +926,8 @@ section[aria-label="Voices"] h1 {
 }
 header nav a { font-weight: 500; }
 ::selection { background: var(--color-lime); color: var(--color-pine); }
+
+/* Responsive type: one fluid headline instead of a jump at the tablet breakpoint. */
+section[aria-label="Voices"] h1 {
+  font-size: clamp(2rem, 5.2vw, 3.75rem);
+}
