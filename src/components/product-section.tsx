@@ -414,7 +414,7 @@ export function ProductSection({
           <div data-product-copy className="flex min-w-0 flex-col md:order-last px-4 pt-4 pb-2 md:p-6 short:md:p-4">
             <div className={cn("items-center gap-3 md:flex", home ? "flex" : "hidden")}>
               <img src={item.icon} alt="" className="size-11 shrink-0 object-contain" />
-              <h3 className="t-h3">{item.title}</h3>
+              {!(home && item.id === "orb") && <h3 className="t-h3">{item.title}</h3>}
             </div>
             <p className="line-clamp-3 max-w-xl t-body mt-3 md:line-clamp-none short:md:mt-2">{item.body}</p>
             {cta && (

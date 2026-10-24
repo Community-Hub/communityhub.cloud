@@ -488,7 +488,6 @@ function PrivacyPolicy() {
       description="How Community Hub collects, uses, shares and protects personal information, including read-only Google Sheets data."
       intro="This policy explains what we collect, why we collect it, how long we keep it and how you can control it — including the read-only Google Sheets data you choose to connect."
       sections={SECTIONS}
-      kind="privacy"
     />
   );
 }

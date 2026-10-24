@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Ban, CalendarClock, Database, Mail, Plug, Printer, ShieldCheck, Unplug } from "lucide-react";
+import type { ReactNode } from "react";
 import { AppLink } from "@/components/app-link";
 import { SiteFooter } from "@/components/site-footer";
 import { legal } from "@/lib/legal";
@@ -11,192 +10,131 @@ export type LegalSection = {
 };
 
 /**
- * The public policies Google reviews. One continuous page, not a storyboard: it must scan,
- * deep-link, print and stay readable. The shell gives it the same field/pine/leaf language as
- * the rest of the site, while the article stays deliberately quiet.
+ * A quiet, readable document page for the policies Google reviews. Unlike the product pages this
+ * is one continuous page, not a storyboard: reviewers and readers need to scan it, link to a
+ * section and print it. It keeps the site header, type and footer.
  */
 export function LegalPage({
   title,
   description,
   intro,
   sections,
-  kind = "privacy",
 }: {
   title: string;
   description: string;
   intro: string;
   sections: LegalSection[];
-  kind?: "privacy" | "terms";
 }) {
-  const terms = kind === "terms";
-  const promises = terms
-    ? [
-        { icon: Database, lead: "You own your data.", text: "We host it only to run your dashboards." },
-        { icon: Plug, lead: "Google is optional.", text: "Connect a Sheet only when you choose to." },
-        { icon: CalendarClock, lead: "Leave when you need to.", text: "Thirty days' notice, and an export window." },
-      ]
-    : [
-        { icon: ShieldCheck, lead: "Read-only.", text: "We never write to your Google Sheets." },
-        { icon: Ban, lead: "No ads. No AI training.", text: "Your data is not a product." },
-        { icon: Unplug, lead: "Delete anytime.", text: "Disconnect here or in your Google account." },
-      ];
-  const [active, setActive] = useState(sections[0]?.id ?? "");
-  const progress = useRef<HTMLSpanElement>(null);
-
-  // Reading progress: a thin leaf rule under the header, updated off the scroll thread.
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const value = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      if (progress.current) progress.current.style.transform = `scaleX(${value})`;
-    };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    update();
-    return () => {
-      if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  // Which section is being read. The active marker makes the long page navigable.
-  useEffect(() => {
-    const nodes = sections.map((section) => document.getElementById(section.id)).filter((node): node is HTMLElement => !!node);
-    if (!nodes.length || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      if (visible[0]) setActive(visible[0].target.id);
-    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 1] });
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [sections]);
-
-  const toc = (
-    <ol className="legal-toc-list">
-      {sections.map((section) => (
-        <li key={section.id}>
-          <a href={`#${section.id}`} aria-current={active === section.id ? "location" : undefined} className="legal-toc-link">
-            {section.title}
-          </a>
-        </li>
-      ))}
-      <li>
-        <a href="#contact" aria-current={active === "contact" ? "location" : undefined} className="legal-toc-link">
-          Contact us
-        </a>
-      </li>
-    </ol>
-  );
-
   return (
-    <main id="top" className="legal-page">
-      <span ref={progress} className="legal-progress" aria-hidden="true" />
-
-      <header className="legal-hero">
-        <div className="legal-wrap">
-          <nav aria-label="Breadcrumb" className="legal-crumb">
-            <AppLink href="/">Community Hub</AppLink>
-            <span aria-hidden="true">/</span>
-            <span>Legal</span>
+    <main className="min-h-dvh bg-field text-ink">
+      <div className="border-b border-pine/15 bg-paper">
+        <div className="mx-auto w-full max-w-5xl px-4 pb-8 pt-24 md:px-6 md:pb-10 md:pt-28">
+          <nav aria-label="Breadcrumb" className="t-small font-bold text-pine">
+            <AppLink href="/" className="underline decoration-2 underline-offset-4">Community Hub</AppLink>
+            <span aria-hidden="true" className="px-2 text-ink/50">/</span>
+            <span className="text-ink/70">Legal</span>
           </nav>
-          <div className="legal-hero-grid">
-            <div className="legal-hero-copy">
-              <h1>{title}</h1>
-              <p className="legal-intro">{intro}</p>
+          <h1 className="mt-4 max-w-3xl t-h1">{title}</h1>
+          <p className="mt-3 max-w-2xl t-lede">{intro}</p>
+          <dl className="mt-6 grid gap-x-8 gap-y-2 border-t border-line pt-4 t-small sm:grid-cols-3">
+            <div>
+              <dt className="font-bold text-pine">Effective</dt>
+              <dd>{legal.effectiveDate}</dd>
             </div>
-            <dl className="legal-facts">
-              <div><dt>Effective</dt><dd>{legal.effectiveDate}</dd></div>
-              <div><dt>Last updated</dt><dd>{legal.lastUpdated}</dd></div>
-              <div><dt>Applies to</dt><dd>communityhub.cloud and the Community Hub products</dd></div>
-            </dl>
-          </div>
+            <div>
+              <dt className="font-bold text-pine">Last updated</dt>
+              <dd>{legal.lastUpdated}</dd>
+            </div>
+            <div>
+              <dt className="font-bold text-pine">Applies to</dt>
+              <dd>communityhub.cloud and the Community Hub products</dd>
+            </div>
+          </dl>
           <p className="sr-only">{description}</p>
-        </div>
-      </header>
-
-      <section className="legal-promises" aria-label="Privacy commitments">
-        <div className="legal-wrap legal-promise-grid">
-          {promises.map((item) => {
-            const Icon = item.icon;
-            return (
-              <p key={item.lead}>
-                <Icon aria-hidden="true" strokeWidth={1.8} />
-                <span><b>{item.lead}</b> {item.text}</span>
-              </p>
-            );
-          })}
-        </div>
-      </section>
-
-      <div className="legal-body">
-        <div className="legal-wrap legal-grid">
-          <aside className="legal-rail">
-            <nav aria-label="On this page" className="legal-toc">
-              <p className="legal-kicker">On this page</p>
-              {toc}
-              <div className="legal-toc-actions">
-                <button type="button" onClick={() => window.print()} className="legal-utility">
-                  <Printer aria-hidden="true" strokeWidth={1.8} /> Print / Save PDF
-                </button>
-                <a href="#top" className="legal-utility legal-utility-quiet">Back to top</a>
-              </div>
-            </nav>
-          </aside>
-
-          <article className="legal-article">
-            <details className="legal-mobile-toc">
-              <summary>On this page</summary>
-              {toc}
-            </details>
-
-            {sections.map((section, index) => (
-              <section
-                key={section.id}
-                id={section.id}
-                aria-labelledby={`${section.id}-title`}
-                className={`legal-section${index === 0 ? " legal-section-first" : ""}`}
-              >
-                <h2 id={`${section.id}-title`}>
-                  <a href={`#${section.id}`} className="legal-anchor" aria-label={`Link to ${section.title}`}>#</a>
-                  {section.title}
-                </h2>
-                <div className="legal-prose">{section.body}</div>
-              </section>
-            ))}
-          </article>
         </div>
       </div>
 
-      <section id="contact" className="legal-contact" aria-labelledby="contact-title">
-        <div className="legal-wrap legal-contact-grid">
-          <div>
-            <h2 id="contact-title">{terms ? "Questions about these terms?" : "Questions about your data?"}</h2>
-            <p>
-              {terms ? "Terms and account questions" : "Privacy requests"}:{" "}
-              <a href={`mailto:${terms ? legal.supportEmail : legal.privacyEmail}`}>
-                {terms ? legal.supportEmail : legal.privacyEmail}
+      <div className="mx-auto grid w-full max-w-5xl gap-10 px-4 py-10 md:grid-cols-[15rem_minmax(0,1fr)] md:px-6 md:py-14">
+        <aside className="hidden md:block" aria-label="On this page">
+          <div className="sticky top-24">
+            <p className="eyebrow">On this page</p>
+            <ol className="mt-3 space-y-2 border-l border-line pl-4 t-small">
+              {sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`} className="hover:text-pine">{section.title}</a>
+                </li>
+              ))}
+              <li><a href="#contact" className="hover:text-pine">Contact us</a></li>
+            </ol>
+            <div className="mt-8 rounded-md border border-line bg-paper p-3">
+              <p className="t-small font-bold text-pine">Questions?</p>
+              <p className="mt-1 t-small">Write to</p>
+              <a href={`mailto:${legal.privacyEmail}`} className="mt-0.5 block break-words text-[0.8125rem] underline decoration-2 underline-offset-2">
+                {legal.privacyEmail}
               </a>
-              <br />
-              General support: <a href={`mailto:${legal.supportEmail}`}>{legal.supportEmail}</a>
-            </p>
-            <p className="legal-contact-fine">
-              {legal.entity} · {legal.address} · We respond within 30 days.
-            </p>
+            </div>
           </div>
-          <a className="legal-contact-button" href={`mailto:${terms ? legal.supportEmail : legal.privacyEmail}?subject=${encodeURIComponent(terms ? "Terms question" : "Privacy request")}`}>
-            <Mail aria-hidden="true" strokeWidth={1.8} /> {terms ? "Email Community Hub" : "Email the privacy team"}
-          </a>
-        </div>
-      </section>
+        </aside>
 
-      <div className="legal-footer">
-        <div className="legal-wrap">
+        <article className="min-w-0 max-w-[46rem]">
+          <details className="mb-6 rounded-md border border-line bg-paper p-3 md:hidden">
+            <summary className="cursor-pointer font-bold text-pine">On this page</summary>
+            <ol className="mt-2 grid gap-1 t-small">
+              {sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`} className="hover:text-pine">{section.title}</a>
+                </li>
+              ))}
+              <li><a href="#contact" className="hover:text-pine">Contact us</a></li>
+            </ol>
+          </details>
+
+          {sections.map((section, index) => (
+            <section
+              key={section.id}
+              id={section.id}
+              aria-labelledby={`${section.id}-title`}
+              className={`scroll-mt-24 ${index === 0 ? "" : "mt-10 border-t border-line/80 pt-8"}`}
+            >
+              <h2 id={`${section.id}-title`} className="font-display text-[1.45rem] leading-tight text-pine md:text-[1.6rem]">
+                {section.title}
+              </h2>
+              <div className="legal-prose mt-3">{section.body}</div>
+            </section>
+          ))}
+
+          <section id="contact" aria-labelledby="contact-title" className="mt-10 scroll-mt-24 border-t border-line/80 pt-8">
+            <h2 id="contact-title" className="font-display text-[1.45rem] leading-tight text-pine md:text-[1.6rem]">
+              Contact us
+            </h2>
+            <div className="legal-prose mt-3">
+              <p>
+                <strong>{legal.entity}</strong>
+                <br />
+                {legal.address}
+              </p>
+              <p>
+                Privacy and data requests:{" "}
+                <a href={`mailto:${legal.privacyEmail}`}>{legal.privacyEmail}</a>
+                <br />
+                General support:{" "}
+                <a href={`mailto:${legal.supportEmail}`}>{legal.supportEmail}</a>
+              </p>
+              <p>
+                We respond to privacy requests within 30 days. Include the organization and site
+                name if your request concerns a Community Hub dashboard.
+              </p>
+            </div>
+          </section>
+
+          <p className="mt-10 border-t border-line pt-4 t-small text-ink/70">
+            {legal.entity} · {legal.address} · Effective {legal.effectiveDate}
+          </p>
+        </article>
+      </div>
+
+      <div className="border-t border-line bg-paper">
+        <div className="mx-auto w-full max-w-5xl px-4 py-10 md:px-6">
           <SiteFooter />
         </div>
       </div>

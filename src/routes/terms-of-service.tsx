@@ -292,7 +292,6 @@ function TermsOfService() {
       description="The agreement between Community Hub and the organizations and people who use its websites, dashboards, signage and data tools."
       intro="The agreement between Community Hub and the organizations and people who use its websites, dashboards, signage and data tools."
       sections={SECTIONS}
-      kind="terms"
     />
   );
 }

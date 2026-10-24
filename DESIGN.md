@@ -104,19 +104,3 @@ Latest user direction: apply distinctive typography, committed color, purposeful
 Primary references read for this pass: [Impeccable anti-pattern catalog](https://impeccable.style/slop/) and [NN/G aesthetic and minimalist design](https://www.nngroup.com/articles/aesthetic-minimalist-design/). The former guided removal of repeated packaging; the latter guided preservation of useful controls and content.
 
 `community_aesthetics.css` now owns the final presentation layer. Current screenshot/build evidence and the independent visitor critique are in `tests/artifacts/aesthetics-20261002/`. The previous sections describe inherited constraints and history; this subsection supersedes conflicting typography, palette and title-bar descriptions.
-
-## 24 October 2026 refresh
-
-The public site now uses one type system: **Inter** for headings, interface and body (the same
-family as the Environmental Dashboard calendar). Comfortaa, Lato and Source Serif are no longer
-loaded on the public site. The palette is warmer and less saturated: ink `#171b18`, paper
-`#fbfaf7`, field `#f1efe8`, pine `#143d2b`, leaf `#2e6b45`, lime `#c9d9a9`, line `#d8d5cc`.
-
-The homepage keeps the chapter scroller, film, keyboard/swipe navigation and the dot rail. Its
-chapter interiors were opened up: the opening copy is left-aligned with a direct CTA, Voices is a
-full-width editorial split instead of a bordered card, Who pairs the mark with the statement,
-product chapters remove the oversized card and show the working product, and the Environmental
-Orb leads with a real installation photograph. The header is a light institutional bar with a
-solid pine action. Legal documents use a continuous reading page with a contents rail.
-
-The production branch is `master` in `Community-Hub/communityhub.cloud`; Vercel deploys it.

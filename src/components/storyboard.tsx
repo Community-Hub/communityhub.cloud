@@ -318,7 +318,7 @@ export function Storyboard({
             <ChevronDown className="size-5 shrink-0" strokeWidth={2.25} />
           </button>
         )}
-        <ol className="fixed right-0 top-[4.5rem] bottom-0 z-30 flex flex-col justify-center max-md:pb-16 md:right-1">
+        <ol className="fixed right-0 top-16 bottom-0 z-30 flex flex-col justify-center max-md:pb-16 md:right-1">
           {stops.map((label, i) => (
             <li key={label}>
               <button

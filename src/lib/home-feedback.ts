@@ -161,12 +161,6 @@ export function homeFeatureStories() {
 
 // One color guide is sufficient on the homepage; named-building variants remain in the asset library.
 export function homeOrbBeats(): ProductBeat[] {
-  return orbBeats.map(item => {
-    const frames = item.frames.filter(frame =>
-      frame.src !== "/assets/orb-poster-noah.jpg" && frame.src !== "/assets/orb-poster-kahn.jpg");
-    if (item.id !== "orb") return { ...item, frames };
-    // Lead with the real orb in a residence hall, not the cartoon explainer poster.
-    const photo = frames.filter(frame => frame.src?.includes("orb-dorm"));
-    return { ...item, frames: [...photo, ...frames.filter(frame => !photo.includes(frame))] };
-  });
+  return orbBeats.map(item => ({...item, frames: item.frames.filter(frame =>
+    frame.src !== "/assets/orb-poster-noah.jpg" && frame.src !== "/assets/orb-poster-kahn.jpg")}));
 }
