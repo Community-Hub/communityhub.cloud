@@ -11,12 +11,12 @@ import { cn } from "@/lib/utils";
 import { imageSize } from "@/lib/image-dimensions";
 
 /** Oct 7 pp. 4-5: the image, quote and its controls move as one clearly bounded story. */
-export function HomeFeatures() {
+export function HomeFeatures({ chapter = 1 }: { chapter?: number } = {}) {
   const features = homeFeatureStories();
   const { hashBeat, reportBeat } = useStory();
   const match = /^quote-(\d+)$/.exec(hashBeat);
   const at = match ? Math.min(Number(match[1]), features.length - 1) : 0;
-  const setAt = (next: number) => reportBeat(0, `quote-${next}`);
+  const setAt = (next: number) => reportBeat(chapter, `quote-${next}`);
   const ref = useRef<HTMLDivElement>(null);
   const direction = useRef<1 | -1>(1);
   const step = (dir: 1 | -1) => { direction.current = dir; setAt((at + dir + features.length) % features.length); };
