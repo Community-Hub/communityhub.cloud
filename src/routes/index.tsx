@@ -5,14 +5,10 @@ import {
   MotivateChapter,
   OrbChapter,
   StoriesChapter,
-  VoicesChapter,
   WhoChapter,
 } from "@/components/chapters";
 import { FooterChapter } from "@/components/site-footer";
 import { Storyboard } from "@/components/storyboard";
-
-const HOME_LABELS = ["Act locally. Think globally.", "Voices", "Who we are", "Engage", "Educate", "Motivate and Empower", "Environmental Orb", "Footer"] as const;
-const HOME_IDS = ["hero", "voices", "who", "engage", "educate", "motivate", "orb", "footer"] as const;
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -32,12 +28,12 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const heroName = "Act locally. Think globally.";
 
 function Home() {
   return (
-    <Storyboard labels={HOME_LABELS} ids={HOME_IDS}>
+    <Storyboard lead={heroName}>
       <StoriesChapter />
-      <VoicesChapter />
       <WhoChapter />
       <EngageChapter />
       <EducateChapter />
