@@ -4,18 +4,18 @@
 @custom-variant short (@media (max-height: 740px));
 
 @theme {
-  --color-ink: #2c2c2c;
-  --color-paper: #f4f4f2;
-  --color-field: #eef2e8;
-  --color-water: #e6f0ef;
-  --color-pine: #244b38;
-  --color-leaf: #5bb951;
-  --color-lime: #a1cd54;
-  --color-sky: #21a7df;
-  --color-sand: #c2b59c;
-  --color-line: #cccccb;
-  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Comfortaa", "Lato", ui-sans-serif, sans-serif;
+  --color-ink: #152019;
+  --color-paper: #f7f4ea;
+  --color-field: #e9ede3;
+  --color-water: #e2ece8;
+  --color-pine: #123a29;
+  --color-leaf: #467d58;
+  --color-lime: #c9db87;
+  --color-sky: #2f6f7d;
+  --color-sand: #d6c8ae;
+  --color-line: #d3cfc1;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, sans-serif;
 }
 
 @layer base {
@@ -32,11 +32,12 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
   h1 {
-    font-weight: 500;
+    font-weight: 600;
   }
   p {
     text-wrap: pretty;
@@ -915,3 +916,13 @@ header nav a:hover { text-underline-offset: 5px; }
   .legal-prose a[href^="http"]::after { content: " (" attr(href) ")"; font-weight: 400; }
   section { break-inside: avoid; }
 }
+
+/* Design fix only: same layout, same wiring, same animations. */
+section[aria-label="Voices"] h1 {
+  filter: none;
+  text-shadow: none;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+header nav a { font-weight: 500; }
+::selection { background: var(--color-lime); color: var(--color-pine); }
