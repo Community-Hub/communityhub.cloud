@@ -5,39 +5,35 @@ import {
   MotivateChapter,
   OrbChapter,
   StoriesChapter,
-  VoicesChapter,
   WhoChapter,
 } from "@/components/chapters";
 import { FooterChapter } from "@/components/site-footer";
 import { Storyboard } from "@/components/storyboard";
 
-const HOME_LABELS = ["It has never been more important to act locally while thinking globally.", "Voices", "Who we are", "Engage", "Educate", "Motivate and Empower", "Environmental Orb", "Footer"] as const;
-const HOME_IDS = ["hero", "voices", "who", "engage", "educate", "motivate", "orb", "footer"] as const;
-
 export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Community Hub — Community data, made legible" },
+      { title: "Community Hub" },
       {
         name: "description",
-        content: "Community Hub turns energy, water and air-quality data into dashboards, signage and stories that cities, campuses and schools can understand — and act on.",
+        content: "Community Hub creates software products that foster stronger, more sustainable, and more resilient connections among people and the natural systems upon which we depend.",
       },
-      { property: "og:title", content: "Community Hub — Community data, made legible" },
+      { property: "og:title", content: "Community Hub" },
       {
         property: "og:description",
-        content: "Live community data, published where people already are: dashboards, digital signage, Data Hub, calendars and community voices.",
+        content: "Community Hub’s award-winning communication platform includes sophisticated data acquisition and display applications for organizations, neighborhoods, and cities.",
       },
     ],
   }),
 });
 
+const heroName = "It has never been more important to act locally while thinking globally.";
 
 function Home() {
   return (
-    <Storyboard labels={HOME_LABELS} ids={HOME_IDS}>
+    <Storyboard lead={heroName}>
       <StoriesChapter />
-      <VoicesChapter />
       <WhoChapter />
       <EngageChapter />
       <EducateChapter />
