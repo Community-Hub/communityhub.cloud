@@ -11,7 +11,7 @@ import {
 import { FooterChapter } from "@/components/site-footer";
 import { Storyboard } from "@/components/storyboard";
 
-const HOME_LABELS = ["Act locally. Think globally.", "Voices", "Who we are", "Engage", "Educate", "Motivate and Empower", "Environmental Orb", "Footer"] as const;
+const HOME_LABELS = ["It has never been more important to act locally while thinking globally.", "Voices", "Who we are", "Engage", "Educate", "Motivate and Empower", "Environmental Orb", "Footer"] as const;
 const HOME_IDS = ["hero", "voices", "who", "engage", "educate", "motivate", "orb", "footer"] as const;
 
 export const Route = createFileRoute("/")({

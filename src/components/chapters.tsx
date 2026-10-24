@@ -9,6 +9,7 @@ import {
   type ProductBeat,
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
 
@@ -61,19 +62,25 @@ function Pillar({
 
 export function StoriesChapter() {
   return (
-    <Chapter label="Act locally. Think globally." className="bg-paper text-ink">
+    <Chapter label="It has never been more important to act locally while thinking globally." className="bg-paper text-ink">
       <div className="home-hero-split">
         <div className="home-hero-copy">
-          <h1>Act locally.<br />Think globally.</h1>
+          <h1>It has never been more important to act locally while thinking globally.</h1>
           <p className="home-hero-lede">
-            Community Hub turns community data into dashboards, signage and stories that people
-            understand — and act on.
+            Community Hub creates software products that foster stronger, more sustainable, and
+            more resilient connections among people and the natural systems upon which we depend.
           </p>
           <div className="home-hero-actions">
-            <AppLink href="/demos" className="home-hero-button">Explore the dashboards</AppLink>
-            <AppLink href="/work" className="home-hero-link">See where it runs</AppLink>
+            <AppLink href="/products" className="btn btn-primary">Explore products and services</AppLink>
+            <a href={site.contactHref} className="btn btn-secondary">Contact us</a>
           </div>
-          <p className="home-hero-clients">Oberlin College · City of Oberlin · Great Lakes Science Center</p>
+          <p className="home-hero-clients">
+            <span className="max-sm:hidden">
+              Community Hub clients include Oberlin College, the City of Oberlin, Oberlin Public
+              Schools, the Great Lakes Science Center and MidTown Cleveland.
+            </span>
+            <span className="sm:hidden">Oberlin College · City of Oberlin · Great Lakes Science Center</span>
+          </p>
         </div>
         <figure className="home-hero-figure">
           <img
