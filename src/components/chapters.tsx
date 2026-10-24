@@ -158,7 +158,7 @@ export function StoriesChapter() {
           >
             <source src="/assets/hero-ch-fwd-720.mp4" type="video/mp4" />
           </video>
-          <div className={cn("absolute inset-0", peek ? "bg-pine/55" : "bg-gradient-to-t from-pine/80 via-pine/55 to-pine/50")} />
+          <div className={cn("absolute inset-0", peek ? "bg-pine/30" : "bg-gradient-to-t from-pine/65 via-pine/25 to-pine/5")} />
           <div className="relative z-10 flex h-full flex-col items-center justify-center gap-5 px-6 text-center max-md:pr-12">
             <h1
               className={cn(
