@@ -1116,3 +1116,66 @@ body [data-home-product] [data-product-composition], body [data-home-product] [d
   .home-identity-wrap { gap: 1rem; }
   .home-identity-center { width: 6.5rem; }
 }
+/* Opening chapter: a split, not a full-bleed film. */
+.home-hero-split {
+  height: 100%;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: calc(var(--header-h) + clamp(1.5rem, 4vh, 3rem)) clamp(1.25rem, 4vw, 2.5rem) clamp(2.5rem, 5vh, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: center;
+}
+.home-hero-copy { min-width: 0; }
+.home-hero-copy h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(3rem, 5.4vw, 5.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  color: var(--color-pine);
+}
+.home-hero-lede {
+  max-width: 44ch;
+  margin: 1.4rem 0 0;
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+.home-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+.home-hero-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 1.3rem;
+  border-radius: 4px;
+  background: var(--color-pine);
+  color: var(--color-paper);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.home-hero-button:hover { background: var(--color-ink); }
+.home-hero-link { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--color-pine); font-size: 0.9375rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.home-hero-link:hover { color: var(--color-leaf); }
+.home-hero-clients { margin: 2.2rem 0 0; font-size: 0.8125rem; color: color-mix(in srgb, var(--color-ink) 62%, transparent); }
+.home-hero-figure { margin: 0; min-width: 0; }
+.home-hero-figure img { display: block; width: 100%; height: min(68dvh, 680px); object-fit: cover; border-radius: 2px; }
+.home-hero-figure figcaption { margin-top: 0.65rem; font-size: 0.75rem; color: color-mix(in srgb, var(--color-ink) 62%, transparent); }
+@media (max-width: 900px) {
+  .home-hero-split { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+  .home-hero-copy h1 { max-width: none; font-size: clamp(2.9rem, 11vw, 4rem); }
+  .home-hero-clients { margin-top: 1.4rem; }
+  .home-hero-figure { display: block; }
+  .home-hero-figure img { height: 220px; object-position: center 35%; }
+  .home-hero-figure figcaption { margin-top: 0.4rem; font-size: 0.6875rem; }
+}
+@media (max-width: 900px) {
+  .home-hero-split { padding-bottom: calc(var(--chrome-bottom) + 0.75rem); }
+  .home-hero-figure img { height: 205px; }
+}
+.home-feature { box-shadow: none; }

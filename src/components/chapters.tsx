@@ -60,140 +60,30 @@ function Pillar({
 }
 
 export function StoriesChapter() {
-  const { index, register, reportBeat } = useStory();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const peekRef = useRef(false);
-  const returnedRef = useRef(false);
-  const [peek, setPeek] = useState(false);
-
-  const reveal = () => {
-    const video = videoRef.current;
-    if (video) {
-      video.pause();
-      if (Number.isFinite(video.duration) && video.duration > 0) {
-        video.currentTime = Math.max(0, video.duration - 0.05);
-      }
-    }
-    peekRef.current = true;
-    setPeek(true);
-    if (!window.location.hash) reportBeat(0, "quote-0");
-  };
-
-  /** Brings the full-screen film back (the first rail dot, Home, or a step up from the stories). */
-  const restore = () => {
-    const video = videoRef.current;
-    peekRef.current = false;
-    returnedRef.current = true; // a visitor who came back chooses when to leave; the film does not close itself again
-    setPeek(false);
-    if (video) {
-      video.currentTime = 0;
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.play().catch(() => {});
-    }
-  };
-
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent("ch:film", { detail: index === 0 && !peek }));
-  }, [index, peek]);
-
-  useEffect(() => {
-    register(0, (dir) => {
-      if (peekRef.current) {
-        if (dir > 0) return false;
-        restore();
-        return true;
-      }
-      if (dir < 0) return false;
-      reveal();
-      return true;
-    });
-    return () => register(0, null);
-  }, [register]);
-
-  useEffect(() => {
-    const on = (event: Event) => {
-      const want = (event as CustomEvent<string>).detail;
-      if (want === "film" && peekRef.current) restore();
-      if (want === "stories" && !peekRef.current) reveal();
-    };
-    window.addEventListener("ch:hero", on);
-    return () => window.removeEventListener("ch:hero", on);
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (window.location.hash || reduce) {
-      reveal();
-      return;
-    }
-    const onEnd = () => {
-      window.setTimeout(() => {
-        if (!peekRef.current && !returnedRef.current) reveal();
-      }, 3000);
-    };
-    video.addEventListener("ended", onEnd);
-    // A browser that blocks autoplay (Low Power Mode, data saver) skips the film and opens the stories.
-    video.play().catch(() => reveal());
-    return () => video.removeEventListener("ended", onEnd);
-  }, []);
-
-
   return (
-    <Chapter label={copy.chapters.StoriesChapter.Chapter_label1} className={peek ? "bg-field text-ink" : "bg-pine text-paper"}>
-      <div className="flex h-full flex-col pt-16">
-        <div
-          data-hero-film={peek ? "banner" : "film"}
-          className={cn(
-            "relative shrink-0 overflow-hidden transition-[height,flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-            peek ? "h-16 sm:h-36 md:h-[clamp(160px,26vh,290px)]" : "min-h-0 flex-1",
-          )}
-        >
-          <video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
-            muted
-            playsInline
-            preload="metadata"
-            poster={copy.chapters.StoriesChapter.video_poster1}
-          >
-            <source src="/assets/hero-ch-fwd-720.mp4" type="video/mp4" />
-          </video>
-          <div className={cn("absolute inset-0", peek ? "bg-pine/60" : "bg-gradient-to-t from-ink/90 via-ink/55 to-ink/15")} />
-          <div className={cn("relative z-10 flex h-full flex-col px-6 md:px-12", peek ? "items-start justify-center" : "justify-end pb-24 md:pb-28")}>
-            <div className="w-full max-w-4xl">
-              <h1
-                className={cn(
-                  "max-w-4xl text-balance font-display font-semibold tracking-[-0.04em] text-paper",
-                  peek ? "max-sm:sr-only text-2xl md:text-4xl" : "text-[clamp(3rem,5.6vw,5.25rem)] leading-[0.96]",
-                )}
-              >
-                Act locally.<br />Think globally.
-              </h1>
-              {!peek && (
-                <>
-                  <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/90 md:text-xl">
-                    Community Hub turns community data into dashboards, signage and stories that
-                    people understand — and act on.
-                  </p>
-                  <div className="mt-7 flex flex-wrap items-center gap-4">
-                    <AppLink href="/demos" className="inline-flex min-h-12 items-center rounded-[4px] bg-paper px-5 text-sm font-semibold text-pine hover:bg-field">
-                      Explore the dashboards
-                    </AppLink>
-                    <AppLink href="/work" className="inline-flex min-h-12 items-center text-sm font-semibold text-paper underline decoration-2 underline-offset-4 hover:text-lime">
-                      See where it runs
-                    </AppLink>
-                  </div>
-                  <p className="mt-6 max-w-xl text-[0.8125rem] font-medium text-paper/70">
-                    Oberlin College · City of Oberlin · Great Lakes Science Center
-                  </p>
-                </>
-              )}
-            </div>
+    <Chapter label="Act locally. Think globally." className="bg-paper text-ink">
+      <div className="home-hero-split">
+        <div className="home-hero-copy">
+          <h1>Act locally.<br />Think globally.</h1>
+          <p className="home-hero-lede">
+            Community Hub turns community data into dashboards, signage and stories that people
+            understand — and act on.
+          </p>
+          <div className="home-hero-actions">
+            <AppLink href="/demos" className="home-hero-button">Explore the dashboards</AppLink>
+            <AppLink href="/work" className="home-hero-link">See where it runs</AppLink>
           </div>
+          <p className="home-hero-clients">Oberlin College · City of Oberlin · Great Lakes Science Center</p>
         </div>
-        {peek && <div className="h-[3px] shrink-0 bg-lime" />}
-        {peek && <HomeFeatures />}
+        <figure className="home-hero-figure">
+          <img
+            src="/assets/eng-sign-daves-full.jpg"
+            alt="A person standing beside a Community Hub digital sign and a phone-controller poster at Dave's Market in Cleveland"
+            width={739}
+            height={800}
+          />
+          <figcaption>MidTown Cleveland · Dave’s Market</figcaption>
+        </figure>
       </div>
     </Chapter>
   );
@@ -206,6 +96,16 @@ const WHO_ICONS = [
   { src: "/assets/v1/bdash.png" },
   { src: "/assets/v1/calicon_v2.png" },
 ] as const;
+
+export function VoicesChapter() {
+  return (
+    <Chapter label="Voices" className="bg-field text-ink">
+      <div className="flex h-full flex-col justify-center pt-[var(--header-h)]">
+        <HomeFeatures chapter={1} />
+      </div>
+    </Chapter>
+  );
+}
 
 export function WhoChapter() {
   const { index } = useStory();
