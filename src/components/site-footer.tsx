@@ -10,9 +10,9 @@ import { pc } from "@/lib/page-content";
 export const FOOTER = pc.siteFooter.FOOTER;
 const DOORS = pc.siteFooter.DOORS;
 
-export function SiteFooter() {
+export function SiteFooter({ className }: { className?: string } = {}) {
   return (
-    <footer className="t-small text-ink">
+    <footer className={cn("site-footer t-small text-ink", className)}>
       {/* Two columns on a phone: Products down the left, the other two stacked on the right. */}
       <div className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 sm:gap-8">
         {FOOTER.map((col, i) => (
@@ -53,7 +53,7 @@ export function SiteFooter() {
 }
 
 /** The last stop of every paged screen: the one footer. */
-export function FooterChapter({ className = "bg-field text-ink" }: { className?: string }) {
+export function FooterChapter({ className = "bg-pine text-paper" }: { className?: string }) {
   const scroller = useRef<HTMLDivElement>(null);
   const [more, setMore] = useState(false);
   // A fade and chevron show while there is more footer below; they go once it is all in view.
@@ -68,10 +68,10 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
   }, [check]);
   return (
     <Chapter label={copy.siteFooter.FooterChapter.Chapter_label1} className={className}>
-      <div ref={scroller} onScroll={check} data-allow-scroll className="scroll-visible relative h-full">
+      <div ref={scroller} onScroll={check} data-allow-scroll className="footer-chapter scroll-visible relative h-full">
         {/* The last stop has no Next button, so it needs no room under it. */}
         <div className="wrap screen-pad pb-8! max-md:pt-[calc(var(--header-h)+0.75rem)] max-sm:pb-3!">
-          <h2 className="t-h2">{copy.siteFooter.FooterChapter.h21}</h2>
+          <h2 className="footer-title">{copy.siteFooter.FooterChapter.h21}</h2>
           <p className="mt-1 t-lede max-sm:t-small">{copy.siteFooter.FooterChapter.p1}</p>
           <p className="mt-2 max-w-2xl t-body max-sm:hidden">{copy.siteFooter.FooterChapter.p2}</p>
           <div className="mt-1 flex flex-wrap items-center gap-x-6 max-sm:gap-x-4 max-sm:t-small sm:mt-2">
@@ -87,14 +87,14 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
             </ul>
           </div>
           <div className="mt-1 sm:mt-4">
-            <SiteFooter />
+            <SiteFooter className="footer-on-dark" />
           </div>
         </div>
         <div
           aria-hidden
-          className={`pointer-events-none sticky bottom-0 -mt-14 flex h-14 items-end justify-center bg-gradient-to-t from-field to-transparent pb-1 transition-opacity ${more ? "opacity-100" : "opacity-0"}`}
+          className={`pointer-events-none sticky bottom-0 -mt-14 flex h-14 items-end justify-center bg-gradient-to-t from-pine to-transparent pb-1 transition-opacity ${more ? "opacity-100" : "opacity-0"}`}
         >
-          <ChevronDown className="size-6 text-ink" strokeWidth={2.25} />
+          <ChevronDown className="size-6 text-paper" strokeWidth={2.25} />
         </div>
       </div>
     </Chapter>

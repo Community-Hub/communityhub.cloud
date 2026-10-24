@@ -85,6 +85,9 @@ export function Storyboard({
   const indexRef = useRef(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const handler = useRef(new Map<number, DirHandler>());
+  const firstRender = useRef(true);
+  const previousIndex = useRef(0);
+  const animationToken = useRef(0);
   const entry = useRef(0);
   const lock = useRef(new StepLock(200));
 
@@ -157,13 +160,39 @@ export function Storyboard({
     return () => window.removeEventListener("ch:film", onFilm);
   }, []);
 
-  // Cut to the accepted scene before paint. Animating this transform makes fast swipes
-  // chase a moving target and briefly exposes chapters that are already inert.
+  // Adjacent moves glide; jumps cut. The track is the only thing that travels, so every
+  // chapter keeps its own animation while the sequence and order stay exactly as written.
   useLayoutEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    track.style.transition = "none";
-    track.style.transform = `translate3d(0, calc(${index} * -100dvh), 0)`;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const adjacent = Math.abs(index - previousIndex.current) === 1;
+    const animate = !firstRender.current && adjacent && entry.current !== 0 && !reduce;
+    const target = `translate3d(0, calc(${index} * -100dvh), 0)`;
+    const token = ++animationToken.current;
+    if (animate) {
+      track.style.willChange = "transform";
+      track.style.transition = "transform 720ms cubic-bezier(.22,1,.36,1)";
+      // Force the current position to be committed before the target, otherwise a
+      // drag frame can be swallowed by the same style flush.
+      void track.offsetHeight;
+      track.style.transform = target;
+      const done = (event?: TransitionEvent) => {
+        if (event && event.target !== track) return;
+        if (token !== animationToken.current) return;
+        track.removeEventListener("transitionend", done);
+        track.style.transition = "none";
+        track.style.willChange = "";
+      };
+      track.addEventListener("transitionend", done);
+      window.setTimeout(() => done(), 820);
+    } else {
+      track.style.transition = "none";
+      track.style.transform = target;
+      track.style.willChange = "";
+    }
+    firstRender.current = false;
+    previousIndex.current = index;
     // Off-screen chapters can't take focus, so Tab and find-in-page never desync the view.
     Array.from(track.children).forEach((el, i) => el.toggleAttribute("inert", i !== index));
   }, [index, count]);
@@ -201,11 +230,38 @@ export function Storyboard({
       if (decision.kind === "step") commitGesture(decision.direction);
     };
 
-    // Touch: one finger, vertical lock, one step per touch; a scroller that can still move owns the touch.
+    // Touch: one finger, vertical lock. The scene follows the finger, then snaps to the
+    // next stop or back; a scroller that can still move owns the touch.
     const touch = new TouchGesture();
     let nativeTouch = false;
     let decided = false;
     let touchTarget: EventTarget | null = null;
+    let dragStartY = 0;
+    let dragStartT = 0;
+    let dragging = false;
+
+    const trackNow = () => trackRef.current;
+    const settle = (target: string, duration: number) => {
+      const track = trackNow();
+      if (!track) return;
+      const token = ++animationToken.current;
+      track.style.willChange = "transform";
+      track.style.transition = `transform ${duration}ms cubic-bezier(.22,1,.36,1)`;
+      track.style.transform = target;
+      const done = (event?: TransitionEvent) => {
+        if (event && event.target !== track) return;
+        if (token !== animationToken.current) return;
+        track.removeEventListener("transitionend", done);
+        track.style.transition = "none";
+        track.style.willChange = "";
+      };
+      track.addEventListener("transitionend", done);
+      window.setTimeout(() => done(), 820);
+    };
+    const snapBack = () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      settle(`translate3d(0, calc(${indexRef.current} * -100dvh), 0)`, reduce ? 0 : 420);
+    };
     const onTouchStart = (event: TouchEvent) => {
       if (dialogOpen()) return;
       if (event.touches.length > 1 || event.target instanceof HTMLIFrameElement) {
@@ -217,7 +273,15 @@ export function Storyboard({
       touch.start(t.identifier, t.clientX, t.clientY, event.timeStamp);
       nativeTouch = false;
       decided = false;
+      dragging = false;
       touchTarget = event.target;
+      dragStartY = t.clientY;
+      dragStartT = event.timeStamp;
+      const track = trackNow();
+      if (track) {
+        track.style.transition = "none";
+        delete track.dataset.dragging;
+      }
     };
     const onTouchMove = (event: TouchEvent) => {
       if (!touch.active) return;
@@ -228,17 +292,58 @@ export function Storyboard({
       if (!decided) {
         decided = true;
         nativeTouch = innerCanMove(touchTarget, touch.directionAt(t.clientY));
+        if (!nativeTouch) {
+          dragging = true;
+          const track = trackNow();
+          if (track) {
+            track.style.transition = "none";
+            track.dataset.dragging = "true";
+          }
+        }
       }
-      if (!nativeTouch && event.cancelable) event.preventDefault();
+      if (nativeTouch || !dragging) return;
+      if (event.cancelable) event.preventDefault();
+      let dy = t.clientY - dragStartY;
+      const atStart = indexRef.current <= 0 && dy > 0;
+      const atEnd = indexRef.current >= count - 1 && dy < 0;
+      if (atStart || atEnd) dy *= 0.28;
+      const track = trackNow();
+      if (track) {
+        const stepPx = track.children[0]?.getBoundingClientRect().height || window.innerHeight;
+        track.style.transform = `translate3d(0, ${-indexRef.current * stepPx + dy}px, 0)`;
+      }
     };
-    const onTouchEnd = (event: TouchEvent) => {
+    const finishTouch = (event: TouchEvent) => {
       if (!touch.active) return;
       const t = Array.from(event.changedTouches).find((c) => c.identifier === touch.touchId);
       if (!t) return;
-      const dir = touch.end(t.identifier, t.clientY, event.timeStamp);
-      if (dir && !nativeTouch) commitGesture(dir);
+      const dy = dragStartY - t.clientY;
+      const dt = Math.max(1, event.timeStamp - dragStartT);
+      const wasDragging = dragging;
+      touch.end(t.identifier, t.clientY, event.timeStamp);
+      const track = trackNow();
+      if (track) delete track.dataset.dragging;
+      dragging = false;
+      if (!wasDragging || nativeTouch) return;
+      const distance = Math.abs(dy);
+      const velocity = distance / dt;
+      const atStart = indexRef.current <= 0 && dy < 0;
+      const atEnd = indexRef.current >= count - 1 && dy > 0;
+      if (!atStart && !atEnd && (distance > window.innerHeight * 0.16 || velocity > 0.5)) {
+        commitGesture(dy > 0 ? 1 : -1);
+      } else {
+        snapBack();
+      }
     };
-    const onTouchCancel = () => touch.cancel();
+    const onTouchEnd = (event: TouchEvent) => finishTouch(event);
+    const onTouchCancel = () => {
+      const wasDragging = dragging;
+      touch.cancel();
+      dragging = false;
+      const track = trackNow();
+      if (track) delete track.dataset.dragging;
+      if (wasDragging) snapBack();
+    };
 
     const onKey = (event: KeyboardEvent) => {
       // A widget that took the key (the tab row's arrows, Home and End) keeps it.
@@ -312,13 +417,13 @@ export function Storyboard({
             type="button"
             aria-label={`Next: ${film && index === 0 ? labels[0] : labels[index + 1]}`}
             onClick={() => commit(1, false)}
-            className="fixed right-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-30 flex h-11 max-w-[calc(100%-3rem)] items-center gap-2 rounded-full border border-pine/70 px-3 bg-paper text-pine shadow-[0_2px_10px_rgba(36,75,56,0.22)] transition-[background-color,color,transform] duration-150 hover:bg-pine hover:text-paper focus-visible:bg-pine focus-visible:text-paper active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 md:right-auto md:bottom-5 md:left-1/2 md:-translate-x-1/2"
+            className="scene-next fixed right-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-30 flex max-w-[calc(100%-3rem)] items-center gap-2 md:right-6 md:bottom-5 md:left-auto md:translate-x-0"
           >
             <span className="truncate text-sm">Next: {film && index === 0 ? labels[0] : labels[index + 1]}</span>
             <ChevronDown className="size-5 shrink-0" strokeWidth={2.25} />
           </button>
         )}
-        <ol className="fixed right-0 top-16 bottom-0 z-30 flex flex-col justify-center max-md:pb-16 md:right-1">
+        <ol className="fixed right-0 top-[4.5rem] bottom-0 z-30 flex flex-col justify-center max-md:pb-16 md:right-1">
           {stops.map((label, i) => (
             <li key={label}>
               <button
@@ -334,7 +439,7 @@ export function Storyboard({
                 <span
                   className={cn(
                     "block rounded-full transition-[width,height,background-color] duration-150 motion-reduce:transition-none",
-                    i === activeStop ? "size-3 bg-leaf" : film && index === 0 ? "size-2.5 bg-paper/70" : "size-2.5 bg-pine/35",
+                    i === activeStop ? "size-3 bg-lime" : index === 0 && !film ? "size-2.5 bg-paper/60" : "size-2.5 bg-pine/35",
                   )}
                 />
               </button>

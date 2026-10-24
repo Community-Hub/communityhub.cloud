@@ -1,5 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { HomeFeatures } from "@/components/home-features";
+import { AppLink } from "@/components/app-link";
 import { useEffect, useRef, useState } from "react";
 import { Chapter, useStory } from "@/components/storyboard";
 import { ProductSection } from "@/components/product-section";
@@ -8,6 +9,7 @@ import {
   type ProductBeat,
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
 
@@ -139,14 +141,11 @@ export function StoriesChapter() {
 
 
   return (
-    <Chapter label={copy.chapters.StoriesChapter.Chapter_label1} className={peek ? "bg-field text-ink" : "bg-pine text-paper"}>
-      <div className="flex h-full flex-col pt-16">
+    <Chapter label={copy.chapters.StoriesChapter.Chapter_label1} className={peek ? "bg-paper text-ink" : "bg-pine text-paper"}>
+      <div className="flex h-full flex-col">
         <div
           data-hero-film={peek ? "banner" : "film"}
-          className={cn(
-            "relative shrink-0 overflow-hidden transition-[height,flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-            peek ? "h-16 sm:h-36 md:h-[clamp(160px,26vh,290px)]" : "min-h-0 flex-1",
-          )}
+          className={cn("hero-film", peek ? "hero-film--banner" : "hero-film--full")}
         >
           <video
             ref={videoRef}
@@ -158,46 +157,74 @@ export function StoriesChapter() {
           >
             <source src="/assets/hero-ch-fwd-720.mp4" type="video/mp4" />
           </video>
-          <div className={cn("absolute inset-0", peek ? "bg-pine/55" : "bg-gradient-to-t from-pine/80 via-pine/55 to-pine/50")} />
-          <div className="relative z-10 flex h-full flex-col items-center justify-center gap-5 px-6 text-center max-md:pr-12">
-            <h1
-              className={cn(
-                "max-w-5xl text-balance font-display leading-tight text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,.55)]",
-                peek ? "max-sm:sr-only text-2xl md:text-4xl" : "text-[2rem] leading-[1.18] sm:text-4xl md:text-6xl",
-              )}
-            >{copy.chapters.StoriesChapter.h11}<br />{copy.chapters.StoriesChapter.h12}{" "}<span className="text-lime">{copy.chapters.StoriesChapter.span1}</span>{" "}{copy.chapters.StoriesChapter.h13}{" "}<span className="text-lime">{copy.chapters.StoriesChapter.span2}</span>
-            </h1>
-            {!peek && <p className="max-w-xl text-base leading-relaxed text-paper md:text-xl">Community Hub is a community-centered communication platform.</p>}
-          </div>
+          <div className="hero-scrim" />
+          {peek ? (
+            <div className="hero-banner">
+              <span className="font-display text-lg font-semibold tracking-[-0.03em] text-paper">Community Hub</span>
+              <span className="text-sm text-paper/65">Voices</span>
+            </div>
+          ) : (
+            <div className="hero-content">
+              <div className="hero-top">
+                <span>Oberlin, Ohio</span>
+                <span className="max-sm:hidden">Community-centered communication</span>
+              </div>
+              <div className="hero-bottom">
+                <div className="hero-copy">
+                  <h1>
+                    {copy.chapters.StoriesChapter.h11} {copy.chapters.StoriesChapter.h12}{" "}
+                    <span>{copy.chapters.StoriesChapter.span1}</span> {copy.chapters.StoriesChapter.h13}{" "}
+                    <span>{copy.chapters.StoriesChapter.span2}</span>.
+                  </h1>
+                  <p>
+                    Community Hub creates software products that foster stronger, more sustainable,
+                    and more resilient connections among people and the natural systems upon which we
+                    depend.
+                  </p>
+                  <div className="hero-actions">
+                    <AppLink href="/products" className="btn btn-light">Explore products and services</AppLink>
+                    <a href={site.contactHref} className="hero-text-link">Contact us</a>
+                  </div>
+                </div>
+                <div className="hero-aside max-lg:hidden">
+                  <p className="hero-aside-title">What we make</p>
+                  <ul>
+                    <li>Dashboards</li>
+                    <li>Digital signage</li>
+                    <li>Community calendar</li>
+                    <li>Community voices</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        {peek && <div className="h-[3px] shrink-0 bg-lime" />}
         {peek && <HomeFeatures />}
       </div>
     </Chapter>
   );
 }
 
-const WHO_ICONS = [
-  { src: "/assets/v1/CVicon.png" },
-  { src: "/assets/v1/CWD.png" },
-  { src: "/assets/v1/CH.png", hero: true },
-  { src: "/assets/v1/bdash.png" },
-  { src: "/assets/v1/calicon_v2.png" },
-] as const;
 
 export function WhoChapter() {
   const { index } = useStory();
   return (
-    <Chapter label={copy.chapters.WhoChapter.Chapter_label1} className="bg-white text-ink">
-      <div data-allow-scroll data-scroll-restoration-id="home-who" className="home-who wrap screen-pad h-full">
-        <div className="home-identity" data-animate={index === 1 ? "in" : "out"} aria-label="Community Hub">
-          {WHO_ICONS.map(icon => <img key={icon.src} src={icon.src} alt={"hero" in icon ? "Community Hub" : ""}
-            className={cn("home-identity-icon", "hero" in icon && "home-identity-center")} />)}
-        </div>
-        <div className="home-who-copy space-y-4">
-          <h2 className="t-h2 text-pine">Community Hub is a <span className="whitespace-nowrap">community-centered</span> communication platform.</h2>
-          <p className="home-mission" data-problem>{homeMission.problem}</p>
-          <p className="home-mission">{homeMission.solution}</p>
+    <Chapter label={copy.chapters.WhoChapter.Chapter_label1} className="bg-pine text-paper">
+      <div data-allow-scroll data-scroll-restoration-id="home-who" className="home-who">
+        <div className="home-who-inner">
+          <h2 className="home-who-title">
+            Community Hub is a community-centered communication platform.
+          </h2>
+          <div className="home-who-bottom">
+            <figure className="home-who-figure" data-animate={index === 1 ? "in" : "out"}>
+              <img src="/assets/oberlin-aerial.jpg.webp" alt="Aerial view of Oberlin, Ohio in autumn" width={780} height={439} />
+              <figcaption>Oberlin, Ohio · the community the platform grew up in</figcaption>
+            </figure>
+            <div className="home-who-copy">
+              <p className="home-mission" data-problem>{homeMission.problem}</p>
+              <p className="home-mission">{homeMission.solution}</p>
+            </div>
+          </div>
         </div>
       </div>
     </Chapter>
