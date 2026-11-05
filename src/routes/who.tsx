@@ -19,24 +19,37 @@ export const Route = createFileRoute("/who")({
   }),
 });
 
+import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+
 function Who() {
   const [id, setId] = useState(whoStops[0].id);
-  // A link like /who#schools opens that audience, on load and when the hash changes in the page.
   useEffect(() => {
-    const read = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (whoStops.some((stop) => stop.id === hash)) setId(hash);
+    const apply = (target: string) => {
+      if (whoStops.some((stop) => stop.id === target)) setId(target);
     };
-    read();
-    window.addEventListener("hashchange", read);
-    return () => window.removeEventListener("hashchange", read);
+    const initial = consumeNavigationTarget();
+    if (initial) apply(initial);
+    const onTarget = (event: Event) => {
+      const target = (event as CustomEvent<string>).detail;
+      consumeNavigationTarget();
+      if (target) apply(target);
+    };
+    const onHash = () => {
+      const target = consumeNavigationTarget();
+      if (target) apply(target);
+    };
+    window.addEventListener("ch:target", onTarget);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("ch:target", onTarget);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, []);
   const at = Math.max(0, whoStops.findIndex((stop) => stop.id === id));
   const stop = whoStops[at];
   const pick = (next: number) => {
     const item = whoStops[(next + whoStops.length) % whoStops.length];
     setId(item.id);
-    history.replaceState(null, "", `#${item.id}`);
   };
   const pickRef = useRef(pick);
   pickRef.current = pick;

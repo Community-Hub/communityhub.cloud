@@ -2,7 +2,6 @@ import { pc } from "@/lib/page-content";
 import { copy } from "@/lib/copy";
 import { site } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
 import {
   EducateChapter,
   EngageChapter,
@@ -39,11 +38,6 @@ const hero = copy.chapters.StoriesChapter;
 const heroName = [hero.h11, hero.h12, hero.span1, hero.h13, hero.span2].join(" ");
 
 function Home() {
-  useEffect(() => {
-    if (window.location.hash.startsWith("#orb")) {
-      window.location.hash = "#educate/building";
-    }
-  }, []);
   return (
     <Storyboard lead={heroName} labels={HOME_LABELS} ids={HOME_IDS}>
       <StoriesChapter />

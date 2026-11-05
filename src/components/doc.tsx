@@ -3,6 +3,7 @@ import { Children, cloneElement, isValidElement, useEffect } from "react";
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { siteIndex } from "@/lib/site-registry";
 import { imageSize } from "@/lib/image-dimensions";
+import { consumeNavigationTarget } from "@/lib/use-hash-stops";
 import { SiteFooter } from "@/components/site-footer";
 import { cn } from "@/lib/utils";
 
@@ -19,17 +20,31 @@ export function DocShell({ stops, children }: { stops: readonly DocStop[]; child
   const shownStops = aligned ? stops.filter((_, i) => keep[i]) : stops;
 
   useEffect(() => {
-    const scrollToHash = () => {
-      const hash = window.location.hash.slice(1);
-      if (!hash) return;
-      const el = document.getElementById(hash);
+    const scrollToTarget = (target: string) => {
+      if (!target) return;
+      const el = document.getElementById(target);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     };
-    scrollToHash();
-    window.addEventListener("hashchange", scrollToHash);
-    return () => window.removeEventListener("hashchange", scrollToHash);
+    const initial = consumeNavigationTarget();
+    if (initial) scrollToTarget(initial);
+
+    const onTarget = (event: Event) => {
+      const target = (event as CustomEvent<string>).detail;
+      consumeNavigationTarget();
+      if (target) scrollToTarget(target);
+    };
+    const onHash = () => {
+      const target = consumeNavigationTarget();
+      if (target) scrollToTarget(target);
+    };
+    window.addEventListener("ch:target", onTarget);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("ch:target", onTarget);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, [pathname]);
 
   return (

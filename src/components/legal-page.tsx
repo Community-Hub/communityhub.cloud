@@ -1,7 +1,8 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { AppLink } from "@/components/app-link";
 import { SiteFooter } from "@/components/site-footer";
 import { legal } from "@/lib/legal";
+import { consumeNavigationTarget } from "@/lib/use-hash-stops";
 
 export type LegalSection = {
   id: string;
@@ -25,6 +26,12 @@ export function LegalPage({
   intro: string;
   sections: LegalSection[];
 }) {
+  useEffect(() => {
+    const target = consumeNavigationTarget();
+    if (target) {
+      document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
   return (
     <main className="min-h-dvh bg-field text-ink">
       <div className="border-b border-pine/15 bg-paper">
@@ -61,10 +68,24 @@ export function LegalPage({
             <ol className="mt-3 space-y-2 border-l border-line pl-4 t-small">
               {sections.map((section) => (
                 <li key={section.id}>
-                  <a href={`#${section.id}`} className="hover:text-pine">{section.title}</a>
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                    className="text-left hover:text-pine"
+                  >
+                    {section.title}
+                  </button>
                 </li>
               ))}
-              <li><a href="#contact" className="hover:text-pine">Contact us</a></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="text-left hover:text-pine"
+                >
+                  Contact us
+                </button>
+              </li>
             </ol>
             <div className="mt-8 rounded-md border border-line bg-paper p-3">
               <p className="t-small font-bold text-pine">Questions?</p>
@@ -76,16 +97,40 @@ export function LegalPage({
           </div>
         </aside>
 
-        <article className="min-w-0 max-w-[46rem]">
+        <article
+          className="min-w-0 max-w-[46rem]"
+          onClick={(e) => {
+            const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+            if (!anchor) return;
+            const id = anchor.getAttribute("href")?.slice(1);
+            if (!id) return;
+            e.preventDefault();
+            document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+        >
           <details className="mb-6 rounded-md border border-line bg-paper p-3 md:hidden">
             <summary className="cursor-pointer font-bold text-pine">On this page</summary>
             <ol className="mt-2 grid gap-1 t-small">
               {sections.map((section) => (
                 <li key={section.id}>
-                  <a href={`#${section.id}`} className="hover:text-pine">{section.title}</a>
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                    className="text-left hover:text-pine"
+                  >
+                    {section.title}
+                  </button>
                 </li>
               ))}
-              <li><a href="#contact" className="hover:text-pine">Contact us</a></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="text-left hover:text-pine"
+                >
+                  Contact us
+                </button>
+              </li>
             </ol>
           </details>
 

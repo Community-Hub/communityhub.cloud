@@ -1,4 +1,3 @@
-import { useRouterState } from "@tanstack/react-router";
 import { HomeFeatures } from "@/components/home-features";
 import { useEffect, useRef, useState } from "react";
 import { Chapter, useStory } from "@/components/storyboard";
@@ -23,21 +22,20 @@ function Pillar({
   className: string;
 }) {
   const { index, hashBeat, reportBeat } = useStory();
-  const example = useRouterState({ select: s => s.location.hash.split("/")[2] ?? "" });
+  const [beatId = "", example = ""] = hashBeat.split("/");
   const [beat, setBeat] = useState(0);
   const active = index === chapter;
   const wanted = useRef<number | null>(null);
 
-  // "#educate/harkness" opens that beat; the visible beat is written back so Back returns to it.
   useEffect(() => {
-    if (!active || !hashBeat) return;
-    const i = beats.findIndex((item) => item.id === hashBeat);
+    if (!active || !beatId) return;
+    const i = beats.findIndex((item) => item.id === beatId);
     if (i >= 0 && i !== beat) {
       wanted.current = i;
       setBeat(i);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active, hashBeat]);
+  }, [active, beatId]);
   useEffect(() => {
     if (!active) return;
     if (wanted.current !== null) {
@@ -45,21 +43,21 @@ function Pillar({
       wanted.current = null;
     }
     const id = beats[beat]?.id;
-    if (id) reportBeat(chapter, id === hashBeat && example ? `${id}/${example}` : id);
+    if (id) reportBeat(chapter, id === beatId && example ? `${id}/${example}` : id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, beat]);
 
   return (
     <Chapter label={kicker} className={className}>
       <ProductSection home title={kicker} items={beats} active={beat} onActive={setBeat}
-        openExample={active && beats[beat]?.id === hashBeat ? example : undefined}
+        openExample={active && beats[beat]?.id === beatId ? example : undefined}
         onExample={slug => reportBeat(chapter, `${beats[beat].id}/${slug}`)} />
     </Chapter>
   );
 }
 
 export function StoriesChapter() {
-  const { index, register, reportBeat } = useStory();
+  const { index, register, hashBeat, reportBeat } = useStory();
   const videoRef = useRef<HTMLVideoElement>(null);
   const peekRef = useRef(false);
   const returnedRef = useRef(false);
@@ -75,7 +73,7 @@ export function StoriesChapter() {
     }
     peekRef.current = true;
     setPeek(true);
-    if (!window.location.hash) reportBeat(0, "quote-0");
+    if (!hashBeat) reportBeat(0, "quote-0");
   };
 
   /** Brings the full-screen film back (the first rail dot, Home, or a step up from the stories). */

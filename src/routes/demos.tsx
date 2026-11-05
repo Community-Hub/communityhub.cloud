@@ -80,24 +80,37 @@ function ItemCards({ label, noun, items }: { label: string; noun: string; items:
   );
 }
 
+import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+
 function Demos() {
   const [id, setId] = useState(demos[0].id);
-  // A link like /demos#oberlin opens that place, on load and when the hash changes in the page.
   useEffect(() => {
-    const read = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (demos.some((demo) => demo.id === hash)) setId(hash);
+    const apply = (target: string) => {
+      if (demos.some((demo) => demo.id === target)) setId(target);
     };
-    read();
-    window.addEventListener("hashchange", read);
-    return () => window.removeEventListener("hashchange", read);
+    const initial = consumeNavigationTarget();
+    if (initial) apply(initial);
+    const onTarget = (event: Event) => {
+      const target = (event as CustomEvent<string>).detail;
+      consumeNavigationTarget();
+      if (target) apply(target);
+    };
+    const onHash = () => {
+      const target = consumeNavigationTarget();
+      if (target) apply(target);
+    };
+    window.addEventListener("ch:target", onTarget);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("ch:target", onTarget);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, []);
   const at = Math.max(0, demos.findIndex((item) => item.id === id));
   const demo = demos[at];
   const pick = (next: number) => {
     const item = demos[(next + demos.length) % demos.length];
     setId(item.id);
-    history.replaceState(null, "", `#${item.id}`);
   };
   // A sideways swipe on the card moves between places, like the other sliders.
   const figureRef = useRef<HTMLElement>(null);

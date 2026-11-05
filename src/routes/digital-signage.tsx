@@ -143,32 +143,52 @@ export const Route = createFileRoute("/digital-signage")({
   }),
 });
 
+import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+
 function DigitalSignage() {
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (!hash) return;
-    let targetId = hash;
-    if (
-      hash === "from-a-post-to-the-screen" ||
-      hash === "how-phone-control-works" ||
-      hash === "phone" ||
-      hash === "use-phone" ||
-      hash === "use-your-phone"
-    ) {
-      targetId = "try-the-phone";
-    } else if (hash === "dave-s-market" || hash === "what-the-screen-shows") {
-      targetId = "community-and-local-content";
-    } else if (
-      hash === "oberlin" ||
-      hash === "cleveland-and-campus" ||
-      hash === "where-screens-are"
-    ) {
-      targetId = "digital-signage";
-    }
-    const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    const applyTarget = (hash: string) => {
+      if (!hash) return;
+      let targetId = hash;
+      if (
+        hash === "from-a-post-to-the-screen" ||
+        hash === "how-phone-control-works" ||
+        hash === "phone" ||
+        hash === "use-phone" ||
+        hash === "use-your-phone"
+      ) {
+        targetId = "try-the-phone";
+      } else if (hash === "dave-s-market" || hash === "what-the-screen-shows") {
+        targetId = "community-and-local-content";
+      } else if (
+        hash === "oberlin" ||
+        hash === "cleveland-and-campus" ||
+        hash === "where-screens-are"
+      ) {
+        targetId = "digital-signage";
+      }
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+    const initial = consumeNavigationTarget();
+    if (initial) applyTarget(initial);
+    const onTarget = (event: Event) => {
+      const target = (event as CustomEvent<string>).detail;
+      consumeNavigationTarget();
+      if (target) applyTarget(target);
+    };
+    const onHash = () => {
+      const target = consumeNavigationTarget();
+      if (target) applyTarget(target);
+    };
+    window.addEventListener("ch:target", onTarget);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("ch:target", onTarget);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, []);
 
   return (

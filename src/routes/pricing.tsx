@@ -41,24 +41,37 @@ function BundleCard({ bundle }: { bundle: (typeof bundles)[number] }) {
   );
 }
 
+import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+
 function Pricing() {
   const [id, setId] = useState(bundles[0].id);
-  // A link like /pricing#data opens that bundle, on load and when the hash changes in the page.
   useEffect(() => {
-    const read = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (bundles.some((bundle) => bundle.id === hash)) setId(hash);
+    const apply = (target: string) => {
+      if (bundles.some((bundle) => bundle.id === target)) setId(target);
     };
-    read();
-    window.addEventListener("hashchange", read);
-    return () => window.removeEventListener("hashchange", read);
+    const initial = consumeNavigationTarget();
+    if (initial) apply(initial);
+    const onTarget = (event: Event) => {
+      const target = (event as CustomEvent<string>).detail;
+      consumeNavigationTarget();
+      if (target) apply(target);
+    };
+    const onHash = () => {
+      const target = consumeNavigationTarget();
+      if (target) apply(target);
+    };
+    window.addEventListener("ch:target", onTarget);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("ch:target", onTarget);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, []);
   const at = Math.max(0, bundles.findIndex((bundle) => bundle.id === id));
   const bundle = bundles[at];
   const pick = (next: number) => {
     const item = bundles[(next + bundles.length) % bundles.length];
     setId(item.id);
-    history.replaceState(null, "", `#${item.id}`);
   };
   const pickRef = useRef(pick);
   pickRef.current = pick;

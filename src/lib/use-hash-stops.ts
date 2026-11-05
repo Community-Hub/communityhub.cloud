@@ -1,12 +1,46 @@
-import { useRouter, useRouterState } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+
+let pendingTarget = "";
+let activeDetail = "";
+const detailListeners = new Set<() => void>();
+
+function setDetailInternal(next: string) {
+  if (activeDetail === next) return;
+  activeDetail = next;
+  detailListeners.forEach((fn) => fn());
+}
 
 /**
- * Keeps a pager's current stop and the URL hash in step.
- * - the hash opens its stop on load, on Link navigation and on Back/Forward
- * - settling on a stop rewrites the hash with replace, so Back leaves the page instead of walking stops
- * Hash form: "#stop" or "#stop/detail".
+ * Records an in-page navigation target (chapter, tab, or section id) in memory
+ * so internal navigation never dirties the browser URL with a `#fragment`.
  */
+export function setNavigationTarget(target: string) {
+  const cleaned = target.replace(/^#/, "");
+  pendingTarget = cleaned;
+  if (typeof window !== "undefined" && cleaned) {
+    window.dispatchEvent(new CustomEvent("ch:target", { detail: cleaned }));
+  }
+}
+
+/**
+ * Reads and clears any pending navigation target (or strips an initial URL `#hash`
+ * from the address bar and returns its value).
+ */
+export function consumeNavigationTarget(): string {
+  let target = pendingTarget;
+  pendingTarget = "";
+  if (typeof window !== "undefined" && window.location.hash) {
+    const rawHash = window.location.hash.replace(/^#/, "");
+    if (!target) target = rawHash;
+    window.history.replaceState(
+      window.history.state,
+      "",
+      window.location.pathname + window.location.search,
+    );
+  }
+  return target;
+}
+
 /**
  * Stops that hold a run of items are named by their first item ("lessons-from-19"; the first stop is just "lessons"),
  * so a link survives a different split. A name the current split lacks resolves to the stop holding that item.
@@ -30,67 +64,71 @@ export function stopIndex(ids: readonly string[], stop: string) {
 }
 
 export function useHashStops({ ids, index, go }: { ids: readonly string[]; index: number; go: (i: number) => void }) {
-  const router = useRouter();
-  const hash = useRouterState({ select: (s) => s.location.hash });
-  const pending = useRef<number | null>(null);
-  const [stop, detail = ""] = hash.split("/");
+  const [detail, setDetail] = useState(activeDetail);
 
   useEffect(() => {
-    const i = stopIndex(ids, stop);
-    if (i >= 0 && i !== index) {
-      pending.current = i;
-      go(i);
-    }
-    // Also re-read when the stops themselves change (a split that settles after a deep link was read).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stop, ids.join("|")]);
+    const sync = () => setDetail(activeDetail);
+    detailListeners.add(sync);
+    return () => {
+      detailListeners.delete(sync);
+    };
+  }, []);
 
   useEffect(() => {
-    if (pending.current !== null) {
-      if (pending.current !== index) return;
-      pending.current = null;
-    }
-    if (!ids[index]) return; // the position is past the stops; the pager is about to clamp it
-    const current = router.state.location.hash.split("/")[0];
-    if (current === ids[index] || (index === 0 && !current)) return;
-    // "/demos#glsc" names something inside the first stop; leave it for that stop to read.
-    if (index === 0 && stopIndex(ids, current) < 0) return;
-    void router.navigate({
-      // The current path, not ".": on a page that matches no route "." resolves to the home page.
-      to: router.state.location.pathname,
-      hash: ids[index],
-      replace: true,
-      hashScrollIntoView: false,
-      resetScroll: false,
-    } as never);
+    const applyTarget = (raw: string) => {
+      if (!raw) return;
+      const normalized = raw.startsWith("orb") && ids.includes("educate") ? "educate/building" : raw;
+      const [stop, ...rest] = normalized.split("/");
+      const nextDetail = rest.join("/");
+      const i = stopIndex(ids, stop);
+      if (i >= 0) {
+        if (i !== index) go(i);
+        setDetailInternal(nextDetail);
+      } else if (stop) {
+        setDetailInternal(normalized);
+      }
+    };
+
+    const initial = consumeNavigationTarget();
+    if (initial) applyTarget(initial);
+
+    const onTarget = (event: Event) => {
+      const target = (event as CustomEvent<string>).detail;
+      consumeNavigationTarget();
+      if (target) applyTarget(target);
+    };
+    const onHashChange = () => {
+      const hashTarget = consumeNavigationTarget();
+      if (hashTarget) applyTarget(hashTarget);
+    };
+
+    window.addEventListener("ch:target", onTarget);
+    window.addEventListener("hashchange", onHashChange);
+    return () => {
+      window.removeEventListener("ch:target", onTarget);
+      window.removeEventListener("hashchange", onHashChange);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, ids[index]]);
+  }, [ids.join("|")]);
 
   return detail;
 }
 
-/** Writes "#stop/detail" without moving the stop. */
+/** Updates the active beat/detail in memory without writing a `#` hash to the browser URL. */
 export function useWriteDetail() {
-  const router = useRouter();
-  return (stop: string, detail: string) => {
-    if (router.state.location.hash === `${stop}/${detail}`) return;
-    void router.navigate({
-      // The current path, not ".": on a page that matches no route "." resolves to the home page.
-      to: router.state.location.pathname,
-      hash: `${stop}/${detail}`,
-      replace: true,
-      hashScrollIntoView: false,
-      resetScroll: false,
-    } as never);
+  return (_stop: string, detail: string) => {
+    setDetailInternal(detail);
   };
 }
 
-/**
- * The example or tab the address names: "#stop/detail", or a bare "#detail" that is not a stop
- * (older links such as "/demos#glsc" and "/building-dashboard#kahn-hall").
- */
-export function useOpenId(ids: readonly string[]) {
-  const hash = useRouterState({ select: (s) => s.location.hash });
-  const [stop, detail = ""] = hash.split("/");
-  return detail || (stop && !ids.includes(stop) ? stop : "");
+export function useOpenId(_ids: readonly string[]) {
+  const [detail, setDetail] = useState(activeDetail);
+  useEffect(() => {
+    const sync = () => setDetail(activeDetail);
+    detailListeners.add(sync);
+    return () => {
+      detailListeners.delete(sync);
+    };
+  }, []);
+  return detail;
 }

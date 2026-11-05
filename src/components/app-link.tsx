@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { parseHref } from "@/lib/links";
+import { setNavigationTarget } from "@/lib/use-hash-stops";
 
-// Internal hrefs go through the router (no reload, Back works); everything else is a plain anchor.
+// Internal hrefs go through the router (no reload, Back works, no # in URL); everything else is a plain anchor.
 export function AppLink({
   href,
   className,
@@ -30,9 +31,11 @@ export function AppLink({
     <Link
       // Paths come from content tables, so they cannot be checked against the route tree at compile time.
       to={parsed.to as never}
-      hash={parsed.hash}
       className={className}
-      onClick={onClick}
+      onClick={() => {
+        if (parsed.hash) setNavigationTarget(parsed.hash);
+        onClick?.();
+      }}
       {...rest}
     >
       {children}
