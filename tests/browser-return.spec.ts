@@ -12,7 +12,7 @@ test('Back restores the exact testimonial after following its link', async ({pag
   await box.getByRole('button',{name:'Next story'}).click();
   await expect(box).toHaveAttribute('data-index','1');
   const left=page.url();
-  await box.getByRole('link',{name:'Teacher toolkit',exact:true}).click();
+  await box.getByRole('link',{name:'Teacher Toolkit',exact:true}).click();
   await expect(page).toHaveURL(/\/toolkit/);
   await page.goBack();
   await expect(page).toHaveURL(left);

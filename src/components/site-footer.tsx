@@ -2,13 +2,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { AppLink } from "@/components/app-link";
 import { Chapter } from "@/components/storyboard";
+import { bundles } from "@/lib/pricing";
+import { quoteHref } from "@/lib/links";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { whoStops } from "@/lib/who";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
 export const FOOTER = pc.siteFooter.FOOTER;
 const DOORS = pc.siteFooter.DOORS;
+
+const FOOTER_TABS = [
+  { id: "contact", label: "Contact Us" },
+  { id: "who", label: "Who It’s For" },
+  { id: "pricing", label: "Pricing" },
+] as const;
 
 export function SiteFooter() {
   return (
@@ -56,7 +65,8 @@ export function SiteFooter() {
 export function FooterChapter({ className = "bg-field text-ink" }: { className?: string }) {
   const scroller = useRef<HTMLDivElement>(null);
   const [more, setMore] = useState(false);
-  // A fade and chevron show while there is more footer below; they go once it is all in view.
+  const [activeTab, setActiveTab] = useState<(typeof FOOTER_TABS)[number]["id"]>("contact");
+
   const check = useCallback(() => {
     const el = scroller.current;
     if (el) setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 40);
@@ -65,28 +75,161 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
-  }, [check]);
+  }, [check, activeTab]);
+
   return (
     <Chapter label={copy.siteFooter.FooterChapter.Chapter_label1} className={className}>
       <div ref={scroller} onScroll={check} data-allow-scroll className="scroll-visible relative h-full">
-        {/* The last stop has no Next button, so it needs no room under it. */}
-        <div className="wrap screen-pad pb-8! max-md:pt-[calc(var(--header-h)+0.75rem)] max-sm:pb-3!">
-          <h2 className="t-h2">{copy.siteFooter.FooterChapter.h21}</h2>
-          <p className="mt-1 t-lede max-sm:t-small">{copy.siteFooter.FooterChapter.p1}</p>
-          <p className="mt-2 max-w-2xl t-body max-sm:hidden">{copy.siteFooter.FooterChapter.p2}</p>
-          <div className="mt-1 flex flex-wrap items-center gap-x-6 max-sm:gap-x-4 max-sm:t-small sm:mt-2">
-            <a href={site.contactHref} className="link inline-flex min-h-11 items-center font-bold max-sm:min-h-10 short:min-h-9">{copy.siteFooter.FooterChapter.a1}</a>
-            <ul data-footer-doors aria-label={copy.siteFooter.FooterChapter.ul_aria_label1} className="flex flex-wrap gap-x-6 max-sm:gap-x-4">
-              {DOORS.map((door) => (
-                <li key={door.label}>
-                  <AppLink href={door.href} className="link inline-flex min-h-11 items-center max-sm:min-h-10 short:min-h-9">
-                    {door.label}
-                  </AppLink>
-                </li>
-              ))}
-            </ul>
+        <div className="wrap screen-pad pb-8! max-md:pt-[calc(var(--header-h)+1.25rem)] max-sm:pb-6!">
+          <h2 className="t-h2 text-pine">{copy.siteFooter.FooterChapter.h21}</h2>
+          <div
+            role="tablist"
+            aria-label={copy.siteFooter.FooterChapter.h21}
+            className="mt-2 flex flex-wrap gap-x-6 gap-y-1 border-b border-line"
+          >
+            {FOOTER_TABS.map((tab) => {
+              const selected = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={cn(
+                    "-mb-px min-h-11 border-b-2 pb-2 t-body transition-colors",
+                    selected
+                      ? "border-pine font-bold text-pine"
+                      : "border-transparent text-ink/70 hover:text-pine",
+                  )}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
-          <div className="mt-1 sm:mt-4">
+
+          <div
+            role="tabpanel"
+            className="mt-4 rounded-2xl border border-line bg-paper p-5 shadow-xs md:p-6"
+          >
+            {activeTab === "contact" && (
+              <div className="grid items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] md:gap-8">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2.5">
+                    <img src="/assets/icon-ch.png" alt="" className="size-8 shrink-0 object-contain" />
+                    <h3 className="t-h3 text-pine">{copy.siteFooter.FooterChapter.a1}</h3>
+                  </div>
+                  <p className="mt-3 font-semibold t-body text-pine">{copy.siteFooter.FooterChapter.p1}</p>
+                  <p className="mt-2 t-body text-ink/85">{copy.siteFooter.FooterChapter.p2}</p>
+                  <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
+                    <a
+                      href={site.contactHref}
+                      className="inline-flex min-h-11 items-center rounded-md bg-pine px-4 py-2 font-bold text-paper transition-colors hover:bg-pine/90"
+                    >
+                      {copy.siteFooter.FooterChapter.a1}
+                    </a>
+                    <ul
+                      data-footer-doors
+                      aria-label={copy.siteFooter.FooterChapter.ul_aria_label1}
+                      className="flex flex-wrap gap-x-6 gap-y-1"
+                    >
+                      {DOORS.map((door) => (
+                        <li key={door.label}>
+                          <AppLink
+                            href={door.href}
+                            className="link inline-flex min-h-11 items-center font-bold"
+                          >
+                            {door.label}
+                          </AppLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <figure className="min-w-0 overflow-hidden rounded-lg border border-line bg-field/40">
+                  <img
+                    src="/assets/live-contact-workshop.jpg"
+                    alt="Community Hub workshop with community partners in front of a dashboard display"
+                    className="max-h-64 w-full object-cover object-center md:max-h-72"
+                  />
+                </figure>
+              </div>
+            )}
+
+            {activeTab === "who" && (
+              <div className="grid items-start gap-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.45fr)] md:gap-8">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2.5">
+                    <img src="/assets/icon-cities.png" alt="" className="size-8 shrink-0 object-contain" />
+                    <h3 className="t-h3 text-pine">Who It’s For</h3>
+                  </div>
+                  <p className="mt-3 t-body text-ink/85">
+                    Community Hub serves neighborhoods, cities, public schools, colleges and universities, and science centers and museums working to connect people with local resources and each other.
+                  </p>
+                  <p className="mt-4">
+                    <AppLink href="/who" className="link font-bold">
+                      Explore All Audiences
+                    </AppLink>
+                  </p>
+                </div>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {whoStops.map((stop) => (
+                    <li
+                      key={stop.id}
+                      className="rounded-lg border border-line bg-field/45 p-3.5 transition-colors hover:border-pine/50"
+                    >
+                      <AppLink href={`/who#${stop.id}`} className="font-display font-bold text-pine underline underline-offset-4">
+                        {stop.name}
+                      </AppLink>
+                      <p className="mt-1 text-xs leading-relaxed text-ink/80">{stop.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {activeTab === "pricing" && (
+              <div className="grid items-start gap-6 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)] md:gap-8">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2.5">
+                    <img src="/assets/icon-signage.png" alt="" className="size-8 shrink-0 object-contain" />
+                    <h3 className="t-h3 text-pine">Pricing &amp; Bundles</h3>
+                  </div>
+                  <p className="mt-3 t-body text-ink/85">{site.pricingLede}</p>
+                  <p className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                    <AppLink href="/pricing" className="link font-bold">
+                      View Full Pricing &amp; FAQ
+                    </AppLink>
+                    <a href={site.contactHref} className="link font-bold">
+                      Request a Quote
+                    </a>
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {bundles.map((bundle) => (
+                    <div key={bundle.id} className="flex flex-col justify-between rounded-lg border border-line bg-field/45 p-3.5">
+                      <div>
+                        <h4 className="font-display text-base font-bold text-pine">{bundle.name} Bundle</h4>
+                        <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-ink/85">
+                          {bundle.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <p className="mt-3 pt-2 border-t border-line/60">
+                        <AppLink href={quoteHref(`${bundle.name} bundle`)} className="text-xs font-bold text-pine underline underline-offset-4">
+                          Inquire about {bundle.name}
+                        </AppLink>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-5 border-t border-line pt-4">
             <SiteFooter />
           </div>
         </div>

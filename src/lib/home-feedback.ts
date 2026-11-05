@@ -16,12 +16,16 @@ export function homeEducateBeats(): ProductBeat[] {
         caption: "Explore Harkness Co-op’s building dashboard. Scroll inside the dashboard to see its charts.",
       }, {
         title: placeTitle("Oberlin Public Schools", "Oberlin Elementary School"),
-        place: "Oberlin Public Schools", sublocation: "Oberlin Elementary School",
-        embed: "https://oberlin.communityhub.cloud/dh-public/ops/dashboard/529", nativeSize: true,
+        place: "Oberlin Public Schools",
+        sublocation: "Oberlin Elementary School",
+        embed: "https://oberlin.communityhub.cloud/dh-public/ops/dashboard/529",
+        nativeSize: true,
         caption: "Oberlin Elementary School’s published resource-use dashboard. Scroll inside to see its charts.",
       }, {
-        title: "Great Lakes Science Center", place: "Great Lakes Science Center",
-        embed: "https://cleveland.communityhub.cloud/dh-public/glsc/dashboard/953", nativeSize: true,
+        title: "Great Lakes Science Center",
+        place: "Great Lakes Science Center",
+        embed: "https://cleveland.communityhub.cloud/dh-public/glsc/dashboard/953",
+        nativeSize: true,
         caption: "The Science Center Building dashboard. Scroll inside to see its charts.",
       }] };
     }
@@ -38,26 +42,52 @@ export function homeEducateBeats(): ProductBeat[] {
       { ...item.frames[0], title: "Data Hub – Variables and visualization settings", caption: "Recorded interface: Variables, Customize, Curve Smoothing / Rolling Average and Style." },
       { title: placeTitle("City of Oberlin", "Whole City Electricity Use"), embed: getEmbed("datahub", "heat-map").src, caption: "Whole City Electricity Use – heat map" },
     ] };
-    if (item.id === "stories") return { ...item,
-      frames: [{ title: placeTitle("Oberlin College", "Heating & Cooling"),
-        embed: "https://docs.google.com/presentation/d/1Wa8Gp961gxbfIDkMCCQL0MKcQSpjpU74D8lO0HezmiY/embed?start=true&loop=true&delayms=4000",
-        caption: "SIP Geothermal Heating and Cooling Story", presentation: true,
-        aliases: ["oberlin-college-carbon-neutral-stories"],
-      }, {
-        title: placeTitle("City of Oberlin", "Climate Action Plan"),
-        embed: "https://docs.google.com/presentation/d/1QFoq6mtnCp7EWP0b8p506PQu8pQBBsbo7gH6C-R6Bcs/embed?start=true&loop=true&delayms=4000",
-        caption: "Oberlin CAP Presentation", presentation: true,
-      }, {
-        title: placeTitle("Oberlin Public Schools", "Energy Use"),
-        embed: "https://docs.google.com/presentation/d/17K42YFGB2TmlJNjSh-Cm9iHRsUb9O5taN6F07zECXBQ/embed?start=true&loop=true&delayms=4000",
-        caption: "OCSD Energy Use Story", presentation: true,
-      }, {
-        title: placeTitle("Great Lakes Science Center", "Climate"),
-        src: "/assets/source-previews/glsc-stories-climate-original.png",
-        alt: "Great Lakes Science Center climate story: The greenhouse effect controls climate",
-        caption: "Original climate-story frame; recorded preview.", fit: "contain",
-      }],
-    };
+    if (item.id === "stories") {
+      const storyLegend = "Use bottom controls to navigate through a story. Use arrows in the slide to view other stories.";
+      return { ...item,
+        frames: [{
+          title: placeTitle("Oberlin College", "Heating & Cooling Story"),
+          embed: "https://docs.google.com/presentation/d/1Wa8Gp961gxbfIDkMCCQL0MKcQSpjpU74D8lO0HezmiY/embed?start=true&loop=true&delayms=7000#slide=1",
+          caption: "SIP Geothermal Heating and Cooling Story",
+          legend: storyLegend,
+          presentation: true,
+          aliases: ["oberlin-college-carbon-neutral-stories", "oberlin-college-heating-cooling"],
+        }, {
+          title: placeTitle("City of Oberlin", "Climate Action Plan Story"),
+          embed: "https://docs.google.com/presentation/d/1QFoq6mtnCp7EWP0b8p506PQu8pQBBsbo7gH6C-R6Bcs/embed?start=true&loop=true&delayms=7000#slide=1",
+          caption: "Oberlin CAP Presentation",
+          legend: storyLegend,
+          presentation: true,
+          aliases: ["city-of-oberlin-climate-action-plan"],
+        }, {
+          title: placeTitle("Oberlin Public Schools", "Energy Use Story"),
+          embed: "https://docs.google.com/presentation/d/17K42YFGB2TmlJNjSh-Cm9iHRsUb9O5taN6F07zECXBQ/embed?start=true&loop=true&delayms=7000#slide=1",
+          caption: "OCSD Energy Use Story",
+          legend: storyLegend,
+          presentation: true,
+          aliases: ["oberlin-public-schools-energy-use"],
+        }, {
+          title: placeTitle("Great Lakes Science Center", "Climate Story"),
+          embed: "https://docs.google.com/presentation/d/1VdppDivGwcZ_4hn66WPBYkVR7Ue9_ESm8RRzBYAt--0/embed?start=true&loop=true&delayms=7000#slide=1",
+          caption: "Great Lakes Science Center Climate Story",
+          legend: storyLegend,
+          presentation: true,
+          aliases: ["great-lakes-science-center-climate"],
+        }, {
+          title: placeTitle("Great Lakes Science Center", "Our Lake Story"),
+          embed: "https://docs.google.com/presentation/d/1Az60BMTNbkAAKCN6XwqaT1jmivvAqzH7bNprnOLQv94/embed?start=true&loop=true&delayms=7000#slide=1",
+          caption: "Great Lakes Science Center Our Lake Story",
+          legend: storyLegend,
+          presentation: true,
+        }, {
+          title: placeTitle("Oberlin College", "Water Story"),
+          embed: "https://docs.google.com/presentation/d/17GMrrBh083wuFLHhCZ57PVLhSsNF1-ioQQ4_Lra2lf4/embed?start=true&loop=true&delayms=7000#slide=1",
+          caption: "Oberlin College Water Story",
+          legend: storyLegend,
+          presentation: true,
+        }],
+      };
+    }
     return item;
   });
 }
@@ -95,12 +125,12 @@ export function homeEngageBeats(): ProductBeat[] {
   return engageBeats.map((item) => item.id === "signage" ? { ...item, frames: [...item.frames.filter(frame => frame.src !== "/assets/hotel-oberlin-sign.jpg" && frame.src !== "/assets/eng-sign-daves-full.jpg").map(frame =>
     frame.src === "/assets/platform-explanation/interactive-signage.jpg" || frame.src === "/assets/hotel-oberlin-sign.jpg"
       ? { ...frame, title: placeTitle("City of Oberlin", "Hotel at Oberlin"), place: "City of Oberlin" as const, sublocation: "Hotel at Oberlin", aliases: [...(frame.aliases ?? []), "oberlin-hotel-at-oberlin"] } : frame), ...signagePartners] }
-    : item.id === "embed" ? { ...item, frames: [{ title: "MidTown Cleveland – Events website", embed: getEmbed("calendar", "midtown-calendar").src, caption: "Live community calendar embedded on MidTown Cleveland’s events website." }, ...item.frames.map(frame => frame.embed === getEmbed("dashboards", "oberlin-city-schools").src ? {
+    : item.id === "embed" ? { ...item, frames: [{ title: "MidTown Cleveland – Events website", embed: getEmbed("calendar", "midtown-calendar").src, partnerHeader: "/assets/eng-midtown-events.jpg", caption: "Live community calendar embedded on MidTown Cleveland’s events website." }, ...item.frames.map(frame => frame.embed === getEmbed("dashboards", "oberlin-city-schools").src ? {
       ...frame,
-      embed: "https://oberlin.communityhub.cloud/dh-public/ops/dashboard/529",
-      title: placeTitle("Oberlin Public Schools", "Oberlin Elementary School"),
-      aliases: ["oberlin-public-schools-environmental-dashboard"],
-      caption: "Oberlin Elementary School’s live dashboard, without the surrounding site navigation.",
+      embed: getEmbed("dashboards", "oberlin-city-schools").src,
+      title: placeTitle("Oberlin Public Schools", "Environmental dashboard"),
+      aliases: ["oberlin-public-schools-environmental-dashboard", "oberlin-public-schools-oberlin-elementary-school"],
+      caption: "Oberlin Public Schools’ live environmental dashboard embedded in the district website.",
     } : frame),
       { title: placeTitle("Oberlin College", "Environmental dashboard"), embed: "https://oberlin.communityhub.cloud/dh-public/oc-embed", caption: "Oberlin College’s published web embeddable." },
       { title: placeTitle("Great Lakes Science Center", "Environmental dashboard"), embed: getEmbed("dashboards", "great-lakes-science-center").src, caption: "Great Lakes Science Center’s published web embeddable." },
@@ -114,16 +144,57 @@ export function homeEngageBeats(): ProductBeat[] {
 }
 
 // Oct 7 pp. 14-15: real filtered Voices and the calendar's native branded header/carousel.
-export const homeCalendar = {
-  title: placeTitle("MidTown Cleveland", "Community Calendar"),
+export const homeCalendar: ProductBeat["frames"][number] = {
+  title: placeTitle("MidTown Cleveland", "Community Calendar on Partner Website"),
   embed: "https://cleveland.communityhub.cloud/calendar/?show-menu=0",
-  caption: "MidTown Cleveland – Community Calendar",
+  caption: "MidTown Cleveland – Community Calendar embedded on a partner website.",
+  aliases: ["midtown-cleveland-community-calendar"],
 };
 export function homeEmpowerBeats(): ProductBeat[] {
-  return empowerBeats.map(item => item.id === "calendar" ? { ...item, frames: [homeCalendar, ...item.frames.slice(1)] }
-    : item.id === "voices" ? { ...item, frames: [voicesFilters.fallback[0], voicesFilters.filters[0]].map(filter => ({
-      title: filter.title, embed: filter.url, caption: filter.title,
-    })) } : item);
+  const voicesLegend = "Use bottom controls to view content within this category. Use arrows in the slide to advance through different categories.";
+  return empowerBeats
+    .filter((item) => item.id !== "results")
+    .map((item) =>
+      item.id === "calendar"
+        ? {
+            ...item,
+            frames: [
+              homeCalendar,
+              {
+                title: placeTitle("City of Oberlin", "Community Calendar on Digital Signage"),
+                embed: "https://oberlin.communityhub.cloud/calendar/slideshow",
+                displayFrame: "screen",
+                caption: "Community Calendar event carousel displayed on a public digital signage screen.",
+                aliases: ["midtown-cleveland-jobs-board"],
+              },
+              {
+                title: placeTitle("City of Oberlin", "Community Calendar on Phone App"),
+                embed: "https://oberlin.communityhub.cloud/calendar/?embed=1&show-menu=0",
+                displayFrame: "phone",
+                caption: "Community Calendar viewed on a mobile phone.",
+                aliases: ["city-of-oberlin-calendar-on-a-partner-site"],
+              },
+            ],
+          }
+        : item.id === "voices"
+          ? {
+              ...item,
+              frames: [
+                voicesFilters.fallback[0],
+                voicesFilters.filters[0],
+                voicesFilters.fallback[1],
+                voicesFilters.filters[4],
+                voicesFilters.filters[5],
+                voicesFilters.filters[2],
+              ].map((filter) => ({
+                title: filter.title,
+                embed: filter.url,
+                caption: filter.title,
+                legend: voicesLegend,
+              })),
+            }
+          : item,
+    );
 }
 
 // Restored verbatim from v1 homepage, accessed 8 October 2026. No new marketing prose.

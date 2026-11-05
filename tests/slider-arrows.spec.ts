@@ -65,16 +65,13 @@ for (const width of [390, 1440]) {
   });
 }
 
-test('testimonial controls reveal on hover and keyboard focus', async ({page}) => {
+test('testimonial controls remain visible and operable by pointer and keyboard', async ({page}) => {
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/#problem');
   const box=page.locator('[data-feature-box]');
   const next=box.getByRole('button',{name:'Next story'});
   const pause=box.locator('[data-control="playpause"]');
   await page.mouse.move(0,0);
-  await expect(next).toHaveCSS('opacity','0');
-  await expect(pause).toHaveCSS('opacity','0');
-  await box.hover();
   await expect(next).toHaveCSS('opacity','1');
   await expect(pause).toHaveCSS('opacity','1');
   await expect(next.locator('svg')).toHaveCSS('stroke-width','2.25px');
@@ -83,7 +80,7 @@ test('testimonial controls reveal on hover and keyboard focus', async ({page}) =
   await page.screenshot({path:'screenshots/testimonial-hover-controls.png'});
   await page.getByRole('link',{name:'CommunityHub',exact:true}).focus();
   await page.mouse.move(0,0);
-  await expect(next).toHaveCSS('opacity','0');
+  await expect(next).toHaveCSS('opacity','1');
   await next.focus();
   await expect(next).toHaveCSS('opacity','1');
   await next.press('Enter');

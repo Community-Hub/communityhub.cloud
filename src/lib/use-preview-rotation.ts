@@ -19,6 +19,7 @@ export function usePreviewRotation(ref: RefObject<HTMLElement | null>, advance: 
     let focusing = false;
     const sync = () => setEngaged(hovering || focusing);
     const enter = (e: PointerEvent) => { if (e.pointerType === "mouse") { hovering = true; sync(); } };
+    const move = (e: PointerEvent) => { if (e.pointerType === "mouse" && !hovering) { hovering = true; sync(); } };
     const leave = () => {
       hovering = false;
       const active = document.activeElement;
@@ -37,12 +38,13 @@ export function usePreviewRotation(ref: RefObject<HTMLElement | null>, advance: 
     const io = new IntersectionObserver(([entry]) => setVisible(Boolean(entry?.isIntersecting)), { threshold: 0.4 });
     io.observe(el);
     el.addEventListener("pointerenter", enter);
+    el.addEventListener("pointermove", move);
     el.addEventListener("pointerleave", leave);
     el.addEventListener("focusin", focus);
     el.addEventListener("pointerdown", pointer);
     el.addEventListener("focusout", blur);
     document.addEventListener("visibilitychange", hidden);
-    return () => { io.disconnect(); el.removeEventListener("pointerenter", enter); el.removeEventListener("pointerleave", leave); el.removeEventListener("focusin", focus); el.removeEventListener("pointerdown", pointer); el.removeEventListener("focusout", blur); document.removeEventListener("visibilitychange", hidden); };
+    return () => { io.disconnect(); el.removeEventListener("pointerenter", enter); el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); el.removeEventListener("focusin", focus); el.removeEventListener("pointerdown", pointer); el.removeEventListener("focusout", blur); document.removeEventListener("visibilitychange", hidden); };
   }, [ref, enabled]);
   const interactionPaused = pauseOnInteraction && engaged;
   useEffect(() => {

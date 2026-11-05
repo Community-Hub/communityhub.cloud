@@ -69,7 +69,7 @@ export function StoriesChapter() {
     const video = videoRef.current;
     if (video) {
       video.pause();
-      if (Number.isFinite(video.duration) && video.duration > 0) {
+      if (!video.ended && Number.isFinite(video.duration) && video.duration > 0) {
         video.currentTime = Math.max(0, video.duration - 0.05);
       }
     }
@@ -153,9 +153,10 @@ export function StoriesChapter() {
             className="absolute inset-0 h-full w-full object-cover"
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster={copy.chapters.StoriesChapter.video_poster1}
           >
+            <source src="/assets/hero-ch-fwd.mp4" type="video/mp4" media="(min-width: 768px)" />
             <source src="/assets/hero-ch-fwd-720.mp4" type="video/mp4" />
           </video>
           <div className={cn("absolute inset-0", peek ? "bg-pine/30" : "bg-gradient-to-t from-pine/65 via-pine/25 to-pine/5")} />

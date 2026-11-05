@@ -40,8 +40,8 @@ export const stories: {
     quote:
       "When you talk about 21st-century skills — gathering and interpreting data — the Dashboard will be a very important tool.",
     links: [
-      { href: "/demos#schools", label: `${SCHOOLS_NAME} dashboard` },
-      { href: "/toolkit", label: "Teacher toolkit" },
+      { href: "/demos#schools", label: `${SCHOOLS_NAME} Dashboard` },
+      { href: "/toolkit", label: "Teacher Toolkit" },
     ],
   },
   {
@@ -60,7 +60,7 @@ export const stories: {
       "Oberlin is helping us translate water and energy use in 44 school buildings into teaching and learning in the classroom.",
     links: [
       { href: "/data-hub", label: "Data Hub" },
-      { href: "/toolkit", label: "Teacher toolkit" },
+      { href: "/toolkit", label: "Teacher Toolkit" },
     ],
   },
   {
@@ -77,7 +77,7 @@ export const stories: {
     alt: "A digital sign showing the Oberlin Farmers Market event",
     quote:
       "Community Hub’s digital signage is central to our community’s climate resilience communication strategy.",
-    links: [{ href: "/work#oberlin", label: "Oberlin case" }],
+    links: [{ href: "/work#oberlin", label: "Oberlin Case" }],
   },
   {
     img: "/assets/live-home-story-07.jpeg",
@@ -345,6 +345,10 @@ export type SlideFrame = {
   alt?: string;
   fit?: "cover" | "contain";
   embed?: string;
+  /** Optional partner website header banner rendered above a live widget embed to show host-page context. */
+  partnerHeader?: string;
+  /** Optional device frame wrapper ("screen" for digital signage monitor, "phone" for mobile handset). */
+  displayFrame?: "screen" | "phone";
   /** Let responsive dashboard text render at its real size, with native inner scrolling. */
   nativeSize?: boolean;
   presentation?: boolean;
@@ -471,7 +475,7 @@ export const engageBeats: ProductBeat[] = [
     title: "Digital Signage",
     icon: "/assets/icon-signage.png",
     href: "/digital-signage",
-    body: "Easy to use interactive digital signage makes it simple for multiple stakeholders to post and update content that connects community members with both organization and location-specific and community-wide information and events.",
+    body: "Easy-to-use interactive digital signage lets different departments, screen hosts, and other stakeholders post and update content that connects community members with both organizations and location-specific and community-wide information and events. Integrated with Google Slides, anyone can post and manage content without needing technical expertise.",
     frames: [
       {
         src: "/assets/platform-explanation/interactive-signage.jpg",
@@ -669,7 +673,7 @@ export const empowerBeats: ProductBeat[] = [
     title: "Community Calendar",
     icon: "/assets/icon-calendar.png",
     href: "/community-calendar",
-    body: "Engaged residents who can easily share information and are encouraged to participate are critical to community vibrancy and resilience. Our calendar application is a unique crowd-sourced venue that makes it easy for organizations and community members to share and promote events and announcements within organizations, neighborhoods, and whole cities.",
+    body: "Engaged residents who can easily share information and are encouraged to participate are critical to community vibrancy and resilience. A good community calendar is an important civic infrastructure that connects community members and builds community resilience. Our calendar application is a unique crowd-sourced venue that makes it easy for organizations and community members to share and promote events and announcements within organizations, neighborhoods, and whole cities.",
     frames: [
       {
         title: placeTitle("MidTown Cleveland", "Community Calendar"),

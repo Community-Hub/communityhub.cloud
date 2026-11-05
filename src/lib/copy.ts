@@ -51,7 +51,7 @@ export const copy = {
     "DigitalSignage": {
       "Sheet_label1": "Digital Signage",
       "h11": "Digital Signage",
-      "p1": "Easy to use interactive digital signage makes it simple for multiple stakeholders to post and update content that connects community members with both organization and location-specific and community-wide information and events.",
+      "p1": "Easy-to-use interactive digital signage lets different departments, screen hosts, and other stakeholders post and update content that connects community members with both organizations and location-specific and community-wide information and events. Integrated with Google Slides, anyone can post and manage content without needing technical expertise.",
       "img_src1": "/assets/hotel-oberlin-sign.jpg",
       "img_alt1": "A Community Hub screen in the Hotel at Oberlin lobby",
       "p2": "Hotel at Oberlin lobby.",
@@ -246,10 +246,10 @@ export const copy = {
     },
     "FooterChapter": {
       "Chapter_label1": "Footer",
-      "h21": "Bring a dashboard to your community",
+      "h21": "Bring Dashboard to Your Community",
       "p1": "Community engagement is community building.",
       "p2": "We welcome inquiries about our software applications and pricing options for organizations and whole communities.",
-      "a1": "Contact us",
+      "a1": "Contact Us",
       "ul_aria_label1": "Where to go next"
     }
   },

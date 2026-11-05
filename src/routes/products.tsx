@@ -89,11 +89,9 @@ function Products() {
     ? [
         { id: "products", label: "Products and Services" },
         ...GROUPS.slice(1).map((group) => ({ id: group.kicker.toLowerCase().replace(/\W+/g, "-"), label: group.kicker })),
-        { id: "keep-exploring", label: "Keep exploring" },
       ]
     : [
         { id: "products", label: "Products and Services" },
-        { id: "keep-exploring", label: "Keep exploring" },
       ];
 
   return (
@@ -103,7 +101,6 @@ function Products() {
           <DocSection label={copy.products.Products.DocSection_label1} title={copy.products.Products.DocSection_title1} as="h1" titleClassName="t-h2" ledeClassName="t-body" lede={pc.products.LEDE}>
             <h2 className="t-h3">{GROUPS[0].kicker}</h2>
             <GroupBlock group={GROUPS[0]} heading={false} />
-            <p className="mt-4"><AppLink href="/services" className="link">Explore design services</AppLink></p>
           </DocSection>
           {GROUPS.slice(1).map((group) => (
             <DocSection key={group.kicker} label={group.kicker} title={group.kicker}>
@@ -118,10 +115,8 @@ function Products() {
               <GroupBlock key={group.kicker} group={group} />
             ))}
           </div>
-          <p className="mt-4"><AppLink href="/services" className="link">Explore data and graphic design services</AppLink></p>
         </DocSection>
       )}
-      <KeepExploring />
     </DocShell>
   );
 }

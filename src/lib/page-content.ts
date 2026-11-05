@@ -350,9 +350,8 @@ const FOOTER: { title: string; links: { href: string; label: string; hideOnPhone
   },
 ];
 const DOORS = [
-  { href: WHO_HREF, label: "Who it\u2019s for" },
+  { href: WHO_HREF, label: "Who It\u2019s For" },
   { href: PRICING_HREF, label: "Pricing" },
-  { href: BRING_HREF, label: "Bring one" },
 ] as const;
   return { FOOTER, DOORS };
 })();
@@ -360,6 +359,7 @@ const DOORS = [
 // from src/components/site-header.tsx
 const siteHeader = (() => {
 const NAV = [
+  { to: "/", label: "Home" },
   { to: "/products", label: "Products" },
   { to: "/demos", label: "Dashboards" },
   { to: "/story", label: "Story" },
