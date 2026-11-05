@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { AppLink } from "@/components/app-link";
-import { Chapter } from "@/components/storyboard";
+import { Chapter, useInnerStep } from "@/components/storyboard";
 import { bundles } from "@/lib/pricing";
 import { quoteHref } from "@/lib/links";
 import { site } from "@/lib/site";
@@ -27,11 +27,11 @@ export function SiteFooter() {
         {FOOTER.map((col, i) => (
           <div key={col.title} className={i === 0 ? "max-sm:row-span-2" : undefined}>
             <p className="eyebrow">{col.title}</p>
-            {/* On a short screen the long Products list runs in two columns so the footer still fits. */}
-            <ul className={i === 0 ? "mt-1 short:sm:columns-2 short:sm:gap-x-4" : "mt-1"}>
+            {/* On desktop/tablet the long Products list runs in two columns so all three columns balance and fit inside FooterChapter. */}
+            <ul className={i === 0 ? "mt-1 sm:columns-2 sm:gap-x-6" : "mt-1"}>
               {col.links.map((link) => (
                 <li key={link.label} className={cn("break-inside-avoid", link.hideOnPhone && "max-sm:hidden")}>
-                  <AppLink href={link.href} className="inline-flex min-h-8 items-center hover:text-pine short:min-h-7">
+                  <AppLink href={link.href} className="inline-flex min-h-6 items-center hover:text-pine">
                     {link.label}
                   </AppLink>
                 </li>
@@ -40,19 +40,19 @@ export function SiteFooter() {
           </div>
         ))}
       </div>
-      <div className="mt-4 flex flex-col gap-2 border-t border-line pt-3 sm:mt-6 sm:gap-3 sm:pt-5 short:mt-3 short:pt-2 md:flex-row md:items-start md:justify-between">
+      <div className="mt-3 flex flex-col gap-2 border-t border-line pt-2.5 md:flex-row md:items-center md:justify-between">
         <p className="max-w-md max-sm:hidden">{copy.siteFooter.SiteFooter.p1}</p>
         <p>{copy.siteFooter.SiteFooter.p2}{" "}
-          <a href={`mailto:${site.contactEmail}`} className="inline-flex min-h-8 items-center font-bold text-pine underline underline-offset-4">
+          <a href={`mailto:${site.contactEmail}`} className="inline-flex min-h-6 items-center font-bold text-pine underline underline-offset-4">
             {site.contactEmail}
           </a>
         </p>
       </div>
-      <nav aria-label="Legal" className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-line pt-3 t-small">
-        <AppLink href="/privacy-policy" className="inline-flex min-h-11 items-center font-bold text-pine underline decoration-2 underline-offset-4">
+      <nav aria-label="Legal" className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-line pt-2 t-small">
+        <AppLink href="/privacy-policy" className="inline-flex min-h-7 items-center font-bold text-pine underline decoration-2 underline-offset-4">
           Privacy Policy
         </AppLink>
-        <AppLink href="/terms-of-service" className="inline-flex min-h-11 items-center font-bold text-pine underline decoration-2 underline-offset-4">
+        <AppLink href="/terms-of-service" className="inline-flex min-h-7 items-center font-bold text-pine underline decoration-2 underline-offset-4">
           Terms of Service
         </AppLink>
         <span className="text-ink/80">Community Hub Inc · Oberlin, Ohio</span>
@@ -67,6 +67,14 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
   const [more, setMore] = useState(false);
   const [activeTab, setActiveTab] = useState<(typeof FOOTER_TABS)[number]["id"]>("contact");
 
+  const activeIndex = FOOTER_TABS.findIndex((t) => t.id === activeTab);
+  useInnerStep(scroller, (dir) => {
+    const next = activeIndex + dir;
+    if (next < 0 || next >= FOOTER_TABS.length) return false;
+    setActiveTab(FOOTER_TABS[next].id);
+    return true;
+  });
+
   const check = useCallback(() => {
     const el = scroller.current;
     if (el) setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 40);
@@ -80,12 +88,12 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
   return (
     <Chapter label={copy.siteFooter.FooterChapter.Chapter_label1} className={className}>
       <div ref={scroller} onScroll={check} data-allow-scroll className="scroll-visible relative h-full">
-        <div className="wrap screen-pad pb-8! max-md:pt-[calc(var(--header-h)+1.25rem)] max-sm:pb-6!">
-          <h2 className="t-h2 text-pine">{copy.siteFooter.FooterChapter.h21}</h2>
+        <div className="wrap screen-pad pb-4! max-md:pt-[calc(var(--header-h)+1.25rem)] max-sm:pb-6!">
+          <h2 className="t-h2">{copy.siteFooter.FooterChapter.h21}</h2>
           <div
             role="tablist"
             aria-label={copy.siteFooter.FooterChapter.h21}
-            className="mt-2 flex flex-wrap gap-x-6 gap-y-1 border-b border-line"
+            className="mt-1 flex flex-wrap gap-x-6 border-b border-pine/25"
           >
             {FOOTER_TABS.map((tab) => {
               const selected = activeTab === tab.id;
@@ -97,13 +105,13 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
                   aria-selected={selected}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "-mb-px min-h-11 border-b-2 pb-2 t-body transition-colors",
-                    selected
-                      ? "border-pine font-bold text-pine"
-                      : "border-transparent text-ink/70 hover:text-pine",
+                    "flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap t-body max-md:min-h-9 short:min-h-9",
+                    selected ? "font-bold text-ink" : "text-ink/70 hover:text-ink",
                   )}
                 >
-                  {tab.label}
+                  <span className={cn("py-0.5", selected && "border-b-2 border-ink")}>
+                    {tab.label}
+                  </span>
                 </button>
               );
             })}
@@ -111,7 +119,7 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
 
           <div
             role="tabpanel"
-            className="mt-4 rounded-2xl border border-line bg-paper p-5 shadow-xs md:p-6"
+            className="mt-3 rounded-2xl border border-line bg-[color-mix(in_srgb,var(--color-paper)_85%,white)] p-4 shadow-[0_1px_2px_rgb(36_75_56/.05),0_18px_40px_-24px_rgb(36_75_56/.28)] md:p-5"
           >
             {activeTab === "contact" && (
               <div className="grid items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] md:gap-8">
@@ -151,7 +159,7 @@ export function FooterChapter({ className = "bg-field text-ink" }: { className?:
                   <img
                     src="/assets/live-contact-workshop.jpg"
                     alt="Community Hub workshop with community partners in front of a dashboard display"
-                    className="max-h-64 w-full object-cover object-center md:max-h-72"
+                    className="max-h-48 w-full object-cover object-center md:max-h-52"
                   />
                 </figure>
               </div>

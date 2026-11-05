@@ -3,8 +3,6 @@ import { useEffect } from "react";
 import { AppLink } from "@/components/app-link";
 import { PhoneControl } from "@/components/phone-control";
 import { FrameSlider } from "@/components/product-section";
-import { SignageContentGallery } from "@/components/signage-content-gallery";
-import { SignageSlidePreview } from "@/components/signage-slide-preview";
 import { SiteFooter } from "@/components/site-footer";
 import { engageBeats, placeTitle, type SlideFrame } from "@/lib/content";
 import { copy } from "@/lib/copy";
@@ -78,6 +76,66 @@ const HERO_INSTALLATIONS: SlideFrame[] = [
   },
 ];
 
+const SIGNAGE_CONTENT_EXAMPLES: SlideFrame[] = [
+  {
+    src: "/assets/signage-partners/midtown-inc.jpg",
+    title: placeTitle("MidTown Cleveland", "MidTown, Inc. Jobs Board"),
+    alt: "A person beside a digital sign displaying the MidTown jobs board at MidTown, Inc.",
+    caption: "Location-specific announcements and job boards alongside community-wide updates.",
+    fit: "contain",
+  },
+  {
+    src: "/assets/signage-live/events-calendar.png",
+    title: placeTitle("City of Oberlin", "Community Calendar"),
+    alt: "Oberlin Community Calendar displayed on a digital sign",
+    caption: "Local events and announcements shared across public screens.",
+    fit: "contain",
+  },
+  {
+    src: "/assets/signage-live/community-voices.png",
+    title: placeTitle("City of Oberlin", "Community Voices"),
+    alt: "Community Voices slide displayed on a digital sign",
+    caption: "Neighbors’ photos and quotes organized by community themes.",
+    fit: "contain",
+  },
+  {
+    src: "/assets/signage-live/live-data.png",
+    title: placeTitle("Oberlin Public Schools", "Building Dashboard"),
+    alt: "Oberlin Elementary School electricity-use graph on a digital sign",
+    caption: "Real-time electricity and water visualizations for an individual building.",
+    fit: "contain",
+  },
+  {
+    src: "/assets/signage-live/citywide.png",
+    title: placeTitle("City of Oberlin", "Citywide Dashboard"),
+    alt: "Oberlin Citywide Dashboard on a digital sign",
+    caption: "Whole-community flows of electricity, drinking water, and environmental conditions.",
+    fit: "contain",
+  },
+  {
+    src: "/assets/signage-live/story-content.png",
+    title: placeTitle("Oberlin Public Schools", "Energy Use Story"),
+    alt: "Illustrated Energy Use story slide on a digital sign",
+    caption: "Illustrated stories explaining how local energy and water systems work.",
+    fit: "contain",
+  },
+];
+
+const SIGNAGE_FEATURES = [
+  {
+    title: "Interactive by design",
+    body: "Visitors scan a QR code with their phone or use a nearby touchpad to choose what plays on the screen.",
+  },
+  {
+    title: "Managed with Google Slides",
+    body: "Organizations update slide decks, events, and announcements using familiar tools that publish straight to the display.",
+  },
+  {
+    title: "Community & location content",
+    body: "Bring community-wide calendars, voices, and dashboards together with content tailored to each host venue.",
+  },
+] as const;
+
 export const Route = createFileRoute("/digital-signage")({
   component: DigitalSignage,
   head: () => ({
@@ -98,10 +156,9 @@ function DigitalSignage() {
       hash === "use-your-phone"
     ) {
       targetId = "try-the-phone";
-    } else if (hash === "dave-s-market") {
+    } else if (hash === "dave-s-market" || hash === "what-the-screen-shows") {
       targetId = "community-and-local-content";
     } else if (
-      hash === "what-the-screen-shows" ||
       hash === "oberlin" ||
       hash === "cleveland-and-campus" ||
       hash === "where-screens-are"
@@ -117,7 +174,7 @@ function DigitalSignage() {
   return (
     <div className="min-h-dvh bg-field text-ink pt-16">
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-8 md:px-8 md:py-12">
-        {/* Section 1: Digital Signage Hero + Installation Slider + Content Gallery */}
+        {/* Section 1: Digital Signage Hero + Installation Slider */}
         <section id="digital-signage" className="scroll-mt-20">
           <p className="t-small text-ink/70">
             <AppLink
@@ -148,9 +205,14 @@ function DigitalSignage() {
             </div>
           </div>
 
-          <div className="mt-8">
-            <SignageContentGallery />
-          </div>
+          <ul className="product-detail-features">
+            {SIGNAGE_FEATURES.map((feature) => (
+              <li key={feature.title}>
+                <h2 className="t-body font-bold text-pine">{feature.title}</h2>
+                <p className="mt-1 t-small">{feature.body}</p>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Section 2: Community and Local Content */}
@@ -169,20 +231,12 @@ function DigitalSignage() {
               </p>
             </div>
 
-            <figure className="min-w-0">
-              <figcaption className="mb-2 t-body font-bold text-ink">
-                MidTown Cleveland – MidTown, Inc.
-              </figcaption>
-              <img
-                src="/assets/signage-partners/midtown-inc.jpg"
-                alt="A person beside a digital sign displaying the MidTown jobs board at MidTown, Inc."
-                className="max-h-[26rem] w-full rounded-md object-contain object-left-top"
+            <div className="min-w-0" data-signage-content-slider>
+              <FrameSlider
+                frames={SIGNAGE_CONTENT_EXAMPLES}
+                heading="Community and local content"
               />
-            </figure>
-          </div>
-
-          <div className="mt-8">
-            <SignageSlidePreview />
+            </div>
           </div>
         </section>
 
@@ -195,7 +249,11 @@ function DigitalSignage() {
         </section>
       </main>
 
-      <SiteFooter />
+      <div className="mt-8 border-t border-line bg-paper/60">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
+          <SiteFooter />
+        </div>
+      </div>
     </div>
   );
 }

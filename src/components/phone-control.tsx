@@ -182,7 +182,8 @@ const VENUES = [
 ] as const;
 
 export function PhoneControl({ venueIndex }: { venueIndex: number }) {
-  const current = VENUES[venueIndex] ?? VENUES[0];
+  const [activeVenueIndex, setActiveVenueIndex] = useState(venueIndex);
+  const current = VENUES[activeVenueIndex] ?? VENUES[0];
   const [session, setSession] = useState("");
   useEffect(() => setSession(crypto.randomUUID()), []);
   const row = useRef<HTMLDivElement>(null);
@@ -191,6 +192,13 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [switchCount, setSwitchCount] = useState(0);
   const [playing, setPlaying] = useState(true);
+
+  const handleSelectVenue = (idx: number) => {
+    setActiveVenueIndex(idx);
+    setSelectedIndex(0);
+    setSwitchCount((c) => c + 1);
+    setPlaying(true);
+  };
 
   const activeTopic = current.topics[selectedIndex] ?? current.topics[0];
   const activeScreenUrl = (() => {
@@ -314,12 +322,39 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
         )}
       </div>
 
-      {/* Active topic title above the display */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-pine/15 pb-2">
-        <p className="t-body font-bold text-ink">
-          {current.name} – {activeTopic.label}
-        </p>
-        <p className="t-small text-ink/70">{activeTopic.subtitle}</p>
+      {/* Venue switcher + Active topic title above the display */}
+      <div className="flex flex-col gap-3 border-b border-pine/15 pb-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="t-body font-bold text-ink">
+            {current.name} – {activeTopic.label}
+          </p>
+          <p className="t-small text-ink/70">{activeTopic.subtitle}</p>
+        </div>
+        <div
+          role="group"
+          aria-label="Choose a digital sign location"
+          className="flex flex-wrap items-center gap-1.5"
+        >
+          {VENUES.map((venue, idx) => {
+            const active = idx === activeVenueIndex;
+            return (
+              <button
+                key={venue.name}
+                type="button"
+                aria-pressed={active}
+                onClick={() => handleSelectVenue(idx)}
+                className={cn(
+                  "min-h-9 rounded-full border px-3.5 py-1 text-xs font-bold transition-colors",
+                  active
+                    ? "border-pine bg-pine text-paper"
+                    : "border-pine/30 bg-field/60 text-pine hover:border-pine/60",
+                )}
+              >
+                {venue.name}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div

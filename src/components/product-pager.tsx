@@ -18,11 +18,15 @@ export type ProductSlide = {
   alt?: string;
   caption?: string;
   captionAbove?: boolean;
+  legend?: string;
   embed?: string;
+  partnerHeader?: string;
+  displayFrame?: "screen" | "phone";
   nativeSize?: boolean;
   presentation?: boolean;
   voices?: boolean;
   images?: SlideFrame["images"];
+  frames?: SlideFrame[];
   phoneWalkthrough?: boolean;
   wide?: boolean;
   live?: { href: string; label: string };
@@ -65,7 +69,12 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-8 md:px-8 md:py-12">
         {contentSlides.map((slide, index) => {
           const hasMedia = Boolean(
-            slide.src || slide.embed || slide.voices || slide.images || slide.phoneWalkthrough,
+            slide.frames?.length ||
+              slide.src ||
+              slide.embed ||
+              slide.voices ||
+              slide.images ||
+              slide.phoneWalkthrough,
           );
           const frame: SlideFrame = {
             ...slide,
@@ -73,6 +82,12 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
             caption: "",
             fit: slide.fit ?? "contain",
           };
+          const sliderFrames = slide.frames && slide.frames.length > 0 ? slide.frames : [frame];
+          const liveAction =
+            slide.live ??
+            (slide.embed && !slide.presentation
+              ? { href: slide.embed, label: "Open live example" }
+              : undefined);
           const Heading = index === 0 ? "h1" : "h2";
           return (
             <section
@@ -89,7 +104,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                     href="/products"
                     className="inline-flex min-h-8 items-center text-pine underline underline-offset-4"
                   >
-                    Products and Services
+                    Products
                   </AppLink>
                   <span aria-hidden> / </span>
                   {slide.title}
@@ -122,10 +137,10 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                       ))}
                     </ol>
                   )}
-                  {slide.live && (
+                  {liveAction && (
                     <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1">
-                      <AppLink href={slide.live.href} className="link">
-                        {slide.live.label}
+                      <AppLink href={liveAction.href} className="link">
+                        {liveAction.label}
                       </AppLink>
                     </p>
                   )}
@@ -164,15 +179,10 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                         ))}
                       </div>
                     ) : (
-                      <FrameSlider frames={[frame]} heading={slide.title} />
+                      <FrameSlider frames={sliderFrames} heading={slide.title} />
                     )}
-                    {!slide.captionAbove && slide.caption && (
+                    {!slide.captionAbove && slide.caption && !sliderFrames[0]?.legend && (
                       <p className="mt-2 t-small text-ink/70">{slide.caption}</p>
-                    )}
-                    {slide.embed && !slide.presentation && !slide.live && (
-                      <AppLink href={slide.embed} className="link t-small">
-                        Open live example
-                      </AppLink>
                     )}
                   </div>
                 )}
@@ -191,7 +201,11 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
           );
         })}
       </main>
-      <SiteFooter />
+      <div className="mt-8 border-t border-line bg-paper/60">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
+          <SiteFooter />
+        </div>
+      </div>
     </div>
   );
 }

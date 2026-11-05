@@ -119,9 +119,6 @@ function Pricing() {
             </details>
           ))}
         </div>
-        <p className="mt-4">
-          <AppLink href={site.contactHref} className="link">{copy.pricing.Pricing.AppLink3}</AppLink>
-        </p>
       </DocSection>
     </DocShell>
   );

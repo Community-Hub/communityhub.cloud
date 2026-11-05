@@ -3,10 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { AppLink } from "@/components/app-link";
 import { DocSection, DocShell, Shot, Split } from "@/components/doc";
 import { ChevronDown } from "lucide-react";
-import { GuardedEmbed } from "@/components/guarded-embed";
+import { ScrollingDashboard } from "@/components/scrolling-dashboard";
 import { TabRow, TabPager, tabPanel } from "@/components/tab-row";
 import { demoBringNotes, demoChanges, demoReads, demoSteps, demos } from "@/lib/content";
-import { site } from "@/lib/site";
 import { useSwipe } from "@/lib/use-swipe";
 
 import { copy } from "@/lib/copy";
@@ -122,22 +121,24 @@ function Demos() {
             </AppLink>
           </figcaption>
           {demo.embed ? (
-            <GuardedEmbed
-              key={demo.id}
-              src={demo.embed}
-              title={`${demo.name} live dashboard`}
-              narrowBelow={640}
-              wideWidth={1180}
-              className="h-[max(10rem,calc(100dvh-29rem))] bg-paper md:h-(--shot-h)"
-            >
+            <div className="relative h-[22rem] w-full bg-paper md:h-[28rem]">
+              <ScrollingDashboard
+                key={demo.id}
+                src={demo.embed}
+                title={`${demo.name} live dashboard`}
+                running={false}
+                passiveMarker={false}
+              />
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 bg-gradient-to-t from-paper via-paper/90 to-transparent pt-4 pb-1 text-xs font-bold text-pine"
+                className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-1 bg-gradient-to-t from-paper via-paper/90 to-transparent pt-4 pb-1 text-xs font-bold text-pine"
               >
-                <ChevronDown className="size-4" strokeWidth={2.5} />{" "}{copy.demos.Demos.span1}</span>
-            </GuardedEmbed>
+                <ChevronDown className="size-4" strokeWidth={2.5} />{" "}
+                {copy.demos.Demos.span1}
+              </span>
+            </div>
           ) : (
-            <img loading="lazy" decoding="async" src={demo.image} alt={demo.alt} className="block h-[max(10rem,calc(100dvh-29rem))] w-full bg-paper object-contain md:h-(--shot-h)" />
+            <img loading="lazy" decoding="async" src={demo.image} alt={demo.alt} className="block h-[22rem] w-full bg-paper object-contain md:h-[28rem]" />
           )}
           {/* On a phone the next screen, Who uses it, carries each place's facts, so the dashboard gets the room. */}
           <p className="mt-2 hidden border-t border-line px-4 py-2 t-small md:block md:py-4">
@@ -157,7 +158,7 @@ function Demos() {
       <DocSection label={STOPS[1].label} title={STOPS[1].label} cut={9}>
         <TabRow idBase="demo-who" label={copy.demos.Demos.TabRow_label2} noun="place" items={demos} at={at} onPick={pick} />
         <Card onSwipe={(dir) => pick(at + dir)} panel={tabPanel("demo-who", demo.id)}>
-          <Split mediaFirst media={<Shot src={demo.photo.src} alt={demo.photo.alt} className="mx-auto max-md:hidden md:mx-0" />}>
+          <Split mediaFirst media={<Shot src={demo.photo.src} alt={demo.photo.alt} className="mx-auto md:mx-0" />}>
             <Lines lines={demo.facts} phone={2} />
             <Quoted quote={demo.quote} />
           </Split>
@@ -177,19 +178,16 @@ function Demos() {
       </DocSection>
 
       <DocSection label={STOPS[4].label} title={STOPS[4].label} cut={6}>
-        <Split media={<Shot src={copy.demos.Demos.Shot_src1} alt={copy.demos.Demos.Shot_alt1} className="max-md:hidden" />}>
+        <Split media={<Shot src={copy.demos.Demos.Shot_src1} alt={copy.demos.Demos.Shot_alt1} />}>
           <p className="font-bold">{copy.demos.Demos.p1}</p>
-          <ol className="list-decimal space-y-1 pl-5 short:space-y-0 short:leading-snug">
+          <ol className="list-decimal space-y-1 pl-5">
             {demoSteps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ol>
           {demoBringNotes.map((note) => (
-            <p key={note} className="short:leading-snug">{note}</p>
+            <p key={note}>{note}</p>
           ))}
-          <p>
-            <AppLink href={site.contactHref} className="link">{copy.demos.Demos.AppLink3}</AppLink>
-          </p>
         </Split>
       </DocSection>
     </DocShell>

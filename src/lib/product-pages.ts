@@ -2,6 +2,7 @@ import type { ProductSlide } from "@/components/product-pager";
 import { getEmbed } from "@/data/embeds";
 import voicesFilters from "@/data/voices-filters.json";
 import { educateBeats, empowerBeats, engageBeats, placeTitle } from "@/lib/content";
+import { homeEducateBeats, homeEmpowerBeats, homeEngageBeats } from "@/lib/home-feedback";
 import { SCHOOLS_NAME } from "@/lib/names";
 
 /** The v1 description of a product, the same text its home tab shows. */
@@ -119,9 +120,11 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         title: "Web Embeddables",
         features: [{"title": "Calendars and announcements", "body": "Bring community events into a partner website."}, {"title": "Data and dashboards", "body": "Share live charts or a navigable dashboard."}, {"title": "Community messages", "body": "Choose Community Voices content for your audience."}],
         text: v1("embed"),
-        frameTitle: placeTitle("City of Oberlin", "Community Calendar"),
-        embed: "https://oberlin.communityhub.cloud/calendar/?embed=1&show-menu-bar=1",
-        caption: "Oberlin's community calendar, live.",
+        frames: homeEngageBeats().find((b) => b.id === "embed")?.frames,
+        frameTitle: placeTitle("MidTown Cleveland", "Events website"),
+        embed: getEmbed("calendar", "midtown-calendar").src,
+        partnerHeader: "/assets/eng-midtown-events.jpg",
+        caption: "Live community calendar embedded on MidTown Cleveland’s events website.",
       },
       {
         label: "School dashboard",
@@ -153,9 +156,9 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
       {
         label: "Voices slideshow",
         title: "Community Voices",
-        frameTitle: voicesFilters.filters[0].title,
+        frameTitle: voicesFilters.fallback[0].title,
         text: "Community Voices brings community members’ images and words to partner websites. Categories let an organization choose the messages relevant to its audience.",
-        voices: true,
+        frames: homeEmpowerBeats().find((b) => b.id === "voices")?.frames,
         caption: "A slideshow a partner site can show full screen, filtered by category, live.",
       },
       more([
@@ -174,6 +177,7 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         title: "Building Dashboard",
         features: [{"title": "See current use", "body": "Communicate electricity, water, and other resource data."}, {"title": "Put it in context", "body": "Compare patterns over time and with typical use."}, {"title": "Make it your own", "body": "Bring your organization’s data together in Dashboard Builder."}],
         text: "Building Dashboard tracks and communicates patterns of real-time resource use in buildings in ways that engage, are easy to understand and make connections between resource conservation and resulting environmental and community benefits.",
+        frames: homeEducateBeats().find((b) => b.id === "building")?.frames,
         frameTitle: placeTitle("Oberlin College", "Harkness Co-op"),
         embed: "https://oberlin.communityhub.cloud/dh-public/oc/dashboard/815",
         fit: "contain",
@@ -223,6 +227,7 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         label: "Citywide Dashboard",
         icon: "/assets/icon-cwd.png",
         title: "Citywide Dashboard",
+        frames: homeEducateBeats().find((b) => b.id === "city")?.frames,
         frameTitle: placeTitle("City of Oberlin", "Citywide Dashboard"),
         features: [{"title": "Whole-community flows", "body": "See electricity and drinking water at the community scale."}, {"title": "Environmental conditions", "body": "Connect resource use with the surrounding environment."}, {"title": "A familiar place", "body": "Illustrate the town or campus people call home."}],
         text: v1("city"),
@@ -241,17 +246,6 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         alt: "Cleveland citywide dashboard",
         caption: "The same kind of picture for a different city, Cleveland.",
       },
-
-
-
-
-
-
-
-
-
-
-
       more([
         { href: "/dashboard-builder", label: "Building Dashboard", note: "One building, up close" },
         { href: "/stories", label: "Stories", note: "How the local systems work" },
@@ -266,6 +260,7 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         label: "Data Hub",
         icon: "/assets/icon-datahub.png",
         title: "Data Hub",
+        frames: homeEducateBeats().find((b) => b.id === "hub")?.frames,
         frameTitle: placeTitle("Oberlin College", "Data Hub"),
         features: [{"title": "Collect and manage", "body": "Bring measurements from different sources together."}, {"title": "Explore and visualize", "body": "Translate resource data into charts and comparisons."}, {"title": "Share the results", "body": "Publish visualizations on websites and digital signage."}],
         text: v1("hub"),
@@ -273,10 +268,6 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         alt: "The Data Hub interface: a variables table, an electricity chart for one Oberlin building, and chart options",
         caption: "Recorded Data Hub interface: variables, visualization settings and chart output.",
       },
-
-
-
-
       {
         label: "Compare over time", title: "Explore changes over time",
         text: "Time-series charts show how resource use changes through the day. This live electricity chart is one of the public visualizations that can be shared independently of a full dashboard.",
@@ -309,11 +300,13 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         label: "Stories",
         icon: "/assets/icon-stories.png",
         title: "Stories",
+        frames: homeEducateBeats().find((b) => b.id === "stories")?.frames,
         frameTitle: placeTitle("Oberlin College", "Carbon Neutral Stories"),
         features: [{"title": "Local systems", "body": "Explain the water, energy, and other systems people depend on."}, {"title": "Visual explanations", "body": "Use illustrations and moving presentations to make connections."}, {"title": "Different settings", "body": "Share stories through screens, phones, and websites."}],
-        text: "Illustrated stories of how local systems work. They play on screens, phones, and the web.",
-        embed: "https://docs.google.com/presentation/d/1IQ-xVTkfJP4P3UY-FY8DltGmR8Lzo5r5TFJbf5RyfxI/embed?start=true&loop=true&delayms=8000",
+        text: v1("stories"),
+        embed: "https://docs.google.com/presentation/d/1IQ-xVTkfJP4P3UY-FY8DltGmR8Lzo5r5TFJbf5RyfxI/embed?start=true&loop=true&delayms=8000#slide=1",
         presentation: true,
+        legend: "Use bottom controls to navigate through a story. Use arrows in the slide to view other stories.",
         live: { href: getEmbed("stories", "stories").src, label: "Explore the stories" },
         alt: "Oberlin heating story",
         caption: "",
@@ -324,11 +317,13 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         frameTitle: placeTitle("Great Lakes Science Center", "Our Lake story"),
         text: "Local stories connect environmental systems with places people recognize. The Great Lakes Science Center’s stories invite visitors to explore Lake Erie and their relationship with it.",
         wide: true,
-        embed: getEmbed("stories", "glsc-stories").src,
-        alt: "Climate story for the Great Lakes Science Center",
+        embed: "https://docs.google.com/presentation/d/1Az60BMTNbkAAKCN6XwqaT1jmivvAqzH7bNprnOLQv94/embed?start=true&loop=true&delayms=7000#slide=1",
+        presentation: true,
+        legend: "Use bottom controls to navigate through the story.",
+        live: { href: "https://docs.google.com/presentation/d/1Az60BMTNbkAAKCN6XwqaT1jmivvAqzH7bNprnOLQv94/preview", label: "Open full presentation" },
+        alt: "Our Lake story for the Great Lakes Science Center",
         caption: "A story about Lake Erie, for the Great Lakes Science Center.",
       },
-
       {
         label: "The district energy system",
         title: "Explain local systems",
@@ -338,18 +333,6 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         alt: "An illustrated campus with geothermal wells underground and text about the district energy system",
         caption: "Oberlin's state-of-the-art district energy system combines green electricity and geothermal heat pump technology to produce carbon-free heating and cooling for the campus.",
       },
-
-
-
-
-
-
-
-
-
-
-
-
       {
         label: "The whole case",
         title: "From a story to an exhibit",
@@ -373,15 +356,17 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         label: "MidTown Cleveland",
         icon: "/assets/icon-calendar.png",
         title: "Community Calendar",
-        frameTitle: placeTitle("MidTown Cleveland", "Community Calendar"),
+        frames: homeEmpowerBeats().find((b) => b.id === "calendar")?.frames,
+        frameTitle: placeTitle("MidTown Cleveland", "Community Calendar on Partner Website"),
         features: [{"title": "Community events", "body": "Give organizations and residents a place to share events."}, {"title": "Local announcements", "body": "Connect people with opportunities in their community."}, {"title": "Shared across sites", "body": "Bring the same calendar to partner websites and signs."}],
         text: v1("calendar"),
         embed: "https://cleveland.communityhub.cloud/calendar/?show-menu=0",
-        caption: "The calendar MidTown Cleveland shows on its own events page.",
+        partnerHeader: "/assets/eng-midtown-events.jpg",
+        caption: "The calendar MidTown Cleveland shows on its own events page, alongside digital signage and mobile views.",
       },
       {
         label: "Oberlin",
-        title: "Community Calendar",
+        title: "Explore a live community calendar",
         frameTitle: placeTitle("City of Oberlin", "Community Calendar"),
         text: "Each community has its own events and announcements. Explore Oberlin’s live calendar to see how local organizations and residents share what is happening around them.",
         wide: true,
@@ -390,10 +375,9 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         alt: "Oberlin community calendar",
         caption: "",
       },
-
       {
         label: "On their site",
-        title: "Community Calendar",
+        title: "Embedded on partner websites",
         frameTitle: placeTitle("City of Oberlin", "Calendar on a partner site"),
         text: "Organizations can embed the community calendar in their own websites, helping people find local events in places they already visit online. This recorded partner page shows how the calendar sits beside local information.",
         src: "/assets/cal-partner-oberlin-cal.jpg",
@@ -415,10 +399,11 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         label: "Community Voices",
         icon: "/assets/icon-cv.png",
         title: "Community Voices",
-        frameTitle: voicesFilters.filters[0].title,
+        frames: homeEmpowerBeats().find((b) => b.id === "voices")?.frames,
+        frameTitle: voicesFilters.fallback[0].title,
         features: [{"title": "Images and words", "body": "Keep a person’s image and message together."}, {"title": "Relevant categories", "body": "Organize messages around themes within the community."}, {"title": "Across the community", "body": "Share the messages on signs, phones, and websites."}],
         text: v1("voices"),
-        voices: true,
+        legend: "Use bottom controls to navigate through a category. Use arrows in the slide to view other categories.",
         caption: "Live Community Voices messages, organized by category.",
       },
       {
@@ -428,7 +413,8 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         embed: voicesFilters.filters[4].url,
         fit: "contain",
         alt: "A Community Voices message captured from the Oberlin Elementary digital sign",
-        frameTitle: "Oberlin — Next Generation",
+        frameTitle: placeTitle("City of Oberlin", "Next Generation"),
+        legend: "Use bottom controls to navigate through the Next Generation category.",
         caption: "Live messages in the Next Generation category. Each photo, message, and attribution remains together.",
       },
       more([

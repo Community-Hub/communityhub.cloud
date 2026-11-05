@@ -75,48 +75,24 @@ export const Route = createFileRoute("/products")({
 });
 
 function Products() {
-  const [phone, setPhone] = useState(false);
-  useEffect(() => {
-    const query = window.matchMedia("(max-width: 767px)");
-    const apply = () => setPhone(query.matches);
-    apply();
-    query.addEventListener("change", apply);
-    return () => query.removeEventListener("change", apply);
-  }, []);
-
-  // A phone gives each group its own screen; a laptop shows all three side by side.
-  const stops = phone
-    ? [
-        { id: "products", label: "Products and Services" },
-        ...GROUPS.slice(1).map((group) => ({ id: group.kicker.toLowerCase().replace(/\W+/g, "-"), label: group.kicker })),
-      ]
-    : [
-        { id: "products", label: "Products and Services" },
-      ];
+  const stops = [{ id: "products", label: "Products and Services" }];
 
   return (
     <DocShell stops={stops}>
-      {phone ? (
-        <>
-          <DocSection label={copy.products.Products.DocSection_label1} title={copy.products.Products.DocSection_title1} as="h1" titleClassName="t-h2" ledeClassName="t-body" lede={pc.products.LEDE}>
-            <h2 className="t-h3">{GROUPS[0].kicker}</h2>
-            <GroupBlock group={GROUPS[0]} heading={false} />
-          </DocSection>
-          {GROUPS.slice(1).map((group) => (
-            <DocSection key={group.kicker} label={group.kicker} title={group.kicker}>
-              <GroupBlock group={group} heading={false} />
-            </DocSection>
+      <DocSection
+        label={copy.products.Products.DocSection_label2}
+        title={copy.products.Products.DocSection_title2}
+        as="h1"
+        titleClassName="t-h2"
+        ledeClassName="t-body"
+        lede={pc.products.LEDE}
+      >
+        <div className="grid gap-8 md:grid-cols-3">
+          {GROUPS.map((group) => (
+            <GroupBlock key={group.kicker} group={group} />
           ))}
-        </>
-      ) : (
-        <DocSection label={copy.products.Products.DocSection_label2} title={copy.products.Products.DocSection_title2} as="h1" titleClassName="t-h2" ledeClassName="t-body" lede={pc.products.LEDE}>
-          <div className="grid gap-8 md:grid-cols-3">
-            {GROUPS.map((group) => (
-              <GroupBlock key={group.kicker} group={group} />
-            ))}
-          </div>
-        </DocSection>
-      )}
+        </div>
+      </DocSection>
     </DocShell>
   );
 }

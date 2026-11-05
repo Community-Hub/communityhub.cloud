@@ -60,13 +60,9 @@ export function useSlide(i: number, set: string, dirRef: { current: 1 | -1 }) {
   return state;
 }
 
-function PresentationPreview({ frame, home = false, previewPlaying = false }: { frame: SlideFrame; home?: boolean; previewPlaying?: boolean }) {
-  const [playing, setPlaying] = useAutoplay();
-  const src = frame.embed!.replace("start=true", `start=${home ? previewPlaying : playing}`);
-  return <><GuardedEmbed src={src} title={frame.title} passive={false} className="absolute inset-0 h-full" />
-    {!home && <div className="absolute right-2 top-2 z-20 rounded bg-paper">
-      <PlayPauseButton playing={playing} onToggle={() => setPlaying(p => !p)} labels={{pause:"Stop story preview",play:"Start story preview"}} />
-    </div>}</>;
+function PresentationPreview({ frame, previewPlaying = false }: { frame: SlideFrame; home?: boolean; previewPlaying?: boolean }) {
+  const src = frame.embed!.replace("start=true", `start=${previewPlaying}`);
+  return <GuardedEmbed src={src} title={frame.title} passive={false} className="absolute inset-0 h-full" />;
 }
 
 function VoicesCategoryPreview({ url, iframeSrc, title, running }: { url: string; iframeSrc: string; title: string; running: boolean }) {
@@ -270,14 +266,28 @@ function FrameGraphic({ frame, voices, home = false, previewPlaying = false, run
     {frame.images.map(image => <div key={image.src} className="flex min-h-0 min-w-0 flex-col gap-2"><img src={image.src} alt={image.alt} className="block h-full min-h-0 w-full flex-1 object-contain" />{image.label && <p className="text-center t-small">{image.label}</p>}</div>)}
   </div>;
   if (frame.presentation) return <PresentationPreview frame={frame} home={home} previewPlaying={previewPlaying} />;
-  if (frame.voices) return <VoicesPane src={voices.url} title={`Community Voices: ${voices.title}`} />;
+  if (frame.voices) {
+    const src = new URL(voices.url);
+    src.searchParams.set("portrait-mode", "0");
+    src.searchParams.set("remove-controls", "1");
+    src.searchParams.set("autoplay", previewPlaying ? "1" : "0");
+    return (
+      <VoicesCategoryPreview
+        key={voices.url}
+        url={voices.url}
+        iframeSrc={src.toString()}
+        title={`Community Voices: ${voices.title}`}
+        running={running}
+      />
+    );
+  }
   if (frame.embed) {
     const src = new URL(frame.embed);
-    const isVoicesEmbed = src.pathname.includes('/cv-public/');
-    if (home && isVoicesEmbed) {
-      src.searchParams.set('portrait-mode', '0');
-      src.searchParams.set('remove-controls', '1');
-      src.searchParams.set('autoplay', previewPlaying ? '1' : '0');
+    const isVoicesEmbed = src.pathname.includes("/cv-public/");
+    if (isVoicesEmbed) {
+      src.searchParams.set("portrait-mode", "0");
+      src.searchParams.set("remove-controls", "1");
+      src.searchParams.set("autoplay", previewPlaying ? "1" : "0");
       return (
         <VoicesCategoryPreview
           key={frame.embed}
@@ -302,13 +312,13 @@ function FrameGraphic({ frame, voices, home = false, previewPlaying = false, run
             src={src.toString()}
             title={frame.title}
             nativeSize={frame.nativeSize}
-            passive={home && isVoicesEmbed}
+            passive={false}
             className="relative min-h-0 flex-1 w-full"
           />
         </div>
       );
     }
-    return <GuardedEmbed key={frame.embed} src={src.toString()} title={frame.title} nativeSize={frame.nativeSize} passive={home && isVoicesEmbed} className="absolute inset-0 h-full" />;
+    return <GuardedEmbed key={frame.embed} src={src.toString()} title={frame.title} nativeSize={frame.nativeSize} passive={false} className="absolute inset-0 h-full" />;
   }
   // Photos fill the box with no bumpers; screenshots and diagrams (fit: "contain") are shown whole.
   return (
@@ -357,7 +367,24 @@ export function Examples({
   };
   const stepRef = useRef(step);
   stepRef.current = step;
-  const rotation = usePreviewRotation(figureRef, () => { if (many) stepRef.current(1); }, home && (many || Boolean(frames[i]?.phoneWalkthrough) || isScrollableHomeEmbed(frames[i])), `${frames[0]?.title}:${i}`, (frames[i]?.phoneWalkthrough || isScrollableHomeEmbed(frames[i])) ? null : undefined, !phoneExamples);
+  const activeFrame = frames[Math.min(i, frames.length - 1)] ?? frames[0];
+  const hasAutoMotion =
+    many ||
+    Boolean(activeFrame?.phoneWalkthrough) ||
+    isScrollableHomeEmbed(activeFrame) ||
+    Boolean(activeFrame?.presentation) ||
+    Boolean(activeFrame?.voices) ||
+    Boolean(activeFrame?.embed?.includes("/cv-public/"));
+  const rotation = usePreviewRotation(
+    figureRef,
+    () => {
+      if (many) stepRef.current(1);
+    },
+    hasAutoMotion,
+    `${frames[0]?.title}:${i}`,
+    activeFrame?.phoneWalkthrough || isScrollableHomeEmbed(activeFrame) ? null : undefined,
+    !phoneExamples,
+  );
   useSwipe(figureRef, (dir) => {
     if (many) stepRef.current(dir > 0 ? 1 : -1);
   });
@@ -428,7 +455,7 @@ export function Examples({
       style={{ touchAction: "pan-y pinch-zoom" }}
       className="relative flex min-w-0 flex-col rounded-md outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
     >
-      {(showTitle || many || extra || frame.voices) && (
+      {(showTitle || extra) && (
         <div className={cn("mb-1 flex min-h-11 items-center justify-between gap-2", !showTitle && "max-sm:absolute max-sm:top-1 max-sm:right-1 max-sm:z-10 max-sm:mb-0 max-sm:min-h-0")}>
           {showTitle && (
             <p data-example-title style={{ marginLeft: "var(--photo-title-inset, 0px)" }} className="flex min-w-0 items-center gap-2 font-bold text-ink t-body">
@@ -442,15 +469,6 @@ export function Examples({
               <span className="min-w-0 max-sm:line-clamp-2 max-sm:leading-tight sm:truncate">{title}</span>
             </p>
           )}
-          {frame.voices && (
-            <span className="ml-auto flex shrink-0">
-              <PlayPauseButton
-                playing={voices.playing}
-                onToggle={voices.toggle}
-                labels={{ pause: copy.productPager.ProductPager.button_label1, play: copy.productPager.ProductPager.button_label2 }}
-              />
-            </span>
-          )}
           {extra && <span className="ml-auto flex shrink-0">{extra}</span>}
         </div>
       )}
@@ -459,7 +477,7 @@ export function Examples({
         data-walkthrough-frame={frame.phoneWalkthrough || undefined}
         data-phone-scan-frame={frame.phoneScan || undefined}
         data-presentation-frame={frame.presentation || undefined}
-        data-voices-frame={frame.embed?.includes("/cv-public/") || undefined}
+        data-voices-frame={frame.voices || frame.embed?.includes("/cv-public/") || undefined}
         className="relative aspect-[16/10] max-h-(--card-media-h) w-full min-w-0 overflow-hidden rounded-md border border-line bg-paper/60"
       >
         {layers.map((n) => {
@@ -475,18 +493,42 @@ export function Examples({
                 !current && (slide.dir > 0 ? "sb-out-next" : "sb-out-prev"),
               )}
             >
-              <FrameGraphic frame={frames[n]} voices={{ title: voices.filter.title, url: voices.filter.url }} home={home} previewPlaying={current && rotation.playing} running={current && rotation.running} onWalkthroughComplete={home && current && many ? () => stepRef.current(1) : undefined} />
+              <FrameGraphic frame={frames[n]} voices={{ title: voices.filter.title, url: voices.filter.url }} home={home} previewPlaying={current && rotation.playing} running={current && rotation.running} onWalkthroughComplete={current && many ? () => stepRef.current(1) : undefined} />
             </div>
           );
         })}
-        {(many || (home && (frame.phoneWalkthrough || frame.presentation))) && <div className="home-media-controls">
-          {many && <SliderArrows onPrev={() => step(-1)} onNext={() => step(1)} labels={{prev: "Previous example", next: "Next example"}} />}
-          {home && <PlayPauseButton playing={rotation.playing} onToggle={rotation.toggle} labels={frame.phoneWalkthrough ? {pause: "Pause animation", play: "Play animation"} : {pause: "Pause examples", play: "Play examples"}} />}
-        </div>}
+        {(many || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/")) && (
+          <div className="home-media-controls">
+            {many && <SliderArrows onPrev={() => step(-1)} onNext={() => step(1)} labels={{ prev: "Previous example", next: "Next example" }} />}
+            <PlayPauseButton
+              playing={rotation.playing}
+              onToggle={rotation.toggle}
+              labels={
+                frame.phoneWalkthrough
+                  ? { pause: "Pause animation", play: "Play animation" }
+                  : { pause: "Pause examples", play: "Play examples" }
+              }
+            />
+          </div>
+        )}
       </div>
-      <figcaption className={home ? (frame.legend ? "mt-2 text-left t-small text-ink/75" : "sr-only") : "mt-2 text-left t-small md:min-h-[2.9em] max-sm:hidden"}>
-        {!home && frame.caption}
-        {frame.legend && <span className={cn(!home && "mt-0.5", "block text-ink/75")}>{frame.legend}</span>}
+      <figcaption
+        data-has-legend={Boolean(frame.legend) || undefined}
+        className={
+          home
+            ? frame.legend
+              ? "mt-2 text-left t-small text-ink/75"
+              : "sr-only"
+            : frame.legend || frame.caption
+              ? "mt-2 text-left t-small text-ink/75"
+              : "sr-only"
+        }
+      >
+        {frame.legend ? (
+          <span className="block text-ink/75">{frame.legend}</span>
+        ) : (
+          !home && frame.caption
+        )}
       </figcaption>
       {many && <p className="sr-only" aria-live="polite">{`Example ${at + 1} of ${frames.length}`}</p>}
     </figure>
@@ -651,7 +693,7 @@ export function ProductSection({
             )}
           </div>
         )}
-        <div data-product-composition data-compact-preview={home && title === "Engage" || undefined} className="mt-3 short:mt-2 grid rounded-xl border border-pine/45 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div data-product-composition className="mt-3 short:mt-2 grid rounded-xl border border-pine/45 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <div data-product-copy className="flex min-w-0 flex-col md:order-last px-4 pt-4 pb-2 md:p-6 short:md:p-4">
             <div className={cn("items-center gap-3 md:flex", home ? "flex" : "hidden")}>
               <img src={item.icon} alt="" className="size-11 shrink-0 object-contain" />

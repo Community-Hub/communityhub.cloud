@@ -43,7 +43,7 @@ function PhoneApp() {
         <section id="phone-app" className="scroll-mt-20">
           <p className="mb-4 t-small text-ink/70">
             <AppLink href="/products" className="text-pine underline underline-offset-4">
-              Products and Services
+              Products
             </AppLink>{" "}
             / Phone App
           </p>
@@ -124,7 +124,11 @@ function PhoneApp() {
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <div className="mt-8 border-t border-line bg-paper/60">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
+          <SiteFooter />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,81 +1,76 @@
 import { useLocation } from "@tanstack/react-router";
-import { Children, isValidElement, useEffect, useRef, useState } from "react";
+import { Children, cloneElement, isValidElement, useEffect } from "react";
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { siteIndex } from "@/lib/site-registry";
 import { imageSize } from "@/lib/image-dimensions";
-import { FooterChapter } from "@/components/site-footer";
-import { Chapter, Storyboard } from "@/components/storyboard";
+import { SiteFooter } from "@/components/site-footer";
+import { cn } from "@/lib/utils";
 
 export type DocStop = { id: string; label: string };
 
-/** A page of one or more titled sections, one per screen, then the footer. Same paging, dots, Next and swipe as the home page. */
+/** A continuous vertical document page of one or more titled sections, followed by the site footer. */
 export function DocShell({ stops, children }: { stops: readonly DocStop[]; children: ReactNode }) {
   const pathname = useLocation({ select: (l) => l.pathname.replace(/\/+$/, "") || "/" });
   const kids = Children.toArray(children);
   // One child per stop. An editor can hide a section (never the first); a page that does not line up is left alone.
   const aligned = kids.length === stops.length;
   const keep = stops.map((s, i) => !aligned || i === 0 || !siteIndex.isHidden(pathname, s.id));
-  const shownStops = stops
-    .filter((_, i) => keep[i])
-    .map((s) => {
-      const kid = kids[stops.indexOf(s)];
-      // The dots follow the heading the editors can change.
-      const label = aligned && isValidElement<{ label?: unknown }>(kid) && typeof kid.props.label === "string" ? kid.props.label : s.label;
-      return { ...s, label };
-    });
-  const all = [...shownStops, { id: "footer", label: "Footer" }];
-  return (
-    <Storyboard labels={all.map((s) => s.label)} ids={all.map((s) => s.id)}>
-      {aligned ? kids.filter((_, i) => keep[i]) : children}
-      <FooterChapter />
-    </Storyboard>
-  );
-}
+  const shownKids = aligned ? kids.filter((_, i) => keep[i]) : kids;
+  const shownStops = aligned ? stops.filter((_, i) => keep[i]) : stops;
 
-/** A scroll area that shows a bottom fade while there is more below, so an overflowing screen says so. */
-function ScrollFade({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [more, setMore] = useState(false);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const check = () => setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 4);
-    check();
-    el.addEventListener("scroll", check, { passive: true });
-    const ro = new ResizeObserver(check);
-    ro.observe(el);
-    if (el.firstElementChild) ro.observe(el.firstElementChild);
-    return () => {
-      el.removeEventListener("scroll", check);
-      ro.disconnect();
+    const scrollToHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     };
-  }, []);
-  // On a phone the scroll viewport itself stops above the fixed Next button, so content can never pass under it mid-scroll; the fade sits on that viewport's actual bottom edge. Desktop keeps the full-height viewport and its raised fade.
+    scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, [pathname]);
+
   return (
-    <div className="relative h-[calc(100%-var(--chrome-bottom))] md:h-full">
-      <div ref={ref} data-allow-scroll className="scroll-visible h-full">
-        {children}
+    <div className="min-h-dvh bg-field text-ink pt-16">
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 py-8 md:px-8 md:py-12">
+        {shownKids.map((kid, index) => {
+          const stop = shownStops[index];
+          if (isValidElement<{ id?: string; isFirst?: boolean }>(kid)) {
+            return cloneElement(kid, {
+              id: kid.props.id ?? stop?.id,
+              isFirst: index === 0,
+            });
+          }
+          return kid;
+        })}
+      </main>
+      <div className="mt-8 border-t border-line bg-paper/60">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
+          <SiteFooter />
+        </div>
       </div>
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-field to-transparent transition-opacity md:bottom-(--chrome-bottom) ${more ? "opacity-100" : "opacity-0"}`}
-      />
     </div>
   );
 }
 
-/** One titled screen. The first one on a page carries the h1. */
+/** One titled section on a document page. The first one on a page carries the h1. */
 export function DocSection({
+  id,
+  isFirst = false,
   label,
   title,
   as: Title = "h2",
   titleClassName,
   ledeClassName,
   lede,
-  cut = lede ? 6 : 0,
+  cut = 0,
   minShot = 6,
   children,
 }: {
+  id?: string;
+  isFirst?: boolean;
   label: string;
   title: string;
   as?: ElementType;
@@ -88,24 +83,29 @@ export function DocSection({
   minShot?: number;
   children?: ReactNode;
 }) {
+  const sectionId = id ?? label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return (
-    <Chapter label={label} className="bg-field text-ink">
-      <ScrollFade>
-        <div className={"wrap screen-pad max-md:pt-[calc(var(--header-h)+0.75rem)] max-md:pb-4"} style={cut ? ({ "--shot-h": `max(${minShot}rem, calc(var(--shot-base) - ${cut}rem))` } as CSSProperties) : undefined}>
-          <Title className={titleClassName ?? (Title === "h1" ? "t-h1" : "t-h2")}>{title}</Title>
-          {lede && <p className={`mt-2 max-w-3xl md:mt-3 ${ledeClassName ?? "t-lede short:t-small"}`}>{lede}</p>}
-          {children && <div className="mt-3 md:mt-6">{children}</div>}
-        </div>
-      </ScrollFade>
-    </Chapter>
+    <section
+      id={sectionId}
+      aria-label={label}
+      className={cn(
+        "scroll-mt-20",
+        !isFirst && Title !== "h1" && "border-t border-pine/20 pt-10",
+      )}
+      style={cut ? ({ "--shot-h": `max(${minShot}rem, 26rem)` } as CSSProperties) : ({ "--shot-h": "28rem" } as CSSProperties)}
+    >
+      <Title className={titleClassName ?? (Title === "h1" ? "t-h1" : "t-h2")}>{title}</Title>
+      {lede && <p className={`mt-2 max-w-3xl md:mt-3 ${ledeClassName ?? "t-lede"}`}>{lede}</p>}
+      {children && <div className="mt-4 md:mt-6">{children}</div>}
+    </section>
   );
 }
 
-/** Text left, image right (`stacked`: text above and a very wide picture full width below on md+); stacked on a phone, where `mediaFirst` puts the picture above the text so long copy cannot push it under the Next button. */
+/** Text left, image right (`stacked`: text above and a very wide picture full width below on md+); stacked on a phone, where `mediaFirst` puts the picture above the text. */
 export function Split({ media, mediaFirst = false, stacked = false, children }: { media: ReactNode; mediaFirst?: boolean; stacked?: boolean; children: ReactNode }) {
   return (
-    <div className={`grid items-start gap-4 md:gap-8 ${stacked ? "" : "md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"}`}>
-      <div className={`min-w-0 md:order-last space-y-3 t-body short:space-y-2 short:t-small ${stacked ? "md:max-w-3xl" : ""}`}>{children}</div>
+    <div className={`grid items-start gap-6 md:gap-8 ${stacked ? "" : "md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]"}`}>
+      <div className={`min-w-0 space-y-3 t-body ${stacked ? "md:max-w-3xl" : ""}`}>{children}</div>
       <div className={`min-w-0 ${mediaFirst ? "max-md:order-first" : ""}`}>{media}</div>
     </div>
   );
