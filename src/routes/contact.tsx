@@ -855,8 +855,8 @@ function NotSent({
   copyLabels: { label: string; done: string; announce: string };
 }) {
   const n = contactContent.notSent;
-  // The fallback writes to the same inbox the form delivers to.
-  const to = site.formInbox;
+  // The fallback offers the Community Hub address visitors see everywhere; the form itself delivers to the form inbox.
+  const to = site.contactEmail;
   const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   return (
