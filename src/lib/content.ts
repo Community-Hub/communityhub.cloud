@@ -351,6 +351,11 @@ export type SlideFrame = {
   displayFrame?: "screen" | "phone";
   /** Let responsive dashboard text render at its real size, with native inner scrolling. */
   nativeSize?: boolean;
+  /**
+   * Where a live page's own content starts on a phone (document y at 350px and at 496px wide, measured), so a
+   * phone-sized example opens on the data rather than on the page's header or photo. Widths between are interpolated.
+   */
+  phoneStart?: [number, number];
   presentation?: boolean;
   phoneWalkthrough?: boolean;
   phoneScan?: boolean;

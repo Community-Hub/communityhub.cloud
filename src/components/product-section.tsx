@@ -253,6 +253,7 @@ function FrameGraphic({ frame, voices, home = false, previewPlaying = false, run
         running={home ? running : true}
         partnerHeader={frame.partnerHeader}
         passiveMarker={home && !frame.nativeSize}
+        phoneStart={frame.phoneStart}
         onComplete={onWalkthroughComplete}
       />
     );

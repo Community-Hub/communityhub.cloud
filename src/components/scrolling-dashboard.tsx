@@ -9,6 +9,7 @@ export function ScrollingDashboard({
   partnerHeader,
   passiveMarker = false,
   virtualWidthOverride,
+  phoneStart,
   onComplete,
 }: {
   src: string;
@@ -17,6 +18,8 @@ export function ScrollingDashboard({
   partnerHeader?: string;
   passiveMarker?: boolean;
   virtualWidthOverride?: number;
+  /** Where the page's own content starts on a phone: document y at 350px and 496px wide. */
+  phoneStart?: [number, number];
   onComplete?: () => void;
 }) {
   const viewport = useRef<HTMLDivElement>(null);
@@ -96,9 +99,24 @@ export function ScrollingDashboard({
     portalLayout && reportedHeight !== null && reportedHeight < 1350
       ? portalLayout.docHeight
       : (reportedHeight ?? defaultDocHeight);
-  const unscaledW = box.w ? box.w / scale + leftInset + 18 : virtualWidth + leftInset + 18;
+  // On a phone the page lays out at exactly the box's width (the 18px that hides a desktop scrollbar would cut its right edge).
+  const unscaledW = box.w ? box.w / scale + leftInset + (narrow ? 0 : 18) : virtualWidth + leftInset + 18;
+  // A phone-sized example opens on the page's data, not its header: interpolate the measured start for this width.
+  const startTop =
+    narrow && phoneStart
+      ? Math.max(0, Math.round((phoneStart[0] + ((phoneStart[1] - phoneStart[0]) * (box.w - 350)) / 146 - 8 - topInset) * scale))
+      : 0;
+  const startRef = useRef(0);
+  startRef.current = startTop;
   const visibleUnscaledH = Math.max(400, docHeight - topInset);
   const scaledHeight = Math.max(box.h, Math.ceil(visibleUnscaledH * scale));
+
+  useEffect(() => {
+    const el = viewport.current;
+    if (!el || !startTop) return;
+    el.scrollTop = startTop;
+    lastAutoScrollTop.current = startTop;
+  }, [startTop, scaledHeight, src]);
 
   useEffect(() => {
     if (!running || !ready || touching || hovered) return;
@@ -129,8 +147,8 @@ export function ScrollingDashboard({
               if (complete.current) {
                 complete.current();
               } else {
-                lastAutoScrollTop.current = 0;
-                el.scrollTop = 0;
+                lastAutoScrollTop.current = startRef.current;
+                el.scrollTop = startRef.current;
                 elapsed.current = 0;
                 bottomTime.current = 0;
                 completed.current = false;

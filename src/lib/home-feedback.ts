@@ -13,6 +13,8 @@ export function homeEducateBeats(): ProductBeat[] {
         sublocation: "Harkness Co-op",
         embed: "https://oberlin.communityhub.cloud/dh-public/oc/dashboard/815",
         nativeSize: true,
+        // "Accumulation So Far", measured 2026-11-16.
+        phoneStart: [772, 918],
         caption: "Explore Harkness Co-op’s building dashboard. Scroll inside the dashboard to see its charts.",
       }, {
         title: placeTitle("Oberlin Public Schools", "Oberlin Elementary School"),
@@ -20,6 +22,8 @@ export function homeEducateBeats(): ProductBeat[] {
         sublocation: "Oberlin Elementary School",
         embed: "https://oberlin.communityhub.cloud/dh-public/ops/dashboard/529",
         nativeSize: true,
+        // "Accumulation So Far", measured 2026-11-16 at 350px; the 496px value follows the Harkness layout.
+        phoneStart: [802, 948],
         caption: "Oberlin Elementary School’s published resource-use dashboard. Scroll inside to see its charts.",
       }, {
         title: "Great Lakes Science Center",
@@ -147,6 +151,8 @@ export function homeEngageBeats(): ProductBeat[] {
 export const homeCalendar: ProductBeat["frames"][number] = {
   title: placeTitle("MidTown Cleveland", "Community Calendar on Partner Website"),
   embed: "https://cleveland.communityhub.cloud/calendar/?show-menu=0",
+  // The first event, under the calendar's own branded header (measured 2026-11-16).
+  phoneStart: [185, 120],
   caption: "MidTown Cleveland – Community Calendar embedded on a partner website.",
   aliases: ["midtown-cleveland-community-calendar"],
 };

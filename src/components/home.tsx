@@ -173,7 +173,7 @@ const IDENTITY = [
 /**
  * The product family's icons assemble outward from the Community Hub mark (the original site's animation).
  * It plays whenever the row comes into view and plays again after the visitor scrolls away and back.
- * The row starts "pending" (hidden only when motion is allowed), so the first paint never flashes.
+ * The server renders it at rest (visible); once mounted it waits hidden only while it is below the fold.
  */
 function IdentityRow() {
   const ref = useRef<HTMLDivElement>(null);
