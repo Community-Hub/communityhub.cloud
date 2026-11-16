@@ -58,9 +58,10 @@ test("non-.sql entries are dropped (readdir also yields the auth/ directory)", (
 
 test("the auth schema ships outside the globbed directory", () => {
   const migrationsDir = join(projectRoot(), "migrations");
-  // The site editor (CMS) ships its own tables in the globbed directory; the template's auth schema must not.
+  // The site editor (CMS) and the contact form's shared rate limit ship their tables in the globbed directory;
+  // the template's auth schema must not.
   const globbed = pendingMigrations(readdirSync(migrationsDir), []).map((m) => m.name);
-  assert.deepEqual(globbed, ["0001_cms.sql", "0002_cms_def_hash.sql"]);
+  assert.deepEqual(globbed, ["0001_cms.sql", "0002_cms_def_hash.sql", "0003_contact_sends.sql"]);
   assert.ok(readdirSync(join(migrationsDir, "auth")).includes("0001_auth.sql"));
 });
 

@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DocSection, DocShell } from "@/components/doc";
 import publicationsData from "@/data/publications.json";
-import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
@@ -21,11 +20,12 @@ type Paper = {
 const PAPERS = publicationsData as Paper[];
 
 const when = (p: Paper) => (p.year ? String(p.year) : "in press");
-/** url first, then the Drive PDF, then an emailed request. */
+/** url first, then the Drive PDF, then a request through the contact form, which notifies the form inbox. */
 function linkFor(p: Paper) {
   if (p.url) return { href: p.url, text: "Read the paper", external: true };
   if (p.drive_url) return { href: p.drive_url, text: "PDF (Drive)", external: true };
-  return { href: `mailto:${site.contactEmail}?subject=${encodeURIComponent(`Paper request: ${p.title}`)}`, text: "Request the paper", external: false };
+  const message = `I would like a copy of the paper “${p.title}”.`;
+  return { href: `/contact?topic=Research&message=${encodeURIComponent(message)}`, text: "Request the paper", external: false };
 }
 
 export const Route = createFileRoute("/research")({
@@ -45,7 +45,7 @@ function LinkOut({ paper, inline = false }: { paper: Paper; inline?: boolean }) 
       {l.text}
       {l.external && <span aria-hidden="true">{copy.research.LinkOut.span1}</span>}
       <span className="sr-only">
-        : {paper.title} ({l.external ? "opens in a new tab" : "opens your email app"})
+        : {paper.title} ({l.external ? "opens in a new tab" : "opens the contact form"})
       </span>
     </a>
   );
