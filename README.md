@@ -60,11 +60,28 @@ is applied by the request middleware in `src/start.ts` before any rendering.
 `/sitemap.xml` lists the current public routes.
 
 Pages whose content moved rather than matching one-to-one: old case-study
-pages (GLSC, Midtown, Oberlin, schools) land on anchored sections of
-`/work`; audience directories land on `/who`; `contact.html` / `contact-us`
-land on `/about` (the new site has no contact page); `environmental-dashboard`
-lands on `/` (the Environmental Orb story). The old `404.html` has no
+pages (GLSC, Midtown, Oberlin, schools) land on their pages under
+`/implementations/`; `/who`, `/work`, `/demos` and the audience directories
+land on `/implementations`; `contact.html` / `contact-us` land on `/contact`;
+`environmental-dashboard` lands on `/`. The old `404.html` has no
 counterpart; unknown paths render the app's not-found page.
+
+## Design
+
+The 2026 redesign is documented in `DESIGN.md` (tokens and rules) with its
+machine-readable extensions in `.impeccable/design.json`; `PRODUCT.md` holds
+the audiences, positioning and constraints. The home page reads as a brochure:
+each section is a full-screen page that snaps into place (`.brochure` /
+`.page` in `src/styles.css`, components in `src/components/home.tsx`).
+
+## Contact form and demo bookings
+
+`/contact` sends messages and demo bookings through `POST /api/contact`, which
+emails them with Resend to the inbox in `site.formInbox` (`src/lib/site.ts`,
+editable in the CMS). It needs `RESEND_API_KEY`; `MAIL_FROM` sets the sender
+(default `website@communityhub.cloud`). Without a key the form explains the
+problem and offers the email address instead. `/contact?mode=demo` opens the
+booking form; `/contact?topic=…` pre-fills a topic.
 
 ## Tests
 

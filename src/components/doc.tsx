@@ -5,12 +5,14 @@ import { siteIndex } from "@/lib/site-registry";
 import { imageSize } from "@/lib/image-dimensions";
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
 import { SiteFooter } from "@/components/site-footer";
+import { ContactBand } from "@/components/contact-band";
 import { cn } from "@/lib/utils";
 
 export type DocStop = { id: string; label: string };
 
 /** A continuous vertical document page of one or more titled sections, followed by the site footer. */
-export function DocShell({ stops, children }: { stops: readonly DocStop[]; children: ReactNode }) {
+/** `cta`: end the page with the Contact us band (default). */
+export function DocShell({ stops, children, cta = true }: { stops: readonly DocStop[]; children: ReactNode; cta?: boolean }) {
   const pathname = useLocation({ select: (l) => l.pathname.replace(/\/+$/, "") || "/" });
   const kids = Children.toArray(children);
   // One child per stop. An editor can hide a section (never the first); a page that does not line up is left alone.
@@ -48,8 +50,8 @@ export function DocShell({ stops, children }: { stops: readonly DocStop[]; child
   }, [pathname]);
 
   return (
-    <div className="min-h-dvh bg-field text-ink pt-16">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 py-8 md:px-8 md:py-12">
+    <div className="bg-paper text-ink">
+      <main id="main" className="doc-main wrap">
         {shownKids.map((kid, index) => {
           const stop = shownStops[index];
           if (isValidElement<{ id?: string; isFirst?: boolean }>(kid)) {
@@ -61,11 +63,8 @@ export function DocShell({ stops, children }: { stops: readonly DocStop[]; child
           return kid;
         })}
       </main>
-      <div className="mt-8 border-t border-line bg-paper/60">
-        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
-          <SiteFooter />
-        </div>
-      </div>
+      {cta && <ContactBand />}
+      <SiteFooter />
     </div>
   );
 }
@@ -103,15 +102,12 @@ export function DocSection({
     <section
       id={sectionId}
       aria-label={label}
-      className={cn(
-        "scroll-mt-20",
-        !isFirst && Title !== "h1" && "border-t border-pine/20 pt-10",
-      )}
-      style={cut ? ({ "--shot-h": `max(${minShot}rem, 26rem)` } as CSSProperties) : ({ "--shot-h": "28rem" } as CSSProperties)}
+      className={cn("doc-section-block scroll-mt-24", !isFirst && Title !== "h1" && "doc-section-rule")}
+      style={cut ? ({ "--shot-h": `max(${minShot}rem, 26rem)` } as CSSProperties) : ({ "--shot-h": "30rem" } as CSSProperties)}
     >
-      <Title className={titleClassName ?? (Title === "h1" ? "t-h1" : "t-h2")}>{title}</Title>
-      {lede && <p className={`mt-2 max-w-3xl md:mt-3 ${ledeClassName ?? "t-lede"}`}>{lede}</p>}
-      {children && <div className="mt-4 md:mt-6">{children}</div>}
+      <Title className={titleClassName ?? (Title === "h1" ? "t-h1 max-w-4xl" : "t-h2 max-w-3xl")}>{title}</Title>
+      {lede && <p className={cn("max-w-3xl", Title === "h1" ? "mt-5" : "mt-4", ledeClassName ?? "t-lede")}>{lede}</p>}
+      {children && <div className={Title === "h1" ? "mt-10 md:mt-12" : "mt-8 md:mt-10"}>{children}</div>}
     </section>
   );
 }
@@ -119,8 +115,8 @@ export function DocSection({
 /** Text left, image right (`stacked`: text above and a very wide picture full width below on md+); stacked on a phone, where `mediaFirst` puts the picture above the text. */
 export function Split({ media, mediaFirst = false, stacked = false, children }: { media: ReactNode; mediaFirst?: boolean; stacked?: boolean; children: ReactNode }) {
   return (
-    <div className={`grid items-start gap-6 md:gap-8 ${stacked ? "" : "md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]"}`}>
-      <div className={`min-w-0 space-y-3 t-body ${stacked ? "md:max-w-3xl" : ""}`}>{children}</div>
+    <div className={`grid items-start gap-8 md:gap-12 ${stacked ? "" : "md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]"}`}>
+      <div className={`min-w-0 space-y-4 t-body text-ink/85 ${stacked ? "md:max-w-3xl" : ""}`}>{children}</div>
       <div className={`min-w-0 ${mediaFirst ? "max-md:order-first" : ""}`}>{media}</div>
     </div>
   );
@@ -135,7 +131,7 @@ export function Shot({ src, alt, className = "" }: { src: string; alt: string; c
       alt={alt}
       width={size?.width}
       height={size?.height}
-      className={`block h-auto max-h-(--shot-h) max-w-full rounded-md border border-line bg-paper object-contain object-left-top shadow-[0_1px_3px_rgba(36,75,56,0.07)] ${className}`}
+      className={`block h-auto max-h-(--shot-h) max-w-full rounded-[1.25rem] border border-line bg-paper object-contain object-left-top ${className}`}
     />
   );
 }

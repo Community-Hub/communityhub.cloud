@@ -1,15 +1,12 @@
 import { ScrollingDashboard } from "@/components/scrolling-dashboard";
-import { SliderArrows } from "@/components/slider-arrows";
-import { PlayPauseButton, useAutoplay } from "@/components/play-pause";
-import { copy } from "@/lib/copy";
-import { useEffect, useLayoutEffect, useRef, useState, type ElementType, type KeyboardEvent, type ReactNode } from "react";
-import { AppLink } from "@/components/app-link";
-import { VoicesPane, useVoicesRotation } from "@/components/community-voices";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PlayPauseButton } from "@/components/play-pause";
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useVoicesRotation } from "@/components/community-voices";
 import { GuardedEmbed } from "@/components/guarded-embed";
-import { useInnerStep } from "@/components/storyboard";
 import { usePreviewRotation } from "@/lib/use-preview-rotation";
 import { useSwipe } from "@/lib/use-swipe";
-import type { ProductBeat, SlideFrame } from "@/lib/content";
+import type { SlideFrame } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { PhoneScanExample, PhoneWalkthrough } from "@/components/phone-walkthrough";
 import voicesSlidesData from "@/data/voices-slides.json";
@@ -187,7 +184,7 @@ function DisplayFramedEmbed({ frame, running }: { frame: SlideFrame; running: bo
     return (
       <div
         data-display-frame="screen"
-        className="absolute inset-0 flex flex-col items-center justify-center bg-[#eae6dc] p-2 sm:p-3 md:p-5"
+        className="absolute inset-0 flex flex-col items-center justify-center p-2 sm:p-3 md:p-5"
       >
         <div className="flex h-full w-full max-w-[96%] flex-col overflow-hidden rounded-lg border-[5px] border-[#1f2622] bg-[#111614] shadow-xl sm:max-w-[94%] sm:border-[8px]">
           <div className="flex h-5 shrink-0 items-center justify-between bg-[#1f2622] px-2.5 text-xs font-medium tracking-wide text-paper/85 sm:h-6 sm:px-3">
@@ -208,7 +205,7 @@ function DisplayFramedEmbed({ frame, running }: { frame: SlideFrame; running: bo
   return (
     <div
       data-display-frame="phone"
-      className="absolute inset-0 flex items-center justify-center gap-6 bg-[#eae6dc] px-3 py-2 sm:px-4 sm:py-3 md:px-8"
+      className="absolute inset-0 flex items-center justify-center gap-6 px-3 py-2 sm:px-4 sm:py-3 md:px-8"
     >
       <div className="flex h-full w-[min(100%,14rem)] flex-col overflow-hidden rounded-[1.4rem] border-[5px] border-[#1f2622] bg-white shadow-xl sm:w-[min(100%,15rem)] sm:rounded-[1.6rem] sm:border-[6px]">
         <div className="flex h-5 shrink-0 items-center justify-center bg-[#1f2622]">
@@ -322,9 +319,9 @@ function FrameGraphic({ frame, voices, home = false, previewPlaying = false, run
   }
   // Photos fill the box with no bumpers; screenshots and diagrams (fit: "contain") are shown whole.
   return (
+    // Not lazy: a contained photo is sized from its own pixels, so before it loads it has no box to be seen in.
     <img
       key={frame.src}
-      loading="lazy"
       decoding="async"
       src={frame.src}
       alt={frame.alt ?? ""}
@@ -393,7 +390,7 @@ export function Examples({
   const frame = frames[at] ?? frames[0];
   const voices = useVoicesRotation(Boolean(frame?.voices));
   const slide = useSlide(at, frames.map((f) => f.title).join("|"), dirRef);
-  // Contained portrait photos have side gutters. Keep their title on the photo edge.
+  // The example's title and caption start where the picture starts: the frame's edge, or a contained photo's own edge.
   useLayoutEffect(() => {
     const figure = figureRef.current;
     if (!figure) return;
@@ -401,20 +398,23 @@ export function Examples({
       ? figure.querySelector<HTMLImageElement>(`[data-slide="${at}"] > img`)
       : null;
     const alignTitle = () => {
-      let inset = 0;
+      const figureLeft = figure.getBoundingClientRect().left;
+      const frameEl = figure.querySelector<HTMLElement>("[data-box-frame]");
+      let left = frameEl ? frameEl.getBoundingClientRect().left - figureLeft : 0;
       if (image?.naturalWidth && getComputedStyle(image).objectFit === "contain") {
-        const width = Math.min(image.clientWidth, image.clientHeight * image.naturalWidth / image.naturalHeight);
-        inset = Math.max(0, (image.clientWidth - width) / 2);
+        const drawn = image.getBoundingClientRect();
+        const width = Math.min(drawn.width, (drawn.height * image.naturalWidth) / image.naturalHeight);
+        left = drawn.left + (drawn.width - width) / 2 - figureLeft;
       }
-      figure.style.setProperty("--photo-title-inset", `${inset}px`);
+      figure.style.setProperty("--photo-title-inset", `${Math.max(0, left)}px`);
     };
     alignTitle();
-    if (!image) return;
-    image.addEventListener("load", alignTitle);
+    image?.addEventListener("load", alignTitle);
     const observer = new ResizeObserver(alignTitle);
-    observer.observe(image);
+    observer.observe(figure);
+    if (image) observer.observe(image);
     return () => {
-      image.removeEventListener("load", alignTitle);
+      image?.removeEventListener("load", alignTitle);
       observer.disconnect();
     };
   }, [at, frame?.src]);
@@ -438,6 +438,7 @@ export function Examples({
     }
   };
   const layers = [at, ...(slide.prev !== null && slide.prev !== at && frames[slide.prev] ? [slide.prev] : [])];
+  const hasPause = Boolean(many || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/"));
 
   return (
     <figure
@@ -472,48 +473,66 @@ export function Examples({
           {extra && <span className="ml-auto flex shrink-0">{extra}</span>}
         </div>
       )}
-      <div
-        data-box-frame
-        data-walkthrough-frame={frame.phoneWalkthrough || undefined}
-        data-phone-scan-frame={frame.phoneScan || undefined}
-        data-presentation-frame={frame.presentation || undefined}
-        data-voices-frame={frame.voices || frame.embed?.includes("/cv-public/") || undefined}
-        className="relative aspect-[16/10] max-h-(--card-media-h) w-full min-w-0 overflow-hidden rounded-md border border-line bg-paper/60"
-      >
-        {layers.map((n) => {
-          const current = n === at;
-          return (
-            <div
-              key={n}
-              data-slide={n}
-              aria-hidden={current ? undefined : true}
-              className={cn(
-                "absolute inset-0",
-                current && slide.prev !== null && (slide.dir > 0 ? "sb-in-next" : "sb-in-prev"),
-                !current && (slide.dir > 0 ? "sb-out-next" : "sb-out-prev"),
-              )}
-            >
-              <FrameGraphic frame={frames[n]} voices={{ title: voices.filter.title, url: voices.filter.url }} home={home} previewPlaying={current && rotation.playing} running={current && rotation.running} onWalkthroughComplete={current && many ? () => stepRef.current(1) : undefined} />
-            </div>
-          );
-        })}
-        {(many || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/")) && (
-          <div className="home-media-controls">
-            {many && <SliderArrows onPrev={() => step(-1)} onNext={() => step(1)} labels={{ prev: "Previous example", next: "Next example" }} />}
-            <PlayPauseButton
-              playing={rotation.playing}
-              onToggle={rotation.toggle}
-              labels={
-                frame.phoneWalkthrough
-                  ? { pause: "Pause animation", play: "Play animation" }
-                  : { pause: "Pause examples", play: "Play examples" }
-              }
-            />
+      {/* The stage holds the frame; on a wide screen the arrows stand outside it, on either side. */}
+      <div className="media-stage" data-arrows={many || undefined}>
+        <div
+          data-box-frame
+          data-walkthrough-frame={frame.phoneWalkthrough || undefined}
+          data-phone-scan-frame={frame.phoneScan || undefined}
+          data-presentation-frame={frame.presentation || undefined}
+          data-voices-frame={frame.voices || frame.embed?.includes("/cv-public/") || undefined}
+          className="relative aspect-[16/10] max-h-(--card-media-h) w-full min-w-0 overflow-hidden rounded-md border border-line bg-paper/60"
+        >
+          {layers.map((n) => {
+            const current = n === at;
+            return (
+              <div
+                key={n}
+                data-slide={n}
+                aria-hidden={current ? undefined : true}
+                className={cn(
+                  "absolute inset-0",
+                  current && slide.prev !== null && (slide.dir > 0 ? "sb-in-next" : "sb-in-prev"),
+                  !current && (slide.dir > 0 ? "sb-out-next" : "sb-out-prev"),
+                )}
+              >
+                <FrameGraphic frame={frames[n]} voices={{ title: voices.filter.title, url: voices.filter.url }} home={home} previewPlaying={current && rotation.playing} running={current && rotation.running} onWalkthroughComplete={current && many ? () => stepRef.current(1) : undefined} />
+              </div>
+            );
+          })}
+        </div>
+        {/* Previous, Pause and Next: arrows beside the frame and Pause below it on a wide screen; one row under it on a phone. */}
+        {(many || hasPause) && (
+          <div className="media-controls" data-slider-arrows>
+            {many && (
+              <button type="button" aria-label="Previous example" data-control="prev" className="slider-arrow-button" onClick={() => step(-1)}>
+                <ChevronLeft className="size-5" strokeWidth={2.25} aria-hidden />
+              </button>
+            )}
+            {hasPause && (
+              <PlayPauseButton
+                playing={rotation.playing}
+                onToggle={rotation.toggle}
+                className="home-round-btn media-pause-button"
+                labels={
+                  frame.phoneWalkthrough
+                    ? { pause: "Pause animation", play: "Play animation" }
+                    : { pause: "Pause examples", play: "Play examples" }
+                }
+              />
+            )}
+            {many && (
+              <button type="button" aria-label="Next example" data-control="next" className="slider-arrow-button" onClick={() => step(1)}>
+                <ChevronRight className="size-5" strokeWidth={2.25} aria-hidden />
+              </button>
+            )}
           </div>
         )}
       </div>
+      {many && <p className="sr-only" aria-live="polite">{`Example ${at + 1} of ${frames.length}`}</p>}
       <figcaption
         data-has-legend={Boolean(frame.legend) || undefined}
+        style={{ paddingLeft: "var(--photo-title-inset, 0px)" }}
         className={
           home
             ? frame.legend
@@ -530,7 +549,6 @@ export function Examples({
           !home && frame.caption
         )}
       </figcaption>
-      {many && <p className="sr-only" aria-live="polite">{`Example ${at + 1} of ${frames.length}`}</p>}
     </figure>
   );
 }
@@ -539,190 +557,4 @@ export function Examples({
 export function FrameSlider({ frames, heading, extra }: { frames: SlideFrame[]; heading?: string; extra?: ReactNode }) {
   const [i, setI] = useState(0);
   return <Examples frames={frames} i={i} onI={setI} heading={heading} extra={extra} />;
-}
-
-export type ProductAction = { href: string; label: string } | null;
-
-type Props = {
-  /** Homepage corrections are isolated from the product-page layouts. */
-  home?: boolean;
-  title: string;
-  as?: ElementType;
-  items: ProductBeat[];
-  active: number;
-  /** Chapter mode: tabs are buttons that switch the card. */
-  onActive?: (next: number) => void;
-  /** Page mode: tabs are links to each product's own page. */
-  tabs?: "buttons" | "links";
-  /** The call to action under the body. Defaults to a "Learn more" link to the product page. */
-  action?: (item: ProductBeat) => ProductAction;
-  /** Slug of the example to open, and a callback when the visitor pages to another one. */
-  openExample?: string;
-  onExample?: (slug: string) => void;
-};
-
-/**
- * The one multi-item section. A big title, a row of arrow-prefixed product links over a thin rule,
- * and one outlined card: icon, name, body and a link on the left; examples on the right.
- * On a phone it stacks (title, scrolling link row, text, image) and still fits one screen.
- */
-export function ProductSection({
-  title,
-  home = false,
-  as: Title = "h2",
-  items,
-  active,
-  onActive,
-  tabs = "buttons",
-  action,
-  openExample,
-  onExample,
-}: Props) {
-  const item = items[active] ?? items[0];
-  const [fi, setFi] = useState(0);
-  const written = useRef("");
-  const rowRef = useRef<HTMLDivElement>(null);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const [fade, setFade] = useState({ l: false, r: false });
-  const activeId = item?.id;
-
-  // Page scroll moves through the product menu before leaving the chapter; examples stay on the < > arrows.
-  useInnerStep(rootRef, (dir) => {
-    if (tabs !== "buttons" || !onActive) return false;
-    const next = active + dir;
-    if (next < 0 || next >= items.length) return false;
-    onActive(next);
-    return true;
-  });
-
-  // A new product starts at its first example, unless the address names one.
-  useEffect(() => {
-    if (!item) return;
-    if (openExample && openExample === written.current) return;
-    const at = openExample ? item.frames.findIndex((frame) => slugOf(frame.title) === openExample || frame.aliases?.includes(openExample)) : -1;
-    setFi(at >= 0 ? at : 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeId, openExample]);
-
-  // Keep the active link in view when the row scrolls sideways (phones).
-  useEffect(() => {
-    const row = rowRef.current;
-    const tab = row?.querySelector<HTMLElement>("[data-active='true']");
-    if (!row || !tab) return;
-    row.scrollLeft = Math.max(0, tab.offsetLeft - (row.clientWidth - tab.offsetWidth) / 2);
-  }, [activeId]);
-
-  // On a phone the row wraps so every tab shows. Where it scrolls, a fade on the side with more links says so.
-  const updateFade = () => {
-    const row = rowRef.current;
-    if (!row) return;
-    const l = row.scrollLeft > 2;
-    const r = row.scrollLeft + row.clientWidth < row.scrollWidth - 2;
-    setFade((f) => (f.l === l && f.r === r ? f : { l, r }));
-  };
-  useEffect(() => {
-    updateFade();
-    window.addEventListener("resize", updateFade);
-    return () => window.removeEventListener("resize", updateFade);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeId, items.length]);
-
-  if (!item) return null;
-  const cta: ProductAction = action ? action(item) : { href: item.href, label: "Learn more" };
-
-  // ARIA tabs: Left/Right/Home/End move focus and selection, and only the chosen tab is in the tab order.
-  const onTabKey = (e: KeyboardEvent<HTMLElement>) => {
-    if (tabs !== "buttons" || !onActive || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    const to = { ArrowRight: active + 1, ArrowLeft: active - 1, Home: 0, End: items.length - 1 }[e.key];
-    if (to === undefined || to < 0 || to >= items.length) return;
-    e.preventDefault();
-    onActive(to);
-    requestAnimationFrame(() => rowRef.current?.querySelectorAll<HTMLElement>("[role='tab']")[to]?.focus({ preventScroll: true }));
-  };
-
-  const tabClass = (on: boolean) =>
-    cn(
-      "flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap t-body max-md:min-h-9 short:min-h-9",
-      on ? "font-bold text-ink" : "text-ink/70",
-    );
-  const label = (text: string, on: boolean) => (
-    <span className={cn("py-0.5", on && "border-b-2 border-ink")}>{text}</span>
-  );
-
-  return (
-    <div ref={rootRef} data-scroll-restoration-id={`product-${slugOf(title)}`} data-allow-scroll data-home-product={home || undefined} className="scroll-visible h-full">
-      <div className="wrap screen-pad max-md:[--card-media-h:clamp(7rem,calc(100dvh-34rem),24rem)]">
-        <Title className="t-h2">{title}</Title>
-        {items.length > 1 && (
-          <div
-            ref={rowRef}
-            onScroll={updateFade}
-            onKeyDown={onTabKey}
-            style={{
-              touchAction: "pan-x",
-              maskImage: `linear-gradient(to right, ${fade.l ? "transparent, #000 1.75rem" : "#000, #000"}, ${fade.r ? "#000 calc(100% - 1.75rem), transparent" : "#000, #000"})`,
-            }}
-            className="mt-1 flex gap-x-6 border-b border-pine/25 [scrollbar-width:none] max-md:flex-wrap max-md:gap-x-4 md:overflow-x-auto"
-            {...(tabs === "buttons" ? { role: "tablist", "aria-label": title } : { "aria-label": title })}
-          >
-            {items.map((entry, n) =>
-              tabs === "links" ? (
-                <AppLink
-                  key={entry.id}
-                  href={entry.href}
-                  aria-current={n === active ? "page" : undefined}
-                  data-active={n === active}
-                  className={tabClass(n === active)}
-                >
-                  {label(entry.title, n === active)}
-                </AppLink>
-              ) : (
-                <button
-                  key={entry.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={n === active}
-                  data-active={n === active}
-                  tabIndex={n === active ? 0 : -1}
-                  onClick={() => onActive?.(n)}
-                  className={tabClass(n === active)}
-                >
-                  {label(entry.title, n === active)}
-                </button>
-              ),
-            )}
-          </div>
-        )}
-        <div data-product-composition className="mt-3 short:mt-2 grid rounded-xl border border-pine/45 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div data-product-copy className="flex min-w-0 flex-col md:order-last px-4 pt-4 pb-2 md:p-6 short:md:p-4">
-            <div className={cn("items-center gap-3 md:flex", home ? "flex" : "hidden")}>
-              <img src={item.icon} alt="" className="size-11 shrink-0 object-contain" />
-              {!(home && item.id === "orb") && <h3 className="t-h3">{item.title}</h3>}
-            </div>
-            <p className="line-clamp-3 max-w-xl t-body mt-3 md:line-clamp-none short:md:mt-2">{item.body}</p>
-            {cta && (
-              <div className="mt-1 md:mt-3 short:md:mt-1">
-                <AppLink href={cta.href} className="link">
-                  {cta.label}
-                </AppLink>
-              </div>
-            )}
-          </div>
-          <div data-product-media className="min-w-0 px-3 pt-0 pb-3 md:px-4 md:py-4 short:md:py-3">
-            <Examples
-              frames={item.frames}
-              home={home}
-              i={home ? Math.max(0, item.frames.findIndex(frame => slugOf(frame.title) === openExample || (openExample && frame.aliases?.includes(openExample)))) : fi}
-              onI={(next) => {
-                setFi(next);
-                const slug = slugOf(item.frames[next]?.title ?? "");
-                written.current = slug;
-                onExample?.(slug);
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }

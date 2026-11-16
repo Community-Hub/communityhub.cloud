@@ -200,7 +200,7 @@ export function homeEmpowerBeats(): ProductBeat[] {
 // Restored verbatim from v1 homepage, accessed 8 October 2026. No new marketing prose.
 export const homeMission = {
   problem: "Communication innovations have enhanced the capacity to connect across great distances. Yet, they often leave us less connected to local communities in which we live, shop, work, and play and the social and environmental resources on which we depend.",
-  solution: "CommunityHub’s award-winning communication platform includes sophisticated data acquisition and display applications. Using our tools, organizations, neighborhoods, and cities are motivating and empowering community engagement, connection, and resilience in the face of a rapidly changing environment.",
+  solution: "Community Hub’s award-winning communication platform includes sophisticated data acquisition and display applications. Using our tools, organizations, neighborhoods, and cities are motivating and empowering community engagement, connection, and resilience in the face of a rapidly changing environment.",
 };
 const attribution = [
   ["Grace Gao", "Oberlin College Student"],
@@ -221,9 +221,9 @@ export function homeFeatureStories() {
     alt: index === 5 ? "A group in a library viewing resource-use data on a dashboard screen" : story.alt,
     links: index === 5 ? [{ href: "/data-hub", label: "Data Hub" }] : story.links,
     org: index === 3 ? "Toledo" : story.org,
-    quote: index === 5 ? "CommunityHub's Digital Signage is central to our community's climate resilience communication strategy"
+    quote: index === 5 ? "Community Hub’s Digital Signage is central to our community's climate resilience communication strategy"
       : index === 6 ? "Community Hub’s events calendar has made our work easier. People in the community are participating — it’s simple, but transformative!"
-      : index === 7 ? "For a decade we have looked to the CommunityHub team as key partners in translating our energy conservation services into community engagement"
+      : index === 7 ? "For a decade we have looked to the Community Hub team as key partners in translating our energy conservation services into community engagement"
       : story.quote,
     speaker: attribution[index]?.[0] ?? "",
     sourceRole: attribution[index]?.[1] ?? "",

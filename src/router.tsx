@@ -18,6 +18,8 @@ export function getRouter() {
   return createRouter({
     routeTree,
     scrollRestoration: true,
+    // A short cross-fade between pages where the browser supports view transitions.
+    defaultViewTransition: true,
     defaultErrorComponent: AppErrorComponent,
     defaultNotFoundComponent: NotFound,
     rewrite: { input: ({ url }) => rewriteLegacyUrl(url) },

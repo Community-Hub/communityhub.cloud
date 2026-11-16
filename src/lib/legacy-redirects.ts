@@ -18,7 +18,7 @@ export const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
   // WordPress-era paths (previously handled by deployment/nginx.conf).
   "/home": "/",
   "/team": "/about",
-  "/contact-us": "/about",
+  "/contact-us": "/contact",
   "/products-and-services": "/products",
   "/products-and-services/data-manager": "/data-hub",
   "/products-and-services/dashboard-creator": "/dashboard-builder",
@@ -51,24 +51,29 @@ export const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
   "/web-embeddables.html": "/web-embeddables",
   "/environmental-dashboard.html": "/",
   "/environmental-dashboard": "/",
-  "/contact.html": "/about",
-  "/dashboards.html": "/demos",
-  "/examples.html": "/demos",
-  "/see-it-live.html": "/demos",
-  "/bring-a-dashboard.html": "/demos",
+  "/contact.html": "/contact",
+  "/dashboards.html": "/implementations",
+  "/examples.html": "/implementations",
+  "/see-it-live.html": "/implementations",
+  "/bring-a-dashboard.html": "/bring-dashboard-to-your-community",
   "/education.html": "/toolkit",
   "/media.html": "/resources",
-  "/who-its-for.html": "/who",
-  "/great-lakes-science-center.html": "/work#glsc",
-  "/midtown-cleveland.html": "/work#midtown",
-  "/oberlin-college.html": "/work#college",
-  "/city-of-oberlin.html": "/work#oberlin",
-  "/hamilton-college.html": "/work",
-  "/schools.html": "/work#schools",
-  "/campuses.html": "/who",
-  "/cities.html": "/who",
-  "/museums.html": "/who",
-  "/neighborhoods.html": "/who",
+  "/who-its-for.html": "/implementations",
+  "/great-lakes-science-center.html": "/implementations/great-lakes-science-center",
+  "/midtown-cleveland.html": "/implementations/midtown-cleveland",
+  "/oberlin-college.html": "/implementations/oberlin-college",
+  "/city-of-oberlin.html": "/implementations/city-of-oberlin",
+  "/hamilton-college.html": "/implementations",
+  "/schools.html": "/implementations/oberlin-public-schools",
+  "/campuses.html": "/implementations",
+  "/cities.html": "/implementations",
+  "/museums.html": "/implementations",
+  "/neighborhoods.html": "/implementations",
+
+  // Pages the 2026 redesign folded into Implementations (as the live site already does).
+  "/who": "/implementations",
+  "/work": "/implementations",
+  "/demos": "/implementations",
   // `/404.html` is deliberately absent: it (and every other unknown path)
   // must answer a genuine 404, never a redirect home.
 };
@@ -77,13 +82,20 @@ export const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
 export const PUBLIC_ROUTES: readonly string[] = [
   "/",
   "/about",
+  "/bring-dashboard-to-your-community",
   "/citywide-dashboard",
   "/community-calendar",
   "/community-voices",
+  "/contact",
   "/dashboard-builder",
   "/data-hub",
-  "/demos",
   "/digital-signage",
+  "/implementations",
+  "/implementations/city-of-oberlin",
+  "/implementations/great-lakes-science-center",
+  "/implementations/midtown-cleveland",
+  "/implementations/oberlin-college",
+  "/implementations/oberlin-public-schools",
   "/phone-app",
   "/pricing",
   "/privacy-policy",
@@ -96,8 +108,6 @@ export const PUBLIC_ROUTES: readonly string[] = [
   "/story",
   "/toolkit",
   "/web-embeddables",
-  "/who",
-  "/work",
 ];
 
 /**
@@ -158,7 +168,7 @@ export function rewriteLegacyUrl(url: URL): URL {
   if (!target) return url;
   const [path, fragment] = target.split("#");
   url.pathname = path;
-  // A mapped fragment (e.g. /work#glsc) wins, as with the server Location;
+  // A mapped fragment wins, as with the server Location;
   // otherwise keep the visitor's own fragment.
   if (fragment) url.hash = `#${fragment}`;
   return url;

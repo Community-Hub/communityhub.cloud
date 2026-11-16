@@ -4,6 +4,10 @@ import { AppLink } from "@/components/app-link";
 import { PhoneControl } from "@/components/phone-control";
 import { FrameSlider } from "@/components/product-section";
 import { SiteFooter } from "@/components/site-footer";
+import { site } from "@/lib/site";
+import { DEMO_HREF } from "@/lib/links";
+import { ContactBand } from "@/components/contact-band";
+import { RelatedProducts } from "@/components/product-pager";
 import { engageBeats, placeTitle, type SlideFrame } from "@/lib/content";
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
@@ -192,28 +196,40 @@ function DigitalSignage() {
   }, []);
 
   return (
-    <div className="min-h-dvh bg-field text-ink pt-16">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-8 md:px-8 md:py-12">
+    <div className="bg-paper text-ink">
+      <main id="main" className="product-main">
         {/* Section 1: Digital Signage Hero + Installation Slider */}
-        <section id="digital-signage" className="scroll-mt-20">
-          <p className="t-small text-ink/70">
+        <section id="digital-signage" className="product-section wrap product-section-first scroll-mt-24">
+          <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
             <AppLink
               href={copy.productPager.ProductPager.AppLink_href1}
-              className="text-pine underline underline-offset-4"
+              className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine"
             >
               {copy.productPager.ProductPager.AppLink1}
-            </AppLink>{" "}
-            / {copy.digitalSignage.DigitalSignage.h11}
-          </p>
+            </AppLink>
+            <span aria-hidden className="px-2 text-ink/35">/</span>
+            <span aria-current="page">{copy.digitalSignage.DigitalSignage.h11}</span>
+          </nav>
 
-          <div className="mt-6 grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+          <div className="product-detail-layout product-detail-split">
             <div className="min-w-0">
-              <div className="flex items-center gap-3">
-                <img src={ICON} alt="" className="size-11 shrink-0 object-contain" />
-                <h1 className="t-h2">{copy.digitalSignage.DigitalSignage.h11}</h1>
-              </div>
-              <p className="mt-5 max-w-xl t-body">
+              <img src={ICON} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />
+              <h1 className="t-h1">{copy.digitalSignage.DigitalSignage.h11}</h1>
+              <p className="mt-5 max-w-xl t-lede">
                 {copy.digitalSignage.DigitalSignage.p1}
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <AppLink href={site.contactHref} className="btn-primary">
+                  {copy.siteHeader.SiteHeader.a1}
+                </AppLink>
+                <AppLink href={DEMO_HREF} className="btn-secondary">
+                  {copy.siteHeader.SiteHeader.a2}
+                </AppLink>
+              </div>
+              <p className="mt-5">
+                <a href="#try-the-phone" onClick={(e) => { const el = document.getElementById("try-the-phone"); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); } }} className="link">
+                  Try the phone controller
+                </a>
               </p>
             </div>
 
@@ -228,8 +244,8 @@ function DigitalSignage() {
           <ul className="product-detail-features">
             {SIGNAGE_FEATURES.map((feature) => (
               <li key={feature.title}>
-                <h2 className="t-body font-bold text-pine">{feature.title}</h2>
-                <p className="mt-1 t-small">{feature.body}</p>
+                <h2 className="text-lg font-semibold text-pine">{feature.title}</h2>
+                <p className="mt-2 t-body text-ink/78">{feature.body}</p>
               </li>
             ))}
           </ul>
@@ -238,15 +254,15 @@ function DigitalSignage() {
         {/* Section 2: Community and Local Content */}
         <section
           id="community-and-local-content"
-          className="scroll-mt-20 border-t border-pine/20 pt-12"
+          className="product-section wrap product-section-rule scroll-mt-24"
         >
-          <div className="grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+          <div className="product-detail-layout product-detail-split">
             <div className="min-w-0">
               <h2 className="t-h2">Community and local content</h2>
-              <p className="mt-5 t-body">
-                CommunityHub’s digital signage connects community members with information and events from across their community. Organizations can also post and update content specific to their location, bringing community-wide and organization-specific communication together on one screen.
+              <p className="mt-5 t-body text-ink/80">
+                Community Hub’s digital signage connects community members with information and events from across their community. Organizations can also post and update content specific to their location, bringing community-wide and organization-specific communication together on one screen.
               </p>
-              <p className="mt-4 t-body">
+              <p className="mt-4 t-body text-ink/80">
                 Community calendars, stories, and resource-use visualizations provide opportunities to inform, engage, and connect the people who live, shop, work, and play in the community.
               </p>
             </div>
@@ -263,17 +279,14 @@ function DigitalSignage() {
         {/* Section 3: Interactive Phone Control Demo */}
         <section
           id="try-the-phone"
-          className="scroll-mt-20 border-t border-pine/20 pt-12"
+          className="product-section wrap product-section-rule scroll-mt-24"
         >
           <PhoneControl venueIndex={0} />
         </section>
       </main>
-
-      <div className="mt-8 border-t border-line bg-paper/60">
-        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
-          <SiteFooter />
-        </div>
-      </div>
+      <RelatedProducts page="/digital-signage" />
+      <ContactBand />
+      <SiteFooter />
     </div>
   );
 }

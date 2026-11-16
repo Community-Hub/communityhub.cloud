@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { pc } from "@/lib/page-content";
 import { site } from "@/lib/site";
 import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from "@tanstack/react-router";
@@ -23,19 +24,25 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: pc.meta.home.title },
       { name: "description", content: site.mission },
-      { name: "theme-color", content: "#14241c" },
+      { name: "theme-color", content: "#ffffff" },
       { property: "og:title", content: pc.meta.home.title },
       { property: "og:description", content: pc.meta.ogDescription.text },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/og.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Downtown Oberlin from the Community Hub film, with the line: It has never been more important to act locally while thinking globally" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/assets/icon-ch.png" },
-      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Figtree:ital,wght@0,400..800;1,400..600&display=swap",
       },
+      { rel: "stylesheet", href: appCss },
     ],
   }),
   component: RootDocument,
@@ -44,6 +51,10 @@ export const Route = createRootRoute({
 function RootDocument() {
   // The editor has its own screen: no site header on it.
   const editing = useRouterState({ select: (s) => s.location.pathname === "/admin" });
+  // Marks the page as interactive (tests wait for it before clicking).
+  useEffect(() => {
+    document.documentElement.dataset.hydrated = "true";
+  }, []);
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -52,6 +63,22 @@ function RootDocument() {
       <body>
         <PreviewHostBridge />
         <AuthProvider>
+          {editing ? null : (
+            <a
+              href="#main"
+              className="skip-link"
+              onClick={(event) => {
+                const main = document.getElementById("main");
+                if (!main) return;
+                event.preventDefault();
+                main.setAttribute("tabindex", "-1");
+                main.focus({ preventScroll: true });
+                main.scrollIntoView({ block: "start" });
+              }}
+            >
+              Skip to content
+            </a>
+          )}
           {editing ? null : <SiteHeader />}
           <Outlet />
         </AuthProvider>

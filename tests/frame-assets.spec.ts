@@ -13,7 +13,8 @@ function files(dir: string): string[] {
 test("every asset path named in src exists on disk", () => {
   const missing: string[] = [];
   const seen = new Set<string>();
-  for (const file of files("src").filter((f) => /\.(tsx?|json)$/.test(f))) {
+  // Unit tests name made-up paths on purpose (e.g. "/assets/missing.jpg"); they are not pictures the site shows.
+  for (const file of files("src").filter((f) => /\.(tsx?|json)$/.test(f) && !/\.test\.tsx?$/.test(f))) {
     const text = readFileSync(file, "utf8");
     for (const m of text.matchAll(/["'`](\/(?:assets|media)\/[A-Za-z0-9_\-./]+\.(?:jpe?g|png|webp|svg|gif|mp4))["'`]/g)) {
       const src = m[1];

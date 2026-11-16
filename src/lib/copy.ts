@@ -17,29 +17,12 @@ export const copy = {
       "p2": "“Environmental Dashboard” (ED) is a communications platform originally developed by Oberlin College faculty and students that combines real-time feedback on resource use and environmental quality with messages drawn from community members to engage, educate, motivate and empower positive change in thought and action.",
       "AppLink_href1": "/research",
       "AppLink1": "Read the research",
-      "AppLink_href2": "/work",
+      "AppLink_href2": "/implementations",
       "AppLink2": "See where it runs",
       "AppLink_href3": "/story",
       "AppLink3": "Story of the Dashboard",
       "DocSection_title3": "Supporters",
       "p1": "Environmental Dashboard work has been funded by the U.S. EPA, the Great Lakes Protection Fund, the Cleveland Foundation and, through the Great Lakes Colleges Association, the Andrew W. Mellon Foundation."
-    }
-  },
-  "demos": {
-    "Demos": {
-      "TabRow_label1": "Places",
-      "span1": "Scroll inside to see more",
-      "AppLink_href1": "/toolkit",
-      "AppLink1": "teacher toolkit",
-      "TabRow_label2": "Places",
-      "ItemCards_label1": "What to read",
-      "ItemCards_label2": "Outcomes",
-      "AppLink_href2": "/research",
-      "AppLink2": "Learn more",
-      "Shot_src1": "/assets/deck/h10.jpg",
-      "Shot_alt1": "How the platform works: data sources feed the Hub, which delivers web embeddables, interactive signage and a phone app",
-      "p1": "Proposed starting steps",
-      "AppLink3": "Contact us"
     }
   },
   "digitalSignage": {
@@ -122,7 +105,7 @@ export const copy = {
       "Shot_alt1": "A Community Hub workshop in front of a dashboard screen",
       "AppLink1": "See the orb map",
       "p1": "Buildings as glowing orbs, playing now",
-      "AppLink_href1": "/demos",
+      "AppLink_href1": "/implementations",
       "AppLink2": "Dashboards",
       "p2": "Client dashboards, loading live",
       "AppLink3": "Who it’s for",
@@ -166,25 +149,6 @@ export const copy = {
       "p1": "Lessons from Environmental Dashboard (",
       "a1": "environmentaldashboard.org/edresources",
       "span1": "(opens in a new tab)"
-    }
-  },
-  "who": {
-    "Who": {
-      "TabRow_label1": "Audiences",
-      "ul_aria_label1": "Products that fit",
-      "DocSection_label1": "Pictures",
-      "DocSection_title1": "Pictures",
-      "p1": "How to take part",
-      "AppLink1": "Contact us"
-    }
-  },
-  "work": {
-    "Work": {
-      "a1": "Open live",
-      "span1": "↗",
-      "span2": "(opens in a new tab)",
-      "DocSection_label1": "Voices",
-      "DocSection_title1": "Voices"
     }
   },
   "chapters": {
@@ -249,8 +213,43 @@ export const copy = {
       "h21": "Bring Dashboard to Your Community",
       "p1": "Community engagement is community building.",
       "p2": "We welcome inquiries about our software applications and pricing options for organizations and whole communities.",
-      "a1": "Contact Us",
+      "a1": "Contact us",
       "ul_aria_label1": "Where to go next"
+    }
+  },
+  "home": {
+    "Hero": {
+      "p1": "Community Hub is a community-centered communication platform.",
+      "a1": "Contact us",
+      "button_label1": "Pause film",
+      "button_label2": "Play film"
+    },
+    "Audiences": {
+      "h21": "Who it’s for",
+      "AppLink1": "All implementations"
+    },
+    "Voices": {
+      "h21": "What people say",
+      "button_label1": "Previous quote",
+      "button_label2": "Next quote",
+      "button_label3": "Pause quotes",
+      "button_label4": "Play quotes"
+    },
+    "Places": {
+      "h21": "Where it runs",
+      "AppLink1": "Read the story"
+    },
+    "Results": {
+      "h21": "What it changed",
+      "AppLink1": "Read the research"
+    },
+    "Pricing": {
+      "h21": "Pricing",
+      "AppLink1": "Pricing and questions",
+      "AppLink2": "Ask for a quote"
+    },
+    "Contact": {
+      "AppLink1": "Read the implementation guide"
     }
   },
   "siteHeader": {
@@ -259,6 +258,7 @@ export const copy = {
       "span1": "Community",
       "span2": "Hub",
       "a1": "Contact us",
+      "a2": "Book a demo",
       "button_aria_label1": "Close menu"
     }
   }
@@ -305,10 +305,6 @@ export const copyContext: Record<string, string> = {
   "products.Products.DocSection_label2": "Products and Services",
   "products.Products.DocSection_title2": "Products and Services",
   "story.Story.DocSection_title1": "Story of the Dashboard",
-  "who.Who.DocSection_label1": "Pictures",
-  "who.Who.DocSection_title1": "Pictures",
-  "work.Work.DocSection_label1": "Voices",
-  "work.Work.DocSection_title1": "Voices",
   "chapters.StoriesChapter.Chapter_label1": "Voices",
   "chapters.StoriesChapter.video_poster1": "Voices",
   "chapters.StoriesChapter.h11": "Voices",

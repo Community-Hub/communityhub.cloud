@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
+import { ArrowRight, Check, Plus } from "lucide-react";
 import { AppLink } from "@/components/app-link";
 import { DocSection, DocShell } from "@/components/doc";
-import { TabRow, TabPager, tabPanel } from "@/components/tab-row";
 import { quoteHref } from "@/lib/links";
 import { site } from "@/lib/site";
 import { bundles, faq, services } from "@/lib/pricing";
-import { useSwipe } from "@/lib/use-swipe";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
@@ -25,18 +24,23 @@ export const Route = createFileRoute("/pricing")({
 function BundleCard({ bundle }: { bundle: (typeof bundles)[number] }) {
   return (
     <>
-      <h2 className="t-h3 short:text-xl">{`${bundle.name} bundle`}</h2>
-      <ul className="mt-2 list-disc space-y-0.5 pl-5 t-body md:space-y-1 short:t-small short:md:space-y-0">
+      <h2 className="t-h3">{`${bundle.name} bundle`}</h2>
+      <ul className="mt-5 space-y-2.5">
         {bundle.items.map((item) => (
-          <li key={item}>{item}</li>
+          <li key={item} className="flex gap-3 t-body">
+            <Check className="mt-1 size-4 shrink-0 text-leaf" strokeWidth={2.5} aria-hidden />
+            <span>{item}</span>
+          </li>
         ))}
       </ul>
-      {bundle.note && <p className="mt-2 t-small text-ink/80">{bundle.note}</p>}
-      <p className="mt-2 font-bold md:mt-4 short:md:mt-2">{copy.pricing.Pricing.p1}</p>
-      <p className="mt-0 md:mt-2 short:md:mt-0">
-        <AppLink href={quoteHref(`${bundle.name} bundle`)} className="link">{copy.pricing.Pricing.AppLink1}<span className="sr-only">{` about the ${bundle.name} bundle`}</span>
+      {bundle.note && <p className="mt-4 text-sm text-ink/65">{bundle.note}</p>}
+      <div className="mt-auto pt-8">
+        <p className="text-sm font-semibold text-ink/70">{copy.pricing.Pricing.p1}</p>
+        <AppLink href={quoteHref(`${bundle.name} bundle`)} className="btn-secondary mt-3">
+          {copy.pricing.Pricing.AppLink1}
+          <span className="sr-only">{` about the ${bundle.name} bundle`}</span>
         </AppLink>
-      </p>
+      </div>
     </>
   );
 }
@@ -44,91 +48,64 @@ function BundleCard({ bundle }: { bundle: (typeof bundles)[number] }) {
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
 
 function Pricing() {
-  const [id, setId] = useState(bundles[0].id);
+  // A link that names a bundle (/pricing#data) brings that bundle into view.
   useEffect(() => {
-    const apply = (target: string) => {
-      if (bundles.some((bundle) => bundle.id === target)) setId(target);
+    const show = (target: string) => {
+      if (!bundles.some((bundle) => bundle.id === target)) return;
+      document.querySelector(`[data-bundle-card="${target}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
     };
     const initial = consumeNavigationTarget();
-    if (initial) apply(initial);
+    if (initial) requestAnimationFrame(() => show(initial));
     const onTarget = (event: Event) => {
       const target = (event as CustomEvent<string>).detail;
       consumeNavigationTarget();
-      if (target) apply(target);
-    };
-    const onHash = () => {
-      const target = consumeNavigationTarget();
-      if (target) apply(target);
+      if (target) show(target);
     };
     window.addEventListener("ch:target", onTarget);
-    window.addEventListener("hashchange", onHash);
-    return () => {
-      window.removeEventListener("ch:target", onTarget);
-      window.removeEventListener("hashchange", onHash);
-    };
+    return () => window.removeEventListener("ch:target", onTarget);
   }, []);
-  const at = Math.max(0, bundles.findIndex((bundle) => bundle.id === id));
-  const bundle = bundles[at];
-  const pick = (next: number) => {
-    const item = bundles[(next + bundles.length) % bundles.length];
-    setId(item.id);
-  };
-  const pickRef = useRef(pick);
-  pickRef.current = pick;
-  const atRef = useRef(at);
-  atRef.current = at;
-  const cardRef = useRef<HTMLDivElement>(null);
-  useSwipe(cardRef, (dir) => pickRef.current(atRef.current + dir));
 
   return (
     <DocShell stops={STOPS}>
-      <DocSection label={STOPS[0].label} title={copy.pricing.Pricing.DocSection_title1} as="h1" titleClassName="t-h2" ledeClassName="t-body" lede={site.pricingLede}>
-        {/* A phone shows one bundle at a time behind tabs; a wider screen shows all three side by side to compare. */}
-        <div className="md:hidden">
-          <TabRow idBase="bundles" label={copy.pricing.Pricing.TabRow_label1} noun="bundle" items={bundles} at={at} onPick={pick} />
-          <div
-            ref={cardRef}
-            {...tabPanel("bundles", bundle.id)}
-            data-swipe-own
-            data-bundle={bundle.id}
-            style={{ touchAction: "pan-y pinch-zoom" }}
-            className="mt-2 rounded-md border border-line bg-paper p-3"
-          >
-            <BundleCard bundle={bundle} />
-            <TabPager noun="bundle" at={at} onPick={pick} />
-          </div>
-        </div>
-        <div className="mt-3 grid grid-cols-3 items-start gap-3 max-md:hidden" data-bundles>
+      <DocSection label={STOPS[0].label} title={copy.pricing.Pricing.DocSection_title1} as="h1" lede={site.pricingLede}>
+        <ul className="home-bundles" data-bundles>
           {bundles.map((item) => (
-            <div key={item.id} data-bundle-card={item.id} className="h-full rounded-md border border-line bg-paper p-4 lg:p-6 short:p-3">
+            <li key={item.id} data-bundle-card={item.id} className="home-bundle scroll-mt-24">
               <BundleCard bundle={item} />
-            </div>
-          ))}
-        </div>
-      </DocSection>
-
-      <DocSection label={STOPS[1].label} title={copy.pricing.Pricing.DocSection_title2}>
-        <p className="max-w-3xl t-body">Connect your data and explain what makes your community unique. Design services complement the CommunityHub products you choose.</p>
-        <ul className="mt-5 grid max-w-4xl gap-6 md:grid-cols-2 t-body" data-services>
-          {services.map((service) => (
-            <li key={service.id} className="border-t border-pine/30 pt-4">
-              <h3 className="t-h3">{service.name}</h3><p className="mt-2">{service.line}</p>
-              <AppLink href={`/services#${service.id}`} className="link mt-3">Explore {service.name.toLowerCase()}</AppLink>
             </li>
           ))}
         </ul>
-        <p className="mt-4">
-          <AppLink href={quoteHref("Design services")} className="link">{copy.pricing.Pricing.AppLink2}<span className="sr-only">{" "}{copy.pricing.Pricing.span1}</span>
+      </DocSection>
+
+      <DocSection label={STOPS[1].label} title={copy.pricing.Pricing.DocSection_title2} lede="Connect your data and explain what makes your community unique. Design services complement the Community Hub products you choose.">
+        <ul className="grid max-w-5xl gap-8 md:grid-cols-2 md:gap-12" data-services>
+          {services.map((service) => (
+            <li key={service.id} className="border-t border-line pt-6">
+              <h3 className="t-h3">{service.name}</h3>
+              <p className="mt-3 t-body text-ink/80">{service.line}</p>
+              <AppLink href={`/services#${service.id}`} className="link mt-3">
+                Explore {service.name.toLowerCase()} <ArrowRight className="size-4" aria-hidden />
+              </AppLink>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8">
+          <AppLink href={quoteHref("Design services")} className="btn-secondary">
+            {copy.pricing.Pricing.AppLink2}
+            <span className="sr-only"> {copy.pricing.Pricing.span1}</span>
           </AppLink>
         </p>
       </DocSection>
 
       <DocSection label={STOPS[2].label} title={copy.pricing.Pricing.DocSection_title3}>
-        <div className="max-w-3xl" data-faq>
+        <div className="max-w-3xl border-t border-line" data-faq>
           {faq.map((item) => (
-            <details key={item.q} className="border-b border-line">
-              <summary className="flex min-h-11 cursor-pointer items-center py-2 font-bold t-body">{item.q}</summary>
-              <p className="pb-3 t-body">{item.a}</p>
+            <details key={item.q} className="group border-b border-line">
+              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-4 text-lg font-semibold text-ink marker:content-none [&::-webkit-details-marker]:hidden">
+                {item.q}
+                <Plus className="size-5 shrink-0 text-leaf transition-transform duration-200 group-open:rotate-45" aria-hidden />
+              </summary>
+              <p className="max-w-2xl pb-6 t-body text-ink/80">{item.a}</p>
             </details>
           ))}
         </div>

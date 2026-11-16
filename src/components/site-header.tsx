@@ -1,14 +1,15 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { AppLink } from "@/components/app-link";
 import { educateBeats, empowerBeats, engageBeats } from "@/lib/content";
 import { site } from "@/lib/site";
+import { DEMO_HREF } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
-const NAV = pc.siteHeader.NAV;
-const GROUPS = pc.products.GROUPS;
+
 const BEATS = [...engageBeats, ...educateBeats, ...empowerBeats];
 
 const PRODUCT_PATHS = new Set([
@@ -30,250 +31,269 @@ function iconFor(id: string) {
   return BEATS.find((item) => item.id === id)?.icon ?? "";
 }
 
+function isActive(path: string, to: string) {
+  if (to === "/products") return PRODUCT_PATHS.has(path);
+  return path === to || path.startsWith(`${to}/`);
+}
+
+/** The mark and the wordmark. Comfortaa appears here and nowhere else. */
+export function Wordmark({ className }: { className?: string }) {
+  return (
+    <span className={cn("flex items-center gap-2.5", className)}>
+      <img src={copy.siteHeader.SiteHeader.img_src1} alt="" width={32} height={32} className="size-8 shrink-0 object-contain" />
+      <span className="font-brand text-[1.1875rem] leading-none font-bold tracking-[-0.01em] text-pine">
+        {copy.siteHeader.SiteHeader.span1} <span className="text-leaf">{copy.siteHeader.SiteHeader.span2}</span>
+      </span>
+    </span>
+  );
+}
+
+function ProductsPanel({ onPick }: { onPick: () => void }) {
+  return (
+    <div className="wrap grid gap-x-10 gap-y-8 py-8 lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,0.85fr)]">
+      {pc.products.GROUPS.map((group) => (
+        <div key={group.kicker} className="min-w-0">
+          <p className="px-3 text-sm font-semibold text-ink/55">{group.kicker}</p>
+          <ul className="mt-2 space-y-0.5">
+            {group.items.map((prod) => (
+              <li key={prod.id}>
+                <AppLink
+                  href={prod.href}
+                  onClick={onPick}
+                  className="group flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors duration-150 hover:bg-field"
+                >
+                  <img src={iconFor(prod.id)} alt="" className="mt-0.5 size-8 shrink-0 object-contain" />
+                  <span className="min-w-0">
+                    <span className="block font-semibold text-ink group-hover:text-pine">{prod.title}</span>
+                    <span className="mt-0.5 block text-sm leading-snug text-ink/65">{prod.blurb}</span>
+                  </span>
+                </AppLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <div className="flex flex-col gap-1 border-line max-lg:border-t max-lg:pt-6 lg:border-l lg:pl-8">
+        <AppLink href="/products" onClick={onPick} className="link">
+          All products <ArrowRight className="size-4" aria-hidden />
+        </AppLink>
+        <AppLink href="/services" onClick={onPick} className="link">
+          Data and graphic design services
+        </AppLink>
+        <AppLink href="/implementations" onClick={onPick} className="link">
+          Implementations
+        </AppLink>
+      </div>
+    </div>
+  );
+}
+
 export function SiteHeader() {
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const path = useRouterState({ select: (s) => s.location.pathname.replace(/\/+$/, "") || "/" });
   const [open, setOpen] = useState(false);
-  const [productsMenuOpen, setProductsMenuOpen] = useState(false);
-  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProducts, setMobileProducts] = useState(false);
+  const zoneRef = useRef<HTMLDivElement>(null);
+  const hoverTimer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
-    setProductsMenuOpen(false);
+    setProductsOpen(false);
     setOpen(false);
   }, [path]);
 
   useEffect(() => {
-    if (!open && !productsMenuOpen) return;
+    if (!open && !productsOpen) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        window.clearTimeout(hoverTimer.current);
         setOpen(false);
-        setProductsMenuOpen(false);
+        setProductsOpen(false);
       }
     };
-    const onClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setProductsMenuOpen(false);
-      }
+    const onDown = (event: MouseEvent) => {
+      if (zoneRef.current && !zoneRef.current.contains(event.target as Node)) setProductsOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    window.addEventListener("mousedown", onClickOutside);
+    window.addEventListener("mousedown", onDown);
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener("mousedown", onDown);
     };
-  }, [open, productsMenuOpen]);
+  }, [open, productsOpen]);
+
+  // The phone menu covers the page; the page underneath does not scroll.
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [open]);
+
+  const hover = (next: boolean) => {
+    window.clearTimeout(hoverTimer.current);
+    hoverTimer.current = window.setTimeout(() => setProductsOpen(next), next ? 60 : 180);
+  };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-pine/15 bg-paper text-pine md:border-pine/40 md:bg-pine md:text-paper">
-      <div className="flex h-16 items-center gap-4 px-4 md:px-6">
-        <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <img src={copy.siteHeader.SiteHeader.img_src1} alt="" className="size-8 rounded-full object-contain md:bg-paper" />
-          <span className="font-display text-lg tracking-tight">{copy.siteHeader.SiteHeader.span1}{" "}<span className="text-leaf md:text-paper">{copy.siteHeader.SiteHeader.span2}</span>
-          </span>
-        </a>
-        <nav className="ml-auto hidden items-center md:flex md:gap-3 md:text-xs md:font-bold lg:gap-5 lg:text-sm">
-          {NAV.map((item) => {
-            const isProducts = item.to === "/products";
-            const active = isProducts ? PRODUCT_PATHS.has(path) : path === item.to;
+    <header className="fixed inset-x-0 top-0 z-50 bg-paper text-ink">
+      <div ref={zoneRef} onMouseLeave={() => hover(false)}>
+        <div className="wrap flex h-(--header-h) items-center gap-6">
+          <Link to="/" aria-label="Community Hub home" className="-m-1.5 rounded-lg p-1.5" onClick={() => setOpen(false)}>
+            <Wordmark />
+          </Link>
 
-            if (isProducts) {
-              return (
-                <div
-                  key={item.to}
-                  ref={dropdownRef}
-                  className="relative"
-                  onMouseEnter={() => setProductsMenuOpen(true)}
-                  onMouseLeave={() => setProductsMenuOpen(false)}
-                >
-                  <div className="inline-flex min-h-11 items-center gap-0.5">
-                    <Link
-                      to={item.to}
-                      aria-current={active ? "page" : undefined}
+          <nav aria-label="Main" className="ml-auto hidden items-center gap-0.5 lg:flex">
+            {pc.siteHeader.NAV.map((item) => {
+              const active = isActive(path, item.to);
+              if (item.to === "/products") {
+                return (
+                  <div key={item.to} className="flex items-center" onMouseEnter={() => hover(true)}>
+                    <button
+                      type="button"
+                      aria-expanded={productsOpen}
+                      aria-controls="products-menu"
+                      onClick={() => {
+                        window.clearTimeout(hoverTimer.current);
+                        setProductsOpen((v) => !v);
+                      }}
                       className={cn(
-                        "inline-flex min-h-11 items-center rounded-sm px-0.5 transition-colors duration-150 hover:text-lime focus-visible:outline-lime motion-reduce:transition-none",
-                        active && "text-lime",
+                        "inline-flex h-10 items-center gap-1 rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors duration-150 hover:bg-field hover:text-pine",
+                        active || productsOpen ? "text-pine" : "text-ink/75",
+                        active && "font-semibold",
                       )}
                     >
                       {item.label}
-                    </Link>
-                    <button
-                      type="button"
-                      aria-label="Toggle Products menu"
-                      aria-expanded={productsMenuOpen}
-                      onClick={() => setProductsMenuOpen((v) => !v)}
-                      className={cn(
-                        "inline-flex size-7 items-center justify-center rounded-sm transition-colors duration-150 hover:text-lime focus-visible:outline-lime",
-                        active && "text-lime",
-                      )}
-                    >
-                      <ChevronDown className={cn("size-4 transition-transform duration-150", productsMenuOpen && "rotate-180")} />
+                      <ChevronDown className={cn("size-4 transition-transform duration-200", productsOpen && "rotate-180")} aria-hidden />
                     </button>
                   </div>
+                );
+              }
+              return (
+                <div key={item.to} className="flex" onMouseEnter={() => hover(false)}>
+                  <AppLink
+                    href={item.to}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "inline-flex h-10 items-center rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors duration-150 hover:bg-field hover:text-pine",
+                      active ? "font-semibold text-pine" : "text-ink/75",
+                    )}
+                  >
+                    {item.label}
+                  </AppLink>
+                </div>
+              );
+            })}
+          </nav>
+          <AppLink href={site.contactHref} className="btn-primary ml-3 hidden min-h-10! px-5! text-[0.9375rem]! lg:inline-flex">
+            {copy.siteHeader.SiteHeader.a1}
+          </AppLink>
 
-                  {productsMenuOpen && (
-                    <div
-                      data-products-dropdown
-                      className="fixed inset-x-4 top-16 z-50 mx-auto w-auto max-w-[42rem] pt-1.5"
-                    >
-                      <div className="rounded-xl border border-pine/20 bg-paper p-5 text-ink shadow-xl">
-                        <div className="grid grid-cols-3 gap-5 lg:gap-6">
-                          {GROUPS.map((group) => (
+          <button
+            type="button"
+            className="-mr-2 ml-auto grid size-11 place-items-center rounded-full text-pine transition-colors hover:bg-field lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? copy.siteHeader.SiteHeader.button_aria_label1 : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
+        </div>
+
+        <div aria-hidden className="h-px bg-line" />
+
+        {productsOpen && (
+          <div
+            id="products-menu"
+            onMouseEnter={() => hover(true)}
+            className="absolute inset-x-0 top-full hidden border-b border-line bg-paper shadow-[0_28px_48px_-28px_rgb(18_58_41/0.22)] lg:block"
+          >
+            <ProductsPanel onPick={() => setProductsOpen(false)} />
+          </div>
+        )}
+      </div>
+
+      {open && (
+        <nav
+          id="mobile-menu"
+          aria-label="Main"
+          className="fixed inset-x-0 top-(--header-h) bottom-0 overflow-y-auto overscroll-contain bg-paper lg:hidden"
+        >
+          <div className="wrap flex min-h-full flex-col pt-2 pb-8">
+            <ul className="divide-y divide-line">
+              {pc.siteHeader.NAV.map((item) => {
+                const active = isActive(path, item.to);
+                if (item.to === "/products") {
+                  return (
+                    <li key={item.to}>
+                      <button
+                        type="button"
+                        aria-expanded={mobileProducts}
+                        onClick={() => setMobileProducts((v) => !v)}
+                        className={cn("flex min-h-14 w-full items-center justify-between text-left text-xl font-semibold", active ? "text-pine" : "text-ink")}
+                      >
+                        {item.label}
+                        <ChevronDown className={cn("size-5 transition-transform duration-200", mobileProducts && "rotate-180")} aria-hidden />
+                      </button>
+                      {mobileProducts && (
+                        <div className="space-y-5 pb-5">
+                          {pc.products.GROUPS.map((group) => (
                             <div key={group.kicker}>
-                              <p className="border-b border-pine/20 pb-1.5 font-display text-sm font-bold text-pine">
-                                {group.kicker}
-                              </p>
-                              <ul className="mt-2 space-y-1">
-                                {group.items.map((prod) => {
-                                  const prodActive = path === prod.href;
-                                  return (
-                                    <li key={prod.id}>
-                                      <Link
-                                        to={prod.href}
-                                        onClick={() => setProductsMenuOpen(false)}
-                                        className={cn(
-                                          "flex min-h-10 items-center gap-2.5 rounded-md px-2 py-1.5 text-xs transition-colors hover:bg-field",
-                                          prodActive && "bg-field font-bold text-pine",
-                                        )}
-                                      >
-                                        <img src={iconFor(prod.id)} alt="" className="size-6 shrink-0 object-contain" />
-                                        <span className="leading-snug font-bold text-ink">{prod.title}</span>
-                                      </Link>
-                                    </li>
-                                  );
-                                })}
+                              <p className="text-sm font-semibold text-ink/55">{group.kicker}</p>
+                              <ul className="mt-1">
+                                {group.items.map((prod) => (
+                                  <li key={prod.id}>
+                                    <AppLink
+                                      href={prod.href}
+                                      onClick={() => setOpen(false)}
+                                      aria-current={path === prod.href ? "page" : undefined}
+                                      className="flex min-h-11 items-center gap-3 text-base font-medium text-ink"
+                                    >
+                                      <img src={iconFor(prod.id)} alt="" className="size-7 shrink-0 object-contain" />
+                                      {prod.title}
+                                    </AppLink>
+                                  </li>
+                                ))}
                               </ul>
                             </div>
                           ))}
+                          <AppLink href="/products" onClick={() => setOpen(false)} className="link">
+                            All products <ArrowRight className="size-4" aria-hidden />
+                          </AppLink>
                         </div>
-                        <div className="mt-4 flex items-center justify-between border-t border-pine/15 pt-3 text-xs">
-                          <span className="font-normal text-ink/70">Explore all Community Hub display, analytics, and engagement tools</span>
-                          <Link
-                            to="/products"
-                            onClick={() => setProductsMenuOpen(false)}
-                            className="font-bold text-pine underline underline-offset-4 hover:text-leaf"
-                          >
-                            View all products →
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            }
-
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                aria-current={active ? "page" : undefined}
-                className={cn("inline-flex min-h-11 items-center rounded-sm px-0.5 transition-colors duration-150 hover:text-lime focus-visible:outline-lime motion-reduce:transition-none", active && "text-lime")}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          <a
-            href={site.contactHref}
-            className="inline-flex min-h-9 items-center rounded-md border border-paper/45 bg-transparent px-3 text-xs text-paper transition-colors duration-150 hover:border-lime hover:bg-paper/15 hover:text-lime focus-visible:outline-lime motion-reduce:transition-none"
-          >{copy.siteHeader.SiteHeader.a1}</a>
-        </nav>
-        <button
-          type="button"
-          className="ml-auto grid size-11 place-items-center rounded-md border border-pine/30 bg-paper md:hidden"
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X /> : <Menu />}
-        </button>
-      </div>
-      {open && (
-        <button
-          type="button"
-          aria-label={copy.siteHeader.SiteHeader.button_aria_label1}
-          className="fixed inset-0 top-16 z-40 bg-ink/25 md:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
-      {open && (
-        <nav className="relative z-50 flex max-h-[calc(100dvh-4rem)] flex-col gap-1 overflow-y-auto overscroll-contain border-t border-pine/15 bg-paper px-4 py-3 text-pine md:hidden">
-          {NAV.map((item) => {
-            const isProducts = item.to === "/products";
-            const active = isProducts ? PRODUCT_PATHS.has(path) : path === item.to;
-            if (isProducts) {
-              return (
-                <div key={item.to} className="flex flex-col">
-                  <div className="flex items-center justify-between">
-                    <Link
-                      to={item.to}
+                      )}
+                    </li>
+                  );
+                }
+                return (
+                  <li key={item.to}>
+                    <AppLink
+                      href={item.to}
                       onClick={() => setOpen(false)}
                       aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "flex-1 rounded-md px-2 py-3 text-base font-bold",
-                        active && "bg-field underline decoration-leaf decoration-2 underline-offset-4",
-                      )}
+                      className={cn("flex min-h-14 items-center text-xl font-semibold", active ? "text-pine" : "text-ink")}
                     >
                       {item.label}
-                    </Link>
-                    <button
-                      type="button"
-                      aria-label="Toggle mobile Products list"
-                      aria-expanded={mobileProductsOpen}
-                      onClick={() => setMobileProductsOpen((v) => !v)}
-                      className="grid size-11 place-items-center rounded-md text-pine hover:bg-field"
-                    >
-                      <ChevronDown className={cn("size-5 transition-transform duration-150", mobileProductsOpen && "rotate-180")} />
-                    </button>
-                  </div>
-                  {mobileProductsOpen && (
-                    <div className="mb-2 ml-2 space-y-3 rounded-lg border border-pine/15 bg-field/60 p-3">
-                      {GROUPS.map((group) => (
-                        <div key={group.kicker}>
-                          <p className="font-display text-xs font-bold tracking-wide uppercase text-pine/80">
-                            {group.kicker}
-                          </p>
-                          <ul className="mt-1 space-y-0.5">
-                            {group.items.map((prod) => (
-                              <li key={prod.id}>
-                                <Link
-                                  to={prod.href}
-                                  onClick={() => setOpen(false)}
-                                  className={cn(
-                                    "flex min-h-10 items-center gap-2.5 rounded-md px-2 py-1.5 text-sm font-bold text-ink hover:bg-paper",
-                                    path === prod.href && "bg-paper text-pine underline decoration-leaf underline-offset-4",
-                                  )}
-                                >
-                                  <img src={iconFor(prod.id)} alt="" className="size-5 shrink-0 object-contain" />
-                                  <span>{prod.title}</span>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            }
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                aria-current={active ? "page" : undefined}
-                className={cn("rounded-md px-2 py-3 text-base font-bold", active && "bg-field underline decoration-leaf decoration-2 underline-offset-4")}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          <a
-            href={site.contactHref}
-            onClick={() => setOpen(false)}
-            className="mt-2 grid min-h-11 place-items-center rounded-md bg-pine px-4 py-3 text-base font-bold text-paper"
-          >{copy.siteHeader.SiteHeader.a1}</a>
+                    </AppLink>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="mt-auto pt-8">
+              <AppLink href={site.contactHref} onClick={() => setOpen(false)} className="btn-primary w-full">
+                {copy.siteHeader.SiteHeader.a1}
+              </AppLink>
+              <AppLink href={DEMO_HREF} onClick={() => setOpen(false)} className="btn-secondary mt-3 w-full">
+                {copy.siteHeader.SiteHeader.a2}
+              </AppLink>
+              <p className="mt-4 text-center text-sm text-ink/65">
+                or write to{" "}
+                <a href={site.mailtoHref} className="font-semibold text-leaf underline">
+                  {site.contactEmail}
+                </a>
+              </p>
+            </div>
+          </div>
         </nav>
       )}
     </header>

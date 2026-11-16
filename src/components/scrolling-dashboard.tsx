@@ -69,7 +69,13 @@ export function ScrollingDashboard({
 
   const isBuildingDashboard = /\/dashboard\/\d+/.test(src);
   const portalLayout = getPortalEmbedLayout(src);
-  const virtualWidth = virtualWidthOverride ?? (portalLayout ? portalLayout.virtualWidth : isBuildingDashboard ? 1440 : 1360);
+  const isCalendar = /\/calendar\//.test(src);
+  // A phone-sized box shows the page's own phone layout instead of a quarter-size desktop page; a calendar on a
+  // wide screen lays out at tablet width so its words stay readable.
+  const narrow = !portalLayout && box.w > 0 && box.w < 640;
+  const virtualWidth =
+    virtualWidthOverride ??
+    (portalLayout ? portalLayout.virtualWidth : narrow ? box.w : isCalendar ? 1024 : isBuildingDashboard ? 1440 : 1360);
   const scale = box.w ? Math.min(1, box.w / virtualWidth) : 1;
   const topInset = portalLayout ? portalLayout.topInset : isBuildingDashboard ? 92 : 0;
   const leftInset = portalLayout ? portalLayout.leftInset : 0;

@@ -72,7 +72,7 @@ test("client rewrite agrees with the server 301 for every legacy path, query pre
   }
   // The two mappings the old duplicate router map disagreed on:
   assert.equal(rw("/resources.html").pathname, "/resources");
-  assert.equal(rw("/who-its-for.html").pathname, "/who");
+  assert.equal(rw("/who-its-for.html").pathname, "/implementations");
 });
 
 test("client rewrite leaves current routes and unknown paths untouched", () => {
@@ -108,26 +108,23 @@ test("data-dashboard.html#orbs reaches /#orb through the real 301 + fragment re-
   assert.equal(other.hash, "#orbs");
 });
 
-test("case-study anchors name real Work stops, and #orb a real home chapter", () => {
-  // Work stops are the CASES ids (src/routes/work.tsx builds STOPS from
-  // them; useHashStops resolves the hash against that id list).
-  const pageContent = readFileSync(new URL("./page-content.ts", import.meta.url), "utf8");
-  const cases = new Map<string, string>();
-  for (const m of pageContent.matchAll(/id: "([a-z]+)",\s*\n\s*name: ("[^"]+"|SCHOOLS_NAME)/g)) {
-    cases.set(m[1], m[2]);
-  }
-  const expected: Record<string, [string, string]> = {
-    "/great-lakes-science-center.html": ["glsc", '"Great Lakes Science Center"'],
-    "/midtown-cleveland.html": ["midtown", '"MidTown Cleveland"'],
-    "/oberlin-college.html": ["college", '"Oberlin College"'],
-    "/city-of-oberlin.html": ["oberlin", '"City of Oberlin"'],
-    "/schools.html": ["schools", "SCHOOLS_NAME"],
+test("old case-study pages land on the real implementation pages, and #orb a real home stop", () => {
+  // Implementation slugs live in src/lib/implementations.ts.
+  const places = readFileSync(new URL("./implementations.ts", import.meta.url), "utf8");
+  const slugs = new Set([...places.matchAll(/slug: "([a-z-]+)"/g)].map((m) => m[1]));
+  const expected: Record<string, string> = {
+    "/great-lakes-science-center.html": "great-lakes-science-center",
+    "/midtown-cleveland.html": "midtown-cleveland",
+    "/oberlin-college.html": "oberlin-college",
+    "/city-of-oberlin.html": "city-of-oberlin",
+    "/schools.html": "oberlin-public-schools",
   };
-  for (const [source, [anchor, name]] of Object.entries(expected)) {
-    assert.equal(LEGACY_REDIRECTS[source], `/work#${anchor}`, source);
-    assert.equal(cases.get(anchor), name, `${source} -> #${anchor}`);
+  for (const [source, slug] of Object.entries(expected)) {
+    assert.equal(LEGACY_REDIRECTS[source], `/implementations/${slug}`, source);
+    assert.ok(slugs.has(slug), `${source} -> ${slug}`);
   }
-  assert.equal(LEGACY_REDIRECTS["/hamilton-college.html"], "/work"); // no Hamilton case exists
+  assert.equal(LEGACY_REDIRECTS["/hamilton-college.html"], "/implementations"); // no Hamilton case exists
+  for (const retired of ["/who", "/work", "/demos"]) assert.equal(LEGACY_REDIRECTS[retired], "/implementations", retired);
   const links = readFileSync(new URL("./links.ts", import.meta.url), "utf8");
   assert.match(links, /CHAPTER_IDS = \[[^\]]*"orb"/);
 });

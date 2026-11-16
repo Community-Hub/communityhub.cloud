@@ -157,7 +157,7 @@ export function classify(rawLeaf: string, value: string, only?: readonly string[
   if (leaf === "alt") return only && !only.includes("alt") ? null : "alt";
   if (only && !only.includes(leaf)) return null;
   if (IMAGE_KEYS.has(leaf) && IMAGE_EXT.test(value)) return "image";
-  if (leaf === "contactEmail") return "email";
+  if (leaf === "contactEmail" || leaf === "formInbox") return "email";
   if (leaf === "href") return LINK_RE.test(value) ? "link" : null;
   if (NEVER_TEXT.has(leaf)) return null;
   if (IMAGE_KEYS.has(leaf)) return null; // a src that is not a picture (an iframe address, say)

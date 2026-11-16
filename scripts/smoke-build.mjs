@@ -16,13 +16,15 @@ import { spawn, spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
 const PORT = process.env.SMOKE_PORT || "4191";
-// All 21 public routes; must match PUBLIC_ROUTES in src/lib/legacy-redirects.ts
+// All public routes; must match PUBLIC_ROUTES in src/lib/legacy-redirects.ts
 // (cross-checked below against /sitemap.xml, which is generated from it).
 const PAGES = [
-  "/", "/about", "/citywide-dashboard", "/community-calendar", "/community-voices",
-  "/dashboard-builder", "/data-hub", "/demos", "/digital-signage", "/phone-app",
-  "/pricing", "/products", "/research", "/resources", "/services", "/stories",
-  "/story", "/toolkit", "/web-embeddables", "/who", "/work",
+  "/", "/about", "/bring-dashboard-to-your-community", "/citywide-dashboard", "/community-calendar",
+  "/community-voices", "/contact", "/dashboard-builder", "/data-hub", "/digital-signage",
+  "/implementations", "/implementations/city-of-oberlin", "/implementations/great-lakes-science-center",
+  "/implementations/midtown-cleveland", "/implementations/oberlin-college", "/implementations/oberlin-public-schools",
+  "/phone-app", "/pricing", "/privacy-policy", "/terms-of-service", "/products", "/research", "/resources",
+  "/services", "/stories", "/story", "/toolkit", "/web-embeddables",
 ];
 // Genuine-404 paths: the old error page, an unknown page, missing assets.
 const NOT_FOUND = ["/404.html", "/not-a-page", "/assets/definitely-missing-smoke.jpg", "/missing-smoke.js", "/assets/deck/definitely-missing-smoke.png"];

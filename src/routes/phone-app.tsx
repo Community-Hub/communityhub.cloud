@@ -3,6 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { AppLink } from "@/components/app-link";
 import { PhoneControl } from "@/components/phone-control";
 import { SiteFooter } from "@/components/site-footer";
+import { site } from "@/lib/site";
+import { copy } from "@/lib/copy";
+import { DEMO_HREF } from "@/lib/links";
+import { ContactBand } from "@/components/contact-band";
+import { RelatedProducts } from "@/components/product-pager";
 import { engageBeats } from "@/lib/content";
 
 export const Route = createFileRoute("/phone-app")({
@@ -38,25 +43,32 @@ function PhoneApp() {
   const icon = engageBeats.find((b) => b.id === "phone")?.icon ?? "";
 
   return (
-    <div className="min-h-dvh bg-field text-ink pt-16">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-8 md:px-8 md:py-12">
-        <section id="phone-app" className="scroll-mt-20">
-          <p className="mb-4 t-small text-ink/70">
-            <AppLink href="/products" className="text-pine underline underline-offset-4">
+    <div className="bg-paper text-ink">
+      <main id="main" className="product-main">
+        <section id="phone-app" className="product-section wrap product-section-first scroll-mt-24">
+          <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
+            <AppLink href="/products" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">
               Products
-            </AppLink>{" "}
-            / Phone App
-          </p>
+            </AppLink>
+            <span aria-hidden className="px-2 text-ink/35">/</span>
+            <span aria-current="page">Phone App</span>
+          </nav>
           <div className="phone-page-split">
             <div>
-              <div className="flex items-center gap-3">
-                {icon && <img src={icon} alt="" className="size-11 shrink-0 object-contain" />}
-                <h1 className="t-h2">Phone App</h1>
+              {icon && <img src={icon} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />}
+              <h1 className="t-h1">Phone App</h1>
+              <p className="mt-5 t-lede">{engageBeats.find((b) => b.id === "phone")?.body}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <AppLink href={site.contactHref} className="btn-primary">
+                  {copy.siteHeader.SiteHeader.a1}
+                </AppLink>
+                <AppLink href={DEMO_HREF} className="btn-secondary">
+                  {copy.siteHeader.SiteHeader.a2}
+                </AppLink>
               </div>
-              <p className="mt-5 t-body">{engageBeats.find((b) => b.id === "phone")?.body}</p>
             </div>
             <figure>
-              <figcaption className="mb-3 t-body font-bold">
+              <figcaption className="mb-3 text-[0.9375rem] font-semibold text-ink/70">
                 Oberlin — Oberlin College Carbon Neutral Stories
               </figcaption>
               <img
@@ -84,13 +96,13 @@ function PhoneApp() {
           </div>
         </section>
 
-        <section id="control-a-sign" className="scroll-mt-20 border-t border-pine/20 pt-12">
+        <section id="control-a-sign" className="product-section wrap product-section-rule scroll-mt-24">
           <PhoneControl venueIndex={1} />
         </section>
 
         <section
           id="community-on-your-phone"
-          className="scroll-mt-20 border-t border-pine/20 pt-12"
+          className="product-section wrap product-section-rule scroll-mt-24"
         >
           <div className="phone-page-split phone-browse-layout">
             <div className="phone-browse-copy">
@@ -101,7 +113,7 @@ function PhoneApp() {
               <p className="mt-4 t-body">
                 Each community can customize its app to reflect its communication goals and the content it shares.
               </p>
-              <p className="mt-5 t-body font-bold">Oberlin — Live phone app</p>
+              <p className="mt-6 text-[0.9375rem] font-semibold text-ink/70">Oberlin — Live phone app</p>
               <div className="phone-mascot-cue">
                 <img src="/assets/squirrel-cue-still.png" alt="" />
                 <p className="t-h3">
@@ -124,11 +136,9 @@ function PhoneApp() {
           </div>
         </section>
       </main>
-      <div className="mt-8 border-t border-line bg-paper/60">
-        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
-          <SiteFooter />
-        </div>
-      </div>
+      <RelatedProducts page="/phone-app" />
+      <ContactBand />
+      <SiteFooter />
     </div>
   );
 }

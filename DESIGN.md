@@ -1,106 +1,255 @@
 ---
 name: Community Hub
-description: Original community stories, installations and live environmental data, composed as complete scenes.
+description: A community-centered communication platform, presented as a calm brochure you turn one page at a time.
 colors:
-  ink: "#2C2C2C"
-  gray: "#CCCCCB"
-  paper: "#F4F4F2"
-  blue: "#21A7DF"
-  blue-light: "#B4E3F4"
-  brown: "#C2B59C"
-  green: "#5BB951"
-  green-light: "#A1CD54"
+  ink: "#152019"
+  pine: "#123a29"
+  leaf: "#467d58"
+  lime: "#c9db87"
+  lime-deep: "#b9cd70"
+  lime-pale: "#f2f6e1"
+  paper: "#ffffff"
+  field: "#f4f6f1"
+  line: "#e2e6dd"
+  water: "#e2ece8"
+  sky: "#2f6f7d"
+  sand: "#d6c8ae"
 typography:
-  opening:
-    fontFamily: "Lato, system-ui, sans-serif"
-    fontSize: "clamp(48px,4.4vw,64px)"
-    fontWeight: 400
-    lineHeight: 1.1
-  homepage-opening:
-    fontFamily: "Lato, system-ui, sans-serif"
-    fontSize: "clamp(52px,5.5vw,80px)"
-    fontWeight: 400
+  display:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.375rem, 5.2vw, 4.75rem)"
+    fontWeight: 600
+    lineHeight: 1.02
+    letterSpacing: "-0.032em"
+  headline:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.25rem, 4.6vw, 3.75rem)"
+    fontWeight: 600
+    lineHeight: 1.05
+    letterSpacing: "-0.03em"
+  title:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.875rem, 3.6vw, 3rem)"
+    fontWeight: 600
     lineHeight: 1.08
-  body:
-    fontFamily: "Lato, system-ui, sans-serif"
-    fontSize: "18px"
+    letterSpacing: "-0.026em"
+  subtitle:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.25rem, 1.9vw, 1.5rem)"
+    fontWeight: 600
+    lineHeight: 1.2
+    letterSpacing: "-0.016em"
+  lede:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.125rem, 1.45vw, 1.3125rem)"
     fontWeight: 400
     lineHeight: 1.5
-  action:
-    fontFamily: "Lato, system-ui, sans-serif"
-    fontSize: "15px"
-    fontWeight: 700
+  body:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 400
+    lineHeight: 1.6
+  small:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  label:
+    fontFamily: "Figtree, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 600
     lineHeight: 1.4
+  wordmark:
+    fontFamily: "Comfortaa, Figtree, sans-serif"
+    fontSize: "1.1875rem"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "-0.01em"
 rounded:
-  media: "0"
-  control: "4px"
-  panel: "6px"
+  field: "0.75rem"
+  card: "1rem"
+  frame: "1.25rem"
+  panel: "clamp(1.25rem, 2.2vw, 1.75rem)"
+  pill: "999px"
 spacing:
-  rail: "1280px"
-  desktop-gutter: "24px"
-  phone-gutter: "20px"
-  minimum-control: "44px"
+  header: "4rem"
+  gutter: "clamp(1.25rem, 4vw, 2.5rem)"
+  container: "80rem"
+  section: "clamp(4.5rem, 9vw, 8rem)"
+  page-pad: "clamp(2rem, 5vh, 3.5rem)"
+components:
+  button-primary:
+    backgroundColor: "{colors.lime}"
+    textColor: "{colors.pine}"
+    rounded: "{rounded.pill}"
+    padding: "0 1.5rem"
+    height: "3rem"
+  button-primary-hover:
+    backgroundColor: "{colors.lime-deep}"
+    textColor: "{colors.pine}"
+  button-secondary:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.pine}"
+    rounded: "{rounded.pill}"
+    padding: "0 1.375rem"
+    height: "3rem"
+  button-secondary-hover:
+    backgroundColor: "{colors.field}"
+    textColor: "{colors.pine}"
+  button-on-dark:
+    textColor: "{colors.paper}"
+    rounded: "{rounded.pill}"
+    padding: "0 1.375rem"
+    height: "3rem"
+  link:
+    textColor: "{colors.leaf}"
+  field:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.field}"
+    padding: "0 1rem"
+    height: "3rem"
+  round-control:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.pine}"
+    rounded: "{rounded.pill}"
+    size: "2.75rem"
 ---
 
-# Community Hub design system
+# Design System: Community Hub
 
-Source snapshot: 1 October 2026. This documents the current implementation direction; the final build and independently verified scope are recorded in `docs/VERIFICATION-2026-10-01.md`. It is not release approval.
+## Overview
 
-## Content and source authority
+**Creative North Star: "The Civic Brochure"**
 
-CommunityHub.cloud supplies the base writing, original photographs, testimonials and attribution. The reconciled content brief and final meeting/email decisions govern factual changes. Restore exact original author paragraphs from the old site and native Notion/Box documents. Do not treat later AI summaries or brainstorming as original author copy. Missing original prose does not authorize a replacement marketing pitch; retain useful controls and source evidence, and record remaining factual-summary gaps. Kwaku's latest instructions govern the visual direction. EnvironmentalDashboard.org supplements resource context; historical figures remain dated rather than silently presented as current.
+Community Hub sells a community-centered communication platform to cities, neighborhoods, schools, campuses and museums. The site reads like a well-made town brochure: one idea per page, turned one page at a time, with the real film, real places and real people doing the persuading. The look is the category standard played straight at Apple's level of finish: a white page, Community Hub's own greens, one lime action, generous space, and photography and live dashboards as the only decoration.
 
-The eight main colors above are from the original Google Doc shared by John on 25 September, verified through an authenticated export on 1 October. The document body is titled **Environmental Dashboard: Narrative Consistency Guide**. Exact export and provenance are in task `stripe-reference/dashboard-style-guide-original.txt` and its provenance JSON. Its GLSC/WSC and story-topic palettes belong to those clients/topics, not the general website. Its slide typography and word limit do not mandate shrinking or truncating website copy.
+Density is low and deliberate. Every page answers one question a buyer has (what is it, who is it for, what does it do, does it work, what does it cost, how do I start) and ends in Contact us. Words are plain and come from the content the team already wrote; the site never invents claims, prices or awards.
 
-Optional Box photographs have not been newly verified. Do not label existing local assets as downloaded from Box. Real photos and working product evidence remain the visual subject.
+**Key Characteristics:**
+- A white page; pine type; leaf links; lime only for the one primary action.
+- Figtree for every word; Comfortaa only in the wordmark beside the hands-holding-a-town mark.
+- On the home page, each section is a full screen that snaps into place, like turning a page.
+- Real media leads: the hero film, installation photos, live dashboards and calendars, the Community Voices players.
+- Flat surfaces separated by hairlines and tinted page bands, not shadows.
 
-## Full backgrounds with content in focus
+## Colors
 
-Every page family and the footer share one quiet pale surface. `--site-surface` mixes 10% of the guide’s light green with its off white; all four scene surface variables resolve to it. This is a derived site surface, not a claimed exact guide swatch. The latest user correction supersedes alternating colored and dark chapters. Original imagery, readable ink typography and restrained source palette accents carry the subject changes. Added background curves are removed.
+Community Hub's greens on white, with lime kept rare so the next step is always obvious.
 
-Color fills the scene but should not compete with its text or image. Avoid large blank white gaps between scenes, oversize empty gutters, decorative badges, tiny content surrounded by empty color, or new ornamental cards. Charcoal reading text provides contrast on colored fields. Use off white on charcoal; source bright green/blue are not white-text button backgrounds.
+### Primary
+- **Town Lime** (#c9db87): the Contact us pill, the "act locally / thinking globally" words in the film, the lime line in the contact panel. Hover deepens to **Lime Deep** (#b9cd70).
+- **Pine** (#123a29): headings, the contact panel, active tab underlines, filled controls on hover.
 
-Remove standalone floating mascot decorations and extra character ornaments. Keep actual product illustrations, original photos, character-gauge evidence, stateful mood demonstrations and semantic communication icons. Controls and captions occupy explicit rows; they never cover essential image, chart or text content.
+### Secondary
+- **Leaf** (#467d58): every link and the focus ring. 4.85:1 on white.
 
-## Type and composition
+### Neutral
+- **Ink** (#152019): body text; muted text is ink at 70–80%, never gray.
+- **Paper** (#ffffff): the page.
+- **Field** (#f4f6f1): the footer and the "What it changed" page band; product panels behind photos.
+- **Lime Pale** (#f2f6e1): the "What people say" page band.
+- **Line** (#e2e6dd): hairlines between sections, tab rows, bundle columns.
+- **Water, Sky, Sand** (#e2ece8, #2f6f7d, #d6c8ae): legacy accents kept for older product illustrations; not for new UI.
 
-Lato carries large regular-weight page headings, readable paragraphs, quotes, product names and controls. Retained identity/embedded story artwork may use Comfortaa. The website keeps Kwaku's accepted larger type regardless of historical aesthetic preferences. Desktop opening titles generally span48–64px; the home title spans52–80px. Phone sizing is local to the content, with full original words retained.
+### Named Rules
+**The One Lime Rule.** Lime marks the single primary action on a screen (Contact us) and the two highlighted words of the film. Nothing else is lime.
 
-The common reading rail is1280px, with24px desktop and20px phone gutters. The navigation uses its own16px narrow-phone inset. Original image proportions remain intact. Evidence is larger, with gallery actions below photos and captions. Complete photos remain associated with their exact quotation and attribution.
+**The Page Is the Frame Rule.** A reserved media box paints nothing of its own. A photo that does not fill its box sits in it at its own shape with rounded corners, on the page's own background, so no second background shows around it.
 
-Each scene communicates a complete thought. At375×667, long introductions, comparisons and evidence groups can become distinct semantic scenes. Pair a heading with its corresponding visual and a caption with its image. Similar Ecolympics posters require local scope/year labels. Complete forms, expanded settings and task lists can use native scrolling; never hide text simply to achieve a fixed height.
+## Typography
 
-## Navigation and controls
+**Display and body:** Figtree (Google Fonts, 400–800), with ui-sans-serif fallback.
+**Wordmark only:** Comfortaa 700.
 
-One deliberate vertical gesture cuts directly to the next complete scene. There is no animated vertical journey or overlapping crossfade. Explicit chapter links, product selectors and Community Voices category links use the same discrete destination behavior. Preserve real wheel/touch behavior, momentum handling, reverse navigation, reduced motion, browser scrolls, native fragments, focus transfer, overlays and nested scrollers. This is a runtime contract, not CSS snapping alone. Only the current story owner is painted and focusable.
+**Character:** One friendly geometric sans for everything keeps the site calm and readable at every size; weight and size carry the hierarchy, never color tricks.
 
-The footer owns a complete final viewport when collapsed and grows when disclosure groups open. A product directory category owns its related final link. Scene boundaries must not produce repeated fragments or blank strips.
+### Hierarchy
+- **Display** (600, clamp(2.375rem, 5.2vw, 4.75rem), 1.02, −0.032em): the film's headline only.
+- **Headline** (600, clamp(2.25rem, 4.6vw, 3.75rem), 1.05): page titles (`t-h1`).
+- **Title** (600, clamp(1.875rem, 3.6vw, 3rem), 1.08): section and brochure-page titles (`t-h2`).
+- **Subtitle** (600, clamp(1.25rem, 1.9vw, 1.5rem), 1.2): product names, card titles (`t-h3`).
+- **Lede** (400, clamp(1.125rem, 1.45vw, 1.3125rem), 1.5, ink 78%): the sentence under a title (`t-lede`).
+- **Body** (400, 1.0625rem, 1.6): running text, max about 70ch (`t-body`).
+- **Small / Label** (0.9375rem / 0.875rem 600): captions, footer links, column labels (`t-small`, `eyebrow`).
 
-Embed controls use a reserved row with44px minimum hit areas. Interact enables the child frame; Back to page and Escape restore page navigation and focus. Dynamic iframe replacements reuse their control row. Data-view explanation and chart/recovery states are mutually exclusive, including focusability. An iframe load event alone does not prove the remote chart has loaded.
+### Named Rules
+**The No Kicker Rule.** Nothing sits above a heading: no eyebrow, no category label, no section number. A place's kind goes beside or after its name.
 
-Gallery Previous/count/Next controls have their own row. Product choices use native phone selectors and explicit desktop actions. Web appearance settings stay in a native disclosure; all preset controls, reset, code and provenance remain available.
+## Layout
 
-Contact and Pricing prepare an email in the user's mail app; they do not submit to a backend. Hamilton's dashboard remains nonpublic. Do not invent metrics, testimonials, availability or partner destinations.
+- **Container:** `wrap`, max 80rem with a fluid gutter of clamp(1.25rem, 4vw, 2.5rem). The header, every section and the footer share it, so edges line up down the page.
+- **Header:** fixed, 4rem, white with a hairline; content starts below it.
+- **Brochure pages (home):** each section is a page at least one screen tall (`100svh` minus the header), its content top-aligned at one shared margin so every heading lands at the same height on each turn (the platform page and the contact back cover centre), snapping into place. Phones and touch screens snap firmly (`y mandatory`, one page per swipe); desktop snaps when close (`y proximity`). A page taller than the screen still scrolls inside. The film is the cover; the contact panel is the back cover; the footer follows.
+- **Page dots:** on wide screens a slim rail on the right edge shows the current page and jumps to any page; the film and contact panels inset 2.25rem so the dots never touch them. Phones have no rail: the swipe is the turn.
+- **Rows of several items** (audiences, results, bundles): columns on wide screens; on phones a sideways swipe strip with the next card peeking.
+- **Document pages** (About, Pricing, Research, Story, Toolkit, Resources, Products): normal scrolling, sections separated by a hairline and clamp(3rem, 6vw, 4.5rem) of space, ending with the contact panel and footer.
+- **Product pages:** first screen pairs the product (icon, name, lede, Contact us, live link) with its live example; later sections alternate text and examples; "More in {group}" lists sibling products before the contact panel.
+- **Breakpoints:** 640px (two columns), 768px (phone to tablet; strips become columns), 1024px (desktop navigation, side-by-side compositions).
 
-## Implementation and verification
+## Elevation & Depth
 
-The active refinement cascade is `stripe_refinement.css`, `stripe_shared.css`, `stripe_products.css`, `stripe_editorial.css`, `stripe_product_details.css`, `stripe_audiences.css`, `stripe_resources.css`, then `home_scene_fit.css` and finally `source_continuity.css`. Legacy component CSS remains for established behavior and real data drawings; the refinement layers own the current page treatment.
+Flat by default. Depth comes from page bands (white, field, lime pale, pine) and hairlines. Shadows appear only where something floats over other content.
 
-Before each UI task, read two relevant primary online references, inspect the actual target, and record specific patterns to avoid. Use installed Impeccable with the user's brief taking priority. After every build, obtain an independent visitor critique of the actual rendering, then repair concrete defects in a bounded batch. Automated geometry and source preservation supplement that review; they do not replace it.
+### Shadow Vocabulary
+- **Floating control** (`0 1px 2px rgb(10 30 20 / .1), 0 6px 16px -4px rgb(10 30 20 / .22)`): white arrow and pause circles over photos and live examples.
+- **Menu drop** (`0 28px 48px -28px rgb(18 58 41 / .22)`): the Products menu under the header.
 
-Verify desktop1280×720, phone390×844 and short phone375×667. Where fonts/remote data are blocked, label the evidence accordingly. Never infer a live service outage from a deliberately blocked test. Keep artifact hashes and test results associated with the build actually tested. Do not package or deploy until coordinated review is complete.
+## Shapes
 
+- Photo and example frames: 1.25rem. Big photo panels and the film: clamp(1.25rem, 2.2vw, 1.75rem). Cards: 1rem. Fields: 0.75rem. Buttons and round controls: full pill.
+- Lines are 1px hairlines in Line (#e2e6dd); tab underlines are 2px pine.
+- No colored side borders, no offset block shadows, no gradient text.
 
-## October 2 aesthetic application
+## Components
 
-Latest user direction: apply distinctive typography, committed color, purposeful motion and atmospheric backgrounds to Community Hub. The current presentation is a community publication grounded in the original Oberlin photography, rather than interchangeable software cards. Keep all source writing, imagery, native controls and story ownership intact.
+### Buttons
+- **Primary:** lime pill, pine text, 3rem tall, 1.5rem side padding, weight 600; hover Lime Deep; press scales to .98. Label is always the action ("Contact us", "Send message").
+- **Secondary:** white pill with a pine 22% hairline; hover fills Field.
+- **On dark:** translucent dark pill with a white hairline, for the film and the contact panel.
+- **Links:** leaf, 600, underline at 45% that goes solid on hover, often with a trailing arrow.
 
-- Headings: locally bundled Alegreya Sans Bold, licensed under SIL OFL in `public/fonts/alegreya-sans/OFL.txt`. Humanist, slightly calligraphic forms bring a human voice. Lato remains the reading/control face; Comfortaa remains the recognizable brand and embedded artwork face.
-- Palette: pine `#244b38`, field `#eef2e8`, water `#e6f0ef`, leaf `#5bb951`, ink `#2c2c2c`, and paper `#f4f4f2`. Derived pine and pale fields complement the source Dashboard colors; they are not claimed to be exact guide swatches.
-- Composition: left-aligned white opening text over the real drone footage, with an explicit Explore action. Directories use open linked rows grouped by purpose. Quiet full-scene fields replace bright interior title strips, while original product imagery carries the detail.
-- Motion: one staggered opening reveal, omitted under reduced motion. No height tween on the hero; changing its height during startup moved downstream scene targets. Scene cuts remain immediate. Existing functional demonstrations keep their controls.
-- Avoid: repeated white icon cards, saturated bars on every interior, split green emphasis over moving photography, ornamental diagrams, arbitrary decorative textures, generic repeated entrances, and hidden or overlapped gallery actions.
+### Header and navigation
+- Wordmark left; Products (menu), Implementations, Pricing, Research, Story, About; lime Contact us pill right.
+- Products opens a full-width panel: the three groups (Engage, Educate, Motivate and Empower), each product with its icon, name and one-line description.
+- Phones: a full-screen sheet with large rows, Products expanding in place, Contact us pinned at the bottom with the email address.
 
-Primary references read for this pass: [Impeccable anti-pattern catalog](https://impeccable.style/slop/) and [NN/G aesthetic and minimalist design](https://www.nngroup.com/articles/aesthetic-minimalist-design/). The former guided removal of repeated packaging; the latter guided preservation of useful controls and content.
+### Category tabs (signature)
+- Underline tab bar (ARIA tabs, arrow keys) over a hairline; the chosen product shows its icon, name, one plain sentence, "Learn more", and its live example.
 
-`community_aesthetics.css` now owns the final presentation layer. Current screenshot/build evidence and the independent visitor critique are in `tests/artifacts/aesthetics-20261002/`. The previous sections describe inherited constraints and history; this subsection supersedes conflicting typography, palette and title-bar descriptions.
+### Example frames (signature)
+- A fixed-shape reserved box (16:10) for photos, live dashboards, calendars, slide stories and Community Voices players. Arrows sit on both sides of the example; Pause sits below it at the right, sharing its row with the caption. Examples advance on their own only while visible and never while the visitor is hovering, focused or reading.
+
+### What people say (signature)
+- Photo and quote side by side; the arrows sit on both sides of the whole quote; dots and Pause below. Quotes change with a short blur-and-rise.
+
+### The identity row (signature)
+- The product family's icons overlap with the Community Hub mark on top in the middle, and assemble outward from it (mark, then each pair) every time the row comes into view.
+
+### Contact panel
+- A pine panel: "Bring Dashboard to Your Community", the lime line "Community engagement is community building.", Contact us, the implementation guide, the email address and the workshop photo. Ends every page.
+
+### Inputs
+- White, 3rem tall, 0.75rem radius, ink 50% border (visible at 3:1), leaf focus ring; errors in #b42318 under the field, wired with aria-describedby.
+
+### Contact and booking
+- One form card with a two-option switch, "Send a message | Book a demo" (`/contact?mode=demo` opens the second). Bookings ask for a day (from tomorrow), a time window, the visitor's time zone and how to meet. Both deliver to `site.formInbox`; bookings attach a calendar file. "Book a demo" sits beside Contact us on the film, product pages, the contact panel and the phone menu, always as the secondary button.
+
+### Implementations
+- The index groups the five places under their audiences, each a photo card with its kind beside its name, "Read the story" and the live link. A place page has a back link, the name and kind, a Story / Live tab pair (`?view=live`), the story with its quote and photos, previous and next places, then the contact panel. The implementation guide is a reading page: a sticky contents list, a ~73-character measure and full-width figures.
+
+## Do's and Don'ts
+
+### Do:
+- **Do** end every page with Contact us, and keep the lime pill the only lime on screen.
+- **Do** show the real thing: the film, installation photos and live embeds before any description.
+- **Do** keep each home page to one idea that fits a screen; move extra items into a swipe strip on phones.
+- **Do** pause anything that moves on its own when the visitor hovers, focuses or asks for reduced motion.
+- **Do** take every word from the content modules (`copy`, `pc`, `implementations`, `contactContent`) so the editor can change it.
+
+### Don't:
+- **Don't** paint a background behind a photo that doesn't fill its box.
+- **Don't** put a label, number or category above a heading.
+- **Don't** invent prices, client counts or awards; pricing is on request.
+- **Don't** use gradient text, glassy cards, colored side borders or block shadows.
+- **Don't** use a second display face; Comfortaa is the wordmark and nothing else.

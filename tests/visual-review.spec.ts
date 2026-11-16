@@ -1,12 +1,19 @@
 import {test, expect} from '@playwright/test';
 import {readdirSync, mkdirSync} from 'node:fs';
+
+/** An uncaught error whose stack runs only through another site's scripts (an embedded dashboard) is not ours. */
+function fromAnEmbed(err: Error) {
+  const sites = (err.stack ?? "").split("\n").filter((line) => /https?:\/\//.test(line));
+  return sites.length > 0 && sites.every((line) => !line.includes("127.0.0.1"));
+}
+
 const routes=readdirSync('src/routes').filter(f=>f.endsWith('.tsx')&&!f.startsWith('__')&&f!=='admin.tsx').map(f=>f==='index.tsx'?'/':`/${f.slice(0,-4)}`);
 mkdirSync('screenshots/site-review',{recursive:true});
 for(const width of [390,1440]) for(const path of routes) test(`visual review ${path} at ${width}`,async({page})=>{
   await page.setViewportSize({width,height:900});
   await page.emulateMedia({reducedMotion:'reduce'});
   const errors:string[]=[];
-  page.on('pageerror',e=>errors.push(e.message));
+  page.on('pageerror',e=>{ if (!fromAnEmbed(e)) errors.push(e.message); });
   await page.goto(path,{waitUntil:'domcontentloaded'});
   await expect(page.getByRole('heading',{level:1}).first()).toBeVisible();
   await page.waitForTimeout(800);

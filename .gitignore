@@ -26,3 +26,8 @@ __pycache__/
 *.pem
 *.key
 *.log
+.vercel
+.env*
+
+# Screenshots written by tests/visual-review.spec.ts
+screenshots/

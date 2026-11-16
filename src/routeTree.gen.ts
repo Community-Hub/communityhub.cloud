@@ -12,12 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BringDashboardToYourCommunityRouteImport } from './routes/bring-dashboard-to-your-community'
 import { Route as CitywideDashboardRouteImport } from './routes/citywide-dashboard'
 import { Route as CommunityCalendarRouteImport } from './routes/community-calendar'
 import { Route as CommunityVoicesRouteImport } from './routes/community-voices'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardBuilderRouteImport } from './routes/dashboard-builder'
 import { Route as DataHubRouteImport } from './routes/data-hub'
-import { Route as DemosRouteImport } from './routes/demos'
 import { Route as DigitalSignageRouteImport } from './routes/digital-signage'
 import { Route as PhoneAppRouteImport } from './routes/phone-app'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -32,9 +33,10 @@ import { Route as StoryRouteImport } from './routes/story'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ToolkitRouteImport } from './routes/toolkit'
 import { Route as WebEmbeddablesRouteImport } from './routes/web-embeddables'
-import { Route as WhoRouteImport } from './routes/who'
-import { Route as WorkRouteImport } from './routes/work'
+import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as CmsMediaSplatRouteImport } from './routes/cms-media/$'
+import { Route as ImplementationsIndexRouteImport } from './routes/implementations.index'
+import { Route as ImplementationsSlugRouteImport } from './routes/implementations.$slug'
 import { Route as ApiCmsAuthSplatRouteImport } from './routes/api/cms-auth/$'
 import { Route as ApiCmsSplatRouteImport } from './routes/api/cms/$'
 
@@ -53,6 +55,12 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BringDashboardToYourCommunityRoute =
+  BringDashboardToYourCommunityRouteImport.update({
+    id: '/bring-dashboard-to-your-community',
+    path: '/bring-dashboard-to-your-community',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CitywideDashboardRoute = CitywideDashboardRouteImport.update({
   id: '/citywide-dashboard',
   path: '/citywide-dashboard',
@@ -68,6 +76,11 @@ const CommunityVoicesRoute = CommunityVoicesRouteImport.update({
   path: '/community-voices',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardBuilderRoute = DashboardBuilderRouteImport.update({
   id: '/dashboard-builder',
   path: '/dashboard-builder',
@@ -76,11 +89,6 @@ const DashboardBuilderRoute = DashboardBuilderRouteImport.update({
 const DataHubRoute = DataHubRouteImport.update({
   id: '/data-hub',
   path: '/data-hub',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemosRoute = DemosRouteImport.update({
-  id: '/demos',
-  path: '/demos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DigitalSignageRoute = DigitalSignageRouteImport.update({
@@ -153,19 +161,24 @@ const WebEmbeddablesRoute = WebEmbeddablesRouteImport.update({
   path: '/web-embeddables',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WhoRoute = WhoRouteImport.update({
-  id: '/who',
-  path: '/who',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WorkRoute = WorkRouteImport.update({
-  id: '/work',
-  path: '/work',
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CmsMediaSplatRoute = CmsMediaSplatRouteImport.update({
   id: '/cms-media/$',
   path: '/cms-media/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImplementationsIndexRoute = ImplementationsIndexRouteImport.update({
+  id: '/implementations/',
+  path: '/implementations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImplementationsSlugRoute = ImplementationsSlugRouteImport.update({
+  id: '/implementations/$slug',
+  path: '/implementations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiCmsAuthSplatRoute = ApiCmsAuthSplatRouteImport.update({
@@ -183,12 +196,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/bring-dashboard-to-your-community': typeof BringDashboardToYourCommunityRoute
   '/citywide-dashboard': typeof CitywideDashboardRoute
   '/community-calendar': typeof CommunityCalendarRoute
   '/community-voices': typeof CommunityVoicesRoute
+  '/contact': typeof ContactRoute
   '/dashboard-builder': typeof DashboardBuilderRoute
   '/data-hub': typeof DataHubRoute
-  '/demos': typeof DemosRoute
   '/digital-signage': typeof DigitalSignageRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
@@ -203,9 +217,10 @@ export interface FileRoutesByFullPath {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
-  '/who': typeof WhoRoute
-  '/work': typeof WorkRoute
+  '/api/contact': typeof ApiContactRoute
   '/cms-media/$': typeof CmsMediaSplatRoute
+  '/implementations/$slug': typeof ImplementationsSlugRoute
+  '/implementations/': typeof ImplementationsIndexRoute
   '/api/cms-auth/$': typeof ApiCmsAuthSplatRoute
   '/api/cms/$': typeof ApiCmsSplatRoute
 }
@@ -213,12 +228,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/bring-dashboard-to-your-community': typeof BringDashboardToYourCommunityRoute
   '/citywide-dashboard': typeof CitywideDashboardRoute
   '/community-calendar': typeof CommunityCalendarRoute
   '/community-voices': typeof CommunityVoicesRoute
+  '/contact': typeof ContactRoute
   '/dashboard-builder': typeof DashboardBuilderRoute
   '/data-hub': typeof DataHubRoute
-  '/demos': typeof DemosRoute
   '/digital-signage': typeof DigitalSignageRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
@@ -233,9 +249,10 @@ export interface FileRoutesByTo {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
-  '/who': typeof WhoRoute
-  '/work': typeof WorkRoute
+  '/api/contact': typeof ApiContactRoute
   '/cms-media/$': typeof CmsMediaSplatRoute
+  '/implementations/$slug': typeof ImplementationsSlugRoute
+  '/implementations': typeof ImplementationsIndexRoute
   '/api/cms-auth/$': typeof ApiCmsAuthSplatRoute
   '/api/cms/$': typeof ApiCmsSplatRoute
 }
@@ -244,12 +261,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/bring-dashboard-to-your-community': typeof BringDashboardToYourCommunityRoute
   '/citywide-dashboard': typeof CitywideDashboardRoute
   '/community-calendar': typeof CommunityCalendarRoute
   '/community-voices': typeof CommunityVoicesRoute
+  '/contact': typeof ContactRoute
   '/dashboard-builder': typeof DashboardBuilderRoute
   '/data-hub': typeof DataHubRoute
-  '/demos': typeof DemosRoute
   '/digital-signage': typeof DigitalSignageRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
@@ -264,9 +282,10 @@ export interface FileRoutesById {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
-  '/who': typeof WhoRoute
-  '/work': typeof WorkRoute
+  '/api/contact': typeof ApiContactRoute
   '/cms-media/$': typeof CmsMediaSplatRoute
+  '/implementations/$slug': typeof ImplementationsSlugRoute
+  '/implementations/': typeof ImplementationsIndexRoute
   '/api/cms-auth/$': typeof ApiCmsAuthSplatRoute
   '/api/cms/$': typeof ApiCmsSplatRoute
 }
@@ -276,12 +295,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/bring-dashboard-to-your-community'
     | '/citywide-dashboard'
     | '/community-calendar'
     | '/community-voices'
+    | '/contact'
     | '/dashboard-builder'
     | '/data-hub'
-    | '/demos'
     | '/digital-signage'
     | '/phone-app'
     | '/pricing'
@@ -296,9 +316,10 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
-    | '/who'
-    | '/work'
+    | '/api/contact'
     | '/cms-media/$'
+    | '/implementations/$slug'
+    | '/implementations/'
     | '/api/cms-auth/$'
     | '/api/cms/$'
   fileRoutesByTo: FileRoutesByTo
@@ -306,12 +327,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/bring-dashboard-to-your-community'
     | '/citywide-dashboard'
     | '/community-calendar'
     | '/community-voices'
+    | '/contact'
     | '/dashboard-builder'
     | '/data-hub'
-    | '/demos'
     | '/digital-signage'
     | '/phone-app'
     | '/pricing'
@@ -326,9 +348,10 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
-    | '/who'
-    | '/work'
+    | '/api/contact'
     | '/cms-media/$'
+    | '/implementations/$slug'
+    | '/implementations'
     | '/api/cms-auth/$'
     | '/api/cms/$'
   id:
@@ -336,12 +359,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/bring-dashboard-to-your-community'
     | '/citywide-dashboard'
     | '/community-calendar'
     | '/community-voices'
+    | '/contact'
     | '/dashboard-builder'
     | '/data-hub'
-    | '/demos'
     | '/digital-signage'
     | '/phone-app'
     | '/pricing'
@@ -356,9 +380,10 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
-    | '/who'
-    | '/work'
+    | '/api/contact'
     | '/cms-media/$'
+    | '/implementations/$slug'
+    | '/implementations/'
     | '/api/cms-auth/$'
     | '/api/cms/$'
   fileRoutesById: FileRoutesById
@@ -367,12 +392,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  BringDashboardToYourCommunityRoute: typeof BringDashboardToYourCommunityRoute
   CitywideDashboardRoute: typeof CitywideDashboardRoute
   CommunityCalendarRoute: typeof CommunityCalendarRoute
   CommunityVoicesRoute: typeof CommunityVoicesRoute
+  ContactRoute: typeof ContactRoute
   DashboardBuilderRoute: typeof DashboardBuilderRoute
   DataHubRoute: typeof DataHubRoute
-  DemosRoute: typeof DemosRoute
   DigitalSignageRoute: typeof DigitalSignageRoute
   PhoneAppRoute: typeof PhoneAppRoute
   PricingRoute: typeof PricingRoute
@@ -387,9 +413,10 @@ export interface RootRouteChildren {
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   ToolkitRoute: typeof ToolkitRoute
   WebEmbeddablesRoute: typeof WebEmbeddablesRoute
-  WhoRoute: typeof WhoRoute
-  WorkRoute: typeof WorkRoute
+  ApiContactRoute: typeof ApiContactRoute
   CmsMediaSplatRoute: typeof CmsMediaSplatRoute
+  ImplementationsSlugRoute: typeof ImplementationsSlugRoute
+  ImplementationsIndexRoute: typeof ImplementationsIndexRoute
   ApiCmsAuthSplatRoute: typeof ApiCmsAuthSplatRoute
   ApiCmsSplatRoute: typeof ApiCmsSplatRoute
 }
@@ -417,6 +444,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bring-dashboard-to-your-community': {
+      id: '/bring-dashboard-to-your-community'
+      path: '/bring-dashboard-to-your-community'
+      fullPath: '/bring-dashboard-to-your-community'
+      preLoaderRoute: typeof BringDashboardToYourCommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/citywide-dashboard': {
       id: '/citywide-dashboard'
       path: '/citywide-dashboard'
@@ -438,6 +472,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommunityVoicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard-builder': {
       id: '/dashboard-builder'
       path: '/dashboard-builder'
@@ -450,13 +491,6 @@ declare module '@tanstack/react-router' {
       path: '/data-hub'
       fullPath: '/data-hub'
       preLoaderRoute: typeof DataHubRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demos': {
-      id: '/demos'
-      path: '/demos'
-      fullPath: '/demos'
-      preLoaderRoute: typeof DemosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/digital-signage': {
@@ -557,18 +591,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebEmbeddablesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/who': {
-      id: '/who'
-      path: '/who'
-      fullPath: '/who'
-      preLoaderRoute: typeof WhoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/work': {
-      id: '/work'
-      path: '/work'
-      fullPath: '/work'
-      preLoaderRoute: typeof WorkRouteImport
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cms-media/$': {
@@ -576,6 +603,20 @@ declare module '@tanstack/react-router' {
       path: '/cms-media/$'
       fullPath: '/cms-media/$'
       preLoaderRoute: typeof CmsMediaSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/implementations/': {
+      id: '/implementations/'
+      path: '/implementations'
+      fullPath: '/implementations/'
+      preLoaderRoute: typeof ImplementationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/implementations/$slug': {
+      id: '/implementations/$slug'
+      path: '/implementations/$slug'
+      fullPath: '/implementations/$slug'
+      preLoaderRoute: typeof ImplementationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/cms-auth/$': {
@@ -599,12 +640,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  BringDashboardToYourCommunityRoute: BringDashboardToYourCommunityRoute,
   CitywideDashboardRoute: CitywideDashboardRoute,
   CommunityCalendarRoute: CommunityCalendarRoute,
   CommunityVoicesRoute: CommunityVoicesRoute,
+  ContactRoute: ContactRoute,
   DashboardBuilderRoute: DashboardBuilderRoute,
   DataHubRoute: DataHubRoute,
-  DemosRoute: DemosRoute,
   DigitalSignageRoute: DigitalSignageRoute,
   PhoneAppRoute: PhoneAppRoute,
   PricingRoute: PricingRoute,
@@ -619,9 +661,10 @@ const rootRouteChildren: RootRouteChildren = {
   TermsOfServiceRoute: TermsOfServiceRoute,
   ToolkitRoute: ToolkitRoute,
   WebEmbeddablesRoute: WebEmbeddablesRoute,
-  WhoRoute: WhoRoute,
-  WorkRoute: WorkRoute,
+  ApiContactRoute: ApiContactRoute,
   CmsMediaSplatRoute: CmsMediaSplatRoute,
+  ImplementationsSlugRoute: ImplementationsSlugRoute,
+  ImplementationsIndexRoute: ImplementationsIndexRoute,
   ApiCmsAuthSplatRoute: ApiCmsAuthSplatRoute,
   ApiCmsSplatRoute: ApiCmsSplatRoute,
 }

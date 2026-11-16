@@ -17,6 +17,7 @@ export function AppLink({
   onClick?: () => void;
   "aria-current"?: "page";
   "data-active"?: boolean;
+  "aria-label"?: string;
 }) {
   const parsed = parseHref(href);
   if (parsed.kind === "external") {
@@ -31,6 +32,7 @@ export function AppLink({
     <Link
       // Paths come from content tables, so they cannot be checked against the route tree at compile time.
       to={parsed.to as never}
+      search={parsed.search as never}
       className={className}
       onClick={() => {
         if (parsed.hash) setNavigationTarget(parsed.hash);

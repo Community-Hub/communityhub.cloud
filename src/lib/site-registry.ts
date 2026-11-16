@@ -9,20 +9,18 @@ import publicationsData from "@/data/publications.json";
 import { createContentIndex, type ListSpec, type RootSpec, type SectionSpec } from "@/lib/cms/core";
 import {
   ABOUT_ORIGIN_FRAMES,
-  demoBringNotes,
   demoChanges,
-  demoReads,
-  demos,
-  demoSteps,
   educateBeats,
   empowerBeats,
   engageBeats,
   orbBeats,
   PHONE_FRAMES,
   stories,
-  WORK_CASE_FRAMES,
 } from "@/lib/content";
 import { copy, copyContext } from "@/lib/copy";
+import { implementationCases, implementationCopy, implementationGroups, implementationIntro, implementations } from "@/lib/implementations";
+import { bringGuideCopy } from "@/lib/bring-guide-copy";
+import { contactContent } from "@/lib/contact-content";
 import { pc } from "@/lib/page-content";
 import { bundles, faq, services } from "@/lib/pricing";
 import { productPages } from "@/lib/product-pages";
@@ -33,7 +31,6 @@ import { whoStops } from "@/lib/who";
 const PAGE: Record<string, string> = {
   meta: "Browser tab titles and search text",
   about: "About",
-  demos: "Dashboards",
   digitalSignage: "Digital Signage",
   pricing: "Pricing",
   products: "Products",
@@ -41,13 +38,12 @@ const PAGE: Record<string, string> = {
   resources: "Resources",
   story: "Story of the Dashboard",
   toolkit: "Teacher toolkit",
-  who: "Who it's for",
-  work: "Where it runs",
   chapters: "Home",
   notFound: "Page not found",
   productPager: "Product pages",
   siteFooter: "Footer (every page)",
   siteHeader: "Header (every page)",
+  home: "Home",
 };
 
 const roots: RootSpec[] = [
@@ -74,19 +70,26 @@ const roots: RootSpec[] = [
   { name: "educateBeats", page: "Home: Educate", value: educateBeats },
   { name: "empowerBeats", page: "Home: Motivate and Empower", value: empowerBeats },
   { name: "orbBeats", page: "Home: Environmental Orb", value: orbBeats },
-  { name: "demos", page: "Dashboards", value: demos },
-  { name: "demoReads", page: "Dashboards", value: demoReads },
-  { name: "demoChanges", page: "Dashboards", value: demoChanges },
-  { name: "demoSteps", page: "Dashboards", value: demoSteps },
-  { name: "demoBringNotes", page: "Dashboards", value: demoBringNotes },
+  { name: "demoChanges", page: "Home: What it changed", value: demoChanges },
   { name: "aboutOriginFrames", page: "About", value: ABOUT_ORIGIN_FRAMES },
   { name: "phoneFrames", page: "Digital Signage", value: PHONE_FRAMES },
-  { name: "workCaseFrames", page: "Where it runs", value: WORK_CASE_FRAMES },
   { name: "productPages", page: "Product pages", value: productPages },
   { name: "bundles", page: "Pricing", value: bundles },
   { name: "services", page: "Pricing", value: services },
   { name: "faq", page: "Pricing", value: faq },
-  { name: "whoStops", page: "Who it's for", value: whoStops },
+  { name: "whoStops", page: "Home: Who it’s for", value: whoStops },
+  { name: "implementations", page: "Implementations", value: implementations, only: ["name", "kind", "summary", "image", "alt", "liveLabel"] },
+  { name: "implementationGroups", page: "Implementations", value: implementationGroups, only: ["title", "description"] },
+  { name: "implementationIntro", page: "Implementations", value: implementationIntro },
+  { name: "contactContent", page: "Contact", value: contactContent },
+  {
+    name: "implementationCases",
+    page: "Implementations",
+    value: implementationCases,
+    only: ["story", "text", "speaker", "role", "org", "src", "alt", "caption", "label", "note", "title"],
+  },
+  { name: "implementationCopy", page: "Implementations", value: implementationCopy },
+  { name: "bringGuideCopy", page: "Implementation guide", value: bringGuideCopy },
   { name: "lessons", page: "Teacher toolkit", value: lessonsData, only: ["title", "description", "url"] },
   {
     name: "publications",
@@ -109,22 +112,12 @@ const frameLists = (name: string, beats: { title: string; frames: unknown[] }[],
 const lists: ListSpec[] = [
   { path: "lessons", label: "Lessons", page: "Teacher toolkit", itemLabel: (l) => l.title },
   { path: "publications", label: "Publications", page: "Research", itemLabel: (p) => p.title },
-  { path: "page.work.CASES", label: "Where it runs", page: "Where it runs", itemLabel: (c) => c.name },
-  { path: "page.work.VOICES", label: "Voices (quotes)", page: "Where it runs", itemLabel: (v) => v.org },
   { path: "bundles", label: "Pricing tiers", page: "Pricing", itemLabel: (b) => b.name },
   { path: "services", label: "Design services", page: "Pricing", itemLabel: (s) => s.name },
   { path: "faq", label: "Questions and answers", page: "Pricing", itemLabel: (f) => f.q },
   { path: "stories", label: "Home page stories", page: "Home: stories", itemLabel: (s) => s.org || s.alt },
   { path: "aboutOriginFrames", label: "Where it began: pictures", page: "About", itemLabel: frameLabel },
   { path: "phoneFrames", label: "Use your phone: pictures", page: "Digital Signage", itemLabel: frameLabel },
-  ...Object.keys(WORK_CASE_FRAMES).map(
-    (id): ListSpec => ({
-      path: `workCaseFrames.${id}`,
-      label: `${pc.work.CASES.find((c) => c.id === id)?.name ?? id}: more pictures`,
-      page: "Where it runs",
-      itemLabel: frameLabel,
-    }),
-  ),
   ...frameLists("engageBeats", engageBeats, "Home: Engage"),
   ...frameLists("educateBeats", educateBeats, "Home: Educate"),
   ...frameLists("empowerBeats", empowerBeats, "Home: Motivate and Empower"),
@@ -138,14 +131,8 @@ const lists: ListSpec[] = [
 const sections: SectionSpec[] = [
   { path: "/about", id: "origin", label: "Where it began", page: "About" },
   { path: "/about", id: "supporters", label: "Supporters", page: "About" },
-  { path: "/demos", id: "who", label: "Who uses it", page: "Dashboards" },
-  { path: "/demos", id: "read", label: "How to read it", page: "Dashboards" },
-  { path: "/demos", id: "changed", label: "Results", page: "Dashboards" },
-  { path: "/demos", id: "bring", label: "Bring one to your town", page: "Dashboards" },
   { path: "/pricing", id: "services", label: "Design services", page: "Pricing" },
   { path: "/pricing", id: "questions", label: "Questions", page: "Pricing" },
-  { path: "/who", id: "example", label: "An example", page: "Who it's for" },
-  { path: "/work", id: "voices", label: "Voices", page: "Where it runs" },
 ];
 
 export const siteIndex = createContentIndex({ roots, lists, sections });

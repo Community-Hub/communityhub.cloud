@@ -1,11 +1,17 @@
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { AppLink } from "@/components/app-link";
+import { ContactBand } from "@/components/contact-band";
 import { FrameSlider } from "@/components/product-section";
 import { SiteFooter } from "@/components/site-footer";
-import { CHAPTERS, educateBeats, empowerBeats, engageBeats, type SlideFrame } from "@/lib/content";
+import { educateBeats, empowerBeats, engageBeats, type SlideFrame } from "@/lib/content";
 import { PhoneWalkthrough } from "@/components/phone-walkthrough";
 import { PlayPauseButton, useAutoplay } from "@/components/play-pause";
 import { cn } from "@/lib/utils";
 import { imageSize } from "@/lib/image-dimensions";
+import { pc } from "@/lib/page-content";
+import { copy } from "@/lib/copy";
+import { DEMO_HREF } from "@/lib/links";
+import { site } from "@/lib/site";
 
 export type ProductSlide = {
   label: string;
@@ -35,26 +41,68 @@ export type ProductSlide = {
   links?: { href: string; label: string; note: string }[];
 };
 
-const HOME_CHAPTERS = [
-  { id: "engage", name: CHAPTERS[2], beats: engageBeats },
-  { id: "educate", name: CHAPTERS[3], beats: educateBeats },
-  { id: "motivate", name: CHAPTERS[4], beats: empowerBeats },
-] as const;
-
-export function homeStopFor(page: string) {
-  for (const chapter of HOME_CHAPTERS) {
-    const beat = chapter.beats.find((b) => b.href.split("#")[0] === page);
-    if (beat) return { href: `/#${chapter.id}/${beat.id}`, label: `Home: ${chapter.name}` };
-  }
-  return undefined;
-}
-
 function Walkthrough() {
   const [playing, setPlaying] = useAutoplay();
   return <div className="relative" data-box-frame>
     <PhoneWalkthrough running={playing} />
     <div className="absolute bottom-2 right-2"><PlayPauseButton playing={playing} onToggle={() => setPlaying(p => !p)} labels={{pause: "Pause animation", play: "Play animation"}} /></div>
   </div>;
+}
+
+/** The other products in the same group as `page`, so a buyer can keep comparing without going back. */
+export function RelatedProducts({ page }: { page: string }) {
+  const group = pc.products.GROUPS.find((g) => g.items.some((item) => item.href === page));
+  if (!group) return null;
+  const others = group.items.filter((item) => item.href !== page);
+  if (!others.length) return null;
+  const icons = [...engageBeats, ...educateBeats, ...empowerBeats];
+  return (
+    <section aria-labelledby="related-title" className="wrap pb-[var(--section-y)]">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-[clamp(3rem,6vw,4.5rem)]">
+        <h2 id="related-title" className="t-h3 text-pine">
+          More in {group.kicker}
+        </h2>
+        <AppLink href="/products" className="link">
+          All products <ArrowRight className="size-4" aria-hidden />
+        </AppLink>
+      </div>
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {others.map((item) => (
+          <li key={item.id}>
+            <AppLink href={item.href} className="group flex h-full items-start gap-4 rounded-2xl border border-line p-5 transition-colors duration-150 hover:border-pine/30 hover:bg-field">
+              <img src={icons.find((b) => b.id === item.id)?.icon} alt="" className="size-10 shrink-0 object-contain" />
+              <span className="min-w-0">
+                <span className="flex items-center gap-1.5 font-semibold text-ink group-hover:text-pine">
+                  {item.title}
+                  <ArrowRight className="size-4 text-leaf transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+                </span>
+                <span className="mt-1 block text-[0.9375rem] leading-snug text-ink/70">{item.blurb}</span>
+              </span>
+            </AppLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** A live example on another site: opens in a new tab so the visitor keeps this page. */
+function LiveLink({ href, label, primary = false }: { href: string; label: string; primary?: boolean }) {
+  const external = !href.startsWith("/");
+  if (!external) {
+    return (
+      <AppLink href={href} className={primary ? "btn-secondary" : "link"}>
+        {label}
+      </AppLink>
+    );
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener" className={primary ? "btn-secondary" : "link"}>
+      {label}
+      <ArrowUpRight className="size-4" aria-hidden />
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  );
 }
 
 /** Each stop explains one capability, with its own evidence, in a continuous vertical page. */
@@ -65,8 +113,8 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
   );
 
   return (
-    <div className="min-h-dvh bg-field text-ink pt-16">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-8 md:px-8 md:py-12">
+    <div className="bg-paper text-ink">
+      <main id="main" className="product-main">
         {contentSlides.map((slide, index) => {
           const hasMedia = Boolean(
             slide.frames?.length ||
@@ -88,60 +136,56 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
             (slide.embed && !slide.presentation
               ? { href: slide.embed, label: "Open live example" }
               : undefined);
-          const Heading = index === 0 ? "h1" : "h2";
+          const first = index === 0;
+          const Heading = first ? "h1" : "h2";
           return (
             <section
               key={ids[index]}
               id={ids[index]}
-              className={cn(
-                "scroll-mt-20",
-                index > 0 && "border-t border-pine/20 pt-12",
-              )}
+              className={cn("product-section wrap scroll-mt-24", first ? "product-section-first" : "product-section-rule")}
             >
-              {index === 0 && (
-                <p className="mb-4 t-small text-ink/70">
-                  <AppLink
-                    href="/products"
-                    className="inline-flex min-h-8 items-center text-pine underline underline-offset-4"
-                  >
+              {first && (
+                <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
+                  <AppLink href="/products" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">
                     Products
                   </AppLink>
-                  <span aria-hidden> / </span>
-                  {slide.title}
-                </p>
+                  <span aria-hidden className="px-2 text-ink/35">/</span>
+                  <span aria-current="page">{slide.title}</span>
+                </nav>
               )}
-              <div
-                className={cn(
-                  "product-detail-layout",
-                  hasMedia && !slide.wide && "product-detail-split",
-                )}
-              >
+              <div className={cn("product-detail-layout", hasMedia && !slide.wide && "product-detail-split")}>
                 <div className="min-w-0">
-                  <div className="flex items-center gap-3">
-                    {index === 0 && slide.icon && (
-                      <img src={slide.icon} alt="" className="size-11 shrink-0 object-contain" />
-                    )}
-                    <Heading className="t-h2">{slide.title}</Heading>
-                  </div>
-                  {slide.text && <p className="mt-4 max-w-3xl t-body">{slide.text}</p>}
+                  {first && slide.icon && <img src={slide.icon} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />}
+                  <Heading className={first ? "t-h1" : "t-h2"}>{slide.title}</Heading>
+                  {slide.text && <p className={cn("max-w-3xl", first ? "mt-5 t-lede" : "mt-4 t-body text-ink/80")}>{slide.text}</p>}
                   {slide.steps && (
-                    <ol className="mt-5 space-y-4">
+                    <ol className="mt-6 space-y-5">
                       {slide.steps.map((step, n) => (
-                        <li key={step.title} className="flex gap-3 t-body">
-                          <span className="font-bold text-pine">{n + 1}.</span>
+                        <li key={step.title} className="flex gap-4 t-body">
+                          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-lime-pale text-sm font-semibold text-pine" data-numbers>
+                            {n + 1}
+                          </span>
                           <div>
-                            <b>{step.title}</b>
-                            <p className="mt-1">{step.body}</p>
+                            <p className="font-semibold text-ink">{step.title}</p>
+                            <p className="mt-1 text-ink/80">{step.body}</p>
                           </div>
                         </li>
                       ))}
                     </ol>
                   )}
-                  {liveAction && (
-                    <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1">
-                      <AppLink href={liveAction.href} className="link">
-                        {liveAction.label}
+                  {first && (
+                    <div className="mt-8 flex flex-wrap items-center gap-3">
+                      <AppLink href={site.contactHref} className="btn-primary">
+                        {copy.siteHeader.SiteHeader.a1}
                       </AppLink>
+                      <AppLink href={DEMO_HREF} className="btn-secondary">
+                        {copy.siteHeader.SiteHeader.a2}
+                      </AppLink>
+                    </div>
+                  )}
+                  {liveAction && (
+                    <p className={first ? "mt-5" : "mt-6"}>
+                      <LiveLink href={liveAction.href} label={liveAction.label} />
                     </p>
                   )}
                 </div>
@@ -157,7 +201,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                     )}
                   >
                     {slide.captionAbove && slide.caption && (
-                      <p className="mb-3 t-body font-bold">{slide.caption}</p>
+                      <p className="mb-3 t-body font-semibold">{slide.caption}</p>
                     )}
                     {slide.phoneWalkthrough ? (
                       <Walkthrough />
@@ -182,7 +226,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                       <FrameSlider frames={sliderFrames} heading={slide.title} />
                     )}
                     {!slide.captionAbove && slide.caption && !sliderFrames[0]?.legend && (
-                      <p className="mt-2 t-small text-ink/70">{slide.caption}</p>
+                      <p className="mt-3 t-small text-ink/70">{slide.caption}</p>
                     )}
                   </div>
                 )}
@@ -191,8 +235,8 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                 <ul className="product-detail-features">
                   {slide.features.map((feature) => (
                     <li key={feature.title}>
-                      <h3 className="t-body font-bold text-pine">{feature.title}</h3>
-                      <p className="mt-1 t-small">{feature.body}</p>
+                      <h3 className="text-lg font-semibold text-pine">{feature.title}</h3>
+                      <p className="mt-2 t-body text-ink/78">{feature.body}</p>
                     </li>
                   ))}
                 </ul>
@@ -201,11 +245,9 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
           );
         })}
       </main>
-      <div className="mt-8 border-t border-line bg-paper/60">
-        <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
-          <SiteFooter />
-        </div>
-      </div>
+      <RelatedProducts page={page} />
+      <ContactBand />
+      <SiteFooter />
     </div>
   );
 }

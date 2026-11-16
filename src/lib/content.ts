@@ -40,7 +40,7 @@ export const stories: {
     quote:
       "When you talk about 21st-century skills — gathering and interpreting data — the Dashboard will be a very important tool.",
     links: [
-      { href: "/demos#schools", label: `${SCHOOLS_NAME} Dashboard` },
+      { href: "/implementations/oberlin-public-schools", label: `${SCHOOLS_NAME} Dashboard` },
       { href: "/toolkit", label: "Teacher Toolkit" },
     ],
   },
@@ -69,7 +69,7 @@ export const stories: {
     alt: "A shop owner outside the Oberlin Business Partnership on Main Street",
     quote:
       "Environmental Dashboard enables residents to understand their electricity and water consumption, which in turn helps prevent overuse.",
-    links: [{ href: "/demos#oberlin", label: "Citywide Dashboard" }],
+    links: [{ href: "/citywide-dashboard", label: "Citywide Dashboard" }],
   },
   {
     img: "/assets/sign-farmers-market.jpg",
@@ -77,7 +77,7 @@ export const stories: {
     alt: "A digital sign showing the Oberlin Farmers Market event",
     quote:
       "Community Hub’s digital signage is central to our community’s climate resilience communication strategy.",
-    links: [{ href: "/work#oberlin", label: "Oberlin Case" }],
+    links: [{ href: "/implementations/city-of-oberlin", label: "Oberlin Case" }],
   },
   {
     img: "/assets/live-home-story-07.jpeg",
