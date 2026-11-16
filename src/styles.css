@@ -2374,3 +2374,66 @@ main:focus {
   width: 2.5rem;
   height: 2.5rem;
 }
+
+/* The LoRaWAN console, inside the site: a slim bar under the header, then the live console filling the screen. */
+.lora-console {
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  padding-top: var(--header-h);
+}
+.lora-console-bar {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.lora-console-frame {
+  --hero-inset: clamp(0.5rem, 1.25vw, 1.25rem);
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 28rem;
+  height: calc(100svh - var(--header-h) - 3.25rem - var(--hero-inset));
+  margin: 0 var(--hero-inset) var(--hero-inset);
+  background: var(--color-field);
+  box-shadow: 0 0 0 1px var(--color-line);
+}
+.lora-console-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  color: var(--color-pine);
+}
+
+/* Story of the Dashboard: the deck beside its title, as large as the screen allows. Its frame has the slides' own
+   shape (4:3 at the embed's 1360px layout width, plus the 29px Slides toolbar), so no black bars show. */
+.story-layout {
+  display: grid;
+  flex: 1;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-content: center;
+}
+@media (min-width: 1024px) {
+  .story-layout {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.7fr);
+    align-items: center;
+  }
+}
+.story-deck {
+  container-type: inline-size;
+}
+.story-deck [data-box-frame] {
+  aspect-ratio: 1360 / 1049;
+  width: min(100cqw, calc((100svh - var(--header-h) - 10rem) * 1360 / 1049));
+  max-height: none;
+  margin-inline: auto;
+  background: #000;
+}
+@media (max-width: 1023px) {
+  .story-deck [data-box-frame] {
+    width: min(100cqw, calc((100svh - var(--header-h) - 18rem) * 1360 / 1049));
+  }
+}

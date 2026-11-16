@@ -33,7 +33,7 @@ function iconFor(id: string) {
 }
 
 function isActive(path: string, to: string) {
-  if (to === "/products") return PRODUCT_PATHS.has(path);
+  if (to === "/products") return PRODUCT_PATHS.has(path) || path.startsWith("/lorawan/") || path.startsWith("/studios/");
   return path === to || path.startsWith(`${to}/`);
 }
 

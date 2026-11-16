@@ -150,13 +150,13 @@ const GROUPS: { kicker: string; items: { id: string; title: string; blurb: strin
       {
         id: "lorawan",
         title: "LoRaWAN",
-        blurb: "Private sensor networks for schools and campuses, feeding Data Hub",
+        blurb: "Private sensor networks for schools and campuses",
         href: "/lorawan",
       },
       {
         id: "studios",
         title: "Studios",
-        blurb: "Draw a place, connect live readings, publish a story or a lobby loop",
+        blurb: "Maps, stories and signage loops made from live data",
         href: "/studios",
       },
     ],

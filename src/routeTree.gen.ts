@@ -39,6 +39,8 @@ import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as CmsMediaSplatRouteImport } from './routes/cms-media/$'
 import { Route as ImplementationsIndexRouteImport } from './routes/implementations.index'
 import { Route as ImplementationsSlugRouteImport } from './routes/implementations.$slug'
+import { Route as LorawanConsoleRouteImport } from './routes/lorawan_.console'
+import { Route as StudiosViewRouteImport } from './routes/studios_.view'
 import { Route as ApiCmsAuthSplatRouteImport } from './routes/api/cms-auth/$'
 import { Route as ApiCmsSplatRouteImport } from './routes/api/cms/$'
 
@@ -193,6 +195,16 @@ const ImplementationsSlugRoute = ImplementationsSlugRouteImport.update({
   path: '/implementations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LorawanConsoleRoute = LorawanConsoleRouteImport.update({
+  id: '/lorawan_/console',
+  path: '/lorawan/console',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudiosViewRoute = StudiosViewRouteImport.update({
+  id: '/studios_/view',
+  path: '/studios/view',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiCmsAuthSplatRoute = ApiCmsAuthSplatRouteImport.update({
   id: '/api/cms-auth/$',
   path: '/api/cms-auth/$',
@@ -234,6 +246,8 @@ export interface FileRoutesByFullPath {
   '/api/contact': typeof ApiContactRoute
   '/cms-media/$': typeof CmsMediaSplatRoute
   '/implementations/$slug': typeof ImplementationsSlugRoute
+  '/lorawan/console': typeof LorawanConsoleRoute
+  '/studios/view': typeof StudiosViewRoute
   '/implementations/': typeof ImplementationsIndexRoute
   '/api/cms-auth/$': typeof ApiCmsAuthSplatRoute
   '/api/cms/$': typeof ApiCmsSplatRoute
@@ -268,6 +282,8 @@ export interface FileRoutesByTo {
   '/api/contact': typeof ApiContactRoute
   '/cms-media/$': typeof CmsMediaSplatRoute
   '/implementations/$slug': typeof ImplementationsSlugRoute
+  '/lorawan/console': typeof LorawanConsoleRoute
+  '/studios/view': typeof StudiosViewRoute
   '/implementations': typeof ImplementationsIndexRoute
   '/api/cms-auth/$': typeof ApiCmsAuthSplatRoute
   '/api/cms/$': typeof ApiCmsSplatRoute
@@ -303,6 +319,8 @@ export interface FileRoutesById {
   '/api/contact': typeof ApiContactRoute
   '/cms-media/$': typeof CmsMediaSplatRoute
   '/implementations/$slug': typeof ImplementationsSlugRoute
+  '/lorawan_/console': typeof LorawanConsoleRoute
+  '/studios_/view': typeof StudiosViewRoute
   '/implementations/': typeof ImplementationsIndexRoute
   '/api/cms-auth/$': typeof ApiCmsAuthSplatRoute
   '/api/cms/$': typeof ApiCmsSplatRoute
@@ -339,6 +357,8 @@ export interface FileRouteTypes {
     | '/api/contact'
     | '/cms-media/$'
     | '/implementations/$slug'
+    | '/lorawan/console'
+    | '/studios/view'
     | '/implementations/'
     | '/api/cms-auth/$'
     | '/api/cms/$'
@@ -373,6 +393,8 @@ export interface FileRouteTypes {
     | '/api/contact'
     | '/cms-media/$'
     | '/implementations/$slug'
+    | '/lorawan/console'
+    | '/studios/view'
     | '/implementations'
     | '/api/cms-auth/$'
     | '/api/cms/$'
@@ -407,6 +429,8 @@ export interface FileRouteTypes {
     | '/api/contact'
     | '/cms-media/$'
     | '/implementations/$slug'
+    | '/lorawan_/console'
+    | '/studios_/view'
     | '/implementations/'
     | '/api/cms-auth/$'
     | '/api/cms/$'
@@ -442,6 +466,8 @@ export interface RootRouteChildren {
   ApiContactRoute: typeof ApiContactRoute
   CmsMediaSplatRoute: typeof CmsMediaSplatRoute
   ImplementationsSlugRoute: typeof ImplementationsSlugRoute
+  LorawanConsoleRoute: typeof LorawanConsoleRoute
+  StudiosViewRoute: typeof StudiosViewRoute
   ImplementationsIndexRoute: typeof ImplementationsIndexRoute
   ApiCmsAuthSplatRoute: typeof ApiCmsAuthSplatRoute
   ApiCmsSplatRoute: typeof ApiCmsSplatRoute
@@ -659,6 +685,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImplementationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lorawan_/console': {
+      id: '/lorawan_/console'
+      path: '/lorawan/console'
+      fullPath: '/lorawan/console'
+      preLoaderRoute: typeof LorawanConsoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studios_/view': {
+      id: '/studios_/view'
+      path: '/studios/view'
+      fullPath: '/studios/view'
+      preLoaderRoute: typeof StudiosViewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/cms-auth/$': {
       id: '/api/cms-auth/$'
       path: '/api/cms-auth/$'
@@ -706,6 +746,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiContactRoute: ApiContactRoute,
   CmsMediaSplatRoute: CmsMediaSplatRoute,
   ImplementationsSlugRoute: ImplementationsSlugRoute,
+  LorawanConsoleRoute: LorawanConsoleRoute,
+  StudiosViewRoute: StudiosViewRoute,
   ImplementationsIndexRoute: ImplementationsIndexRoute,
   ApiCmsAuthSplatRoute: ApiCmsAuthSplatRoute,
   ApiCmsSplatRoute: ApiCmsSplatRoute,

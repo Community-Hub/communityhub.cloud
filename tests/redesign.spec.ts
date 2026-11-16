@@ -158,6 +158,22 @@ test.describe("LoRaWAN and Studios", () => {
     await expect(page.locator("iframe[src*='studios.communityhb.tech']").first()).toBeAttached();
   });
 
+  test("the LoRaWAN console opens inside communityhub.cloud", async ({ page }) => {
+    await page.goto("/lorawan");
+    await ready(page);
+    await page.getByRole("link", { name: "Sign in to the console" }).click();
+    await expect(page).toHaveURL(/\/lorawan\/console$/);
+    await expect(page.locator("iframe[src^='https://lorawan-sensors.communityhb.tech/']")).toBeAttached();
+  });
+
+  test("a Studios example opens inside communityhub.cloud", async ({ page }) => {
+    await page.goto("/studios");
+    await ready(page);
+    await page.getByRole("link", { name: /Air quality in Pittsburgh/ }).click();
+    await expect(page).toHaveURL(/\/studios\/view\?map=pittsburgh$/);
+    await expect(page.locator("iframe[src*='viewer.html?map=pittsburgh']")).toBeAttached();
+  });
+
   test("the Products menu lists both under Educate", async ({ page }) => {
     await page.goto("/pricing");
     await ready(page);
@@ -165,6 +181,28 @@ test.describe("LoRaWAN and Studios", () => {
     const menu = page.locator("#products-menu");
     await expect(menu.getByRole("link", { name: /LoRaWAN/ })).toHaveAttribute("href", "/lorawan");
     await expect(menu.getByRole("link", { name: /Studios/ })).toHaveAttribute("href", "/studios");
+  });
+});
+
+test.describe("live examples and the story deck", () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
+
+  test("the wheel over a live example turns the page", async ({ page }) => {
+    await page.goto("/web-embeddables");
+    await ready(page);
+    const frame = page.locator("[data-box-frame]").first();
+    const box = (await frame.boundingBox())!;
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.wheel(0, 800);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(200);
+  });
+
+  test("Story of the Dashboard fills its screen at the slides' own shape", async ({ page }) => {
+    await page.goto("/story");
+    await ready(page);
+    const size = (await page.locator(".story-deck [data-box-frame]").boundingBox())!;
+    expect(size.height).toBeGreaterThan(500);
+    expect(size.width / size.height).toBeCloseTo(1360 / 1049, 1);
   });
 });
 

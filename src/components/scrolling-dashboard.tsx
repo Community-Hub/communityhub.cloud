@@ -177,14 +177,6 @@ export function ScrollingDashboard({
         if (e.pointerType === "mouse" && !hovered) setHovered(true);
       }}
       onPointerLeave={() => setHovered(false)}
-      onWheel={(event) => {
-        event.stopPropagation();
-        manualUntil.current = performance.now() + 2500;
-        const el = viewport.current;
-        if (el && event.target !== el && !el.contains(event.target as Node)) {
-          el.scrollTop += event.deltaY;
-        }
-      }}
     >
       {partnerHeader && (
         <img
@@ -196,16 +188,14 @@ export function ScrollingDashboard({
         />
       )}
       {!partnerHeader && portalLayout && <PortalPartnerBanner kind={portalLayout.kind} />}
+      {/* The preview scrolls itself (the tour below); the wheel and a swipe pass through to the page, so a live example
+          never holds the page in place. The full page is one click away under "Open live example". */}
       <div
         ref={viewport}
         data-dashboard-scroll
         data-running={running && !touching && !hovered}
         data-allow-scroll
         aria-busy={!ready}
-        onWheel={(event) => {
-          event.stopPropagation();
-          manualUntil.current = performance.now() + 2500;
-        }}
         onScroll={(event) => {
           const top = event.currentTarget.scrollTop;
           if (Math.abs(top - lastAutoScrollTop.current) > 2) {
@@ -216,9 +206,8 @@ export function ScrollingDashboard({
         onTouchStart={() => setTouching(true)}
         onTouchEnd={() => setTouching(false)}
         onTouchCancel={() => setTouching(false)}
-        tabIndex={0}
         aria-label={`${title} scrolling preview`}
-        className="relative min-h-0 flex-1 w-full overflow-y-auto overflow-x-hidden overscroll-contain bg-white [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="relative min-h-0 flex-1 w-full overflow-hidden bg-white"
       >
         <EmbedLoading ready={ready} />
         {passiveMarker && <span aria-hidden data-passive-preview className="pointer-events-none absolute inset-0 z-10" />}
