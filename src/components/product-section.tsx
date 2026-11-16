@@ -59,7 +59,9 @@ export function useSlide(i: number, set: string, dirRef: { current: 1 | -1 }) {
 
 function PresentationPreview({ frame, previewPlaying = false }: { frame: SlideFrame; home?: boolean; previewPlaying?: boolean }) {
   const src = frame.embed!.replace("start=true", `start=${previewPlaying}`);
-  return <GuardedEmbed src={src} title={frame.title} passive={false} className="absolute inset-0 h-full" />;
+  // A Studios story or loop is laid out for a full screen: it always renders at display width and scales down.
+  const displayWidthOnly = src.includes("studios.communityhb.tech");
+  return <GuardedEmbed src={src} title={frame.title} passive={false} narrowBelow={displayWidthOnly ? 0 : undefined} className="absolute inset-0 h-full" />;
 }
 
 function VoicesCategoryPreview({ url, iframeSrc, title, running }: { url: string; iframeSrc: string; title: string; running: boolean }) {
@@ -398,16 +400,20 @@ export function Examples({
     const image = frame?.src
       ? figure.querySelector<HTMLImageElement>(`[data-slide="${at}"] > img`)
       : null;
+    // Layout positions only (offsetLeft ignores transforms), so a slide caught mid-animation measures the same as one at rest.
+    const offsetWithin = (el: HTMLElement | null) => {
+      let x = 0;
+      for (let n: HTMLElement | null = el; n && n !== figure; n = n.offsetParent as HTMLElement | null) x += n.offsetLeft;
+      return x;
+    };
     const alignTitle = () => {
-      const figureLeft = figure.getBoundingClientRect().left;
       const frameEl = figure.querySelector<HTMLElement>("[data-box-frame]");
-      let left = frameEl ? frameEl.getBoundingClientRect().left - figureLeft : 0;
+      let left = offsetWithin(frameEl);
       if (image?.naturalWidth && getComputedStyle(image).objectFit === "contain") {
-        const drawn = image.getBoundingClientRect();
-        const width = Math.min(drawn.width, (drawn.height * image.naturalWidth) / image.naturalHeight);
-        left = drawn.left + (drawn.width - width) / 2 - figureLeft;
+        const width = Math.min(image.offsetWidth, (image.offsetHeight * image.naturalWidth) / image.naturalHeight);
+        left = offsetWithin(image) + (image.offsetWidth - width) / 2;
       }
-      figure.style.setProperty("--photo-title-inset", `${Math.max(0, left)}px`);
+      figure.style.setProperty("--photo-title-inset", `${Math.max(0, Math.round(left))}px`);
     };
     alignTitle();
     image?.addEventListener("load", alignTitle);

@@ -85,7 +85,7 @@ function Research() {
     { id: "more", label: "More publications" },
   ];
   return (
-    <DocShell stops={stops}>
+    <DocShell stops={stops} soft>
       <DocSection label="Research" title={pc.research.TITLE} as="h1" lede={pc.research.LEDE}>
         <h2 className="t-h3 mb-4">{copy.research.Research.h21}</h2>
         <ul data-fit="featured" className="grid gap-4 md:grid-cols-2">

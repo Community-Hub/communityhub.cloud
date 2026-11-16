@@ -2,17 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppLink } from "@/components/app-link";
 import { DocSection, DocShell, Shot, Split } from "@/components/doc";
-import { educateBeats, empowerBeats, engageBeats } from "@/lib/content";
+import { productIcon } from "@/lib/product-icons";
 import { ORB_HREF, PRICING_HREF, WHO_HREF } from "@/lib/links";
 import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
-const BEATS = [...engageBeats, ...educateBeats, ...empowerBeats];
 const GROUPS = pc.products.GROUPS;
 
 function iconFor(id: string) {
-  return BEATS.find((item) => item.id === id)?.icon ?? "";
+  return productIcon(id);
 }
 
 function GroupBlock({ group, heading = true }: { group: (typeof GROUPS)[number]; heading?: boolean }) {

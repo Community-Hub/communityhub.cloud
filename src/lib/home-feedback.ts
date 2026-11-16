@@ -152,7 +152,7 @@ export const homeCalendar: ProductBeat["frames"][number] = {
   title: placeTitle("MidTown Cleveland", "Community Calendar on Partner Website"),
   embed: "https://cleveland.communityhub.cloud/calendar/?show-menu=0",
   // The first event, under the calendar's own branded header (measured 2026-11-16).
-  phoneStart: [185, 120],
+  phoneStart: [199, 134],
   caption: "MidTown Cleveland – Community Calendar embedded on a partner website.",
   aliases: ["midtown-cleveland-community-calendar"],
 };

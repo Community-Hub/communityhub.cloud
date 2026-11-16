@@ -20,6 +20,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardBuilderRouteImport } from './routes/dashboard-builder'
 import { Route as DataHubRouteImport } from './routes/data-hub'
 import { Route as DigitalSignageRouteImport } from './routes/digital-signage'
+import { Route as LorawanRouteImport } from './routes/lorawan'
 import { Route as PhoneAppRouteImport } from './routes/phone-app'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
@@ -30,6 +31,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as StoryRouteImport } from './routes/story'
+import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ToolkitRouteImport } from './routes/toolkit'
 import { Route as WebEmbeddablesRouteImport } from './routes/web-embeddables'
@@ -96,6 +98,11 @@ const DigitalSignageRoute = DigitalSignageRouteImport.update({
   path: '/digital-signage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LorawanRoute = LorawanRouteImport.update({
+  id: '/lorawan',
+  path: '/lorawan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PhoneAppRoute = PhoneAppRouteImport.update({
   id: '/phone-app',
   path: '/phone-app',
@@ -144,6 +151,11 @@ const StoriesRoute = StoriesRouteImport.update({
 const StoryRoute = StoryRouteImport.update({
   id: '/story',
   path: '/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudiosRoute = StudiosRouteImport.update({
+  id: '/studios',
+  path: '/studios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
@@ -204,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/dashboard-builder': typeof DashboardBuilderRoute
   '/data-hub': typeof DataHubRoute
   '/digital-signage': typeof DigitalSignageRoute
+  '/lorawan': typeof LorawanRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -214,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
   '/story': typeof StoryRoute
+  '/studios': typeof StudiosRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
@@ -236,6 +250,7 @@ export interface FileRoutesByTo {
   '/dashboard-builder': typeof DashboardBuilderRoute
   '/data-hub': typeof DataHubRoute
   '/digital-signage': typeof DigitalSignageRoute
+  '/lorawan': typeof LorawanRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -246,6 +261,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
   '/story': typeof StoryRoute
+  '/studios': typeof StudiosRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
@@ -269,6 +285,7 @@ export interface FileRoutesById {
   '/dashboard-builder': typeof DashboardBuilderRoute
   '/data-hub': typeof DataHubRoute
   '/digital-signage': typeof DigitalSignageRoute
+  '/lorawan': typeof LorawanRoute
   '/phone-app': typeof PhoneAppRoute
   '/pricing': typeof PricingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -279,6 +296,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
   '/story': typeof StoryRoute
+  '/studios': typeof StudiosRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/toolkit': typeof ToolkitRoute
   '/web-embeddables': typeof WebEmbeddablesRoute
@@ -303,6 +321,7 @@ export interface FileRouteTypes {
     | '/dashboard-builder'
     | '/data-hub'
     | '/digital-signage'
+    | '/lorawan'
     | '/phone-app'
     | '/pricing'
     | '/privacy-policy'
@@ -313,6 +332,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/story'
+    | '/studios'
     | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
@@ -335,6 +355,7 @@ export interface FileRouteTypes {
     | '/dashboard-builder'
     | '/data-hub'
     | '/digital-signage'
+    | '/lorawan'
     | '/phone-app'
     | '/pricing'
     | '/privacy-policy'
@@ -345,6 +366,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/story'
+    | '/studios'
     | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
@@ -367,6 +389,7 @@ export interface FileRouteTypes {
     | '/dashboard-builder'
     | '/data-hub'
     | '/digital-signage'
+    | '/lorawan'
     | '/phone-app'
     | '/pricing'
     | '/privacy-policy'
@@ -377,6 +400,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/story'
+    | '/studios'
     | '/terms-of-service'
     | '/toolkit'
     | '/web-embeddables'
@@ -400,6 +424,7 @@ export interface RootRouteChildren {
   DashboardBuilderRoute: typeof DashboardBuilderRoute
   DataHubRoute: typeof DataHubRoute
   DigitalSignageRoute: typeof DigitalSignageRoute
+  LorawanRoute: typeof LorawanRoute
   PhoneAppRoute: typeof PhoneAppRoute
   PricingRoute: typeof PricingRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -410,6 +435,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoriesRoute: typeof StoriesRoute
   StoryRoute: typeof StoryRoute
+  StudiosRoute: typeof StudiosRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   ToolkitRoute: typeof ToolkitRoute
   WebEmbeddablesRoute: typeof WebEmbeddablesRoute
@@ -500,6 +526,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DigitalSignageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lorawan': {
+      id: '/lorawan'
+      path: '/lorawan'
+      fullPath: '/lorawan'
+      preLoaderRoute: typeof LorawanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/phone-app': {
       id: '/phone-app'
       path: '/phone-app'
@@ -568,6 +601,13 @@ declare module '@tanstack/react-router' {
       path: '/story'
       fullPath: '/story'
       preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studios': {
+      id: '/studios'
+      path: '/studios'
+      fullPath: '/studios'
+      preLoaderRoute: typeof StudiosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms-of-service': {
@@ -648,6 +688,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardBuilderRoute: DashboardBuilderRoute,
   DataHubRoute: DataHubRoute,
   DigitalSignageRoute: DigitalSignageRoute,
+  LorawanRoute: LorawanRoute,
   PhoneAppRoute: PhoneAppRoute,
   PricingRoute: PricingRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
@@ -658,6 +699,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoriesRoute: StoriesRoute,
   StoryRoute: StoryRoute,
+  StudiosRoute: StudiosRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   ToolkitRoute: ToolkitRoute,
   WebEmbeddablesRoute: WebEmbeddablesRoute,

@@ -1240,10 +1240,6 @@ section[aria-label="Voices"] h1 {
   padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-/* Contact */
-.home-contact {
-  padding: 0 clamp(0.5rem, 1.25vw, 1.25rem) clamp(3rem, 6vw, 5rem);
-}
 
 @media (prefers-reduced-motion: reduce) {
   .home-category-copy,
@@ -1353,58 +1349,290 @@ section[aria-label="Voices"] h1 {
 }
 
 /* =====================================================================
-   The home reads like a brochure: one page per screen, one swipe per page.
-   Each page snaps under the header; a page taller than the screen still scrolls inside.
-   Phones and touch screens snap firmly; a desktop wheel or trackpad snaps when it comes close.
+   Pages read like a presentation: one section per screen, one scroll or swipe per section.
+   `.deck` on a page's wrapper turns its `.page` sections into screens that snap firmly into place;
+   `.deck-soft` (long reading pages) snaps only when the reader comes to rest near a section start.
+   Each section is sized to fit one screen; one that cannot still scrolls inside before the next turn.
    ===================================================================== */
-html:has(.brochure) {
+:root {
+  --page-top: clamp(1.75rem, 6vh, 4rem);
+  --page-bottom: clamp(1.5rem, 4vh, 3rem);
+  --page-h: calc(100svh - var(--header-h));
+}
+html:has(.deck) {
   scroll-padding-top: var(--header-h);
+  scroll-snap-type: y mandatory;
+}
+html:has(.deck-soft) {
   scroll-snap-type: y proximity;
 }
-@media (max-width: 767px), (pointer: coarse) {
-  html:has(.brochure) {
-    scroll-snap-type: y mandatory;
+/* A landscape phone is too short for whole sections: they keep their natural height and snapping eases. */
+@media (max-height: 520px) {
+  html:has(.deck) {
+    scroll-snap-type: y proximity;
   }
 }
-html:has(.brochure) footer {
+html:has(.deck) footer {
   scroll-snap-align: end;
 }
-.brochure > .page,
-.brochure > .home-categories > .page {
-  display: flex;
-  min-height: calc(100svh - var(--header-h));
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: clamp(2.25rem, 7vh, 4.5rem);
-  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+/* A page is a one-row grid at least a screen tall, so its body stretches to a definite height; inside it the
+   body is a column whose `.page-fill` part takes whatever height the heading leaves. */
+.deck .page {
+  display: grid;
+  min-height: var(--page-h);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  padding-top: var(--page-top);
+  padding-bottom: var(--page-bottom);
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
-/* Every page's heading lands at the same height on each turn; the platform page and the back cover centre. */
-.brochure > #platform {
+.deck-soft .page {
+  scroll-snap-stop: normal;
+}
+.deck .page > .page-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+.deck .page-fill {
+  flex: 1 1 0;
+  min-height: var(--fill-min, 15rem);
+}
+/* A section heading with its link: the link sits at the right on a wide screen, under the heading on a phone. */
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: clamp(1.25rem, 3.5vh, 2.5rem);
+}
+/* The first section starts at the very top, under the fixed header. */
+.deck .page-first {
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + var(--page-top));
+}
+.deck .page-center > .page-body {
   justify-content: center;
 }
 /* The film is the cover: it fills the first screen. */
-.brochure > .home-hero {
+.deck > .home-hero {
   display: block;
   min-height: 100svh;
   padding: calc(var(--header-h) + var(--hero-inset)) var(--hero-inset) var(--hero-inset);
 }
-.brochure .home-hero-panel {
+.deck .home-hero-panel {
   height: calc(100svh - var(--header-h) - 2 * var(--hero-inset));
-  min-height: 30rem;
+  min-height: 20rem;
 }
-/* The back cover: the contact panel fills its page. */
-.brochure > .home-contact {
-  padding: var(--hero-inset, 1rem);
+/* The back cover: a full-bleed photo of a town, like the film on the front. */
+.home-contact {
   --hero-inset: clamp(0.5rem, 1.25vw, 1.25rem);
+  padding: 0 var(--hero-inset) var(--hero-inset);
 }
-.brochure > .home-contact > .panel {
+.deck .home-contact {
+  padding: var(--hero-inset);
+}
+.home-contact-panel {
+  position: relative;
   display: flex;
-  flex: 1;
+  min-height: min(44rem, calc(100svh - var(--header-h) - 2 * var(--hero-inset)));
   align-items: center;
+  background: var(--color-pine);
+  color: #fff;
+}
+.home-contact-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.home-contact-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to right, rgb(12 38 25 / 0.94) 0%, rgb(12 38 25 / 0.8) 34%, rgb(12 38 25 / 0.3) 64%, rgb(12 38 25 / 0.08) 100%),
+    linear-gradient(to top, rgb(6 20 13 / 0.5) 0%, rgb(6 20 13 / 0) 40%);
+}
+.home-contact-copy {
+  padding-block: clamp(2.5rem, 8vh, 6rem);
+}
+.home-contact-copy > * {
+  max-width: 36rem;
+}
+.home-contact-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-wrap: balance;
+}
+@media (max-width: 767px) {
+  /* A phone: the town shows above, the words sit below it on the dark. */
+  .home-contact-panel {
+    align-items: flex-end;
+  }
+  .home-contact-scrim {
+    background: linear-gradient(to top, rgb(12 38 25 / 0.97) 0%, rgb(12 38 25 / 0.9) 52%, rgb(12 38 25 / 0.35) 76%, rgb(12 38 25 / 0.1) 100%);
+  }
+  .home-contact-photo {
+    object-position: 70% 50% !important;
+  }
 }
 
+/* The statement page: the product family assembles above one line. */
+.deck .home-identity-row {
+  width: min(78%, 30rem, 40vh);
+}
+.deck #platform .t-h2 {
+  font-size: clamp(2.125rem, 4.4vw, 3.75rem);
+  max-width: 16em;
+}
+
+/* Product pages (Engage, Educate, Motivate): the example takes all the room the heading and tabs leave.
+   The frame keeps its 16:10 shape: as wide as its column allows and no taller than the page allows. */
+.deck [data-home-category] .home-category-panel {
+  --fill-min: 17rem;
+  flex: 1 1 0;
+  min-height: var(--fill-min);
+  margin-top: clamp(1rem, 3vh, 2.25rem);
+  container-type: size;
+}
+.deck [data-home-category] .home-category-media {
+  container-type: inline-size;
+}
+.deck [data-home-category] [data-box-frame] {
+  /* 6.75rem: the example's title above the frame and the Pause row below it. */
+  width: min(100cqw, calc((100cqh - 6.75rem) * 1.6));
+  max-height: none;
+}
+.deck [data-home-category] .media-stage {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
+@media (min-width: 768px) {
+  .deck [data-home-category] .media-stage[data-arrows] [data-box-frame] {
+    width: min(100cqw - 7rem, calc((100cqh - 6.75rem) * 1.6));
+  }
+}
+@media (min-width: 1024px) {
+  .deck [data-home-category] .home-category-panel {
+    align-items: center;
+  }
+}
+@media (max-width: 1023px) {
+  /* Stacked: the product's line above, the example below it with what height is left. */
+  .deck [data-home-category] .home-category-panel {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 2.5vh, 1.5rem);
+    container-type: normal;
+  }
+  .deck [data-home-category] .home-category-media {
+    flex: 1 1 0;
+    min-height: 13rem;
+    container-type: size;
+  }
+  .deck [data-home-category] [data-box-frame] {
+    width: min(100cqw, calc((100cqh - 6.5rem) * 1.6));
+  }
+}
+@media (max-width: 767px) {
+  .deck [data-home-category] .home-category-copy > img {
+    display: none;
+  }
+  .deck [data-home-category] .home-category-copy h3 {
+    margin-top: 0;
+  }
+  .deck [data-home-category] [data-box-frame] {
+    /* Under the frame on a phone: one row of Previous, Pause and Next. */
+    width: min(100cqw, calc((100cqh - 6.25rem) * 1.6));
+  }
+}
+
+/* Quotes: a large photo beside a large quote, the arrows either side of both, dots and Pause below. */
+.deck .home-voices {
+  --fill-min: 16rem;
+  flex: 1 1 0;
+  min-height: var(--fill-min);
+  margin-top: clamp(1rem, 3vh, 2.5rem);
+  grid-template-rows: minmax(0, 1fr);
+}
+.deck .home-voice {
+  height: 100%;
+  min-height: 0;
+}
+.deck .home-voice-photo {
+  height: 100%;
+  max-height: 36rem;
+  aspect-ratio: auto;
+  align-self: center;
+}
+.deck .home-voices-nav {
+  margin-top: clamp(1rem, 2.5vh, 2rem);
+}
+@media (max-width: 767px) {
+  .deck .home-voice {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .deck .home-voice-photo {
+    height: auto;
+    flex: 1 1 0;
+    min-height: 7rem;
+    max-height: 17rem;
+  }
+  .deck .home-voice figure > p {
+    display: none;
+  }
+}
+
+/* Results: the three charts share the room above their numbers. */
+.deck .home-results {
+  --fill-min: 17rem;
+}
+.deck .home-results > li {
+  display: flex;
+  flex-direction: column;
+}
+.deck .home-results .home-fit {
+  flex: 1 1 0;
+  min-height: 6.5rem;
+  max-height: 22rem;
+  aspect-ratio: auto;
+}
+@media (max-width: 767px) {
+  .deck .home-results .result-support {
+    display: none;
+  }
+}
+
+/* Pricing: the three bundles, centred on their page. */
+.deck .home-bundle {
+  padding: clamp(1.25rem, 3.5vh, 2.5rem);
+}
+.deck .home-bundle ul {
+  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+}
+.deck .home-bundle .space-y-2\.5 > :not(:last-child) {
+  margin-bottom: clamp(0.25rem, 0.9vh, 0.625rem);
+}
+@media (max-width: 767px) {
+  .deck #platform .home-mission-text,
+  .deck .home-bundle .bundle-note {
+    display: none;
+  }
+}
 
 /* A row of several items: columns on a wide screen, a sideways swipe strip on a phone. */
 @media (max-width: 767px) {
@@ -1437,40 +1665,122 @@ html:has(.brochure) footer {
   }
 }
 
-/* Who it's for: five places, each with its own photo. */
+/* Who it's for: a sideways row of tall photo cards that runs to the edges of the screen. The first card lines up
+   with the page's text; arrows either side move one card at a time; a phone or trackpad swipes. */
+.home-audiences-stage {
+  --fill-min: 19rem;
+  --row-inset: calc(max(0px, (100vw - var(--content-w)) / 2) + var(--gutter));
+  position: relative;
+  display: flex;
+}
+#audiences {
+  overflow-x: clip;
+}
 .home-audiences {
-  display: grid;
-  gap: 1.25rem;
+  display: flex;
+  flex: 1;
+  gap: clamp(0.625rem, 1vw, 1rem);
+  margin-inline: calc(-1 * var(--row-inset));
+  padding-inline: var(--row-inset);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--row-inset);
+  scrollbar-width: none;
 }
-@media (min-width: 768px) and (max-width: 1023px) {
-  .home-audiences {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.home-audiences::-webkit-scrollbar {
+  display: none;
 }
-@media (min-width: 1024px) {
-  .home-audiences {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1.5rem;
+.home-audiences > li {
+  display: flex;
+  flex: 0 0 clamp(17rem, 31vw, 29rem);
+  scroll-snap-align: start;
+}
+@media (max-width: 767px) {
+  .home-audiences > li {
+    flex-basis: min(82vw, 22rem);
   }
 }
 .home-audience {
+  position: relative;
   display: flex;
-  height: 100%;
+  min-height: var(--fill-min);
+  flex: 1;
   flex-direction: column;
-  border-radius: 1.25rem;
+  justify-content: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--radius-panel);
+  background: var(--color-pine);
+  color: #fff;
+}
+.home-audience::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgb(6 20 13 / 0.9) 0%, rgb(6 20 13 / 0.6) 34%, rgb(6 20 13 / 0.06) 62%, rgb(6 20 13 / 0) 100%);
 }
 .home-audience-photo {
-  display: block;
-  aspect-ratio: 4 / 3;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 700ms var(--ease-out-expo);
+  transition: transform 900ms var(--ease-out-expo);
 }
 .home-audience:hover .home-audience-photo {
   transform: scale(1.04);
 }
-.home-audience-photo[data-place="midtown-cleveland"] {
-  object-position: center 30%;
+.home-audience:focus-visible {
+  outline: 3px solid var(--color-leaf);
+  outline-offset: -3px;
+}
+.home-audience-text {
+  display: grid;
+  gap: 0.625rem;
+  padding: clamp(1.25rem, 2vw, 2rem);
+}
+.home-audience-name {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 1.9vw, 1.875rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.home-audience-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.375rem;
+  object-fit: contain;
+}
+.home-audience-line {
+  max-width: 26rem;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.86);
+}
+.home-audience-place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.125rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-lime);
+}
+.home-audience-place svg {
+  transition: transform 200ms ease;
+}
+.home-audience:hover .home-audience-place svg {
+  transform: translateX(3px);
 }
 .home-results {
   display: grid;
@@ -1482,54 +1792,13 @@ html:has(.brochure) footer {
   }
 }
 
-/* The page dots: where you are in the brochure, and a way to jump. Wide screens only; on a phone the swipe is the turn. */
-.page-rail {
-  position: fixed;
-  right: max(0.25rem, env(safe-area-inset-right));
-  top: 50%;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  transform: translateY(-50%);
-}
-.page-rail button {
-  display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
-  place-items: center;
-}
-.page-rail button span {
-  display: block;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-pine) 62%, transparent);
-  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 0.9);
-  transition: height 320ms var(--ease-out-expo), background-color 200ms ease;
-}
-.page-rail button:hover span {
-  background: var(--color-leaf);
-}
-.page-rail button[aria-current="true"] span {
-  height: 1.375rem;
-  background: var(--color-pine);
-}
-@media (max-width: 767px) {
-  .page-rail {
-    display: none;
-  }
-}
-/* The film and the back cover leave a margin wide enough for the dots. */
-@media (min-width: 768px) {
-  .brochure > .home-hero,
-  .brochure > .home-contact {
-    --hero-inset: 2.25rem;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .page-rail button span,
-  .home-audience-photo {
+  .home-audience-photo,
+  .home-audience-place svg {
     transition: none;
+  }
+  .home-audience:hover .home-audience-photo {
+    transform: none;
   }
 }
 
@@ -1666,12 +1935,6 @@ main:focus {
     mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
   }
 }
-/* Who it's for on a wide screen: square photos give the five places more presence. */
-@media (min-width: 1024px) {
-  .home-audience-photo {
-    aspect-ratio: 1 / 1;
-  }
-}
 
 /* The quote controls never squeeze: fixed-size buttons, and on a phone a tighter row of dots. */
 .home-voices-nav > *,
@@ -1694,4 +1957,420 @@ main:focus {
   .home-dot[aria-current="true"] span {
     width: 1.125rem;
   }
+}
+
+/* One round control everywhere (arrows, Pause and Play, on the film, beside examples, under quotes):
+   white, a hairline ring, a pine icon; pine with a white icon on hover and keyboard focus. */
+.home-round-btn,
+.slider-arrow-button,
+.home-voices-arrow,
+.home-film-toggle,
+.media-controls .slider-arrow-button,
+.media-controls [data-control="prev"],
+.media-controls [data-control="next"] {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-pine);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-pine) 18%, transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.home-round-btn:hover,
+.home-round-btn:focus-visible,
+.slider-arrow-button:hover,
+.slider-arrow-button:focus-visible,
+.home-voices-arrow:hover,
+.home-voices-arrow:focus-visible,
+.home-film-toggle:hover,
+.home-film-toggle:focus-visible,
+.media-controls [data-control="prev"]:hover,
+.media-controls [data-control="prev"]:focus-visible,
+.media-controls [data-control="next"]:hover,
+.media-controls [data-control="next"]:focus-visible {
+  background: var(--color-pine);
+  color: #fff;
+}
+.home-film-toggle:focus-visible {
+  outline-color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-round-btn,
+  .slider-arrow-button,
+  .home-voices-arrow,
+  .home-film-toggle {
+    transition: none;
+  }
+}
+
+/* The row's arrows stand either side of it, outside the text column when the screen leaves room. */
+.home-row-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  translate: 0 -50%;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-pine) 18%, transparent), 0 6px 18px -6px rgb(10 30 20 / 0.35);
+  transition: opacity 200ms ease, background-color 160ms ease, color 160ms ease;
+}
+.home-row-arrow[data-side="prev"] {
+  left: max(-3.5rem, calc(0.5rem - var(--row-inset)));
+}
+.home-row-arrow[data-side="next"] {
+  right: max(-3.5rem, calc(0.5rem - var(--row-inset)));
+}
+.home-row-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 767px), (hover: none) {
+  .home-row-arrow {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-row-arrow {
+    transition: none;
+  }
+}
+
+/* A product page's heading: the category's name with its products' tabs beside it on a wide screen, below it
+   on a phone. One rule under both. */
+.home-category-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .home-category-head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .home-category-head .home-tabs {
+    border-bottom: 0;
+  }
+  .home-category-head .t-h2 {
+    padding-bottom: 0.625rem;
+  }
+}
+
+/* Results: each chart and its numbers stay together, centred in the room their page leaves. */
+.deck .home-results > li {
+  justify-content: center;
+}
+.deck .home-results .home-fit {
+  flex: 0 1 auto;
+  aspect-ratio: 16 / 9;
+  min-height: 6rem;
+  max-height: none;
+}
+
+/* Wide screens: the example gets most of the width; the product's name and line keep a narrow column. */
+@media (min-width: 1024px) {
+  .deck [data-home-category] .home-category-panel {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.78fr);
+    gap: clamp(2rem, 3vw, 3rem);
+  }
+}
+/* Phones: a live page (dashboard, calendar) takes all the height left, so it shows a full screen of itself;
+   a photo keeps a 4:3 frame. */
+@media (max-width: 767px) {
+  .deck [data-home-category] [data-box-frame]:has(iframe) {
+    width: 100cqw;
+    height: max(12rem, calc(100cqh - 7rem));
+    aspect-ratio: auto;
+  }
+  .deck [data-home-category] [data-box-frame]:not(:has(iframe)) {
+    width: min(100cqw, calc((100cqh - 7rem) * 4 / 3));
+    aspect-ratio: 4 / 3;
+  }
+  .deck .home-results .home-fit {
+    aspect-ratio: 4 / 3;
+  }
+  .deck .home-results .result-support {
+    display: block;
+  }
+}
+
+/* Document and product pages as decks: each section is a screen, centred like a slide. Long reading pages
+   (`deck-soft`) keep their text at the top of each screen. */
+.doc-main.deck,
+.product-main.deck {
+  gap: 0;
+  padding-block: 0;
+}
+.deck .doc-section-block > .page-body {
+  justify-content: center;
+}
+.deck-soft .doc-section-block > .page-body {
+  justify-content: flex-start;
+}
+
+/* A product page's first screen holds the product, its example and its three features: a tighter hero so the
+   whole set fits one screen. */
+.deck .product-section.page-first {
+  --card-media-h: clamp(12rem, calc(var(--page-h) - 25rem), 28rem);
+}
+.deck .product-section.page-first nav[aria-label="Breadcrumb"] {
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+}
+.deck .product-section.page-first .product-detail-split > :first-child > img:first-child {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+}
+.deck .product-section.page-first .t-h1 {
+  font-size: clamp(2.25rem, 3.9vw, 3.5rem);
+}
+.deck .product-section.page-first .t-lede {
+  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+}
+.deck .product-section.page-first .mt-8 {
+  margin-top: clamp(1rem, 3vh, 2rem);
+}
+.deck .product-detail-features {
+  margin-top: clamp(1.25rem, 3.5vh, 2.75rem);
+  padding-top: clamp(1rem, 2.5vh, 2rem);
+}
+.deck .product-detail-features h2,
+.deck .product-detail-features h3 {
+  font-size: 1.0625rem;
+}
+.deck .product-detail-features p {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+@media (min-width: 1024px) {
+  .deck .product-section.page-first .product-detail-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  }
+}
+
+/* Later sections of a product page: the example gives way to the screen's height too. */
+.deck .product-section:not(.page-first) .product-detail-media {
+  --card-media-h: clamp(12rem, calc(var(--page-h) - 17.75rem), 30rem);
+}
+/* A wide example sits under its text, so its budget leaves room for the heading and lede above it. */
+.deck .product-section:not(.page-first) .product-detail-media.product-detail-media-wide {
+  --card-media-h: clamp(12rem, calc(var(--page-h) - 25rem), 36rem);
+}
+/* Pictures on document and implementation screens give way to a short screen. */
+.deck .impl-place-photo {
+  max-height: max(11rem, calc(var(--page-h) - 22rem));
+}
+.deck .doc-section-block img {
+  max-height: min(var(--shot-h, 30rem), max(11rem, calc(var(--page-h) - 15rem)));
+}
+.deck .product-section.page-first {
+  --card-media-h: clamp(11rem, calc(var(--page-h) - 26rem), 28rem);
+}
+
+/* LoRaWAN: the path a reading takes, from the radio to the people who use it. */
+.lora-path {
+  position: relative;
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--color-lime) 22%, transparent) 0%, transparent 55%),
+    var(--color-pine);
+  color: #fff;
+}
+.lora-waves {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.5rem);
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  width: 3.5rem;
+  height: 3.5rem;
+  pointer-events: none;
+}
+.lora-waves span {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-lime);
+  border-radius: 999px;
+  opacity: 0;
+  animation: lora-wave 2.6s var(--ease-out-expo) infinite;
+}
+.lora-waves span:nth-child(2) {
+  animation-delay: 0.85s;
+}
+.lora-waves span:nth-child(3) {
+  animation-delay: 1.7s;
+}
+@keyframes lora-wave {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+.lora-stages {
+  position: relative;
+  display: grid;
+  gap: clamp(1.25rem, 3vh, 2rem);
+}
+.lora-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+.lora-stage:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 1.75rem;
+  top: 3.75rem;
+  bottom: calc(-1 * clamp(1.25rem, 3vh, 2rem) + 0.25rem);
+  width: 2px;
+  background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--color-lime) 80%, transparent) 0 6px, transparent 6px 12px);
+}
+.lora-stage-icon {
+  grid-row: span 3;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.22);
+  color: var(--color-lime);
+}
+.lora-stage-step {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-lime);
+}
+.lora-stage-title {
+  margin-top: 0.125rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-weight: 600;
+  letter-spacing: -0.016em;
+  color: #fff;
+}
+.lora-stage-body {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.8);
+}
+.lora-devices {
+  border-radius: var(--radius-panel);
+  background: var(--color-field);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+.lora-device {
+  display: grid;
+  gap: 0.125rem;
+  border-radius: 1rem;
+  background: var(--color-paper);
+  padding: 0.875rem 1rem;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+.lora-private {
+  border-top: 2px solid var(--color-lime);
+  padding-top: 1rem;
+}
+.lora-chip {
+  border-radius: 999px;
+  background: var(--color-field);
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-pine);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lora-waves span {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Studios: the three ways to publish, the steps, and the published work. */
+.studio-way {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.studio-way-kind {
+  flex-shrink: 0;
+  min-width: 4.25rem;
+  border-radius: 999px;
+  background: var(--color-lime-pale);
+  padding: 0.25rem 0.75rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-pine);
+}
+.studio-step {
+  border-top: 2px solid var(--color-lime);
+  padding-top: 1.25rem;
+}
+.studio-step-number {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--color-pine);
+  font-weight: 600;
+  color: #fff;
+}
+.studio-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1rem;
+  padding: 0.875rem 1.125rem;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+.studio-card:hover {
+  background: var(--color-field);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-pine) 30%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-card {
+    transition: none;
+  }
+}
+
+/* On a phone, sections of the inner pages often run longer than the screen: they settle into place only when the
+   reader stops near one, so a long section scrolls freely. The home keeps its firm one-page-per-swipe. */
+@media (max-width: 767px) {
+  html:has(main.deck:not(.brochure)) {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* A Studios story or loop is a screen of its own (often white): a hairline and a soft shadow show its edge. */
+[data-box-frame][data-presentation-frame]:has(iframe[src*="studios.communityhb.tech"]) {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 0 1px var(--color-line), 0 24px 48px -28px rgb(10 30 20 / 0.4);
+}
+
+/* Products and Services: six products under Educate, so the rows tighten to keep every group on one screen. */
+.deck .product-directory-group li > a {
+  padding-block: clamp(0.3rem, 1.15vh, 0.75rem);
+}
+.deck .product-directory-group img {
+  width: 2.5rem;
+  height: 2.5rem;
 }

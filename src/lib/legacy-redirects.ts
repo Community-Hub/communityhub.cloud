@@ -96,6 +96,7 @@ export const PUBLIC_ROUTES: readonly string[] = [
   "/implementations/midtown-cleveland",
   "/implementations/oberlin-college",
   "/implementations/oberlin-public-schools",
+  "/lorawan",
   "/phone-app",
   "/pricing",
   "/privacy-policy",
@@ -106,6 +107,7 @@ export const PUBLIC_ROUTES: readonly string[] = [
   "/services",
   "/stories",
   "/story",
+  "/studios",
   "/toolkit",
   "/web-embeddables",
 ];

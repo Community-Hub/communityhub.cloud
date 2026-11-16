@@ -75,7 +75,9 @@ export function ScrollingDashboard({
   const isCalendar = /\/calendar\//.test(src);
   // A phone-sized box shows the page's own phone layout instead of a quarter-size desktop page; a calendar on a
   // wide screen lays out at tablet width so its words stay readable.
-  const narrow = !portalLayout && box.w > 0 && box.w < 640;
+  // Only on a phone: a small box on a laptop keeps the desktop page, scaled, rather than the phone layout.
+  const phoneViewport = box.w > 0 && typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+  const narrow = !portalLayout && phoneViewport && box.w < 640;
   const virtualWidth =
     virtualWidthOverride ??
     (portalLayout ? portalLayout.virtualWidth : narrow ? box.w : isCalendar ? 1024 : isBuildingDashboard ? 1440 : 1360);

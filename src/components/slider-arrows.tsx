@@ -1,8 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-/** The one control: a single circle, 44px, that fills with pine on hover and focus. */
-export const circleButton =
-  "grid size-11 shrink-0 place-items-center rounded-full border-2 border-pine bg-paper text-pine transition-colors duration-150 hover:bg-pine hover:text-paper focus-visible:bg-pine focus-visible:text-paper";
+/** The one round control (see `.home-round-btn` in styles.css): a 44px white circle that fills with pine on hover and focus. */
+export const circleButton = "home-round-btn";
 
 /**
  * Shared rectangular arrows, centered inside the left and right edges of the content they control.

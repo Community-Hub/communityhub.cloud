@@ -92,7 +92,7 @@ function Toolkit() {
   ), [query, grade, subject]);
   const clear = () => { setQuery(""); setGrade(""); setSubject(""); };
   return (
-    <DocShell stops={[{id: "lessons", label: pc.toolkit.TITLE}]}>
+    <DocShell stops={[{id: "lessons", label: pc.toolkit.TITLE}]} soft>
       <DocSection label={pc.toolkit.TITLE} title={pc.toolkit.TITLE} as="h1" lede={ledeText()}>
         <form onSubmit={e => e.preventDefault()} role="search" aria-label="Find teaching resources" className="mb-4 grid gap-3 md:grid-cols-3">
           <label className="grid gap-1 font-bold">Search lessons

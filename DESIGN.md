@@ -1,6 +1,6 @@
 ---
 name: Community Hub
-description: A community-centered communication platform, presented as a calm brochure you turn one page at a time.
+description: A community-centered communication platform, presented like a presentation: one full screen per page, turned one at a time.
 colors:
   ink: "#152019"
   pine: "#123a29"
@@ -180,9 +180,11 @@ Community Hub's greens on white, with lime kept rare so the next step is always 
 
 - **Container:** `wrap`, max 80rem with a fluid gutter of clamp(1.25rem, 4vw, 2.5rem). The header, every section and the footer share it, so edges line up down the page.
 - **Header:** fixed, 4rem, white with a hairline; content starts below it.
-- **Brochure pages (home):** each section is a page at least one screen tall (`100svh` minus the header), its content top-aligned at one shared margin so every heading lands at the same height on each turn (the platform page and the contact back cover centre), snapping into place. Phones and touch screens snap firmly (`y mandatory`, one page per swipe); desktop snaps when close (`y proximity`). A page taller than the screen still scrolls inside. The film is the cover; the contact panel is the back cover; the footer follows.
-- **Page dots:** on wide screens a slim rail on the right edge shows the current page and jumps to any page; the film and contact panels inset 2.25rem so the dots never touch them. Phones have no rail: the swipe is the turn.
-- **Rows of several items** (audiences, results, bundles): columns on wide screens; on phones a sideways swipe strip with the next card peeking.
+- **Pages, one screen each (every page but the legal ones):** each section is a page exactly one screen tall (`100svh` minus the header), composed like a presentation slide: a heading row, then one part (`.page-fill`) that takes all the height left, so nothing leaves an empty bottom half. Pages snap firmly into place (`y mandatory`, one page per scroll or swipe). Long reading pages (Research, Toolkit, Resources) and, on phones, the inner pages snap only near a section start (`deck-soft`, `y proximity`), so a long section scrolls freely. A section that cannot fit still scrolls inside before the next turn. The film is the front cover; the closing page is the back cover, a full-bleed photo of a town (downtown Oberlin from the air, or the Chalk Walk on pages that already show the aerial); the footer follows.
+- **No page dots.** The owner removed the side rail (2026-11-16): the scroll or swipe is the turn.
+- **Rows of several items** (results, bundles): columns on wide screens; on phones a sideways swipe strip with the next card peeking.
+- **Who it's for:** tall full-bleed photo cards (place name, line and link over a dark scrim) in a row that runs to the screen's edges and scrolls sideways; round arrows either side move one card on wide screens, a swipe moves them on touch. Each card's photo appears nowhere else on the home.
+- **No picture twice on a page.** A photo used in one place on a page is not used again on that page (the closing photo changes on pages that already show it).
 - **Document pages** (About, Pricing, Research, Story, Toolkit, Resources, Products): normal scrolling, sections separated by a hairline and clamp(3rem, 6vw, 4.5rem) of space, ending with the contact panel and footer.
 - **Product pages:** first screen pairs the product (icon, name, lede, Contact us, live link) with its live example; later sections alternate text and examples; "More in {group}" lists sibling products before the contact panel.
 - **Breakpoints:** 640px (two columns), 768px (phone to tablet; strips become columns), 1024px (desktop navigation, side-by-side compositions).

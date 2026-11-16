@@ -3,7 +3,8 @@ import { AppLink } from "@/components/app-link";
 import { ContactBand } from "@/components/contact-band";
 import { FrameSlider } from "@/components/product-section";
 import { SiteFooter } from "@/components/site-footer";
-import { educateBeats, empowerBeats, engageBeats, type SlideFrame } from "@/lib/content";
+import { type SlideFrame } from "@/lib/content";
+import { productIcon } from "@/lib/product-icons";
 import { PhoneWalkthrough } from "@/components/phone-walkthrough";
 import { PlayPauseButton, useAutoplay } from "@/components/play-pause";
 import { cn } from "@/lib/utils";
@@ -55,22 +56,23 @@ export function RelatedProducts({ page }: { page: string }) {
   if (!group) return null;
   const others = group.items.filter((item) => item.href !== page);
   if (!others.length) return null;
-  const icons = [...engageBeats, ...educateBeats, ...empowerBeats];
+
   return (
-    <section aria-labelledby="related-title" className="wrap pb-[var(--section-y)]">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-[clamp(3rem,6vw,4.5rem)]">
-        <h2 id="related-title" className="t-h3 text-pine">
+    <section aria-labelledby="related-title" className="product-related page page-center">
+      <div className="wrap page-body">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <h2 id="related-title" className="t-h2">
           More in {group.kicker}
         </h2>
         <AppLink href="/products" className="link">
           All products <ArrowRight className="size-4" aria-hidden />
         </AppLink>
       </div>
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-[clamp(1.5rem,4vh,2.5rem)] grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {others.map((item) => (
           <li key={item.id}>
             <AppLink href={item.href} className="group flex h-full items-start gap-4 rounded-2xl border border-line p-5 transition-colors duration-150 hover:border-pine/30 hover:bg-field">
-              <img src={icons.find((b) => b.id === item.id)?.icon} alt="" className="size-10 shrink-0 object-contain" />
+              <img src={productIcon(item.id)} alt="" className="size-10 shrink-0 object-contain" />
               <span className="min-w-0">
                 <span className="flex items-center gap-1.5 font-semibold text-ink group-hover:text-pine">
                   {item.title}
@@ -82,6 +84,7 @@ export function RelatedProducts({ page }: { page: string }) {
           </li>
         ))}
       </ul>
+      </div>
     </section>
   );
 }
@@ -114,7 +117,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
 
   return (
     <div className="bg-paper text-ink">
-      <main id="main" className="product-main">
+      <main id="main" className="product-main deck">
         {contentSlides.map((slide, index) => {
           const hasMedia = Boolean(
             slide.frames?.length ||
@@ -142,8 +145,9 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
             <section
               key={ids[index]}
               id={ids[index]}
-              className={cn("product-section wrap scroll-mt-24", first ? "product-section-first" : "product-section-rule")}
+              className={cn("product-section page page-center", first && "page-first")}
             >
+              <div className="wrap page-body">
               {first && (
                 <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
                   <AppLink href="/products" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">
@@ -241,12 +245,13 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
                   ))}
                 </ul>
               )}
+              </div>
             </section>
           );
         })}
+        <RelatedProducts page={page} />
+        <ContactBand />
       </main>
-      <RelatedProducts page={page} />
-      <ContactBand />
       <SiteFooter />
     </div>
   );

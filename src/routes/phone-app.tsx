@@ -44,8 +44,9 @@ function PhoneApp() {
 
   return (
     <div className="bg-paper text-ink">
-      <main id="main" className="product-main">
-        <section id="phone-app" className="product-section wrap product-section-first scroll-mt-24">
+      <main id="main" className="product-main deck">
+        <section id="phone-app" className="product-section page page-first page-center">
+          <div className="wrap page-body">
           <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
             <AppLink href="/products" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">
               Products
@@ -94,16 +95,20 @@ function PhoneApp() {
               </p>
             </div>
           </div>
+          </div>
         </section>
 
-        <section id="control-a-sign" className="product-section wrap product-section-rule scroll-mt-24">
+        <section id="control-a-sign" className="product-section page page-center">
+          <div className="wrap page-body">
           <PhoneControl venueIndex={1} />
+          </div>
         </section>
 
         <section
           id="community-on-your-phone"
-          className="product-section wrap product-section-rule scroll-mt-24"
+          className="product-section page page-center"
         >
+          <div className="wrap page-body">
           <div className="phone-page-split phone-browse-layout">
             <div className="phone-browse-copy">
               <h2 className="t-h2">Your community, on your phone</h2>
@@ -134,10 +139,11 @@ function PhoneApp() {
               <LivePhoneApp visit={visit} />
             </div>
           </div>
+          </div>
         </section>
+        <RelatedProducts page="/phone-app" />
+        <ContactBand />
       </main>
-      <RelatedProducts page="/phone-app" />
-      <ContactBand />
       <SiteFooter />
     </div>
   );

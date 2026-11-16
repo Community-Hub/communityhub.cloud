@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { AppLink } from "@/components/app-link";
-import { educateBeats, empowerBeats, engageBeats } from "@/lib/content";
+import { productIcon } from "@/lib/product-icons";
 import { site } from "@/lib/site";
 import { DEMO_HREF } from "@/lib/links";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
 
-const BEATS = [...engageBeats, ...educateBeats, ...empowerBeats];
 
 const PRODUCT_PATHS = new Set([
   "/products",
@@ -25,10 +24,12 @@ const PRODUCT_PATHS = new Set([
   "/community-calendar",
   "/community-voices",
   "/services",
+  "/lorawan",
+  "/studios",
 ]);
 
 function iconFor(id: string) {
-  return BEATS.find((item) => item.id === id)?.icon ?? "";
+  return productIcon(id);
 }
 
 function isActive(path: string, to: string) {

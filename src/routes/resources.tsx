@@ -17,7 +17,7 @@ const STOPS = pc.resources.STOPS;
 
 function Resources() {
   return (
-    <DocShell stops={STOPS}>
+    <DocShell stops={STOPS} soft>
       <DocSection label={pc.resources.TITLE} title={pc.resources.TITLE} as="h1" lede={pc.resources.LEDE}>
         <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3">
           {ITEMS.map((item) => (

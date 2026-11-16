@@ -41,7 +41,7 @@ function PlacePhoto({ place, eager = false, className }: { place: Implementation
         decoding="async"
         style={{ objectPosition: PHOTO_POSITION[place.slug] }}
         className={cn(
-          "block w-full object-cover transition-transform duration-700 ease-out-expo group-hover/photo:scale-[1.03] motion-reduce:transition-none",
+          "impl-place-photo block w-full object-cover transition-transform duration-700 ease-out-expo group-hover/photo:scale-[1.03] motion-reduce:transition-none",
           className,
         )}
       />
@@ -91,7 +91,8 @@ function PlaceText({ place }: { place: Implementation }) {
 /** A group with several places: its heading and description across the top, the places side by side. */
 function GroupWithPlaces({ group, places, eager }: { group: ImplementationGroup; places: Implementation[]; eager: boolean }) {
   return (
-    <section aria-labelledby={`group-${group.id}`} className="border-t border-line pt-[clamp(2rem,4vw,3rem)]">
+    <section aria-labelledby={`group-${group.id}`} className="page page-center">
+      <div className="wrap page-body">
       <div className="grid gap-x-8 gap-y-4 lg:grid-cols-12">
         <h2 id={`group-${group.id}`} className="t-h2 lg:col-span-6 lg:pr-8">
           {group.title}
@@ -108,6 +109,7 @@ function GroupWithPlaces({ group, places, eager }: { group: ImplementationGroup;
           </li>
         ))}
       </ul>
+      </div>
     </section>
   );
 }
@@ -115,7 +117,8 @@ function GroupWithPlaces({ group, places, eager }: { group: ImplementationGroup;
 /** A group with one place: the heading, description and place on the left, its photo large on the right. */
 function GroupWithPlace({ group, place, eager }: { group: ImplementationGroup; place: Implementation; eager: boolean }) {
   return (
-    <section aria-labelledby={`group-${group.id}`} className="border-t border-line pt-[clamp(2rem,4vw,3rem)]">
+    <section aria-labelledby={`group-${group.id}`} className="page page-center">
+      <div className="wrap page-body">
       <div className="grid gap-x-8 gap-y-8 lg:grid-cols-12 lg:grid-rows-[auto_1fr]">
         <div className="lg:col-span-6 lg:pr-8">
           <h2 id={`group-${group.id}`} className="t-h2">
@@ -130,6 +133,7 @@ function GroupWithPlace({ group, place, eager }: { group: ImplementationGroup; p
           <PlaceText place={place} />
         </div>
       </div>
+      </div>
     </section>
   );
 }
@@ -138,13 +142,15 @@ function ImplementationsIndex() {
   const t = implementationCopy.index;
   return (
     <>
-      <main id="main" className="pt-(--header-h)">
-        <div className="wrap pt-[clamp(2.5rem,6vw,5rem)]">
-          <h1 className="t-h1">{implementationIntro.title}</h1>
-          <p className="mt-5 max-w-3xl t-lede">{implementationIntro.lede}</p>
-        </div>
+      <main id="main" className="deck">
+        <section aria-labelledby="implementations-title" className="page page-first page-center">
+          <div className="wrap page-body">
+            <h1 id="implementations-title" className="t-display max-w-4xl text-pine">{implementationIntro.title}</h1>
+            <p className="mt-6 max-w-3xl t-lede">{implementationIntro.lede}</p>
+          </div>
+        </section>
 
-        <div className="wrap mt-[clamp(3rem,6vw,4.5rem)] space-y-[clamp(4rem,8vw,6.5rem)] pb-(--section-y)">
+        <div className="contents">
           {implementationGroups.map((group, n) => {
             const places = implementations.filter((place) => place.group === group.id);
             if (places.length === 0) return null;

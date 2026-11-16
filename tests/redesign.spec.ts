@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
-// The 2026 redesign: the brochure home, the shared header, the product tabs, the quotes,
-// demo booking links, and no sideways overflow on a phone.
+// The 2026 redesign: the presentation-style home, the shared header, the product tabs, the quotes,
+// demo booking links, the LoRaWAN and Studios pages, and no sideways overflow on a phone.
 
 /** Waits until React has taken over the server-rendered page. */
 async function ready(page: Page) {
@@ -26,19 +26,37 @@ test.describe("home", () => {
     await expect(hero.getByRole("button", { name: /film/i })).toBeVisible();
   });
 
-  test("is a brochure: every page is present, in order, with a dot each", async ({ page }) => {
+  test("reads like a presentation: every page is present, in order, one screen each, with no side dots", async ({ page }) => {
     await page.goto("/");
     await ready(page);
     const ids = await page.locator("main.brochure .page").evaluateAll((els) => els.map((el) => el.id));
     expect(ids).toEqual(HOME_PAGES);
-    await expect(page.getByRole("navigation", { name: "Pages" }).getByRole("button")).toHaveCount(HOME_PAGES.length);
+    await expect(page.getByRole("navigation", { name: "Pages" })).toHaveCount(0);
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollSnapType)).toContain("mandatory");
   });
 
-  test("a page dot jumps to its page", async ({ page }) => {
+  test("Who it's for scrolls sideways with its arrows", async ({ page }) => {
     await page.goto("/");
     await ready(page);
-    await page.getByRole("navigation", { name: "Pages" }).getByRole("button", { name: "What people say" }).click();
-    await expect.poll(async () => page.evaluate(() => Math.abs(document.getElementById("voices")!.getBoundingClientRect().top))).toBeLessThan(80);
+    const section = page.locator("#audiences");
+    await section.scrollIntoViewIfNeeded();
+    const row = section.locator(".home-audiences");
+    await expect(section.getByRole("button", { name: "Previous places" })).toBeDisabled();
+    await section.getByRole("button", { name: "Next places" }).click();
+    await expect.poll(() => row.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
+    await expect(section.getByRole("button", { name: "Previous places" })).toBeEnabled();
+  });
+
+  test("no picture shows twice on the home", async ({ page }) => {
+    await page.goto("/");
+    await ready(page);
+    const srcs = await page.locator("main img").evaluateAll((imgs) =>
+      imgs
+        .map((img) => new URL((img as HTMLImageElement).currentSrc || (img as HTMLImageElement).src, location.href).pathname)
+        .filter((path) => !/\/assets\/(icon-|v1\/)/.test(path)),
+    );
+    const repeats = srcs.filter((src, i) => srcs.indexOf(src) !== i);
+    expect(repeats, `repeated: ${repeats.join(", ")}`).toEqual([]);
   });
 
   test("category tabs switch the product and its example", async ({ page }) => {
@@ -123,10 +141,37 @@ test.describe("product pages", () => {
   });
 });
 
+test.describe("LoRaWAN and Studios", () => {
+  test("LoRaWAN is an Educate product and never says Fieldline", async ({ page }) => {
+    await page.goto("/lorawan");
+    await ready(page);
+    await expect(page.getByRole("heading", { level: 1, name: "LoRaWAN" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "More in Educate" })).toBeVisible();
+    expect(await page.locator("body").innerText()).not.toMatch(/fieldline/i);
+  });
+
+  test("Studios plays its published work and opens the studio", async ({ page }) => {
+    await page.goto("/studios");
+    await ready(page);
+    await expect(page.getByRole("heading", { level: 1, name: "Studios" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Open Studio/ }).first()).toHaveAttribute("href", "https://studios.communityhb.tech/studio");
+    await expect(page.locator("iframe[src*='studios.communityhb.tech']").first()).toBeAttached();
+  });
+
+  test("the Products menu lists both under Educate", async ({ page }) => {
+    await page.goto("/pricing");
+    await ready(page);
+    await page.getByRole("button", { name: "Products" }).click();
+    const menu = page.locator("#products-menu");
+    await expect(menu.getByRole("link", { name: /LoRaWAN/ })).toHaveAttribute("href", "/lorawan");
+    await expect(menu.getByRole("link", { name: /Studios/ })).toHaveAttribute("href", "/studios");
+  });
+});
+
 test.describe("phone", () => {
   test.use({ viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true });
 
-  for (const path of ["/", "/pricing", "/products", "/digital-signage", "/phone-app", "/about", "/contact", "/implementations"]) {
+  for (const path of ["/", "/pricing", "/products", "/digital-signage", "/phone-app", "/about", "/contact", "/implementations", "/lorawan", "/studios"]) {
     test(`${path} has no sideways overflow`, async ({ page }) => {
       await page.goto(path);
     await ready(page);

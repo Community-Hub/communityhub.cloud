@@ -6,7 +6,7 @@ import { FrameSlider } from "@/components/product-section";
 import { SiteFooter } from "@/components/site-footer";
 import { site } from "@/lib/site";
 import { DEMO_HREF } from "@/lib/links";
-import { ContactBand } from "@/components/contact-band";
+import { ContactBand, DOWNTOWN_CHALK_WALK } from "@/components/contact-band";
 import { RelatedProducts } from "@/components/product-pager";
 import { engageBeats, placeTitle, type SlideFrame } from "@/lib/content";
 import { copy } from "@/lib/copy";
@@ -197,9 +197,10 @@ function DigitalSignage() {
 
   return (
     <div className="bg-paper text-ink">
-      <main id="main" className="product-main">
+      <main id="main" className="product-main deck">
         {/* Section 1: Digital Signage Hero + Installation Slider */}
-        <section id="digital-signage" className="product-section wrap product-section-first scroll-mt-24">
+        <section id="digital-signage" className="product-section page page-first page-center">
+          <div className="wrap page-body">
           <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
             <AppLink
               href={copy.productPager.ProductPager.AppLink_href1}
@@ -249,13 +250,15 @@ function DigitalSignage() {
               </li>
             ))}
           </ul>
+          </div>
         </section>
 
         {/* Section 2: Community and Local Content */}
         <section
           id="community-and-local-content"
-          className="product-section wrap product-section-rule scroll-mt-24"
+          className="product-section page page-center"
         >
+          <div className="wrap page-body">
           <div className="product-detail-layout product-detail-split">
             <div className="min-w-0">
               <h2 className="t-h2">Community and local content</h2>
@@ -274,18 +277,21 @@ function DigitalSignage() {
               />
             </div>
           </div>
+          </div>
         </section>
 
         {/* Section 3: Interactive Phone Control Demo */}
         <section
           id="try-the-phone"
-          className="product-section wrap product-section-rule scroll-mt-24"
+          className="product-section page page-center"
         >
+          <div className="wrap page-body">
           <PhoneControl venueIndex={0} />
+          </div>
         </section>
+        <RelatedProducts page="/digital-signage" />
+        <ContactBand photo={DOWNTOWN_CHALK_WALK} />
       </main>
-      <RelatedProducts page="/digital-signage" />
-      <ContactBand />
       <SiteFooter />
     </div>
   );

@@ -215,6 +215,14 @@
   "height": 600,
   "width": 960
  },
+ "/assets/oberlin-aerial-1280.jpg": {
+  "height": 720,
+  "width": 1280
+ },
+ "/assets/oberlin-aerial-2048.jpg": {
+  "height": 1152,
+  "width": 2048
+ },
  "/assets/oberlin-aerial.jpg": {
   "height": 540,
   "width": 960
@@ -342,6 +350,10 @@
  "/assets/photos/big-parade-2023/big-parade-2023-13.jpg": {
   "height": 533,
   "width": 800
+ },
+ "/assets/photos/chalk-walk-2022/chalk-walk-2022-14.jpg": {
+  "height": 1066,
+  "width": 1600
  },
  "/assets/photos/juneteenth-2022/juneteenth-2022-11.jpg": {
   "height": 533,

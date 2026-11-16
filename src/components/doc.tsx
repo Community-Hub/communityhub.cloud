@@ -5,14 +5,28 @@ import { siteIndex } from "@/lib/site-registry";
 import { imageSize } from "@/lib/image-dimensions";
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
 import { SiteFooter } from "@/components/site-footer";
-import { ContactBand } from "@/components/contact-band";
+import { ContactBand, type BackCoverPhoto } from "@/components/contact-band";
 import { cn } from "@/lib/utils";
 
 export type DocStop = { id: string; label: string };
 
 /** A continuous vertical document page of one or more titled sections, followed by the site footer. */
 /** `cta`: end the page with the Contact us band (default). */
-export function DocShell({ stops, children, cta = true }: { stops: readonly DocStop[]; children: ReactNode; cta?: boolean }) {
+/** `soft`: a long reading page; its sections settle into place only when the reader stops near one. */
+/** `ctaPhoto`: the closing page's photo, for a page that already shows the default one. */
+export function DocShell({
+  stops,
+  children,
+  cta = true,
+  soft = false,
+  ctaPhoto,
+}: {
+  stops: readonly DocStop[];
+  children: ReactNode;
+  cta?: boolean;
+  soft?: boolean;
+  ctaPhoto?: BackCoverPhoto;
+}) {
   const pathname = useLocation({ select: (l) => l.pathname.replace(/\/+$/, "") || "/" });
   const kids = Children.toArray(children);
   // One child per stop. An editor can hide a section (never the first); a page that does not line up is left alone.
@@ -51,7 +65,7 @@ export function DocShell({ stops, children, cta = true }: { stops: readonly DocS
 
   return (
     <div className="bg-paper text-ink">
-      <main id="main" className="doc-main wrap">
+      <main id="main" className={cn("doc-main deck", soft && "deck-soft")}>
         {shownKids.map((kid, index) => {
           const stop = shownStops[index];
           if (isValidElement<{ id?: string; isFirst?: boolean }>(kid)) {
@@ -62,8 +76,8 @@ export function DocShell({ stops, children, cta = true }: { stops: readonly DocS
           }
           return kid;
         })}
+        {cta && <ContactBand photo={ctaPhoto} />}
       </main>
-      {cta && <ContactBand />}
       <SiteFooter />
     </div>
   );
@@ -102,12 +116,14 @@ export function DocSection({
     <section
       id={sectionId}
       aria-label={label}
-      className={cn("doc-section-block scroll-mt-24", !isFirst && Title !== "h1" && "doc-section-rule")}
+      className={cn("doc-section-block page", isFirst && "page-first")}
       style={cut ? ({ "--shot-h": `max(${minShot}rem, 26rem)` } as CSSProperties) : ({ "--shot-h": "30rem" } as CSSProperties)}
     >
-      <Title className={titleClassName ?? (Title === "h1" ? "t-h1 max-w-4xl" : "t-h2 max-w-3xl")}>{title}</Title>
-      {lede && <p className={cn("max-w-3xl", Title === "h1" ? "mt-5" : "mt-4", ledeClassName ?? "t-lede")}>{lede}</p>}
-      {children && <div className={Title === "h1" ? "mt-10 md:mt-12" : "mt-8 md:mt-10"}>{children}</div>}
+      <div className="wrap page-body">
+        <Title className={titleClassName ?? (Title === "h1" ? "t-h1 max-w-4xl" : "t-h2 max-w-3xl")}>{title}</Title>
+        {lede && <p className={cn("max-w-3xl", Title === "h1" ? "mt-5" : "mt-4", ledeClassName ?? "t-lede")}>{lede}</p>}
+        {children && <div className={Title === "h1" ? "mt-10 md:mt-12" : "mt-8 md:mt-10"}>{children}</div>}
+      </div>
     </section>
   );
 }

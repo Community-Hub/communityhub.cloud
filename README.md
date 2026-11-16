@@ -70,9 +70,10 @@ counterpart; unknown paths render the app's not-found page.
 
 The 2026 redesign is documented in `DESIGN.md` (tokens and rules) with its
 machine-readable extensions in `.impeccable/design.json`; `PRODUCT.md` holds
-the audiences, positioning and constraints. The home page reads as a brochure:
-each section is a full-screen page that snaps into place (`.brochure` /
-`.page` in `src/styles.css`, components in `src/components/home.tsx`).
+the audiences, positioning and constraints. Pages read like a presentation:
+each section is one full screen that snaps into place (`.deck` / `.page` /
+`.page-fill` in `src/styles.css`; the home's components are in
+`src/components/home.tsx`). `/lorawan` and `/studios` are Educate products.
 
 ## Contact form and demo bookings
 

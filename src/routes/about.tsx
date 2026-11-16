@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppLink } from "@/components/app-link";
+import { DOWNTOWN_CHALK_WALK } from "@/components/contact-band";
 import { DocSection, DocShell, Shot, Split } from "@/components/doc";
 import { FrameSlider } from "@/components/product-section";
 import { ABOUT_ORIGIN_FRAMES } from "@/lib/content";
@@ -31,7 +32,7 @@ function SystemsThinkers() {
 
 function About() {
   return (
-    <DocShell stops={STOPS}>
+    <DocShell stops={STOPS} ctaPhoto={DOWNTOWN_CHALK_WALK}>
       <DocSection label={STOPS[0].label} title={copy.about.About.DocSection_title1} as="h1" cut={6}>
         <div className="grid items-start gap-3 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:gap-8">
           <div className="min-w-0 md:order-last space-y-3 t-body max-md:text-[0.9375rem] max-md:leading-snug md:t-lede">

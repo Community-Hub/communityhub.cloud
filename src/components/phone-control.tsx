@@ -187,7 +187,7 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
   const [session, setSession] = useState("");
   useEffect(() => setSession(crypto.randomUUID()), []);
   const row = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState({ width: 0, narrow: false });
+  const [size, setSize] = useState({ width: 0, narrow: false, viewH: 0 });
   const [qr, setQr] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [switchCount, setSwitchCount] = useState(0);
@@ -233,6 +233,7 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
       setSize({
         width: el.clientWidth,
         narrow: el.clientWidth < 740,
+        viewH: window.innerHeight,
       });
     measure();
     const observer = new ResizeObserver(measure);
@@ -250,9 +251,12 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
   const screenAspect = 1280 / 748;
   const phoneAspect = 320 / 540;
   const gap = 20;
+  // The pair also gives way to the screen's height, so the whole demo fits one screen of the page
+  // (about 25rem goes to the header, the heading, the venue row and the card's padding).
+  const heightCap = size.viewH ? size.viewH - 450 : 540;
   const desktopPairH = Math.max(
-    360,
-    Math.min(540, Math.round((size.width - gap) / (screenAspect + phoneAspect))),
+    300,
+    Math.min(540, heightCap, Math.round((size.width - gap) / (screenAspect + phoneAspect))),
   );
   const screenW = size.narrow ? size.width : Math.round(desktopPairH * screenAspect);
   const screenH = Math.round(screenW / screenAspect);

@@ -147,6 +147,18 @@ const GROUPS: { kicker: string; items: { id: string; title: string; blurb: strin
         blurb: "How local systems work, one chapter at a time",
         href: "/stories",
       },
+      {
+        id: "lorawan",
+        title: "LoRaWAN",
+        blurb: "Private sensor networks for schools and campuses, feeding Data Hub",
+        href: "/lorawan",
+      },
+      {
+        id: "studios",
+        title: "Studios",
+        blurb: "Draw a place, connect live readings, publish a story or a lobby loop",
+        href: "/studios",
+      },
     ],
   },
   {

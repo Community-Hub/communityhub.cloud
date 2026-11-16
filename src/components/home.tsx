@@ -113,13 +113,72 @@ export function HeroFilm() {
 
 const AUDIENCE_ORDER = ["cities", "neighborhoods", "schools", "campuses", "museums"] as const;
 
+/**
+ * Each place's card photo. None of these appears anywhere else on the home (the quotes, examples and closing
+ * page use their own), so no picture shows twice on one page.
+ */
+const AUDIENCE_PHOTO: Record<(typeof AUDIENCE_ORDER)[number], { src: string; alt: string; focus?: string }> = {
+  cities: {
+    src: "/assets/photos/chalk-walk-2022/chalk-walk-2022-14.jpg",
+    alt: "Families drawing with chalk on a downtown Oberlin sidewalk at the 2022 Chalk Walk, a fire engine parked behind them",
+    focus: "44% 50%",
+  },
+  neighborhoods: {
+    src: "/assets/signage-partners/asian-town-center.jpg",
+    alt: "Three young people in front of the MidTown digital sign at Asian Town Center",
+    focus: "38% 50%",
+  },
+  schools: { src: "/assets/classroom-dashboard.jpg", alt: "A classroom with the school building dashboard on screen", focus: "62% 50%" },
+  campuses: {
+    src: "/assets/photos/big-parade-2023/big-parade-2023-13.jpg",
+    alt: "A crowd in colorful costumes beside an Oberlin College stone building with a pointed tower",
+    focus: "40% 50%",
+  },
+  museums: {
+    src: "/assets/glsc-exhibit.jpg",
+    alt: "Students and staff in front of a dashboard screen and a touch tablet at the Great Lakes Science Center",
+    focus: "48% 50%",
+  },
+};
+
+/** Previous and next for a sideways row: each press moves one card; an arrow fades out at its end of the row. */
+function useRowArrows() {
+  const ref = useRef<HTMLUListElement>(null);
+  const [ends, setEnds] = useState({ start: true, end: false });
+  useEffect(() => {
+    const row = ref.current;
+    if (!row) return;
+    const update = () => {
+      const max = row.scrollWidth - row.clientWidth;
+      setEnds({ start: row.scrollLeft <= 4, end: row.scrollLeft >= max - 4 });
+    };
+    update();
+    row.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(row);
+    return () => {
+      row.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, []);
+  const move = (dir: 1 | -1) => {
+    const row = ref.current;
+    const card = row?.querySelector("li");
+    if (!row || !card) return;
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    row.scrollBy({ left: dir * (card.getBoundingClientRect().width + gap), behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  };
+  return { ref, ends, move };
+}
+
 export function Audiences() {
   const t = copy.home.Audiences;
   const stops = AUDIENCE_ORDER.flatMap((id) => whoStops.filter((stop) => stop.id === id));
+  const row = useRowArrows();
   return (
     <section id="audiences" aria-labelledby="audiences-title" className="page">
       <div className="wrap page-body">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <div className="page-head">
           <h2 id="audiences-title" className="t-h2">
             {t.h21}
           </h2>
@@ -127,34 +186,49 @@ export function Audiences() {
             {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
           </AppLink>
         </div>
-        <ul className="home-audiences strip mt-8 md:mt-10">
+        <div className="home-audiences-stage page-fill">
+        <button type="button" className="home-round-btn home-row-arrow" data-side="prev" aria-label="Previous places" disabled={row.ends.start} onClick={() => row.move(-1)}>
+          <ChevronLeft className="size-5" strokeWidth={2.25} aria-hidden />
+        </button>
+        <ul ref={row.ref} className="home-audiences">
           {stops.map((stop) => {
             const place = implementations.find((p) => p.audience === stop.id);
-            const size = place ? imageSize(place.image) : undefined;
+            const photo = AUDIENCE_PHOTO[stop.id as keyof typeof AUDIENCE_PHOTO];
+            const size = imageSize(photo.src);
             return (
-              <li key={stop.id} className="strip-item">
-                <AppLink href={place ? implementationHref(place.slug) : "/implementations"} className="home-audience group">
-                  {place && (
-                    <span className="panel block bg-field">
-                      <img src={place.image} alt={place.alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" className="home-audience-photo" data-place={place.slug} />
+              <li key={stop.id}>
+                <AppLink href={place ? implementationHref(place.slug) : "/implementations"} className="home-audience">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={size?.width}
+                    height={size?.height}
+                    decoding="async"
+                    className="home-audience-photo"
+                    style={photo.focus ? { objectPosition: photo.focus } : undefined}
+                  />
+                  <span className="home-audience-text">
+                    <span className="home-audience-name">
+                      <img src={`/assets/icon-${stop.id}.png`} alt="" width={32} height={32} className="home-audience-icon" />
+                      {stop.name}
                     </span>
-                  )}
-                  <span className="mt-4 flex items-center gap-2.5">
-                    <img src={`/assets/icon-${stop.id}.png`} alt="" width={32} height={32} className="size-8 shrink-0 object-contain" />
-                    <span className="text-lg font-semibold text-pine">{stop.name}</span>
+                    <span className="home-audience-line">{stop.description}</span>
+                    {place && (
+                      <span className="home-audience-place">
+                        {place.name}
+                        <ArrowRight className="size-4" aria-hidden />
+                      </span>
+                    )}
                   </span>
-                  <span className="mt-2 text-[0.9375rem] leading-snug text-ink/72">{stop.description}</span>
-                  {place && (
-                    <span className="mt-auto inline-flex items-center gap-1 pt-3 text-sm font-semibold text-leaf">
-                      {place.name}
-                      <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-                    </span>
-                  )}
                 </AppLink>
               </li>
             );
           })}
         </ul>
+        <button type="button" className="home-round-btn home-row-arrow" data-side="next" aria-label="Next places" disabled={row.ends.end} onClick={() => row.move(1)}>
+          <ChevronRight className="size-5" strokeWidth={2.25} aria-hidden />
+        </button>
+        </div>
       </div>
     </section>
   );
@@ -207,18 +281,18 @@ function IdentityRow() {
 export function Platform() {
   const t = copy.chapters.WhoChapter;
   return (
-    <section id="platform" aria-labelledby="platform-title" className="page">
+    <section id="platform" aria-labelledby="platform-title" className="page page-center">
       <div className="wrap page-body">
         <IdentityRow />
         <h2 id="platform-title" className="t-h2 mx-auto mt-10 max-w-3xl text-center">
           {t.h21}
         </h2>
         <p className="t-lede mx-auto mt-4 max-w-2xl text-center">{t.p1}</p>
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2 md:gap-14">
+        <div className="home-mission-text mx-auto mt-[clamp(1.5rem,4vh,3rem)] grid max-w-5xl gap-6 md:grid-cols-2 md:gap-14">
           <p className="t-body text-ink/80">{homeMission.problem}</p>
-          <p className="t-body text-ink/80 max-md:hidden">{homeMission.solution}</p>
+          <p className="t-body text-ink/80">{homeMission.solution}</p>
         </div>
-        <p className="mt-8 text-center">
+        <p className="mt-[clamp(1rem,3vh,2rem)] text-center">
           <AppLink href={t.TextLink_href1} className="link">
             {t.TextLink_label1}
             <span className="sr-only"> about Community Hub</span>
@@ -280,10 +354,11 @@ function Category({ id, title, beats, target }: { id: string; title: string; bea
   return (
     <section id={id} aria-labelledby={`${id}-title`} data-home-category className="page">
       <div className="wrap page-body">
+        <div className="home-category-head">
         <h2 id={`${id}-title`} className="t-h2">
           {title}
         </h2>
-        <div ref={tabsRef} role="tablist" aria-label={title} onKeyDown={onKey} className="home-tabs mt-6">
+        <div ref={tabsRef} role="tablist" aria-label={title} onKeyDown={onKey} className="home-tabs">
           {beats.map((beat, n) => (
             <button
               key={beat.id}
@@ -299,6 +374,7 @@ function Category({ id, title, beats, target }: { id: string; title: string; bea
               {beat.title}
             </button>
           ))}
+        </div>
         </div>
         <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${item.id}`} className="home-category-panel">
           <div key={item.id} className="home-category-copy">
@@ -363,7 +439,7 @@ export function Voices() {
         <h2 id="voices-title" className="t-h2">
           {t.h21}
         </h2>
-        <div ref={ref} className="home-voices mt-10" style={{ touchAction: "pan-y pinch-zoom" }}>
+        <div ref={ref} className="home-voices" style={{ touchAction: "pan-y pinch-zoom" }}>
           {arrow(-1, "home-voices-arrow")}
           <div key={at} data-animate={moved || undefined} aria-live={rotation.running ? "off" : "polite"} className="home-voice">
             <img src={story.img} alt={story.alt} width={size?.width} height={size?.height} className="home-voice-photo" />
@@ -439,7 +515,7 @@ export function Results() {
   return (
     <section id="results" aria-labelledby="results-title" className="page bg-field">
       <div className="wrap page-body">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+        <div className="page-head">
           <div className="max-w-3xl">
             <h2 id="results-title" className="t-h2">
               {t.h21}
@@ -450,7 +526,7 @@ export function Results() {
             {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
           </AppLink>
         </div>
-        <ul className="home-results strip mt-10 md:mt-12">
+        <ul className="home-results strip page-fill">
           {shown.map((change) => {
             const size = imageSize(change.image!);
             const { lead, support } = resultLines(change);
@@ -459,9 +535,9 @@ export function Results() {
                 <span className="home-fit block aspect-[16/9]">
                   <img src={change.image} alt={change.alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" />
                 </span>
-                <h3 className="t-h3 mt-6">{change.name}</h3>
+                <h3 className="t-h3 mt-[clamp(0.75rem,2.5vh,1.5rem)]">{change.name}</h3>
                 <p className="mt-3 text-lg leading-snug font-medium text-pine">{lead}</p>
-                {support && <p className="mt-2 t-body text-ink/72">{support}</p>}
+                {support && <p className="result-support mt-2 t-body text-ink/72">{support}</p>}
               </li>
             );
           })}
@@ -476,9 +552,9 @@ export function Results() {
 export function PricingTeaser() {
   const t = copy.home.Pricing;
   return (
-    <section id="pricing" aria-labelledby="pricing-title" className="page">
+    <section id="pricing" aria-labelledby="pricing-title" className="page page-center">
       <div className="wrap page-body">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+        <div className="page-head">
           <div className="max-w-2xl">
             <h2 id="pricing-title" className="t-h2">
               {t.h21}
@@ -489,7 +565,7 @@ export function PricingTeaser() {
             {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
           </AppLink>
         </div>
-        <ul className="home-bundles strip mt-10 md:mt-12">
+        <ul className="home-bundles strip">
           {bundles.map((bundle) => (
             <li key={bundle.id} className="home-bundle strip-item">
               <h3 className="t-h3">{bundle.name} bundle</h3>
@@ -501,7 +577,7 @@ export function PricingTeaser() {
                   </li>
                 ))}
               </ul>
-              {bundle.note && <p className="mt-4 text-sm text-ink/65">{bundle.note}</p>}
+              {bundle.note && <p className="bundle-note mt-4 text-sm text-ink/65">{bundle.note}</p>}
               <div className="mt-auto pt-8">
                 <AppLink href={quoteHref(`${bundle.name} bundle`)} className="btn-secondary">
                   {t.AppLink2}
