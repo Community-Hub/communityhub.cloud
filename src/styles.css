@@ -2437,3 +2437,63 @@ main:focus {
     width: min(100cqw, calc((100svh - var(--header-h) - 18rem) * 1360 / 1049));
   }
 }
+
+/* ---------------------------------------------------------------------------------------------------------------
+   Never let one page run into the next. A page's fill part grows to take the room left, but never shrinks below
+   its own content: on a short screen the page gets taller instead of spilling over the next one.
+   --------------------------------------------------------------------------------------------------------------- */
+.deck .page-fill,
+.deck .home-voices {
+  flex: 1 0 auto;
+}
+
+/* Phones (and any touch screen): the page's content sets its height, at least one screen; pictures and live
+   examples take their size from the screen's width, never from what height is left over, so they never shrink to
+   a thumbnail. Pages settle into place gently when a swipe ends near one, instead of forcing a stop at every page. */
+@media (max-width: 767px), (pointer: coarse) {
+  html:has(.deck) {
+    scroll-snap-type: y proximity;
+  }
+  .deck .page {
+    scroll-snap-stop: normal;
+  }
+}
+@media (max-width: 767px) {
+  .deck [data-home-category] .home-category-panel {
+    flex: 0 0 auto;
+    min-height: 0;
+    container-type: normal;
+  }
+  .deck [data-home-category] .home-category-media {
+    flex: 0 0 auto;
+    min-height: 0;
+    container-type: inline-size;
+  }
+  .deck [data-home-category] [data-box-frame]:not(:has(iframe)) {
+    width: 100cqw;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+  .deck [data-home-category] [data-box-frame]:has(iframe) {
+    width: 100cqw;
+    height: clamp(17rem, 56svh, 28rem);
+    aspect-ratio: auto;
+  }
+  .deck .home-voices {
+    grid-template-rows: auto;
+  }
+  .deck .home-voice {
+    height: auto;
+  }
+  .deck .home-voice-photo {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 16 / 10;
+  }
+  .deck .home-audience {
+    min-height: max(19rem, calc(var(--page-h) - 9rem));
+  }
+}

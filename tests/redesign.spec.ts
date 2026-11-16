@@ -218,6 +218,34 @@ test.describe("phone", () => {
     });
   }
 
+  test("on a short phone screen no home section runs into the next, and pages settle gently", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 553 });
+    await page.goto("/");
+    await ready(page);
+    await page.waitForTimeout(600);
+    const spills = await page.evaluate(() => {
+      const out: string[] = [];
+      for (const section of document.querySelectorAll<HTMLElement>(".deck .page")) {
+        const bottom = section.getBoundingClientRect().bottom;
+        for (const el of section.querySelectorAll<HTMLElement>("*")) {
+          if (el.closest(".home-audiences, .strip, .home-tabs, [data-slide], .sr-only") || !el.checkVisibility()) continue;
+          let clipped = false;
+          for (let a = el.parentElement; a && a !== section; a = a.parentElement) {
+            const o = getComputedStyle(a);
+            if ((o.overflowY !== "visible" || o.overflowX !== "visible") && a.getBoundingClientRect().bottom <= bottom + 2) clipped = true;
+          }
+          if (!clipped && el.getBoundingClientRect().bottom > bottom + 2) out.push(`${section.id}: ${el.tagName.toLowerCase()}`);
+        }
+      }
+      return out;
+    });
+    expect(spills, spills.join(", ")).toEqual([]);
+    // "y proximity" is reported as "y" (proximity is the default); what matters is that it is not mandatory on a phone.
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollSnapType)).not.toContain("mandatory");
+    const photo = await page.locator("#engage [data-box-frame]").first().boundingBox();
+    expect(photo!.width, "the example keeps the screen's width").toBeGreaterThan(300);
+  });
+
   test("the menu opens full screen with Contact us and Book a demo", async ({ page }) => {
     await page.goto("/");
     await ready(page);
