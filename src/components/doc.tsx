@@ -138,7 +138,11 @@ export function Split({ media, mediaFirst = false, stacked = false, children }: 
   );
 }
 
-/** One picture sized from the shared screen budget. Intrinsic width/height reserve its aspect box before it loads. */
+/**
+ * One picture sized from the shared screen budget. Intrinsic width/height reserve its aspect box before it loads.
+ * Width and height are both auto, so when the height budget shrinks the picture, its width shrinks with it and the
+ * frame hugs the picture: no empty band beside it.
+ */
 export function Shot({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
   const size = imageSize(src);
   return (
@@ -147,7 +151,7 @@ export function Shot({ src, alt, className = "" }: { src: string; alt: string; c
       alt={alt}
       width={size?.width}
       height={size?.height}
-      className={`block h-auto max-h-(--shot-h) max-w-full rounded-[1.25rem] border border-line bg-paper object-contain object-left-top ${className}`}
+      className={`block h-auto w-auto max-h-(--shot-h) max-w-full rounded-[1.25rem] border border-line object-contain ${className}`}
     />
   );
 }
