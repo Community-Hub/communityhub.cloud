@@ -15,7 +15,7 @@
  *   429 { ok: false, error }             too many messages and requests from one network address or one email address,
  *                                        or from everyone together, in a short time (counted in the database, so the
  *                                        limit holds across every server)
- *   503 { ok: false, error }             RESEND_API_KEY is not set, or the form inbox is not an email address
+ *   503 { ok: false, error }             no mail key is set, or the form inbox is not an email address
  *   502 { ok: false, error }             Resend did not accept the email
  * The forms show the email address (and ways to send from the visitor's own email) for every answer
  * except 200, 400-with-fields and 429.
@@ -224,7 +224,7 @@ export async function handleContact(request: Request): Promise<Response> {
   }
 
   if (!canSendMail()) {
-    console.error("[contact] RESEND_API_KEY is not set, so nothing was sent. The visitor was shown the email address instead.");
+    console.error("[contact] no mail key is set (POSTMARK_SERVER_TOKEN or RESEND_API_KEY), so nothing was sent. The visitor was shown the email address instead.");
     return json({ ok: false, error: "The website cannot send email right now." }, 503);
   }
   const to = await formInbox();

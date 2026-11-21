@@ -21,7 +21,8 @@ Maddie and John can change the site's words, links, pictures, lists and sections
 |---|---|---|
 | `ADMIN_EMAILS` | Vercel (set) and `.env.local` | Comma separated. Only these addresses are sent a sign-in code. Currently the founder (two addresses), John and Maddie. |
 | `ADMIN_HOST` | Vercel (set: `editor.communityhb.tech` on the editor project) and `.env.local` | Host the editor lives on, for example `editor.communityhb.tech`. Locally `admin.localhost:8123`. Unset in production means the editor is off. |
-| `RESEND_API_KEY`, `MAIL_FROM` | Vercel (set on both projects) | Sends the sign-in codes (and the contact form). Without the key on the editor project nobody can sign in. Sender defaults to website@communityhub.cloud. |
+| `POSTMARK_SERVER_TOKEN`, `POSTMARK_FROM` | Vercel, both projects (not set yet: needs a token from Gaurav) | Sends the sign-in codes and the contact form through Postmark, the service the organisation already sends `mail@communityhub.cloud` with. Preferred: that mail reaches Oberlin inboxes. Sender defaults to `Community Hub <mail@communityhub.cloud>`. |
+| `RESEND_API_KEY`, `MAIL_FROM` | Vercel (set on both projects) | The fallback when there is no Postmark token. Its sender is `website@communityhb.tech`, a domain registered in October 2026. **Oberlin's mail system removes mail from that domain after accepting it** (found 2026-11-21: Resend showed two sign-in codes "delivered" to an oberlin.edu address; the mailbox held nothing, not in spam or trash), so on Resend alone John, Maddie and the dashboard inbox receive nothing. Gmail.com inboxes do receive it. |
 | `BETTER_AUTH_SECRET` | Vercel (set, hidden) and `.env.local` | 32+ characters; signs sessions. |
 | `DATABASE_URL` | Vercel (set) | Hosted Postgres (Neon). Unset locally: an in-memory pglite database is used. |
 | `BLOB_READ_WRITE_TOKEN` | Vercel (Production, set by the Blob store) | Picture uploads. Unset locally: pictures go to `.cms-media/` (or `CMS_MEDIA_DIR`). |
