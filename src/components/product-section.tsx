@@ -78,6 +78,8 @@ function VoicesCategoryPreview({ url, iframeSrc, title, running }: { url: string
     return () => window.clearInterval(id);
   }, [running, slides.length]);
 
+  // The slide is drawn here rather than in the player, so it uses the player's own lettering: Community Voices sets
+  // every word in Comfortaa (cv-public/css/slide.css), not the site's Figtree (John, 19 Nov: "the font is not quite right").
   if (slides.length === 0) {
     return <GuardedEmbed src={iframeSrc} title={title} passive={false} className="absolute inset-0 h-full" />;
   }
@@ -106,11 +108,11 @@ function VoicesCategoryPreview({ url, iframeSrc, title, running }: { url: string
           )}
         </div>
         <div className="flex min-h-0 flex-col justify-center pr-10 sm:pr-12">
-          <blockquote className="line-clamp-4 font-sans text-[clamp(0.82rem,1.45vw,1.3rem)] leading-[1.32] font-normal text-white sm:line-clamp-none sm:leading-[1.38]">
+          <blockquote className="line-clamp-4 font-brand text-[clamp(0.82rem,1.45vw,1.3rem)] leading-[1.32] font-normal text-white sm:line-clamp-none sm:leading-[1.38]">
             {current.quotationMarks ? `“${current.quote}”` : current.quote}
           </blockquote>
           {current.attribution && (
-            <p className="mt-1.5 line-clamp-2 text-[clamp(0.72rem,1vw,0.95rem)] leading-tight text-white/90 sm:mt-3 sm:line-clamp-none sm:leading-snug">
+            <p className="mt-1.5 line-clamp-2 font-brand text-[clamp(0.72rem,1vw,0.95rem)] leading-tight text-white/90 sm:mt-3 sm:line-clamp-none sm:leading-snug">
               — {current.attribution}
               {current.subAttribution ? `, ${current.subAttribution}` : ""}
             </p>
@@ -125,7 +127,7 @@ function VoicesCategoryPreview({ url, iframeSrc, title, running }: { url: string
           {current.logo && (
             <img src={current.logo} alt="" className="h-5 w-auto shrink-0 object-contain sm:h-6 md:h-7" />
           )}
-          <span className="truncate font-display text-xs font-bold tracking-wider uppercase text-white sm:text-sm md:text-base">
+          <span className="truncate font-brand text-xs font-bold tracking-wider uppercase text-white sm:text-sm md:text-base">
             {current.categoryLabel}
           </span>
         </div>
@@ -244,7 +246,7 @@ function isScrollableHomeEmbed(frame: SlideFrame | undefined) {
 
 function FrameGraphic({ frame, voices, home = false, previewPlaying = false, running = false, onWalkthroughComplete }: { frame: SlideFrame; voices: { title: string; url: string }; home?: boolean; previewPlaying?: boolean; running?: boolean; onWalkthroughComplete?: () => void }) {
   if (frame.displayFrame && frame.embed) {
-    return <DisplayFramedEmbed key={frame.embed} frame={frame} running={home ? running : true} />;
+    return <DisplayFramedEmbed key={frame.embed} frame={frame} running={running} />;
   }
   if (isScrollableHomeEmbed(frame) && frame.embed) {
     return (
@@ -252,7 +254,7 @@ function FrameGraphic({ frame, voices, home = false, previewPlaying = false, run
         key={frame.embed}
         src={frame.embed}
         title={frame.title}
-        running={home ? running : true}
+        running={running}
         partnerHeader={frame.partnerHeader}
         passiveMarker={home && !frame.nativeSize}
         phoneStart={frame.phoneStart}
@@ -384,6 +386,8 @@ export function Examples({
     `${frames[0]?.title}:${i}`,
     activeFrame?.phoneWalkthrough || isScrollableHomeEmbed(activeFrame) ? null : undefined,
     !phoneExamples,
+    // John and Maddie, 19 Nov: a live dashboard sits still until the visitor presses Play, and can be scrolled by hand.
+    isScrollableHomeEmbed(activeFrame),
   );
   useSwipe(figureRef, (dir) => {
     if (many) stepRef.current(dir > 0 ? 1 : -1);
@@ -445,7 +449,8 @@ export function Examples({
     }
   };
   const layers = [at, ...(slide.prev !== null && slide.prev !== at && frames[slide.prev] ? [slide.prev] : [])];
-  const hasPause = Boolean(many || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/"));
+  const scrollingEmbed = isScrollableHomeEmbed(frame);
+  const hasPause = Boolean(many || scrollingEmbed || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/"));
 
   return (
     <figure
@@ -524,7 +529,9 @@ export function Examples({
                 labels={
                   frame.phoneWalkthrough
                     ? { pause: "Pause animation", play: "Play animation" }
-                    : { pause: "Pause examples", play: "Play examples" }
+                    : scrollingEmbed
+                      ? { pause: "Stop scrolling", play: "Scroll through the dashboard" }
+                      : { pause: "Pause examples", play: "Play examples" }
                 }
               />
             )}

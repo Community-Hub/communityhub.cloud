@@ -126,7 +126,7 @@ const GROUPS: { kicker: string; items: { id: string; title: string; blurb: strin
       {
         id: "building",
         title: "Building Dashboard",
-        blurb: "Electricity and water for one building",
+        blurb: "Electricity and water for buildings and groups of buildings",
         href: "/dashboard-builder",
       },
       {

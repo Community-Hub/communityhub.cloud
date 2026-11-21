@@ -2008,6 +2008,20 @@ main:focus {
   }
 }
 
+/* A live dashboard preview: still until Play, scrollable by hand with a mouse or trackpad (its own thin scroll bar), and
+   passing swipes through to the page on touch screens. At either end the wheel carries on to the page. */
+.dashboard-viewport {
+  overflow: hidden;
+}
+@media (hover: hover) and (pointer: fine) {
+  .dashboard-viewport {
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-pine) 45%, transparent) color-mix(in srgb, var(--color-pine) 6%, transparent);
+  }
+}
+
 /* The row's arrows stand either side of it, outside the text column when the screen leaves room. */
 .home-row-arrow {
   position: absolute;
@@ -2023,8 +2037,18 @@ main:focus {
 .home-row-arrow[data-side="next"] {
   right: max(-3.5rem, calc(0.5rem - var(--row-inset)));
 }
+/* Both arrows always show, so the row reads as one that moves (John, 19 Nov: "I'm not even seeing how you get it to move
+   to the right"); the one at its end fades rather than vanishing. */
+.home-row-arrow {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+.home-row-arrow svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .home-row-arrow:disabled {
-  opacity: 0;
+  opacity: 0.4;
   pointer-events: none;
 }
 @media (max-width: 767px), (hover: none) {

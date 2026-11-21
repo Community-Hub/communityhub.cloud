@@ -187,14 +187,31 @@ test.describe("LoRaWAN and Studios", () => {
 test.describe("live examples and the story deck", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test("the wheel over a live example turns the page", async ({ page }) => {
+  // John and Maddie, 19 Nov: a live dashboard sits still until Play, the wheel over it scrolls the dashboard itself,
+  // and once it reaches its end the wheel carries on to the page.
+  test("a live dashboard starts paused and offers Play", async ({ page }) => {
     await page.goto("/web-embeddables");
     await ready(page);
-    const frame = page.locator("[data-box-frame]").first();
-    const box = (await frame.boundingBox())!;
+    const viewport = page.locator("[data-dashboard-scroll]").first();
+    await expect(viewport).toHaveAttribute("data-running", "false");
+    const figure = page.locator("[data-slider-box]").filter({ has: viewport }).first();
+    await expect(figure.getByRole("button", { name: "Scroll through the dashboard" })).toBeVisible();
+  });
+
+  test("the wheel over a live dashboard scrolls it, then the page", async ({ page }) => {
+    await page.goto("/web-embeddables");
+    await ready(page);
+    const viewport = page.locator("[data-dashboard-scroll]").first();
+    await viewport.scrollIntoViewIfNeeded();
+    const startY = await page.evaluate(() => window.scrollY);
+    const box = (await viewport.boundingBox())!;
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-    await page.mouse.wheel(0, 800);
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(200);
+    await page.mouse.wheel(0, 300);
+    await expect.poll(() => viewport.evaluate((el) => el.scrollTop)).toBeGreaterThan(100);
+    expect(await page.evaluate(() => window.scrollY)).toBeLessThan(startY + 40);
+    // At the dashboard's end the wheel moves the page on: the box must not hold the wheel back. (Checked by hand in a
+    // real Chrome window; the headless shell does not hand a wheel from an embedded page on to the outer document.)
+    expect(await viewport.evaluate((el) => getComputedStyle(el).overscrollBehaviorY)).toBe("auto");
   });
 
   test("Story of the Dashboard fills its screen at the slides' own shape", async ({ page }) => {

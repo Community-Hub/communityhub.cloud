@@ -30,7 +30,8 @@ export function getPortalEmbedLayout(src: string): {
   if (/\/dh-public\/city-of-oberlin/.test(src)) {
     return { kind: "city-of-oberlin", topInset: 113, leftInset: 270, virtualWidth: 1120, docHeight: 1180 };
   }
-  if (/\/dh-public\/glsc(-embed)?/.test(src)) {
+  // Only the portal itself: `/dh-public/glsc/dashboard/953` is an ordinary building dashboard with no sidebar to crop.
+  if (/\/dh-public\/glsc-embed/.test(src)) {
     return { kind: "glsc", topInset: 110, leftInset: 270, virtualWidth: 1120, docHeight: 880 };
   }
   return null;

@@ -5,8 +5,8 @@ import { useAutoplay } from "@/components/play-pause";
 export const PREVIEW_INTERVAL = 8000;
 
 /** Automatic examples never interrupt reading, keyboard use, or an active embedded dashboard. */
-export function usePreviewRotation(ref: RefObject<HTMLElement | null>, advance: () => void, enabled: boolean, resetKey: string | number, interval: number | null = PREVIEW_INTERVAL, pauseOnInteraction = true) {
-  const [playing, setPlaying] = useAutoplay();
+export function usePreviewRotation(ref: RefObject<HTMLElement | null>, advance: () => void, enabled: boolean, resetKey: string | number, interval: number | null = PREVIEW_INTERVAL, pauseOnInteraction = true, startPaused = false) {
+  const [playing, setPlaying] = useAutoplay(!startPaused);
   const [engaged, setEngaged] = useState(false);
   const [visible, setVisible] = useState(false);
   const [background, setBackground] = useState(false);
