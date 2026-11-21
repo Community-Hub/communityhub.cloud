@@ -1,5 +1,5 @@
 /**
- * Sends contact-form messages and demo requests through Resend. Server only.
+ * Sends contact-form messages and demo requests, and the editor's sign-in codes, through Resend. Server only.
  *
  *   RESEND_API_KEY  the Resend API key. Without it nothing is sent and the form offers the email address instead.
  *   MAIL_FROM       the sender (default website@communityhub.cloud, whose domain must be verified in Resend).
@@ -49,7 +49,7 @@ const escapeHtml = (text: string) =>
  * with both a text and an HTML part is the normal shape of real mail; text-only mail from a young domain is more
  * often filed as spam.
  */
-function htmlFor(text: string): string {
+function htmlFor(text: string, footer: string = ORIGIN_LINE): string {
   const paragraphs = text
     .split(/\n{2,}/)
     .map((block) => `<p style="margin:0 0 16px">${escapeHtml(block).replace(/\n/g, "<br>")}</p>`)
@@ -58,13 +58,18 @@ function htmlFor(text: string): string {
     '<!doctype html><html><head><meta charset="utf-8"></head>',
     '<body style="margin:0;padding:24px;background:#ffffff;color:#152019;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5">',
     `<div style="max-width:600px">${paragraphs}`,
-    `<p style="margin:24px 0 0;color:#5f6b63;font-size:13px">${escapeHtml(ORIGIN_LINE)}</p>`,
+    `<p style="margin:24px 0 0;color:#5f6b63;font-size:13px">${escapeHtml(footer)}</p>`,
     "</div></body></html>",
   ].join("");
 }
 
 /** Email one checked message or request. Throws MailError when Resend is not set up or does not accept it. */
 export async function sendFormMail(mail: FormMail): Promise<void> {
+  await sendMail({ ...mail, footer: ORIGIN_LINE });
+}
+
+/** One plain email with a closing line saying where it came from. `replyTo` only when a person should be answered. */
+export async function sendMail(mail: Omit<FormMail, "replyTo"> & { replyTo?: string; footer: string }): Promise<void> {
   const key = read("RESEND_API_KEY");
   if (!key) throw new MailError("RESEND_API_KEY is not set.");
   let res: Response;
@@ -75,10 +80,10 @@ export async function sendFormMail(mail: FormMail): Promise<void> {
       body: JSON.stringify({
         from: mailFrom(),
         to: [mail.to],
-        reply_to: mail.replyTo,
+        ...(mail.replyTo ? { reply_to: mail.replyTo } : {}),
         subject: oneLine(mail.subject),
-        text: `${mail.text}\n\n${ORIGIN_LINE}`,
-        html: htmlFor(mail.text),
+        text: `${mail.text}\n\n${mail.footer}`,
+        html: htmlFor(mail.text, mail.footer),
         // A distinct id on every notification, so Gmail lists each one on its own instead of folding them together.
         headers: { "X-Entity-Ref-ID": randomUUID() },
         ...(mail.attachments?.length ? { attachments: mail.attachments } : {}),

@@ -1,11 +1,11 @@
 import { afterEach, describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { adminEmails, isAdminEmail, adminOrigin, useSecureCookies, signupCode, authSecret, isAdminHost } from "./env.ts";
+import { adminEmails, isAdminEmail, adminOrigin, useSecureCookies, codeOutbox, authSecret, isAdminHost } from "./env.ts";
 import { isOwnBlobUrl, checkValue } from "./validate.ts";
 import { readBodyLimited } from "./body.ts";
 import { gate, hardenEditorResponse } from "./gate.server.ts";
 
-const KEYS = ["ADMIN_EMAILS", "ADMIN_HOST", "NODE_ENV", "ADMIN_SIGNUP_CODE", "BETTER_AUTH_SECRET", "BLOB_READ_WRITE_TOKEN"] as const;
+const KEYS = ["ADMIN_EMAILS", "ADMIN_HOST", "NODE_ENV", "CMS_OTP_OUTBOX", "BETTER_AUTH_SECRET", "BLOB_READ_WRITE_TOKEN"] as const;
 const saved = Object.fromEntries(KEYS.map((k) => [k, process.env[k]]));
 const set = (env: Partial<Record<(typeof KEYS)[number], string>>) => {
   for (const k of KEYS) delete process.env[k];
@@ -88,13 +88,17 @@ describe("host routing", () => {
       assert.ok(authSecret().length >= 32);
     }
   });
-  it("the sign-up code needs 16 characters or sign-up is refused", () => {
-    set({ ADMIN_SIGNUP_CODE: "x".repeat(15) });
-    assert.equal(signupCode(), null);
-    set({});
-    assert.equal(signupCode(), null);
-    set({ ADMIN_SIGNUP_CODE: "x".repeat(16) });
-    assert.equal(signupCode(), "x".repeat(16));
+  it("sign-in codes go to a folder only in development and tests, never when live", () => {
+    set({ CMS_OTP_OUTBOX: "/tmp/codes" });
+    assert.equal(codeOutbox(), null); // NODE_ENV unset counts as live
+    set({ CMS_OTP_OUTBOX: "/tmp/codes", NODE_ENV: "production" });
+    assert.equal(codeOutbox(), null);
+    for (const env of ["development", "test"]) {
+      set({ CMS_OTP_OUTBOX: "/tmp/codes", NODE_ENV: env });
+      assert.equal(codeOutbox(), "/tmp/codes");
+      set({ NODE_ENV: env });
+      assert.equal(codeOutbox(), null);
+    }
   });
   it("links cannot start //, /\\ or /\\evil", () => {
     for (const bad of ["/\\evil.com", "//evil.com", "/\\/evil.com"]) {

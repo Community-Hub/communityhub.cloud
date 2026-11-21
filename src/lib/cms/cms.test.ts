@@ -341,3 +341,19 @@ describe("database trouble", () => {
     assert.equal(st.v["c.frames.0.img.alt"], "New alt");
   });
 });
+
+describe("sign-in codes: one address is emailed only so many", () => {
+  it("allows 5 in 15 minutes, refuses the 6th, and starts again after the window", async () => {
+    const { takeCodeSlot, CODE_MAIL_MAX, CODE_MAIL_WINDOW_MS } = await import("./code-limit.ts");
+    const sql = await testSql();
+    const t0 = 1_800_000_000_000;
+    for (let i = 0; i < CODE_MAIL_MAX; i += 1) assert.equal(await takeCodeSlot(sql, "John.Petersen@Oberlin.edu", t0 + i * 1000), true, `request ${i + 1}`);
+    assert.equal(await takeCodeSlot(sql, "john.petersen@oberlin.edu", t0 + 60_000), false);
+    assert.equal(await takeCodeSlot(sql, " john.petersen@oberlin.edu ", t0 + CODE_MAIL_WINDOW_MS - 1), false);
+    // Another address is counted on its own.
+    assert.equal(await takeCodeSlot(sql, "mfaubert@oberlin.edu", t0 + 60_000), true);
+    // The window is measured from the first request, so a refused one does not push it back.
+    assert.equal(await takeCodeSlot(sql, "john.petersen@oberlin.edu", t0 + CODE_MAIL_WINDOW_MS + 1), true);
+    assert.equal(await takeCodeSlot(sql, "john.petersen@oberlin.edu", t0 + CODE_MAIL_WINDOW_MS + 2), true);
+  });
+});

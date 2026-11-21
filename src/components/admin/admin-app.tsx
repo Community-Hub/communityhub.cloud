@@ -38,28 +38,47 @@ export function AdminApp() {
   return <Editor email={session.user.email} onSignOut={refreshSession} />;
 }
 
+/**
+ * Signing in has no password: type your address, get a 6-digit code by email, type the code. The browser then stays
+ * signed in for a week.
+ */
 function SignIn({ onDone }: { onDone: () => Promise<void> }) {
-  const [mode, setMode] = useState<"in" | "up">("in");
+  const [step, setStep] = useState<"email" | "code">("email");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [err, setErr] = useState<string | null>(null);
+  const [note, setNote] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const address = email.trim().toLowerCase();
+
+  async function sendCode(again = false) {
+    setErr(null);
+    setNote(null);
+    setBusy(true);
+    try {
+      await post("/api/cms-auth/email-otp/send-verification-otp", { email: address, type: "sign-in" });
+      setCode("");
+      setStep("code");
+      if (again) setNote("A new code is on its way. The old one no longer works.");
+    } catch (e2) {
+      setErr(errorText(e2));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function submit(e: FormEvent) {
     e.preventDefault();
+    if (step === "email") return sendCode();
     setErr(null);
+    setNote(null);
     setBusy(true);
     try {
-      if (mode === "up") {
-        if (password.length < 12) throw new Error("Choose a password of at least 12 characters.");
-        await post("/api/cms-auth/sign-up/email", { email: email.trim(), password, name: email.split("@")[0] || "Editor" }, { "x-cms-signup-code": code });
-      } else {
-        await post("/api/cms-auth/sign-in/email", { email: email.trim(), password });
-      }
+      await post("/api/cms-auth/sign-in/email-otp", { email: address, otp: code.replace(/\D/g, "") });
       await onDone();
     } catch (e2) {
-      setErr(errorText(e2));
+      const status = (e2 as { status?: number }).status;
+      setErr(status === 429 ? "Too many tries. Wait a minute, then try again." : status === 403 ? errorText(e2) : "That code is not right, or it has run out. Check the email, or send a new code.");
     } finally {
       setBusy(false);
     }
@@ -69,31 +88,51 @@ function SignIn({ onDone }: { onDone: () => Promise<void> }) {
     <main className="mx-auto grid min-h-dvh max-w-md content-center gap-4 p-6">
       <h1 className="font-display text-3xl text-pine">Site editor</h1>
       <p className="text-sm text-ink/70">
-        {mode === "in" ? "Sign in to change the words, pictures and lists on the site." : "First time here? Create your editor account. You need the sign-up code from the site owner."}
+        {step === "email"
+          ? "Sign in to change the words, pictures and lists on the site. There is no password: we email you a 6-digit code."
+          : `We sent a 6-digit code to ${address}. It works for 10 minutes. Check your junk folder if it is not in your inbox.`}
       </p>
       <form onSubmit={submit} className="grid gap-3 rounded-lg border border-line bg-white p-4">
-        <label className="grid gap-1 text-sm font-bold text-pine">
-          Email
-          <input className={inputCls} type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} data-testid="login-email" />
-        </label>
-        <label className="grid gap-1 text-sm font-bold text-pine">
-          Password
-          <input className={inputCls} type="password" autoComplete={mode === "in" ? "current-password" : "new-password"} required value={password} onChange={(e) => setPassword(e.target.value)} data-testid="login-password" />
-        </label>
-        {mode === "up" ? (
+        {step === "email" ? (
           <label className="grid gap-1 text-sm font-bold text-pine">
-            Sign-up code
-            <input className={inputCls} type="password" autoComplete="off" required value={code} onChange={(e) => setCode(e.target.value)} data-testid="login-code" />
+            Email
+            <input className={inputCls} type="email" autoComplete="username" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)} data-testid="login-email" />
           </label>
-        ) : null}
+        ) : (
+          <label className="grid gap-1 text-sm font-bold text-pine">
+            Code from the email
+            <input
+              className={`${inputCls} tracking-[0.3em]`}
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              pattern="[0-9 ]*"
+              maxLength={7}
+              required
+              autoFocus
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              data-testid="login-otp"
+            />
+          </label>
+        )}
         {err ? <Notice kind="error">{err}</Notice> : null}
+        {note ? <p className="text-sm text-ink/70" role="status">{note}</p> : null}
         <button type="submit" className={btn} disabled={busy} data-testid="login-submit">
-          {mode === "in" ? "Sign in" : "Create account"}
+          {step === "email" ? "Email me a code" : "Sign in"}
         </button>
+        {step === "code" ? <p className="text-sm text-ink/70">You stay signed in on this browser for a week.</p> : null}
       </form>
-      <button type="button" className="text-left text-sm font-bold text-pine underline" onClick={() => { setMode(mode === "in" ? "up" : "in"); setErr(null); }}>
-        {mode === "in" ? "First time? Create your account" : "I already have an account"}
-      </button>
+      {step === "code" ? (
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          <button type="button" className="text-left text-sm font-bold text-pine underline" disabled={busy} onClick={() => void sendCode(true)} data-testid="login-resend">
+            Send a new code
+          </button>
+          <button type="button" className="text-left text-sm font-bold text-pine underline" onClick={() => { setStep("email"); setErr(null); setNote(null); }}>
+            Use a different email
+          </button>
+        </div>
+      ) : null}
     </main>
   );
 }

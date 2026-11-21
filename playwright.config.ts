@@ -28,7 +28,9 @@ export default defineConfig({
       BLOB_READ_WRITE_TOKEN: "",
       ADMIN_EMAILS: "editor@example.test",
       ADMIN_HOST: `admin.localhost:${port}`,
-      ADMIN_SIGNUP_CODE: "test-signup-code-0123456789",
+      // Sign-in codes are written to this folder instead of being emailed (see src/lib/cms/server.ts).
+      CMS_OTP_OUTBOX: join(tmpdir(), `cms-test-otp-${port}`),
+      RESEND_API_KEY: "",
       BETTER_AUTH_SECRET: "test-secret-test-secret-test-secret-0123",
       BETTER_AUTH_URL: `http://admin.localhost:${port}`,
       CMS_MEDIA_DIR: join(tmpdir(), `cms-test-media-${port}`),
