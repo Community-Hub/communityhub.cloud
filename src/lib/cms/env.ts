@@ -2,7 +2,7 @@
  * Settings for the editor, read from the environment at request time. Server only.
  *
  *   ADMIN_EMAILS       comma separated. Only these emails may sign up or sign in.
- *   ADMIN_HOST         host (and port, locally) the editor lives on, e.g. admin.communityhub.cloud.
+ *   ADMIN_HOST         host (and port, locally) the editor lives on, e.g. editor.communityhb.tech.
  *   ADMIN_SIGNUP_CODE  shared secret the first sign-up needs (required in production).
  *   BETTER_AUTH_SECRET signs the editor sessions.
  */
