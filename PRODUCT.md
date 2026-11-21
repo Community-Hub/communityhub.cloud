@@ -35,7 +35,7 @@ Community Hub grew out of Environmental Dashboard, research at Oberlin College o
 
 ## Operating Context
 
-- **Codebase:** React + TanStack Start (Vite, Nitro). A CMS editor at admin.communityhub.cloud overrides built-in copy by stable keys. The app also has legacy redirects, a generated sitemap and a `/healthz` route.
+- **Codebase:** React + TanStack Start (Vite, Nitro). A CMS editor at editor.communityhb.tech overrides built-in copy by stable keys. The app also has legacy redirects, a generated sitemap and a `/healthz` route.
 - **Live site is newer than GitHub.** Production was deployed from local code on 2026-11-12. That build has three pieces GitHub's master (Nov 5) lacks, and the redesign rebuilds them from the live site (owner's choice):
   - a contact form that posts to `/api/contact` and emails through Resend (`RESEND_API_KEY`, `MAIL_FROM`, default sender website@communityhub.cloud)
   - `/implementations` with five case pages (City of Oberlin, MidTown Cleveland, Oberlin Public Schools, Oberlin College, Great Lakes Science Center); `/who`, `/work` and `/demos` redirect there

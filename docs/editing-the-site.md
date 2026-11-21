@@ -4,7 +4,7 @@ For John and Maddie. The site has its own editor, so you can change wording, lin
 
 ## The first time
 
-1. Open **https://admin.communityhub.cloud** (the editor lives on its own address; the public site has no edit button).
+1. Open **https://editor.communityhb.tech** (the editor lives on its own address; the public site has no edit button).
 2. Choose **First time? Create your account**.
 3. Enter the email address Kwaku added for you, a password of at least 12 characters, and the **sign-up code** Kwaku sends you privately. Only listed addresses can create an account.
 
@@ -15,7 +15,7 @@ After that, sign in at the same address with your email and password.
 1. Open **Words and links**.
 2. Type a few words from the sentence into **Find a word or heading**, or pick the page from the list under it.
 3. Click the sentence. Edit it in the box. You'll see **On the site now** and **Your version** side by side.
-4. Press **Save**. It shows on the site within about a minute.
+4. Press **Save**. It shows on the site within a few minutes.
 
 If your text runs much longer than the original, the editor warns you, because long text may not fit its space on the page.
 

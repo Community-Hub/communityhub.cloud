@@ -20,29 +20,30 @@ Maddie and John can change the site's words, links, pictures, lists and sections
 | Name | Where | What it does |
 |---|---|---|
 | `ADMIN_EMAILS` | Vercel (set) and `.env.local` | Comma separated. Only these may sign up or sign in. Currently the founder (two addresses), John and Maddie. |
-| `ADMIN_HOST` | Vercel (set: `admin.communityhub.cloud`, Production and Preview) and `.env.local` | Host the editor lives on, for example `admin.communityhub.cloud`. Locally `admin.localhost:8123`. Unset in production means the editor is off. |
+| `ADMIN_HOST` | Vercel (set: `editor.communityhb.tech` on the editor project) and `.env.local` | Host the editor lives on, for example `editor.communityhb.tech`. Locally `admin.localhost:8123`. Unset in production means the editor is off. |
 | `ADMIN_SIGNUP_CODE` | Vercel (set, Production and Preview) and `.env.local` | A shared code needed to create an account (header `x-cms-signup-code`). Must be at least 16 characters; if shorter or missing, sign-up is refused. Share it privately with each person. |
 | `BETTER_AUTH_SECRET` | Vercel (set, hidden) and `.env.local` | 32+ characters; signs sessions. |
 | `DATABASE_URL` | Vercel (set) | Hosted Postgres (Neon). Unset locally: an in-memory pglite database is used. |
 | `BLOB_READ_WRITE_TOKEN` | Vercel (Production, set by the Blob store) | Picture uploads. Unset locally: pictures go to `.cms-media/` (or `CMS_MEDIA_DIR`). |
 
-## Cloud setup status
+## Cloud setup status (checked 2026-11-21)
 
-- Vercel project `community-hub-site` (empty, nothing deployed) in team Community Hub.
-- Blob store `community-hub-media` (public reads, attached to that project).
-- Env set on the project: `ADMIN_EMAILS`, `BETTER_AUTH_SECRET`, `ADMIN_HOST` (`admin.communityhub.cloud`), `ADMIN_SIGNUP_CODE` (Production and Preview); `BLOB_READ_WRITE_TOKEN` (Production).
-- Database: Neon `community-hub-db` (free plan) is created and connected to `community-hub-site`; `DATABASE_URL` and `POSTGRES_URL` are set for Production and Preview. The migrations (`migrations/0001_cms.sql`, `0002_cms_def_hash.sql`) run automatically at build.
-- Domain `admin.communityhub.cloud` is added to the project; only the DNS record is pending (see below).
-- Nothing has been deployed or pushed, and no DNS or Vercel domains were changed.
+Two Vercel projects in team Community Hub run the same code against the same database:
 
-## Putting the editor on its own address (founder approves first)
+- **`communityhub-cloud`: the public site** (www.communityhub.cloud). Connected to GitHub (`Community-Hub/communityhub.cloud`, branch `master`), so every merge deploys it. It has no `ADMIN_HOST`, so it serves no editor: `/admin` and `/api/cms*` answer 404 there.
+- **`community-hub-site`: the editor** (https://editor.communityhb.tech, `ADMIN_HOST=editor.communityhb.tech`). The domain `communityhb.tech` is registered with Vercel, so no outside DNS record is needed. Since 2026-11-21 it is connected to the same GitHub repository and branch as the public site, so every merge to `master` deploys both and the editor always lists the words of the build that is live. (Before that it was deployed by hand and had fallen behind, still on the 2026-11-12 build.)
+- Both read the same Neon database (`DATABASE_URL` is identical) and sign sessions with the same `BETTER_AUTH_SECRET`, so an edit saved in the editor is what the public site reads. `ADMIN_EMAILS` (four addresses) and `ADMIN_SIGNUP_CODE` are set on the editor project. Each project has its own Blob store token; pictures uploaded in the editor are public Blob addresses, which the public site accepts.
+- **The editor must run the same build as the site.** It lists the words of the build it was deployed from; on an older build it shows old defaults, and an edit made against them is set aside as "Out of date" on the public site. The shared GitHub connection keeps them together: if a merge deploys one project and not the other (a failed build), redeploy the one that is behind.
+- Pull requests build a preview on both projects. The editor project's preview builds run the migrations against the shared database, so a pull request that adds a migration applies it there before it is merged.
+- The cache purge on save runs in the editor's project. Whether it reaches the public project's cache has not been checked; if it does not, edits show on the public site within 5 minutes.
 
-Founder to-dos left:
+## Giving someone access
 
-1. At DigitalOcean DNS add a CNAME: name `admin`, value `cname.vercel-dns.com` (the domain is already added to the project and `ADMIN_HOST` / `ADMIN_SIGNUP_CODE` are already set).
-2. Deploy (after you approve) so the new env values take effect.
-3. Each person creates their account with the sign-up code, which you share privately.
-Result: `admin.<site domain>` serves only the editor (`/` goes to `/admin`); the public host answers 404 for `/admin` and `/api/cms*`. Cookies belong to the admin host only (host-only, httpOnly, SameSite strict, Secure).
+1. Check their address is in `ADMIN_EMAILS` on the editor project (`community-hub-site`); redeploy if you change it.
+2. Send them https://editor.communityhb.tech and, privately, the sign-up code.
+3. They choose "First time? Create your account" and enter their email, a password of 12+ characters and the code.
+
+Result: `editor.communityhb.tech` serves only the editor (`/` goes to `/admin`). Cookies belong to the editor host only (host-only, httpOnly, SameSite strict, Secure).
 
 ## Adding Maddie and John
 
