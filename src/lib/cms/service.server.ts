@@ -14,7 +14,7 @@ function purgeCdn(): void {
   if (!process.env.VERCEL) return;
   import("@vercel/functions")
     .then(({ dangerouslyDeleteByTag }) => dangerouslyDeleteByTag("cms"))
-    .catch((err) => console.error("[cms] could not purge the page cache (edits show within 5 minutes anyway):", err instanceof Error ? err.message : err));
+    .catch((err) => console.error("[cms] could not purge the page cache (edits show within about a minute anyway):", err instanceof Error ? err.message : err));
 }
 
 const g = globalThis as typeof globalThis & { __cmsService__?: Promise<CmsService> };

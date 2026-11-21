@@ -194,9 +194,10 @@ export default defineConfig(({ command, isPreview }) => ({
             // Set NITRO_PRESET=vercel to build the Vercel output instead.
             preset: process.env.NITRO_PRESET ?? "node-server",
             // Pages are the same for every visitor, so a CDN in front can serve them and refresh in the background.
-            // Long, because saving an edit in the editor purges everything tagged "cms" (see service.server.ts).
+            // One minute: the editor runs on its own Vercel project, so its purge of everything tagged "cms" (see
+            // service.server.ts) may not reach this one, and an edit has to show on the site soon after it is saved.
             routeRules: {
-              "/**": { headers: { "cache-control": "public, max-age=0, s-maxage=300, stale-while-revalidate=86400", "vercel-cache-tag": "cms" } },
+              "/**": { headers: { "cache-control": "public, max-age=0, s-maxage=60, stale-while-revalidate=86400", "vercel-cache-tag": "cms" } },
               "/healthz": { headers: { "cache-control": "no-store" } },
               "/admin": { headers: { "cache-control": "no-store" } },
               "/api/**": { headers: { "cache-control": "no-store" } },
