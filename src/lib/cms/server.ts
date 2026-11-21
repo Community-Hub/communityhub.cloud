@@ -46,10 +46,10 @@ async function deliverCode(email: string, code: string): Promise<void> {
   }
   if (!canSendMail()) {
     if (isDevOrTest()) {
-      console.info(`[cms] sign-in code for ${email}: ${code} (RESEND_API_KEY is not set, so it was not emailed)`);
+      console.info(`[cms] sign-in code for ${email}: ${code} (no mail key is set, so it was not emailed)`);
       return;
     }
-    console.error("[cms] RESEND_API_KEY is not set, so no sign-in code can be sent and nobody can sign in.");
+    console.error("[cms] no mail key is set (POSTMARK_SERVER_TOKEN or RESEND_API_KEY), so no sign-in code can be sent and nobody can sign in.");
     throw new APIError("SERVICE_UNAVAILABLE", { message: "The editor cannot send email right now. Tell the site owner." });
   }
   try {

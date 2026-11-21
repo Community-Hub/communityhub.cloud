@@ -31,6 +31,7 @@ export default defineConfig({
       // Sign-in codes are written to this folder instead of being emailed (see src/lib/cms/server.ts).
       CMS_OTP_OUTBOX: join(tmpdir(), `cms-test-otp-${port}`),
       RESEND_API_KEY: "",
+      POSTMARK_SERVER_TOKEN: "",
       BETTER_AUTH_SECRET: "test-secret-test-secret-test-secret-0123",
       BETTER_AUTH_URL: `http://admin.localhost:${port}`,
       CMS_MEDIA_DIR: join(tmpdir(), `cms-test-media-${port}`),

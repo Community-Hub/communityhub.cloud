@@ -20,7 +20,7 @@
     "test": "npm run test:unit && playwright test",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test:unit": "node --test 'scripts/**/*.test.mjs' && NODE_ENV=test node --experimental-strip-types --test src/lib/gesture.test.ts src/lib/legacy-redirects.test.ts src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/cms/cms.test.ts src/lib/cms/gate.test.ts",
+    "test:unit": "node --test 'scripts/**/*.test.mjs' && NODE_ENV=test node --experimental-strip-types --test src/lib/gesture.test.ts src/lib/legacy-redirects.test.ts src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/cms/cms.test.ts src/lib/cms/gate.test.ts src/lib/contact/mail.test.ts",
     "build:vercel": "NITRO_PRESET=vercel node scripts/with-app-env.mjs vite build && npm run db:migrate",
     "start": "NODE_ENV=production node .output/server/index.mjs",
     "test:legacy": "NODE_ENV=test node --experimental-strip-types --test src/lib/legacy-redirects.test.ts"

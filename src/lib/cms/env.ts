@@ -4,7 +4,7 @@
  *   ADMIN_EMAILS       comma separated. Only these emails may sign up or sign in.
  *   ADMIN_HOST         host (and port, locally) the editor lives on, e.g. editor.communityhb.tech.
  *   BETTER_AUTH_SECRET signs the editor sessions.
- *   RESEND_API_KEY     sends the sign-in codes (see contact/mail.server.ts). Without it nobody can sign in.
+ *   POSTMARK_SERVER_TOKEN or RESEND_API_KEY  sends the sign-in codes (see contact/mail.server.ts). Without one nobody can sign in.
  *   CMS_OTP_OUTBOX     development and tests only: a folder the sign-in codes are written to instead of emailed.
  *
  * There are no passwords. An editor types their address, is emailed a 6-digit code and stays signed in for a week.
