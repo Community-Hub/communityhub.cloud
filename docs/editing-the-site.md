@@ -15,7 +15,7 @@ After that, sign in at the same address with your email and password.
 1. Open **Words and links**.
 2. Type a few words from the sentence into **Find a word or heading**, or pick the page from the list under it.
 3. Click the sentence. Edit it in the box. You'll see **On the site now** and **Your version** side by side.
-4. Press **Save**. It shows on the site within a few minutes.
+4. Press **Save**. It shows on the site after about a minute: refresh the page, and if it still shows the old wording, refresh once more.
 
 If your text runs much longer than the original, the editor warns you, because long text may not fit its space on the page.
 
