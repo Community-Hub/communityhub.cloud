@@ -25,12 +25,14 @@ import { pc } from "@/lib/page-content";
 import { bundles, faq, services } from "@/lib/pricing";
 import { productPages } from "@/lib/product-pages";
 import { site } from "@/lib/site";
+import { team } from "@/lib/team";
 import { whoStops } from "@/lib/who";
 
 /** Page names as the editors see them. */
 const PAGE: Record<string, string> = {
   meta: "Browser tab titles and search text",
   about: "About",
+  communities: "Communities",
   digitalSignage: "Digital Signage",
   pricing: "Pricing",
   products: "Products",
@@ -70,14 +72,15 @@ const roots: RootSpec[] = [
   { name: "educateBeats", page: "Home: Educate", value: educateBeats },
   { name: "empowerBeats", page: "Home: Motivate and Empower", value: empowerBeats },
   { name: "orbBeats", page: "Home: Environmental Orb", value: orbBeats },
-  { name: "demoChanges", page: "Home: What it changed", value: demoChanges },
+  { name: "demoChanges", page: "Research: What it changed", value: demoChanges },
   { name: "aboutOriginFrames", page: "About", value: ABOUT_ORIGIN_FRAMES },
+  { name: "team", page: "About", value: team },
   { name: "phoneFrames", page: "Digital Signage", value: PHONE_FRAMES },
   { name: "productPages", page: "Product pages", value: productPages },
   { name: "bundles", page: "Pricing", value: bundles },
   { name: "services", page: "Pricing", value: services },
   { name: "faq", page: "Pricing", value: faq },
-  { name: "whoStops", page: "Home: Who it’s for", value: whoStops },
+  { name: "whoStops", page: "Communities", value: whoStops },
   { name: "implementations", page: "Implementations", value: implementations, only: ["name", "kind", "summary", "image", "alt", "liveLabel"] },
   { name: "implementationGroups", page: "Implementations", value: implementationGroups, only: ["title", "description"] },
   { name: "implementationIntro", page: "Implementations", value: implementationIntro },
@@ -117,6 +120,7 @@ const lists: ListSpec[] = [
   { path: "faq", label: "Questions and answers", page: "Pricing", itemLabel: (f) => f.q },
   { path: "stories", label: "Home page stories", page: "Home: stories", itemLabel: (s) => s.org || s.alt },
   { path: "aboutOriginFrames", label: "Where it began: pictures", page: "About", itemLabel: frameLabel },
+  { path: "team", label: "Our team", page: "About", itemLabel: (m) => m.name },
   { path: "phoneFrames", label: "Use your phone: pictures", page: "Digital Signage", itemLabel: frameLabel },
   ...frameLists("engageBeats", engageBeats, "Home: Engage"),
   ...frameLists("educateBeats", educateBeats, "Home: Educate"),
@@ -130,6 +134,7 @@ const lists: ListSpec[] = [
  */
 const sections: SectionSpec[] = [
   { path: "/about", id: "origin", label: "Where it began", page: "About" },
+  { path: "/about", id: "team", label: "Our team", page: "About" },
   { path: "/about", id: "supporters", label: "Supporters", page: "About" },
   { path: "/pricing", id: "services", label: "Design services", page: "Pricing" },
   { path: "/pricing", id: "questions", label: "Questions", page: "Pricing" },

@@ -13,13 +13,21 @@ function setDetailInternal(next: string) {
 /**
  * Records an in-page navigation target (chapter, tab, or section id) in memory
  * so internal navigation never dirties the browser URL with a `#fragment`.
+ * `announce: false` when the target is on another page: the page being left must not take it (it would be lost), so
+ * it waits, unannounced, for the page that is about to open.
  */
-export function setNavigationTarget(target: string) {
+export function setNavigationTarget(target: string, announce = true) {
   const cleaned = target.replace(/^#/, "");
   pendingTarget = cleaned;
-  if (typeof window !== "undefined" && cleaned) {
+  if (announce && typeof window !== "undefined" && cleaned) {
     window.dispatchEvent(new CustomEvent("ch:target", { detail: cleaned }));
   }
+}
+
+/** The pending navigation target (or the URL's `#hash`), left in place for the page that owns it. */
+export function peekNavigationTarget(): string {
+  if (pendingTarget) return pendingTarget;
+  return typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "";
 }
 
 /**

@@ -1,17 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  Audiences,
-  Categories,
-  ContactBand,
-  HeroFilm,
-  Platform,
-  PricingTeaser,
-  Results,
-  Voices,
-  scrollToSection,
-  type CategoryTarget,
-} from "@/components/home";
+import { Categories, ContactBand, HeroFilm, Platform, Voices, scrollToSection, type CategoryTarget } from "@/components/home";
 import { SiteFooter } from "@/components/site-footer";
 import { pc } from "@/lib/page-content";
 import { site } from "@/lib/site";
@@ -28,7 +17,7 @@ export const Route = createFileRoute("/")({
 });
 
 /** Stops of the old full-screen home, so links written for it still land in the right place. */
-const OLD_STOPS: Record<string, string> = { problem: "top", who: "platform", orb: "educate", footer: "contact" };
+const OLD_STOPS: Record<string, string> = { problem: "top", who: "platform", orb: "educate", footer: "contact", audiences: "platform", results: "voices", pricing: "contact" };
 const CATEGORY_IDS = new Set(["engage", "educate", "motivate"]);
 
 function Home() {
@@ -59,13 +48,13 @@ function Home() {
   return (
     <>
       <main id="main" className="brochure deck">
+        {/* The order John and Maddie agreed on 19 Nov 2026: the problem, what Community Hub is, what it does, what people
+            say, then how to bring it to your community. Who it's for is the Communities page, What it changed is on
+            Research, and Pricing is its own page; all three sit under the menu now. */}
         <HeroFilm />
-        <Audiences />
         <Platform />
         <Categories target={target} />
         <Voices />
-        <Results />
-        <PricingTeaser />
         <ContactBand />
       </main>
       <SiteFooter />

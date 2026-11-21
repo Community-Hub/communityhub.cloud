@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, type MouseEvent, type RefObject } from "react";
 import { AppLink } from "@/components/app-link";
@@ -79,10 +80,7 @@ function CasePage() {
     <>
       <main id="main" className="pt-(--header-h)">
         <div className="wrap pt-[clamp(1.25rem,3.5vw,2.75rem)]">
-          <AppLink href="/implementations" className="link t-small">
-            <ArrowLeft className="size-4" aria-hidden />
-            {implementationCopy.nav.all}
-          </AppLink>
+          <Breadcrumbs />
           <div className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-1">
             <h1 className="t-h1">{place.name}</h1>
             <p className="text-lg font-medium text-ink/65">{place.kind}</p>

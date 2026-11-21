@@ -1,5 +1,5 @@
 // One place for every shared destination so a label never points two ways.
-export const WHO_HREF = "/implementations";
+export const WHO_HREF = "/communities";
 export const PRICING_HREF = "/pricing";
 /** The contact page opened on its Book a demo form. */
 export const DEMO_HREF = "/contact?mode=demo";

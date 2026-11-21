@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Breadcrumbs, SectionLinks } from "@/components/breadcrumbs";
 import { ArrowUp, ArrowUpRight, ChevronDown } from "lucide-react";
 import { Fragment, useEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode, type RefObject } from "react";
 import { AppLink } from "@/components/app-link";
@@ -464,7 +465,8 @@ function BringGuidePage() {
   return (
     <>
       <main id="main" className="pt-(--header-h)">
-        <div className="wrap pt-[clamp(2.5rem,6vw,5rem)]">
+        <div className="wrap pt-[clamp(2.5rem,3.6vw,3.25rem)]">
+          <Breadcrumbs className="mb-6" />
           <h1 className="t-h1 max-w-[15em]">{g.title}</h1>
           {/* One line on a wide screen; on a phone each part takes its own line, with no stray separators. */}
           <p className="mt-6 flex flex-wrap items-center gap-x-2.5 t-body text-ink/70 max-sm:flex-col max-sm:items-start">
@@ -482,6 +484,7 @@ function BringGuidePage() {
               <span className="sr-only"> {t.newTab}</span>
             </a>
           </p>
+          <SectionLinks className="mt-3" />
         </div>
 
         <div className="wrap mt-[clamp(2rem,5vw,4rem)] pb-(--section-y) lg:grid lg:grid-cols-[16.5rem_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[19rem_minmax(0,1fr)] xl:gap-16">

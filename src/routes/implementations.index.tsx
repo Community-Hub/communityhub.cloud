@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowRight } from "lucide-react";
 import { AppLink } from "@/components/app-link";
 import { ClosingBand } from "@/components/implementations/closing-band";
@@ -145,6 +146,7 @@ function ImplementationsIndex() {
       <main id="main" className="deck">
         <section aria-labelledby="implementations-title" className="page page-first page-center">
           <div className="wrap page-body">
+            <Breadcrumbs className="mb-6" />
             <h1 id="implementations-title" className="t-display max-w-4xl text-pine">{implementationIntro.title}</h1>
             <p className="mt-6 max-w-3xl t-lede">{implementationIntro.lede}</p>
           </div>

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FrameSlider } from "@/components/product-section";
 import { DocShell } from "@/components/doc";
 import { storyOfDashboard } from "@/data/embeds";
@@ -40,6 +41,7 @@ function StorySection({ id, label }: { id?: string; isFirst?: boolean; label: st
   return (
     <section id={id} aria-label={label} className="doc-section-block page page-first">
       <div className="wrap page-body">
+        <Breadcrumbs className="mb-5" />
         <div className="story-layout">
           <div className="story-copy">
             <h1 className="t-h1 max-w-[12ch]">{title}</h1>

@@ -451,6 +451,8 @@ export function Examples({
   };
   const layers = [at, ...(slide.prev !== null && slide.prev !== at && frames[slide.prev] ? [slide.prev] : [])];
   const scrollingEmbed = isScrollableHomeEmbed(frame);
+  // On the home, a dashboard says how it works (John, 19 Nov 2026: "I don't know how anyone would know that").
+  const legend = frame.legend ?? (home && scrollingEmbed && !frame.displayFrame ? "Scroll inside the dashboard, or press Play to scroll through it." : undefined);
   const hasPause = Boolean(many || scrollingEmbed || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/"));
 
   return (
@@ -546,20 +548,20 @@ export function Examples({
       </div>
       {many && <p className="sr-only" aria-live="polite">{`Example ${at + 1} of ${frames.length}`}</p>}
       <figcaption
-        data-has-legend={Boolean(frame.legend) || undefined}
+        data-has-legend={Boolean(legend) || undefined}
         style={{ paddingLeft: "var(--photo-title-inset, 0px)" }}
         className={
           home
-            ? frame.legend
+            ? legend
               ? "mt-2 text-left t-small text-ink/75"
               : "sr-only"
-            : frame.legend || frame.caption
+            : legend || frame.caption
               ? "mt-2 text-left t-small text-ink/75"
               : "sr-only"
         }
       >
-        {frame.legend ? (
-          <span className="block text-ink/75">{frame.legend}</span>
+        {legend ? (
+          <span className="block text-ink/75">{legend}</span>
         ) : (
           !home && frame.caption
         )}

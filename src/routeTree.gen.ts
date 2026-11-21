@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BringDashboardToYourCommunityRouteImport } from './routes/bring-dashboard-to-your-community'
 import { Route as CitywideDashboardRouteImport } from './routes/citywide-dashboard'
+import { Route as CommunitiesRouteImport } from './routes/communities'
 import { Route as CommunityCalendarRouteImport } from './routes/community-calendar'
 import { Route as CommunityVoicesRouteImport } from './routes/community-voices'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -68,6 +69,11 @@ const BringDashboardToYourCommunityRoute =
 const CitywideDashboardRoute = CitywideDashboardRouteImport.update({
   id: '/citywide-dashboard',
   path: '/citywide-dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunitiesRoute = CommunitiesRouteImport.update({
+  id: '/communities',
+  path: '/communities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunityCalendarRoute = CommunityCalendarRouteImport.update({
@@ -222,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/bring-dashboard-to-your-community': typeof BringDashboardToYourCommunityRoute
   '/citywide-dashboard': typeof CitywideDashboardRoute
+  '/communities': typeof CommunitiesRoute
   '/community-calendar': typeof CommunityCalendarRoute
   '/community-voices': typeof CommunityVoicesRoute
   '/contact': typeof ContactRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/bring-dashboard-to-your-community': typeof BringDashboardToYourCommunityRoute
   '/citywide-dashboard': typeof CitywideDashboardRoute
+  '/communities': typeof CommunitiesRoute
   '/community-calendar': typeof CommunityCalendarRoute
   '/community-voices': typeof CommunityVoicesRoute
   '/contact': typeof ContactRoute
@@ -295,6 +303,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/bring-dashboard-to-your-community': typeof BringDashboardToYourCommunityRoute
   '/citywide-dashboard': typeof CitywideDashboardRoute
+  '/communities': typeof CommunitiesRoute
   '/community-calendar': typeof CommunityCalendarRoute
   '/community-voices': typeof CommunityVoicesRoute
   '/contact': typeof ContactRoute
@@ -333,6 +342,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/bring-dashboard-to-your-community'
     | '/citywide-dashboard'
+    | '/communities'
     | '/community-calendar'
     | '/community-voices'
     | '/contact'
@@ -369,6 +379,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/bring-dashboard-to-your-community'
     | '/citywide-dashboard'
+    | '/communities'
     | '/community-calendar'
     | '/community-voices'
     | '/contact'
@@ -405,6 +416,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/bring-dashboard-to-your-community'
     | '/citywide-dashboard'
+    | '/communities'
     | '/community-calendar'
     | '/community-voices'
     | '/contact'
@@ -442,6 +454,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   BringDashboardToYourCommunityRoute: typeof BringDashboardToYourCommunityRoute
   CitywideDashboardRoute: typeof CitywideDashboardRoute
+  CommunitiesRoute: typeof CommunitiesRoute
   CommunityCalendarRoute: typeof CommunityCalendarRoute
   CommunityVoicesRoute: typeof CommunityVoicesRoute
   ContactRoute: typeof ContactRoute
@@ -508,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/citywide-dashboard'
       fullPath: '/citywide-dashboard'
       preLoaderRoute: typeof CitywideDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communities': {
+      id: '/communities'
+      path: '/communities'
+      fullPath: '/communities'
+      preLoaderRoute: typeof CommunitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community-calendar': {
@@ -722,6 +742,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   BringDashboardToYourCommunityRoute: BringDashboardToYourCommunityRoute,
   CitywideDashboardRoute: CitywideDashboardRoute,
+  CommunitiesRoute: CommunitiesRoute,
   CommunityCalendarRoute: CommunityCalendarRoute,
   CommunityVoicesRoute: CommunityVoicesRoute,
   ContactRoute: ContactRoute,

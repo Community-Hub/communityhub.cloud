@@ -8,18 +8,21 @@ import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
-const GROUPS = pc.products.GROUPS;
+import { allProducts } from "@/lib/site-map";
 
 function iconFor(id: string) {
   return productIcon(id);
 }
 
-function GroupBlock({ group, heading = true }: { group: (typeof GROUPS)[number]; heading?: boolean }) {
+/**
+ * Every product in one plain list, in the menu's order. It is not divided under Engage, Educate, Motivate and Empower
+ * (John, 19 Nov 2026: those words say what Community Hub is for; they are "not headings for our products").
+ */
+function ProductList() {
   return (
     <div className="product-directory-group">
-      {heading && <h2 className="product-directory-heading border-b border-pine/30 pb-2 t-h3">{group.kicker}</h2>}
-      <ul>
-        {group.items.map((item) => (
+      <ul className="grid gap-x-8 border-t border-pine/30 md:grid-cols-3">
+        {allProducts().map((item) => (
           <li key={item.id} className="border-b border-pine/15">
             <AppLink href={item.href} className="flex min-h-11 items-center gap-3 py-3 short:py-1">
               <img src={iconFor(item.id)} alt="" className="size-12 shrink-0 object-contain short:size-10" />
@@ -86,11 +89,7 @@ function Products() {
         ledeClassName="t-body"
         lede={pc.products.LEDE}
       >
-        <div className="grid gap-8 md:grid-cols-3">
-          {GROUPS.map((group) => (
-            <GroupBlock key={group.kicker} group={group} />
-          ))}
-        </div>
+        <ProductList />
       </DocSection>
     </DocShell>
   );
