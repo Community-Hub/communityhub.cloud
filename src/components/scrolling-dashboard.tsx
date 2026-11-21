@@ -188,8 +188,9 @@ export function ScrollingDashboard({
         />
       )}
       {!partnerHeader && portalLayout && <PortalPartnerBanner kind={portalLayout.kind} />}
-      {/* The preview scrolls itself (the tour below); the wheel and a swipe pass through to the page, so a live example
-          never holds the page in place. The full page is one click away under "Open live example". */}
+      {/* With a mouse or trackpad the preview scrolls by hand and shows its scroll bar (John and Maddie, 19 Nov: "if you're
+          rolled over the inner part, it will roll the inner part"); at its top or bottom the wheel carries on to the page.
+          On touch screens a swipe still passes through to the page, so the page turns as before. Play runs the tour below. */}
       <div
         ref={viewport}
         data-dashboard-scroll
@@ -207,10 +208,9 @@ export function ScrollingDashboard({
         onTouchEnd={() => setTouching(false)}
         onTouchCancel={() => setTouching(false)}
         aria-label={`${title} scrolling preview`}
-        className="relative min-h-0 flex-1 w-full overflow-hidden bg-white"
+        className="dashboard-viewport relative min-h-0 flex-1 w-full bg-white"
       >
         <EmbedLoading ready={ready} />
-        {passiveMarker && <span aria-hidden data-passive-preview className="pointer-events-none absolute inset-0 z-10" />}
         {box.w > 0 && (
           <div className="relative w-full overflow-hidden" style={{ height: scaledHeight }}>
             <iframe
@@ -229,6 +229,8 @@ export function ScrollingDashboard({
                 transform: `scale(${scale})`,
               }}
             />
+            {/* Covers the whole scrolled length, so the wheel always lands on the preview, never inside the live page. */}
+            {passiveMarker && <span aria-hidden data-passive-preview className="pointer-events-none absolute inset-0 z-10" />}
           </div>
         )}
       </div>

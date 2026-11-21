@@ -287,7 +287,7 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         caption: "",
       },
       more([
-        { href: "/dashboard-builder", label: "Building Dashboard", note: "What the public sees for one building" },
+        { href: "/dashboard-builder", label: "Building Dashboard", note: "What the public sees for a building or a group of buildings" },
         { href: "/citywide-dashboard", label: "Citywide Dashboard", note: "What the public sees for the town" },
         { href: "/web-embeddables", label: "Web Embeddables", note: "Put a chart on another site" },
       ]),

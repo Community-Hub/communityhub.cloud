@@ -4,17 +4,18 @@ import { circleButton } from "@/components/slider-arrows";
 
 /**
  * Whether something that moves on its own is running. It starts paused when the visitor asks for reduced motion
- * (and follows the setting if it changes); the visitor can still press Play.
+ * (and follows the setting if it changes), or when `startPlaying` is false; the visitor can still press Play.
  */
-export function useAutoplay() {
-  const [playing, setPlaying] = useState(true);
+export function useAutoplay(startPlaying = true) {
+  const [playing, setPlaying] = useState(startPlaying);
   useEffect(() => {
     const q = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (q.matches) setPlaying(false);
-    const sync = () => setPlaying(!q.matches);
+    // Re-applied when `startPlaying` changes, so a section that moves from photos to a scrolling dashboard starts it paused.
+    setPlaying(startPlaying && !q.matches);
+    const sync = () => setPlaying(startPlaying && !q.matches);
     q.addEventListener("change", sync);
     return () => q.removeEventListener("change", sync);
-  }, []);
+  }, [startPlaying]);
   return [playing, setPlaying] as const;
 }
 

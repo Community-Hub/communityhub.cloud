@@ -185,7 +185,16 @@ export function SiteHeader() {
               );
             })}
           </nav>
-          <AppLink href={site.contactHref} className="btn-primary ml-3 hidden min-h-10! px-5! text-[0.9375rem]! lg:inline-flex">
+          {/* A menu item like the others, not a pill (John, 19 Nov: "I just think it's confusing for it to always be a
+              different button than every other button"). */}
+          <AppLink
+            href={site.contactHref}
+            aria-current={isActive(path, site.contactHref) ? "page" : undefined}
+            className={cn(
+              "hidden h-10 items-center rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors duration-150 hover:bg-field hover:text-pine lg:inline-flex",
+              isActive(path, site.contactHref) ? "font-semibold text-pine" : "text-ink/75",
+            )}
+          >
             {copy.siteHeader.SiteHeader.a1}
           </AppLink>
 
