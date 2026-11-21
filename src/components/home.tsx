@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
-import { ArrowRight, Check, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { AppLink } from "@/components/app-link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 export { ContactBand } from "@/components/contact-band";
 import { Examples, slugOf } from "@/components/product-section";
 import publicationsData from "@/data/publications.json";
@@ -10,9 +11,6 @@ import { pc } from "@/lib/page-content";
 import { homeEducateBeats, homeEmpowerBeats, homeEngageBeats, homeFeatureStories, homeMission } from "@/lib/home-feedback";
 import { imageSize } from "@/lib/image-dimensions";
 import { implementationHref, implementations } from "@/lib/implementations";
-import { DEMO_HREF, quoteHref } from "@/lib/links";
-import { bundles } from "@/lib/pricing";
-import { site } from "@/lib/site";
 import { usePreviewRotation } from "@/lib/use-preview-rotation";
 import { useSwipe } from "@/lib/use-swipe";
 import { whoStops } from "@/lib/who";
@@ -40,17 +38,23 @@ export function HeroFilm() {
     if (!v) return;
     let handOff: number | undefined;
     let handedOff = false;
-    const cancel = () => window.clearTimeout(handOff);
+    // Once the visitor scrolls, clicks or types, the page is theirs: it never moves by itself after that.
+    let touched = false;
+    const cancel = () => {
+      touched = true;
+      window.clearTimeout(handOff);
+    };
     const onPlay = () => setPlaying(true);
     const onStop = () => setPlaying(false);
-    // When the film ends and the visitor is still at the top, the page moves on to Who it's for, once.
-    // Any scroll, key or touch in the meantime cancels it.
+    // When the film ends and the visitor is still at the top, the page moves on to what Community Hub is, once
+    // (Maddie, 19 Nov 2026: "it should go straight from 'it has never been more important' into the community-centered
+    // communication platform"). Any scroll, key or touch in the meantime cancels it.
     const onEnded = () => {
       setPlaying(false);
-      if (handedOff || document.hidden || window.scrollY > 24) return;
+      if (handedOff || touched || document.hidden || window.scrollY > 24) return;
       handedOff = true;
       handOff = window.setTimeout(() => {
-        if (window.scrollY <= 24) scrollToSection("audiences");
+        if (window.scrollY <= 24) scrollToSection("platform");
       }, 700);
     };
     v.addEventListener("play", onPlay);
@@ -92,14 +96,8 @@ export function HeroFilm() {
             <span className="text-lime">{hero.span2}</span>
           </h1>
           <p className="home-hero-line">{t.p1}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <AppLink href={site.contactHref} className="btn-primary">
-              {t.a1}
-            </AppLink>
-            <AppLink href={DEMO_HREF} className="btn-on-dark">
-              {copy.siteHeader.SiteHeader.a2}
-            </AppLink>
-          </div>
+          {/* No Contact us or Book a demo here (John, 19 Nov 2026: "that's a cut from the first page"); both are on the
+              closing page, and Contact us is in the menu. */}
         </div>
         <button type="button" onClick={toggle} aria-label={label} title={label} className="home-film-toggle">
           {playing ? <Pause className="size-4.5" fill="currentColor" strokeWidth={0} aria-hidden /> : <Play className="size-4.5 translate-x-px" fill="currentColor" strokeWidth={0} aria-hidden />}
@@ -171,17 +169,28 @@ function useRowArrows() {
   return { ref, ends, move };
 }
 
-export function Audiences() {
+/**
+ * The kinds of community Community Hub serves, each with its real place. It is the Communities page under Bring
+ * Dashboard to Your Community, not a home section (John, 19 Nov 2026: "I do kind of like it. It just doesn't belong
+ * where it is ... it could be under Bring Dashboard to Your Community, because your community could be cities,
+ * neighborhoods, schools"). `title` is the page's name from the menu.
+ */
+export function Audiences({ title, lede }: { title?: string; lede?: string }) {
   const t = copy.home.Audiences;
   const stops = AUDIENCE_ORDER.flatMap((id) => whoStops.filter((stop) => stop.id === id));
   const row = useRowArrows();
+  const Heading = title ? "h1" : "h2";
   return (
-    <section id="audiences" aria-labelledby="audiences-title" className="page">
+    <section id="audiences" aria-labelledby="audiences-title" className={title ? "page page-first" : "page"}>
       <div className="wrap page-body">
+        {title && <Breadcrumbs className="mb-5" />}
         <div className="page-head">
-          <h2 id="audiences-title" className="t-h2">
-            {t.h21}
-          </h2>
+          <div className="min-w-0">
+            <Heading id="audiences-title" className="t-h2">
+              {title ?? t.h21}
+            </Heading>
+            {lede && <p className="mt-2 max-w-3xl t-body text-ink/80">{lede}</p>}
+          </div>
           <AppLink href="/implementations" className="link">
             {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
           </AppLink>
@@ -508,7 +517,8 @@ function resultLines(change: (typeof demoChanges)[number]) {
   return { lead: first, support: second };
 }
 
-export function Results() {
+/** `onResearch`: shown on the Research page itself, so it does not link there (it moved from the home on 21 Nov 2026). */
+export function Results({ onResearch = false }: { onResearch?: boolean }) {
   const t = copy.home.Results;
   const shown = demoChanges.filter((change) => change.image);
   const research = demoChanges.find((change) => change.id === "research");
@@ -522,9 +532,11 @@ export function Results() {
             </h2>
             {research?.lines[0] && <p className="t-lede mt-4">{research.lines[0]}</p>}
           </div>
-          <AppLink href="/research" className="link">
-            {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
-          </AppLink>
+          {!onResearch && (
+            <AppLink href="/research" className="link">
+              {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
+            </AppLink>
+          )}
         </div>
         <ul className="home-results strip page-fill">
           {shown.map((change) => {
@@ -541,51 +553,6 @@ export function Results() {
               </li>
             );
           })}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ Pricing */
-
-export function PricingTeaser() {
-  const t = copy.home.Pricing;
-  return (
-    <section id="pricing" aria-labelledby="pricing-title" className="page page-center">
-      <div className="wrap page-body">
-        <div className="page-head">
-          <div className="max-w-2xl">
-            <h2 id="pricing-title" className="t-h2">
-              {t.h21}
-            </h2>
-            <p className="t-lede mt-4">{site.pricingLede}</p>
-          </div>
-          <AppLink href="/pricing" className="link">
-            {t.AppLink1} <ArrowRight className="size-4" aria-hidden />
-          </AppLink>
-        </div>
-        <ul className="home-bundles strip">
-          {bundles.map((bundle) => (
-            <li key={bundle.id} className="home-bundle strip-item">
-              <h3 className="t-h3">{bundle.name} bundle</h3>
-              <ul className="mt-5 space-y-2.5">
-                {bundle.items.map((entry) => (
-                  <li key={entry} className="flex gap-3 t-body">
-                    <Check className="mt-1 size-4 shrink-0 text-leaf" strokeWidth={2.5} aria-hidden />
-                    <span>{entry}</span>
-                  </li>
-                ))}
-              </ul>
-              {bundle.note && <p className="bundle-note mt-4 text-sm text-ink/65">{bundle.note}</p>}
-              <div className="mt-auto pt-8">
-                <AppLink href={quoteHref(`${bundle.name} bundle`)} className="btn-secondary">
-                  {t.AppLink2}
-                  <span className="sr-only"> for the {bundle.name} bundle</span>
-                </AppLink>
-              </div>
-            </li>
-          ))}
         </ul>
       </div>
     </section>

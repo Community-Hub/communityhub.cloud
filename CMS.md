@@ -8,7 +8,7 @@ Maddie and John can change the site's words, links, pictures, lists and sections
 - The code holds the original text. Edits are stored in the database (`cms_content`) and merged over the original on the server before the page is drawn, so there is no flash of old text.
 - Every save writes a row to `cms_revisions` (who, what, when, old value, new value). Any revision, or the original, can be restored from History.
 - Pictures: replace any picture; a description (alt text) is required. jpg, png or webp only (no SVG), checked by file content, 4 MB limit. The original stays available as "Use the original".
-- Lists (lessons, publications, case studies, voices, pricing tiers, design services, FAQ, home stories, orb/engage/educate/motivate frames): add, remove, reorder. A new item copies the layout of the first item.
+- Lists (lessons, publications, case studies, voices, pricing tiers, design services, FAQ, home stories, the team on About, orb/engage/educate/motivate frames): add, remove, reorder. A new item copies the layout of the first item.
 - Sections (11 of them, such as Supporters, Questions, Results): hide or show.
 - A warning appears when text is much longer than the original (about 1.3 times plus 12 characters).
 - Edits show on the public site at once on Vercel: pages are cached for 5 minutes (refreshing in the background for a day), and every save purges that cache (tag `cms`, via `@vercel/functions`). The purge only runs on Vercel and has not been exercised yet; if it ever fails, edits still show within 5 minutes.

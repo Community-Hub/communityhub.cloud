@@ -34,8 +34,15 @@ export function AppLink({
       to={parsed.to as never}
       search={parsed.search as never}
       className={className}
-      onClick={() => {
-        if (parsed.hash) setNavigationTarget(parsed.hash);
+      onClick={(event) => {
+        if (parsed.hash) {
+          const here = window.location.pathname.replace(/\/+$/, "") || "/";
+          const samePage = here === parsed.to;
+          setNavigationTarget(parsed.hash, samePage);
+          // Already on that page: it scrolls to the target itself, and a second page change would cut the scroll short.
+          const plain = !(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey);
+          if (plain && !parsed.search && samePage) event.preventDefault();
+        }
         onClick?.();
       }}
       {...rest}

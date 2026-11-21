@@ -86,6 +86,7 @@ export const PUBLIC_ROUTES: readonly string[] = [
   "/citywide-dashboard",
   "/community-calendar",
   "/community-voices",
+  "/communities",
   "/contact",
   "/dashboard-builder",
   "/data-hub",

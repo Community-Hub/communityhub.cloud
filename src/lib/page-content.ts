@@ -11,6 +11,7 @@ const about = (() => {
 const STOPS = [
   { id: "about", label: "About" },
   { id: "origin", label: "Where it began" },
+  { id: "team", label: "Our team" },
   { id: "supporters", label: "Supporters" },
 ];
   return { STOPS };
@@ -219,7 +220,7 @@ const PROBLEM =
 // from src/components/not-found.tsx
 const notFound = (() => {
 const LINKS = [
-  { href: "/", label: "Home", note: "The story, from the voices to the footer" },
+  { href: "/", label: "Home", note: "The film, the products and what people say" },
   { href: "/products", label: "All products", note: "Signs, embeds, dashboards, calendar, voices and stories" },
   { href: "/implementations", label: "Implementations", note: "The city, the college, the schools, MidTown Cleveland and the Science Center" },
   { href: "/contact", label: "Contact us", note: "Ask about Community Hub for your community" },
@@ -230,25 +231,28 @@ const LINKS = [
 
 // from src/components/site-footer.tsx
 const siteFooter = (() => {
-const FOOTER: { title: string; links: { href: string; label: string; hideOnPhone?: boolean }[] }[] = [
+const DOORS = [
+  { href: WHO_HREF, label: "Who It\u2019s For" },
+  { href: PRICING_HREF, label: "Pricing" },
+] as const;
+  return { DOORS };
+})();
+
+// from src/components/site-header.tsx
+const siteHeader = (() => {
+// The menu John and Maddie settled on in their review of 19 Nov 2026 (52:03-54:17): "home, products, implementations,
+// bring dashboard to your community, resources, about us ... and then contact us". Pricing sits under Bring Dashboard to
+// Your Community ("having pricing on the top just feels so crass"), Story is "Story of the Dashboard" under About Us, and
+// every item with pages under it opens a menu. The footer and the breadcrumbs are built from this same list.
+type NavChild = { href: string; label: string };
+type NavItem = { to: string; label: string; children?: NavChild[] };
+const NAV: NavItem[] = [
+  { to: "/", label: "Home" },
+  { to: "/products", label: "Products" },
   {
-    title: "Products",
-    links: [
-      { href: "/digital-signage", label: "Digital Signage" },
-      { href: "/phone-app", label: "Phone App" },
-      { href: "/web-embeddables", label: "Web Embeddables" },
-      { href: "/dashboard-builder", label: "Building Dashboard" },
-      { href: "/citywide-dashboard", label: "Citywide Dashboard" },
-      { href: "/data-hub", label: "Data Hub" },
-      { href: "/stories", label: "Stories" },
-      { href: "/community-calendar", label: "Community Calendar" },
-      { href: "/community-voices", label: "Community Voices" },
-      { href: "/services", label: "Services" },
-    ],
-  },
-  {
-    title: "Implementations",
-    links: [
+    to: "/implementations",
+    label: "Implementations",
+    children: [
       { href: "/implementations", label: "All implementations" },
       { href: "/implementations/city-of-oberlin", label: "City of Oberlin" },
       { href: "/implementations/midtown-cleveland", label: "MidTown Cleveland" },
@@ -258,49 +262,48 @@ const FOOTER: { title: string; links: { href: string; label: string; hideOnPhone
     ],
   },
   {
-    title: "Resources",
-    links: [
-      { href: "/bring-dashboard-to-your-community", label: "Implementation guide" },
-      { href: "/toolkit", label: "Teacher toolkit" },
-      { href: "/research", label: "Research" },
-      { href: "/resources", label: "Resources" },
-      { href: "/story", label: "Story of the Dashboard" },
+    to: BRING_HREF,
+    label: "Bring Dashboard to Your Community",
+    children: [
+      { href: "/communities", label: "Communities" },
+      { href: BRING_HREF, label: "Implementation guide" },
+      { href: PRICING_HREF, label: "Pricing" },
     ],
   },
   {
-    title: "Company",
-    links: [
-      { href: "/about", label: "About" },
-      { href: "/pricing", label: "Pricing" },
-      { get href() { return site.contactHref; }, label: "Contact us" },
+    to: "/resources",
+    label: "Resources",
+    children: [
+      { href: "/resources", label: "All resources" },
+      { href: "/toolkit", label: "Teacher toolkit" },
     ],
   },
+  {
+    to: "/about",
+    label: "About Us",
+    children: [
+      { href: "/about", label: "Our mission" },
+      { href: "/about#team", label: "Our team" },
+      { href: "/story", label: "Story of the Dashboard" },
+      { href: "/research", label: "Research" },
+    ],
+  },
+  { to: "/contact", label: "Contact us" },
 ];
-const DOORS = [
-  { href: WHO_HREF, label: "Who It\u2019s For" },
-  { href: PRICING_HREF, label: "Pricing" },
-] as const;
-  return { FOOTER, DOORS };
-})();
-
-// from src/components/site-header.tsx
-const siteHeader = (() => {
-const NAV = [
-  { to: "/products", label: "Products" },
-  { to: "/implementations", label: "Implementations" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/research", label: "Research" },
-  { to: "/story", label: "Story" },
-  { to: "/about", label: "About" },
-] as const;
   return { NAV };
 })();
 
 // Browser tab titles and the search-engine descriptions (read by each route's head()).
+// from src/routes/communities.tsx
+const communities = {
+  lede: "The kinds of communities that use Community Hub. Each card opens a place where it runs today.",
+};
+
 const meta = {
   home: { title: "Community Hub" },
   ogDescription: { text: "Community Hub is a community-centered communication platform that connects people with local information, resources and each other." },
   about: { title: "About — Community Hub" },
+  communities: { title: "Communities — Community Hub", description: "Cities, neighborhoods, schools, campuses and museums using Community Hub, each with its real place." },
   pricing: { title: "Pricing — Community Hub", description: "Three Community Hub bundles, each quoted for your site." },
   products: { title: "Products and Services — Community Hub" },
   story: { title: "Story of the Dashboard — Community Hub", description: "The Story of the Dashboard presentation, and its original slides." },
@@ -310,4 +313,4 @@ const meta = {
   toolkit: { title: "Teacher toolkit — Community Hub" },
 };
 
-export const pc = { meta, about, pricing, resources, digitalSignage, products, research, story, toolkit, chapters, notFound, siteFooter, siteHeader };
+export const pc = { meta, about, communities, pricing, resources, digitalSignage, products, research, story, toolkit, chapters, notFound, siteFooter, siteHeader };

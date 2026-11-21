@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import { AppLink } from "@/components/app-link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SiteFooter } from "@/components/site-footer";
 import { legal } from "@/lib/legal";
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
@@ -37,11 +37,7 @@ export function LegalPage({
     <main id="main" className="bg-paper text-ink">
       <div className="border-b border-line">
         <div className="mx-auto w-full max-w-5xl px-(--gutter) pb-10 pt-[calc(var(--header-h)+clamp(2.5rem,6vw,4.5rem))] md:pb-12">
-          <nav aria-label="Breadcrumb" className="text-[0.9375rem] text-ink/65">
-            <AppLink href="/" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">Community Hub</AppLink>
-            <span aria-hidden="true" className="px-2 text-ink/50">/</span>
-            <span className="text-ink/70">Legal</span>
-          </nav>
+          <Breadcrumbs current={title} />
           <h1 className="mt-6 max-w-3xl t-h1">{title}</h1>
           <p className="mt-5 max-w-2xl t-lede">{intro}</p>
           <dl className="mt-8 grid gap-x-8 gap-y-3 border-t border-line pt-5 t-small sm:grid-cols-3">

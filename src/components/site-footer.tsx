@@ -4,7 +4,28 @@ import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
-export const FOOTER = pc.siteFooter.FOOTER;
+import { allProducts, SERVICES } from "@/lib/site-map";
+
+/**
+ * The footer mirrors the main menu, heading for heading (John, 19 Nov 2026: "this has story, this does not have story,
+ * this has company ... it just feels super inconsistent"). It is read from the menu's own list each time it draws, so
+ * the two cannot drift apart and an edit to a menu label shows in both.
+ */
+function footerColumns() {
+  return [
+    {
+      title: "Products",
+      links: [{ href: "/products", label: "All products" }, ...allProducts().map((item) => ({ href: item.href, label: item.title })), SERVICES],
+    },
+    ...pc.siteHeader.NAV.filter((item) => item.children).map((item) => ({
+      title: item.label,
+      links: item.children!.map((child) => ({ href: child.href, label: child.label })),
+    })),
+  ];
+}
+
+/** The menu's items that open no menu of their own (Home, Contact us): plain links beside the columns. */
+const plainItems = () => pc.siteHeader.NAV.filter((item) => !item.children && item.to !== "/products");
 
 /** The one footer, at the end of every page. */
 export function SiteFooter() {
@@ -22,14 +43,23 @@ export function SiteFooter() {
                 {site.contactEmail}
               </a>
             </p>
+            <ul className="mt-3 flex flex-wrap gap-x-5">
+              {plainItems().map((item) => (
+                <li key={item.to}>
+                  <AppLink href={item.to} className="inline-flex min-h-8 items-center text-[0.9375rem] text-ink/72 transition-colors duration-150 hover:text-pine">
+                    {item.label}
+                  </AppLink>
+                </li>
+              ))}
+            </ul>
           </div>
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
-            {FOOTER.map((col) => (
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+            {footerColumns().map((col) => (
               <div key={col.title} className="min-w-0">
                 <p className="eyebrow">{col.title}</p>
                 <ul className="mt-3 space-y-0.5">
                   {col.links.map((link) => (
-                    <li key={link.label}>
+                    <li key={link.href + link.label}>
                       <AppLink href={link.href} className="inline-flex min-h-8 items-center text-[0.9375rem] text-ink/72 transition-colors duration-150 hover:text-pine">
                         {link.label}
                       </AppLink>

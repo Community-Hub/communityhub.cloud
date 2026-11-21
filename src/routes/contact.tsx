@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   Fragment,
   useEffect,
@@ -117,6 +118,7 @@ function Contact() {
         <div className="wrap pb-(--section-y) pt-[clamp(2.5rem,6vw,4.5rem)]">
           <div className="grid gap-y-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-12 xl:gap-x-24">
             <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <Breadcrumbs className="mb-6" />
               <h1 className="t-h1">{t.title}</h1>
               <p className="mt-5 max-w-xl t-lede">{copy.siteFooter.FooterChapter.p2}</p>
             </div>

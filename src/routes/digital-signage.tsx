@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { useEffect } from "react";
 import { AppLink } from "@/components/app-link";
 import { PhoneControl } from "@/components/phone-control";
@@ -201,16 +202,7 @@ function DigitalSignage() {
         {/* Section 1: Digital Signage Hero + Installation Slider */}
         <section id="digital-signage" className="product-section page page-first page-center">
           <div className="wrap page-body">
-          <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
-            <AppLink
-              href={copy.productPager.ProductPager.AppLink_href1}
-              className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine"
-            >
-              {copy.productPager.ProductPager.AppLink1}
-            </AppLink>
-            <span aria-hidden className="px-2 text-ink/35">/</span>
-            <span aria-current="page">{copy.digitalSignage.DigitalSignage.h11}</span>
-          </nav>
+          <Breadcrumbs className="mb-6" />
 
           <div className="product-detail-layout product-detail-split">
             <div className="min-w-0">

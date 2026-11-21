@@ -21,6 +21,7 @@ export const copy = {
       "AppLink2": "See where it runs",
       "AppLink_href3": "/story",
       "AppLink3": "Story of the Dashboard",
+      "DocSection_title4": "Our team",
       "DocSection_title3": "Supporters",
       "p1": "Environmental Dashboard work has been funded by the U.S. EPA, the Great Lakes Protection Fund, the Cleveland Foundation and, through the Great Lakes Colleges Association, the Andrew W. Mellon Foundation."
     }
@@ -275,6 +276,7 @@ export const copyContext: Record<string, string> = {
   "about.About.AppLink2": "Where it began",
   "about.About.AppLink_href3": "Where it began",
   "about.About.AppLink3": "Where it began",
+  "about.About.DocSection_title4": "Our team",
   "about.About.DocSection_title3": "Supporters",
   "about.About.p1": "Supporters",
   "pricing.Pricing.DocSection_title1": "Pricing",

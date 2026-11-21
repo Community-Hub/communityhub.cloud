@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowRight, BarChart3, Building2, RadioTower } from "lucide-react";
 import { AppLink } from "@/components/app-link";
 import { ContactBand } from "@/components/contact-band";
@@ -125,15 +126,7 @@ function LoRaWAN() {
       <main id="main" className="product-main deck">
         <section id="lorawan" aria-labelledby="lorawan-title" className="product-section page page-first page-center">
           <div className="wrap page-body">
-            <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
-              <AppLink href="/products" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">
-                Products
-              </AppLink>
-              <span aria-hidden className="px-2 text-ink/35">
-                /
-              </span>
-              <span aria-current="page">LoRaWAN</span>
-            </nav>
+            <Breadcrumbs className="mb-6" />
             <div className="product-detail-layout product-detail-split">
               <div className="min-w-0">
                 <img src={productIcon("lorawan")} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />

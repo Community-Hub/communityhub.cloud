@@ -1,9 +1,10 @@
-import { useLocation } from "@tanstack/react-router";
-import { Children, cloneElement, isValidElement, useEffect } from "react";
+import { useLocation, useRouter } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Children, cloneElement, isValidElement, useEffect, useRef } from "react";
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { siteIndex } from "@/lib/site-registry";
 import { imageSize } from "@/lib/image-dimensions";
-import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+import { consumeNavigationTarget, peekNavigationTarget } from "@/lib/use-hash-stops";
 import { SiteFooter } from "@/components/site-footer";
 import { ContactBand, type BackCoverPhoto } from "@/components/contact-band";
 import { cn } from "@/lib/utils";
@@ -35,7 +36,12 @@ export function DocShell({
   const shownKids = aligned ? kids.filter((_, i) => keep[i]) : kids;
   const shownStops = aligned ? stops.filter((_, i) => keep[i]) : stops;
 
+  const router = useRouter();
+  // The section this page was opened for, kept until the scroll to it has started (the effect below can run twice).
+  const arriving = useRef("");
   useEffect(() => {
+    let timer = 0;
+    let stopWaiting: (() => void) | undefined;
     const scrollToTarget = (target: string) => {
       if (!target) return;
       const el = document.getElementById(target);
@@ -43,13 +49,46 @@ export function DocShell({
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     };
-    const initial = consumeNavigationTarget();
-    if (initial) scrollToTarget(initial);
+    // Opened for one of its sections ("Our team" in the menu, clicked on another page): be at that section as soon as
+    // the page change is done, with no ride down the page. The router puts a new page at its top as the change
+    // finishes, so the jump waits for that. The page being left sees the new address before it goes away; only the
+    // page that has the section takes the target.
+    const initial = peekNavigationTarget();
+    if (initial && document.getElementById(initial)) {
+      consumeNavigationTarget();
+      arriving.current = initial;
+    }
+    if (arriving.current) {
+      const land = () => {
+        const id = arriving.current;
+        arriving.current = "";
+        let checks = 0;
+        const go = () => {
+          document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+        };
+        // The router can put the page back at its top once more just after this; if it does, go again.
+        const hold = () => {
+          if (window.scrollY < 8) go();
+          if (++checks < 8) timer = window.setTimeout(hold, 60);
+        };
+        go();
+        timer = window.setTimeout(hold, 30);
+      };
+      if (router.state.status === "pending" || router.state.isLoading) {
+        stopWaiting = router.subscribe("onResolved", () => {
+          stopWaiting?.();
+          stopWaiting = undefined;
+          land();
+        });
+      } else land();
+    }
 
     const onTarget = (event: Event) => {
       const target = (event as CustomEvent<string>).detail;
+      // A target on another page ("Our team" in the menu, clicked from Pricing) stays pending for that page to pick up.
+      if (!target || !document.getElementById(target)) return;
       consumeNavigationTarget();
-      if (target) scrollToTarget(target);
+      scrollToTarget(target);
     };
     const onHash = () => {
       const target = consumeNavigationTarget();
@@ -58,10 +97,12 @@ export function DocShell({
     window.addEventListener("ch:target", onTarget);
     window.addEventListener("hashchange", onHash);
     return () => {
+      window.clearTimeout(timer);
+      stopWaiting?.();
       window.removeEventListener("ch:target", onTarget);
       window.removeEventListener("hashchange", onHash);
     };
-  }, [pathname]);
+  }, [pathname, router]);
 
   return (
     <div className="bg-paper text-ink">
@@ -120,6 +161,7 @@ export function DocSection({
       style={cut ? ({ "--shot-h": `max(${minShot}rem, 26rem)` } as CSSProperties) : ({ "--shot-h": "30rem" } as CSSProperties)}
     >
       <div className="wrap page-body">
+        {isFirst && <Breadcrumbs className="mb-5" />}
         <Title className={titleClassName ?? (Title === "h1" ? "t-h1 max-w-4xl" : "t-h2 max-w-3xl")}>{title}</Title>
         {lede && <p className={cn("max-w-3xl", Title === "h1" ? "mt-5" : "mt-4", ledeClassName ?? "t-lede")}>{lede}</p>}
         {children && <div className={Title === "h1" ? "mt-10 md:mt-12" : "mt-8 md:mt-10"}>{children}</div>}

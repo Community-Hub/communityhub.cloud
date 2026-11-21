@@ -8,7 +8,9 @@ async function ready(page: Page) {
   await page.locator("html[data-hydrated='true']").waitFor({ state: "attached" });
 }
 
-const HOME_PAGES = ["top", "audiences", "platform", "engage", "educate", "motivate", "voices", "results", "pricing", "contact"];
+// The order John and Maddie agreed on 19 Nov 2026: the problem, what Community Hub is, what it does, what people say,
+// then Bring Dashboard to Your Community. Who it's for, What it changed and Pricing sit under the menu instead.
+const HOME_PAGES = ["top", "platform", "engage", "educate", "motivate", "voices", "contact"];
 
 async function noSidewaysOverflow(page: Page) {
   const widths = await page.evaluate(() => ({ doc: document.documentElement.scrollWidth, view: document.documentElement.clientWidth }));
@@ -16,14 +18,17 @@ async function noSidewaysOverflow(page: Page) {
 }
 
 test.describe("home", () => {
-  test("opens on the film with Contact us and Book a demo", async ({ page }) => {
+  test("opens on the film, with no Contact us or Book a demo on it", async ({ page }) => {
     await page.goto("/");
     await ready(page);
     const hero = page.locator("#top");
     await expect(hero.getByRole("heading", { level: 1 })).toContainText("act locally");
-    await expect(hero.getByRole("link", { name: "Contact us" })).toHaveAttribute("href", "/contact");
-    await expect(hero.getByRole("link", { name: "Book a demo" })).toHaveAttribute("href", /\/contact\?mode=demo/);
+    await expect(hero.getByRole("link")).toHaveCount(0);
     await expect(hero.getByRole("button", { name: /film/i })).toBeVisible();
+    // Both are still one step away: Contact us in the menu, and both on the closing page.
+    const closing = page.locator("#contact");
+    await expect(closing.getByRole("link", { name: "Contact us" }).first()).toHaveAttribute("href", "/contact");
+    await expect(closing.getByRole("link", { name: "Book a demo" }).first()).toHaveAttribute("href", /\/contact\?mode=demo/);
   });
 
   test("reads like a presentation: every page is present, in order, one screen each, with no side dots", async ({ page }) => {
@@ -35,9 +40,10 @@ test.describe("home", () => {
     expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollSnapType)).toContain("mandatory");
   });
 
-  test("Who it's for scrolls sideways with its arrows", async ({ page }) => {
-    await page.goto("/");
+  test("Communities (who it's for) is its own page, and scrolls sideways with its arrows", async ({ page }) => {
+    await page.goto("/communities");
     await ready(page);
+    await expect(page.getByRole("heading", { level: 1, name: "Communities" })).toBeVisible();
     const section = page.locator("#audiences");
     await section.scrollIntoViewIfNeeded();
     const row = section.locator(".home-audiences");
@@ -129,6 +135,134 @@ test.describe("header", () => {
   });
 });
 
+// John and Maddie's review of 19 Nov 2026: "I don't know where I am, and I don't know how to get back."
+test.describe("finding your way", () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
+
+  test("the menu is the agreed one, in order, with Home first and no Pricing on top", async ({ page }) => {
+    await page.goto("/");
+    await ready(page);
+    const nav = page.getByRole("navigation", { name: "Main" });
+    const labels = await nav.locator(".site-nav-item").evaluateAll((els) => els.map((el) => el.textContent?.trim()));
+    expect(labels).toEqual(["Home", "Products", "Implementations", "Bring Dashboard to Your Community", "Resources", "About Us", "Contact us"]);
+    await expect(nav.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
+    // Every item looks the same: Contact us is not a filled button.
+    const contact = nav.getByRole("link", { name: "Contact us" });
+    expect(await contact.evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgba(0, 0, 0, 0)");
+  });
+
+  test("an item with pages under it opens a menu of them", async ({ page }) => {
+    await page.goto("/");
+    await ready(page);
+    const nav = page.getByRole("navigation", { name: "Main" });
+    const item = nav.getByRole("button", { name: "Bring Dashboard to Your Community" });
+    await item.click();
+    await expect(item).toHaveAttribute("aria-expanded", "true");
+    const links = await nav.locator(".site-nav-menu a").evaluateAll((els) => els.map((el) => `${el.textContent?.trim()} ${el.getAttribute("href")}`));
+    expect(links).toEqual(["Communities /communities", "Implementation guide /bring-dashboard-to-your-community", "Pricing /pricing"]);
+    await nav.getByRole("link", { name: "Pricing" }).click();
+    await expect(page).toHaveURL(/\/pricing$/);
+    await page.keyboard.press("Escape");
+    for (const [name, child] of [["Implementations", "MidTown Cleveland"], ["Resources", "Teacher toolkit"], ["About Us", "Story of the Dashboard"]]) {
+      await nav.getByRole("button", { name }).click();
+      await expect(nav.locator(".site-nav-menu").getByRole("link", { name: child })).toBeVisible();
+      await page.keyboard.press("Escape");
+      await expect(nav.locator(".site-nav-menu")).toHaveCount(0);
+    }
+  });
+
+  for (const [path, section, trail] of [
+    ["/pricing", "Bring Dashboard to Your Community", ["Home", "Bring Dashboard to Your Community", "Pricing"]],
+    ["/communities", "Bring Dashboard to Your Community", ["Home", "Bring Dashboard to Your Community", "Communities"]],
+    ["/bring-dashboard-to-your-community", "Bring Dashboard to Your Community", ["Home", "Bring Dashboard to Your Community"]],
+    ["/implementations/midtown-cleveland", "Implementations", ["Home", "Implementations", "MidTown Cleveland"]],
+    ["/toolkit", "Resources", ["Home", "Resources", "Teacher toolkit"]],
+    ["/story", "About Us", ["Home", "About Us", "Story of the Dashboard"]],
+    ["/research", "About Us", ["Home", "About Us", "Research"]],
+    ["/citywide-dashboard", "Products", ["Home", "Products", "Citywide Dashboard"]],
+    ["/contact", "Contact us", ["Home", "Contact us"]],
+  ] as const) {
+    test(`${path} shows where you are: ${section} is marked, and the trail leads home`, async ({ page }) => {
+      await page.goto(path);
+      await ready(page);
+      const nav = page.getByRole("navigation", { name: "Main" });
+      const marked = await nav.locator(".site-nav-item[data-active]").evaluateAll((els) => els.map((el) => el.textContent?.trim()));
+      expect(marked).toEqual([section]);
+      // The mark is more than a heavier word: a bar under the item.
+      const bar = await nav.locator(".site-nav-item[data-active]").evaluate((el) => {
+        const after = getComputedStyle(el, "::after");
+        return { height: parseFloat(after.height), color: after.backgroundColor };
+      });
+      expect(bar.height).toBeGreaterThanOrEqual(3);
+      expect(bar.color).not.toBe("rgba(0, 0, 0, 0)");
+      const crumbs = page.getByRole("navigation", { name: "Breadcrumb" }).first();
+      const items = await crumbs.locator("ol li").evaluateAll((els) => els.map((el) => el.textContent?.trim()));
+      expect(items).toEqual([...trail]);
+      // The page itself is last and is not a link; Home is first and is one.
+      await expect(crumbs.locator("ol li").last().getByRole("link")).toHaveCount(0);
+      await crumbs.getByRole("link", { name: "Home" }).click();
+      await expect(page).toHaveURL(/\/$/);
+    });
+  }
+
+  test("the home has no trail, and Home is marked", async ({ page }) => {
+    await page.goto("/");
+    await ready(page);
+    await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toHaveCount(0);
+    const nav = page.getByRole("navigation", { name: "Main" });
+    expect(await nav.locator(".site-nav-item[data-active]").evaluateAll((els) => els.map((el) => el.textContent?.trim()))).toEqual(["Home"]);
+  });
+
+  test("the footer has the menu's sections, heading for heading", async ({ page }) => {
+    await page.goto("/about");
+    await ready(page);
+    const footer = page.getByRole("navigation", { name: "Footer" });
+    const headings = await footer.locator("p.eyebrow").evaluateAll((els) => els.map((el) => el.textContent?.trim()));
+    expect(headings).toEqual(["Products", "Implementations", "Bring Dashboard to Your Community", "Resources", "About Us"]);
+    await expect(footer.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
+    await expect(footer.getByRole("link", { name: "Story of the Dashboard" })).toHaveAttribute("href", "/story");
+  });
+
+  test("What it changed is on Research, not the home", async ({ page }) => {
+    await page.goto("/research");
+    await ready(page);
+    await expect(page.getByRole("heading", { name: "What it changed" })).toBeVisible();
+    await page.goto("/");
+    await ready(page);
+    await expect(page.getByRole("heading", { name: "What it changed" })).toHaveCount(0);
+    await expect(page.locator("main").getByRole("heading", { name: "Pricing" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Who it’s for" })).toHaveCount(0);
+  });
+
+  test("Our team is on About, and the menu opens About at it from another page", async ({ page }) => {
+    await page.goto("/pricing");
+    await ready(page);
+    const nav = page.getByRole("navigation", { name: "Main" });
+    await nav.getByRole("button", { name: "About Us" }).click();
+    await nav.locator(".site-nav-menu").getByRole("link", { name: "Our team" }).click();
+    await expect(page).toHaveURL(/\/about$/);
+    const team = page.locator("#team");
+    await expect(team.getByRole("heading", { name: "Our team" })).toBeInViewport();
+    // The people, roles and photos of the original site's team page, nothing added.
+    const people = await team.locator("li").evaluateAll((els) => els.map((el) => [...el.querySelectorAll("p")].map((p) => p.textContent?.trim()).join(", ")));
+    expect(people).toEqual([
+      "John Petersen, Director",
+      "Ethan Woodfill, Project Manager",
+      "Madeleine Faubert, Design and Media",
+      "Gaurav Bora, Software Engineer",
+      "Pratyush Bharti, Software Engineer",
+      "Hitesh Jangid, Software Engineer",
+    ]);
+    // The photos load as the section comes into view.
+    await expect.poll(() => team.locator("img").evaluateAll((els) => els.length === 6 && els.every((el) => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    // Already on About: the same link scrolls there without a page change.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await nav.getByRole("button", { name: "About Us" }).click();
+    await nav.locator(".site-nav-menu").getByRole("link", { name: "Our team" }).click();
+    await expect(team.getByRole("heading", { name: "Our team" })).toBeInViewport();
+  });
+});
+
 test.describe("product pages", () => {
   test("lead with Contact us and Book a demo, and list the other products in the group", async ({ page }) => {
     await page.goto("/citywide-dashboard");
@@ -137,16 +271,16 @@ test.describe("product pages", () => {
     const main = page.locator("main");
     await expect(main.getByRole("link", { name: "Contact us" }).first()).toHaveAttribute("href", "/contact");
     await expect(main.getByRole("link", { name: "Book a demo" }).first()).toHaveAttribute("href", /mode=demo/);
-    await expect(page.getByRole("heading", { name: "More in Educate" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "More products" })).toBeVisible();
   });
 });
 
 test.describe("LoRaWAN and Studios", () => {
-  test("LoRaWAN is an Educate product and never says Fieldline", async ({ page }) => {
+  test("LoRaWAN is a product and never says Fieldline", async ({ page }) => {
     await page.goto("/lorawan");
     await ready(page);
     await expect(page.getByRole("heading", { level: 1, name: "LoRaWAN" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "More in Educate" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "More products" })).toBeVisible();
     expect(await page.locator("body").innerText()).not.toMatch(/fieldline/i);
   });
 
@@ -174,13 +308,14 @@ test.describe("LoRaWAN and Studios", () => {
     await expect(page.locator("iframe[src*='viewer.html?map=pittsburgh']")).toBeAttached();
   });
 
-  test("the Products menu lists both under Educate", async ({ page }) => {
+  test("the Products menu lists both, with no Engage, Educate or Motivate headings", async ({ page }) => {
     await page.goto("/pricing");
     await ready(page);
     await page.getByRole("button", { name: "Products" }).click();
     const menu = page.locator("#products-menu");
     await expect(menu.getByRole("link", { name: /LoRaWAN/ })).toHaveAttribute("href", "/lorawan");
     await expect(menu.getByRole("link", { name: /Studios/ })).toHaveAttribute("href", "/studios");
+    await expect(menu.getByText(/^(Engage|Educate|Motivate and Empower)$/)).toHaveCount(0);
   });
 });
 
@@ -251,7 +386,7 @@ test.describe("live examples and the story deck", () => {
 test.describe("phone", () => {
   test.use({ viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true });
 
-  for (const path of ["/", "/pricing", "/products", "/digital-signage", "/phone-app", "/about", "/contact", "/implementations", "/lorawan", "/studios"]) {
+  for (const path of ["/", "/pricing", "/products", "/digital-signage", "/phone-app", "/about", "/contact", "/implementations", "/lorawan", "/studios", "/communities", "/research"]) {
     test(`${path} has no sideways overflow`, async ({ page }) => {
       await page.goto(path);
     await ready(page);
@@ -296,5 +431,16 @@ test.describe("phone", () => {
     await expect(menu).toBeVisible();
     await expect(menu.getByRole("link", { name: "Contact us" })).toBeVisible();
     await expect(menu.getByRole("link", { name: "Book a demo" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
+    await menu.getByRole("button", { name: "Bring Dashboard to Your Community" }).click();
+    await expect(menu.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
+  });
+
+  test("an inner page has one link back up to the page above", async ({ page }) => {
+    await page.goto("/pricing");
+    await ready(page);
+    const crumbs = page.getByRole("navigation", { name: "Breadcrumb" }).first();
+    await expect(crumbs.locator("ol")).toBeHidden();
+    await expect(crumbs.getByRole("link", { name: "Bring Dashboard to Your Community" })).toBeVisible();
   });
 });

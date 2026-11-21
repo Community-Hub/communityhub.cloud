@@ -306,7 +306,7 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         text: v1("stories"),
         embed: "https://docs.google.com/presentation/d/1IQ-xVTkfJP4P3UY-FY8DltGmR8Lzo5r5TFJbf5RyfxI/embed?start=true&loop=true&delayms=8000#slide=1",
         presentation: true,
-        legend: "Use bottom controls to navigate through a story. Use arrows in the slide to view other stories.",
+        legend: "Use bottom controls to navigate through a story. Use the arrow buttons to view other stories.",
         live: { href: getEmbed("stories", "stories").src, label: "Explore the stories" },
         alt: "Oberlin heating story",
         caption: "",
@@ -403,7 +403,7 @@ export const productPages: Record<string, { title: string; slides: ProductSlide[
         frameTitle: voicesFilters.fallback[0].title,
         features: [{"title": "Images and words", "body": "Keep a person’s image and message together."}, {"title": "Relevant categories", "body": "Organize messages around themes within the community."}, {"title": "Across the community", "body": "Share the messages on signs, phones, and websites."}],
         text: v1("voices"),
-        legend: "Use bottom controls to navigate through a category. Use arrows in the slide to view other categories.",
+        legend: "Use bottom controls to navigate through a category. Use the arrow buttons to view other categories.",
         caption: "Live Community Voices messages, organized by category.",
       },
       {

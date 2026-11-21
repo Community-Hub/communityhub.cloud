@@ -47,7 +47,7 @@ export function homeEducateBeats(): ProductBeat[] {
       { title: placeTitle("City of Oberlin", "Whole City Electricity Use"), embed: getEmbed("datahub", "heat-map").src, caption: "Whole City Electricity Use – heat map" },
     ] };
     if (item.id === "stories") {
-      const storyLegend = "Use bottom controls to navigate through a story. Use arrows in the slide to view other stories.";
+      const storyLegend = "Use bottom controls to navigate through a story. Use the arrow buttons to view other stories.";
       return { ...item,
         frames: [{
           title: placeTitle("Oberlin College", "Heating & Cooling Story"),
@@ -157,7 +157,7 @@ export const homeCalendar: ProductBeat["frames"][number] = {
   aliases: ["midtown-cleveland-community-calendar"],
 };
 export function homeEmpowerBeats(): ProductBeat[] {
-  const voicesLegend = "Use bottom controls to view content within this category. Use arrows in the slide to advance through different categories.";
+  const voicesLegend = "Use bottom controls to view content within this category. Use the arrow buttons to advance through different categories.";
   return empowerBeats
     .filter((item) => item.id !== "results")
     .map((item) =>

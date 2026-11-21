@@ -82,7 +82,7 @@ Community Hub grew out of Environmental Dashboard, research at Oberlin College o
   - 2025 study of 969 people; sign surveys of 174 people before and 133 after
 - **Places:** Oberlin (24 interactive screens named in legacy copy), Oberlin College, Oberlin Public Schools, MidTown Cleveland, Great Lakes Science Center, Toledo (44 school buildings, in a quote).
 - **Supporters:** U.S. EPA, Great Lakes Protection Fund, Cleveland Foundation, Andrew W. Mellon Foundation via GLCA.
-- **Team photos (not yet shown):** John Petersen, Ethan Woodfill, Madeleine Faubert, Gaurav Bora, Pratyush Bharti, Hitesh Jangid.
+- **Team (About, "Our team", since the 2026-11-19 review):** John Petersen (Director), Ethan Woodfill (Project Manager), Madeleine Faubert (Design and Media), Gaurav Bora, Pratyush Bharti and Hitesh Jangid (Software Engineers), as on the original site's team page. The owner has not yet confirmed the list is current.
 - **Media:**
   - the hero film (`hero-ch-fwd.mp4`, 17.9 s: globe → downtown Oberlin → people waving)
   - community photo sets (Big Parade 2023, Juneteenth 2022, Oberlin Farmers Market 2025, Oberlin College students 2025, Green Team 2026)

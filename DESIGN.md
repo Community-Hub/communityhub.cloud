@@ -183,11 +183,12 @@ Community Hub's greens on white, with lime kept rare so the next step is always 
 - **Pages, one screen each (every page but the legal ones):** each section is a page exactly one screen tall (`100svh` minus the header), composed like a presentation slide: a heading row, then one part (`.page-fill`) that takes all the height left, so nothing leaves an empty bottom half. Pages snap firmly into place (`y mandatory`, one page per scroll or swipe). Long reading pages (Research, Toolkit, Resources) and, on phones, the inner pages snap only near a section start (`deck-soft`, `y proximity`), so a long section scrolls freely. A section that cannot fit still scrolls inside before the next turn. The film is the front cover; the closing page is the back cover, a full-bleed photo of a town (downtown Oberlin from the air, or the Chalk Walk on pages that already show the aerial); the footer follows.
 - **No page dots.** The owner removed the side rail (2026-11-16): the scroll or swipe is the turn.
 - **Rows of several items** (results, bundles): columns on wide screens; on phones a sideways swipe strip with the next card peeking.
-- **Who it's for:** tall full-bleed photo cards (place name, line and link over a dark scrim) in a row that runs to the screen's edges and scrolls sideways; round arrows either side move one card on wide screens, a swipe moves them on touch. Each card's photo appears nowhere else on the home.
+- **Home order (John and Maddie's review, 2026-11-19):** the film (no buttons on it), the community-centered platform, Engage, Educate, Motivate and Empower, What people say, then Bring Dashboard to Your Community. "What it changed" lives on Research and Pricing on its own page; neither is on the home.
+- **Communities (`/communities`, was "Who it's for" on the home):** tall full-bleed photo cards (place name, line and link over a dark scrim) in a row that runs to the screen's edges and scrolls sideways; round arrows either side move one card on wide screens, a swipe moves them on touch. It sits under Bring Dashboard to Your Community in the menu.
 - **No picture twice on a page.** A photo used in one place on a page is not used again on that page (the closing photo changes on pages that already show it).
 - **Document pages** (About, Pricing, Research, Story, Toolkit, Resources, Products): normal scrolling, sections separated by a hairline and clamp(3rem, 6vw, 4.5rem) of space, ending with the contact panel and footer.
-- **Product pages:** first screen pairs the product (icon, name, lede, Contact us, live link) with its live example; later sections alternate text and examples; "More in {group}" lists sibling products before the contact panel.
-- **Breakpoints:** 640px (two columns), 768px (phone to tablet; strips become columns), 1024px (desktop navigation, side-by-side compositions).
+- **Product pages:** first screen pairs the product (icon, name, lede, Contact us, live link) with its live example; later sections alternate text and examples; "More products" lists the other products before the contact panel. Outside the home's three sections, products are one plain list, never sorted under Engage, Educate, Motivate and Empower (a product can serve more than one).
+- **Breakpoints:** 640px (two columns), 768px (phone to tablet; strips become columns), 1024px (side-by-side compositions), 1280px (`nav`: the full menu in the header; below it the menu is the sheet).
 
 ## Elevation & Depth
 
@@ -200,7 +201,7 @@ Flat by default. Depth comes from page bands (white, field, lime pale, pine) and
 ## Shapes
 
 - Photo and example frames: 1.25rem. Big photo panels and the film: clamp(1.25rem, 2.2vw, 1.75rem). Cards: 1rem. Fields: 0.75rem. Buttons and round controls: full pill.
-- Lines are 1px hairlines in Line (#e2e6dd); tab underlines are 2px pine.
+- Lines are 1px hairlines in Line (#e2e6dd); the header's current-section bar is 3px pine.
 - No colored side borders, no offset block shadows, no gradient text.
 
 ## Components
@@ -212,12 +213,23 @@ Flat by default. Depth comes from page bands (white, field, lime pale, pine) and
 - **Links:** leaf, 600, underline at 45% that goes solid on hover, often with a trailing arrow.
 
 ### Header and navigation
-- Wordmark left; Products (menu), Implementations, Pricing, Research, Story, About; lime Contact us pill right.
-- Products opens a full-width panel: the three groups (Engage, Educate, Motivate and Empower), each product with its icon, name and one-line description.
-- Phones: a full-screen sheet with large rows, Products expanding in place, Contact us pinned at the bottom with the email address.
+- The menu agreed in the 2026-11-19 review, in this order: Home, Products, Implementations, Bring Dashboard to Your Community (Communities, Implementation guide, Pricing), Resources (Teacher toolkit), About Us (Our team, Story of the Dashboard, Research), Contact us. Pricing is not a top-level item. One list (`pc.siteHeader.NAV`, read through `src/lib/site-map.ts`) drives the header, the breadcrumbs and the footer, so they cannot disagree.
+- **You are here:** the section the page belongs to is pine, bold, and carries a 3px pine bar on the header's bottom edge. Never bold alone.
+- Items with a submenu carry a caret and open on click (also on hover with a mouse), close on Escape, on a click elsewhere and when the page changes. Two levels at most.
+- Products opens a full-width panel: every product with its icon, name and one-line description, in one list with no group headings.
+- Below 1280px: a full-screen sheet with large rows, Home first, sections expanding in place, Contact us and Book a demo pinned at the bottom with the email address.
+
+### Breadcrumbs
+- On every page but the home, above the page title: Home, the section, the page. It follows the site's structure, not the visitor's clicks; the page itself comes last, in ink, and is not a link. On phones it is one link back up to the page above.
+
+### Footer
+- Product columns, then one column per menu item that has a submenu, with the same names and order as the menu.
+
+### Our team (About)
+- Six portraits (7:8, 1.25rem corners, hairline) in one row on wide screens and two rows of three below 1024px; the name in ink 600 with the role under it in small type. Names, roles and photos are those of the original site's team page; nothing is added. "Our team" in the menu opens About at this section.
 
 ### Category tabs (signature)
-- Underline tab bar (ARIA tabs, arrow keys) over a hairline; the chosen product shows its icon, name, one plain sentence, "Learn more", and its live example.
+- A row of pill buttons (ARIA tabs, arrow keys): the chosen product is a pine pill with white text, the others white with a hairline, so they read as things to press (the reviewers took the old underline bar for a list of headings). The chosen product shows its icon, name, one plain sentence, "Learn more", and its live example.
 
 ### Example frames (signature)
 - A fixed-shape reserved box (16:10) for photos, live dashboards, calendars, slide stories and Community Voices players. Arrows sit on both sides of the example; Pause sits below it at the right, sharing its row with the caption. Examples advance on their own only while visible and never while the visitor is hovering, focused or reading.
@@ -235,10 +247,10 @@ Flat by default. Depth comes from page bands (white, field, lime pale, pine) and
 - White, 3rem tall, 0.75rem radius, ink 50% border (visible at 3:1), leaf focus ring; errors in #b42318 under the field, wired with aria-describedby.
 
 ### Contact and booking
-- One form card with a two-option switch, "Send a message | Book a demo" (`/contact?mode=demo` opens the second). Bookings ask for a day (from tomorrow), a time window, the visitor's time zone and how to meet. Both deliver to `site.formInbox`; bookings attach a calendar file. "Book a demo" sits beside Contact us on the film, product pages, the contact panel and the phone menu, always as the secondary button.
+- One form card with a two-option switch, "Send a message | Book a demo" (`/contact?mode=demo` opens the second). Bookings ask for a day (from tomorrow), a time window, the visitor's time zone and how to meet. Both deliver to `site.formInbox`; bookings attach a calendar file. "Book a demo" sits beside Contact us on product pages, the contact panel and the phone menu, always as the secondary button.
 
 ### Implementations
-- The index groups the five places under their audiences, each a photo card with its kind beside its name, "Read the story" and the live link. A place page has a back link, the name and kind, a Story / Live tab pair (`?view=live`), the story with its quote and photos, previous and next places, then the contact panel. The implementation guide is a reading page: a sticky contents list, a ~73-character measure and full-width figures.
+- The index groups the five places under their audiences, each a photo card with its kind beside its name, "Read the story" and the live link. A place page has its breadcrumb (Home, Implementations, the place), the name and kind, a Story / Live tab pair (`?view=live`), the story with its quote and photos, previous and next places, then the contact panel. The implementation guide is a reading page: a sticky contents list, a ~73-character measure and full-width figures.
 
 ## Do's and Don'ts
 

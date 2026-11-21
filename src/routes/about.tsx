@@ -4,6 +4,8 @@ import { DOWNTOWN_CHALK_WALK } from "@/components/contact-band";
 import { DocSection, DocShell, Shot, Split } from "@/components/doc";
 import { FrameSlider } from "@/components/product-section";
 import { ABOUT_ORIGIN_FRAMES } from "@/lib/content";
+import { imageSize } from "@/lib/image-dimensions";
+import { team } from "@/lib/team";
 import { site } from "@/lib/site";
 
 import { copy } from "@/lib/copy";
@@ -51,7 +53,29 @@ function About() {
           </p>
         </Split>
       </DocSection>
-      <DocSection label={STOPS[2].label} title={copy.about.About.DocSection_title3}>
+      <DocSection label={STOPS[2].label} title={copy.about.About.DocSection_title4}>
+        <ul className="team-grid">
+          {team.map((member) => {
+            const size = imageSize(member.image);
+            return (
+              <li key={member.id} className="min-w-0">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src={member.image}
+                  alt={member.alt}
+                  width={size?.width}
+                  height={size?.height}
+                  className="aspect-[7/8] w-full rounded-[1.25rem] border border-line object-cover"
+                />
+                <p className="mt-3 font-semibold leading-snug text-ink">{member.name}</p>
+                <p className="t-small text-ink/70">{member.role}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </DocSection>
+      <DocSection label={STOPS[3].label} title={copy.about.About.DocSection_title3}>
         <p className="max-w-3xl t-lede">{copy.about.About.p1}</p>
       </DocSection>
     </DocShell>

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DocSection, DocShell } from "@/components/doc";
+import { Results } from "@/components/home";
 import publicationsData from "@/data/publications.json";
 
 import { copy } from "@/lib/copy";
@@ -80,8 +81,10 @@ function PaperCard({ paper }: { paper: Paper }) {
 function Research() {
   const FEATURED = PAPERS.filter((p) => p.featured);
   const OTHERS = PAPERS.filter((p) => !p.featured);
+  // "What it changed" moved here from the home (John and Maddie, 19 Nov 2026: "we just think it wants to be under research").
   const stops = [
     { id: "featured", label: "Research" },
+    { id: "results", label: "What it changed" },
     { id: "more", label: "More publications" },
   ];
   return (
@@ -94,6 +97,7 @@ function Research() {
           ))}
         </ul>
       </DocSection>
+      <Results onResearch />
       <DocSection label="More publications" title="More publications">
         <ul data-fit="citations" className="grid max-w-4xl gap-2.5 t-small leading-snug">
           {OTHERS.map((paper) => (

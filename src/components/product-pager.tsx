@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AppLink } from "@/components/app-link";
 import { ContactBand } from "@/components/contact-band";
 import { FrameSlider } from "@/components/product-section";
@@ -50,7 +51,8 @@ function Walkthrough() {
   </div>;
 }
 
-/** The other products in the same group as `page`, so a buyer can keep comparing without going back. */
+/** A few of the other products, so a buyer can keep comparing without going back. Not labelled Engage, Educate or
+ *  Motivate and Empower: those are what Community Hub is for, not product categories (John, 19 Nov 2026). */
 export function RelatedProducts({ page }: { page: string }) {
   const group = pc.products.GROUPS.find((g) => g.items.some((item) => item.href === page));
   if (!group) return null;
@@ -62,7 +64,7 @@ export function RelatedProducts({ page }: { page: string }) {
       <div className="wrap page-body">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <h2 id="related-title" className="t-h2">
-          More in {group.kicker}
+          More products
         </h2>
         <AppLink href="/products" className="link">
           All products <ArrowRight className="size-4" aria-hidden />
@@ -148,15 +150,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
               className={cn("product-section page page-center", first && "page-first")}
             >
               <div className="wrap page-body">
-              {first && (
-                <nav aria-label="Breadcrumb" className="mb-6 text-[0.9375rem] text-ink/65">
-                  <AppLink href="/products" className="font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine">
-                    Products
-                  </AppLink>
-                  <span aria-hidden className="px-2 text-ink/35">/</span>
-                  <span aria-current="page">{slide.title}</span>
-                </nav>
-              )}
+              {first && <Breadcrumbs className="mb-6" />}
               <div className={cn("product-detail-layout", hasMedia && !slide.wide && "product-detail-split")}>
                 <div className="min-w-0">
                   {first && slide.icon && <img src={slide.icon} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />}
