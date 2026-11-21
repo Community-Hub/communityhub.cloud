@@ -198,6 +198,31 @@ test.describe("live examples and the story deck", () => {
     await expect(figure.getByRole("button", { name: "Scroll through the dashboard" })).toBeVisible();
   });
 
+  test("Play scrolls the dashboard and only Pause stops it, wherever the pointer rests", async ({ page }) => {
+    await page.goto("/web-embeddables");
+    await ready(page);
+    const viewport = page.locator("[data-dashboard-scroll]").first();
+    await viewport.scrollIntoViewIfNeeded();
+    expect(await viewport.evaluate((el) => getComputedStyle(el).overflowY)).toBe("scroll");
+    const figure = page.locator("[data-slider-box]").filter({ has: viewport }).first();
+    const top = () => viewport.evaluate((el) => el.scrollTop);
+    // Press Play and leave the pointer on it: the dashboard moves.
+    await figure.getByRole("button", { name: "Scroll through the dashboard" }).click();
+    await expect(viewport).toHaveAttribute("data-running", "true");
+    await expect.poll(top, { timeout: 6000 }).toBeGreaterThan(20);
+    // Resting the pointer on the dashboard does not pause it.
+    const box = (await viewport.boundingBox())!;
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    const before = await top();
+    await expect.poll(top, { timeout: 6000 }).toBeGreaterThan(before + 20);
+    // Pause stops it.
+    await figure.getByRole("button", { name: "Stop scrolling" }).click();
+    await expect(viewport).toHaveAttribute("data-running", "false");
+    const stopped = await top();
+    await page.waitForTimeout(1500);
+    expect(await top()).toBeLessThanOrEqual(stopped + 1);
+  });
+
   test("the wheel over a live dashboard scrolls it, then the page", async ({ page }) => {
     await page.goto("/web-embeddables");
     await ready(page);

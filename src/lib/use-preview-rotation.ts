@@ -18,33 +18,39 @@ export function usePreviewRotation(ref: RefObject<HTMLElement | null>, advance: 
     let hovering = false;
     let focusing = false;
     const sync = () => setEngaged(hovering || focusing);
-    const enter = (e: PointerEvent) => { if (e.pointerType === "mouse") { hovering = true; sync(); } };
-    const move = (e: PointerEvent) => { if (e.pointerType === "mouse" && !hovering) { hovering = true; sync(); } };
+    // The Previous, Play / Pause and Next buttons never pause anything: a visitor who presses Play leaves the pointer
+    // on Play and must see the example start (Nov 21 visitor review: Play "looks broken" because hovering it paused).
+    const onControl = (t: EventTarget | null) => t instanceof Element && Boolean(t.closest("[data-control], [data-slider-arrows]"));
+    const over = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const next = !onControl(e.target);
+      if (next !== hovering) { hovering = next; sync(); }
+    };
     const leave = () => {
       hovering = false;
       const active = document.activeElement;
-      focusing = active instanceof Element && el.contains(active) && active.matches(":focus-visible");
+      focusing = active instanceof Element && el.contains(active) && active.matches(":focus-visible") && !onControl(active);
       sync();
     };
     // Pointer focus must not latch the hover pause after the mouse leaves.
-    // Keyboard focus still pauses the preview for reading and operating controls.
+    // Keyboard focus still pauses the preview for reading, except on its own controls.
     const focus = (event: FocusEvent) => {
-      focusing = event.target instanceof Element && event.target.matches(":focus-visible");
+      focusing = event.target instanceof Element && event.target.matches(":focus-visible") && !onControl(event.target);
       sync();
     };
     const pointer = () => { focusing = false; sync(); };
-    const blur = (e: FocusEvent) => { focusing = e.relatedTarget instanceof Element && el.contains(e.relatedTarget) && e.relatedTarget.matches(":focus-visible"); sync(); };
+    const blur = (e: FocusEvent) => { focusing = e.relatedTarget instanceof Element && el.contains(e.relatedTarget) && e.relatedTarget.matches(":focus-visible") && !onControl(e.relatedTarget); sync(); };
     const hidden = () => setBackground(document.hidden);
     const io = new IntersectionObserver(([entry]) => setVisible(Boolean(entry?.isIntersecting)), { threshold: 0.4 });
     io.observe(el);
-    el.addEventListener("pointerenter", enter);
-    el.addEventListener("pointermove", move);
+    el.addEventListener("pointerover", over);
+    el.addEventListener("pointermove", over);
     el.addEventListener("pointerleave", leave);
     el.addEventListener("focusin", focus);
     el.addEventListener("pointerdown", pointer);
     el.addEventListener("focusout", blur);
     document.addEventListener("visibilitychange", hidden);
-    return () => { io.disconnect(); el.removeEventListener("pointerenter", enter); el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); el.removeEventListener("focusin", focus); el.removeEventListener("pointerdown", pointer); el.removeEventListener("focusout", blur); document.removeEventListener("visibilitychange", hidden); };
+    return () => { io.disconnect(); el.removeEventListener("pointerover", over); el.removeEventListener("pointermove", over); el.removeEventListener("pointerleave", leave); el.removeEventListener("focusin", focus); el.removeEventListener("pointerdown", pointer); el.removeEventListener("focusout", blur); document.removeEventListener("visibilitychange", hidden); };
   }, [ref, enabled]);
   const interactionPaused = pauseOnInteraction && engaged;
   useEffect(() => {
