@@ -26,7 +26,6 @@ export function ScrollingDashboard({
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [box, setBox] = useState({ w: 0, h: 0 });
   const [ready, setReady] = useEmbedReady();
-  const [hovered, setHovered] = useState(false);
   const [touching, setTouching] = useState(false);
   const [reportedHeight, setReportedHeight] = useState<number | null>(null);
   const manualUntil = useRef(0);
@@ -120,8 +119,11 @@ export function ScrollingDashboard({
     lastAutoScrollTop.current = startTop;
   }, [startTop, scaledHeight, src]);
 
+  // Only Play / Pause start and stop the tour (John and Maddie, 19 Nov: "its default is paused" and it scrolls when you
+  // press play). Resting the pointer on it no longer pauses it: John, "it stops if you roll over it, but I don't know how
+  // anyone would know that." A hand scroll still gets a moment before the tour carries on from there.
   useEffect(() => {
-    if (!running || !ready || touching || hovered) return;
+    if (!running || !ready || touching) return;
     let raf = 0;
     let last = 0;
     const tick = (now: number) => {
@@ -133,7 +135,8 @@ export function ScrollingDashboard({
         subpixel.current = 0;
       } else {
         elapsed.current += delta;
-        if (el && elapsed.current > 2000) {
+        // The tour only runs after the visitor presses Play, so it moves almost at once (it used to wait 2s when it started by itself).
+        if (el && elapsed.current > 500) {
           const step = delta * 0.048 + subpixel.current;
           const whole = Math.trunc(step);
           subpixel.current = step - whole;
@@ -165,19 +168,10 @@ export function ScrollingDashboard({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, ready, touching, hovered]);
+  }, [running, ready, touching]);
 
   return (
-    <div
-      className="absolute inset-0 flex flex-col overflow-hidden bg-white"
-      onPointerEnter={(e) => {
-        if (e.pointerType === "mouse") setHovered(true);
-      }}
-      onPointerMove={(e) => {
-        if (e.pointerType === "mouse" && !hovered) setHovered(true);
-      }}
-      onPointerLeave={() => setHovered(false)}
-    >
+    <div className="absolute inset-0 flex flex-col overflow-hidden bg-white">
       {partnerHeader && (
         <img
           src={partnerHeader}
@@ -194,7 +188,7 @@ export function ScrollingDashboard({
       <div
         ref={viewport}
         data-dashboard-scroll
-        data-running={running && !touching && !hovered}
+        data-running={running && !touching}
         data-allow-scroll
         aria-busy={!ready}
         onScroll={(event) => {

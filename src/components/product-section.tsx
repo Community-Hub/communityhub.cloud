@@ -385,7 +385,8 @@ export function Examples({
     hasAutoMotion,
     `${frames[0]?.title}:${i}`,
     activeFrame?.phoneWalkthrough || isScrollableHomeEmbed(activeFrame) ? null : undefined,
-    !phoneExamples,
+    // A dashboard answers only to Play / Pause (see ScrollingDashboard); other examples still hold while hovered.
+    !phoneExamples && !isScrollableHomeEmbed(activeFrame),
     // John and Maddie, 19 Nov: a live dashboard sits still until the visitor presses Play, and can be scrolled by hand.
     isScrollableHomeEmbed(activeFrame),
   );

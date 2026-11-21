@@ -2015,10 +2015,33 @@ main:focus {
 }
 @media (hover: hover) and (pointer: fine) {
   .dashboard-viewport {
-    overflow-y: auto;
+    overflow-y: scroll;
     overscroll-behavior-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--color-pine) 45%, transparent) color-mix(in srgb, var(--color-pine) 6%, transparent);
+    /* The page's own scrollbar-color is inherited, and Chrome ignores the styled bar below while it is set. */
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+  /* Always visible, also on a Mac where scroll bars normally hide (John: "you need to have a scroll bar here to know
+     that you could grab this"). */
+  .dashboard-viewport::-webkit-scrollbar {
+    width: 10px;
+  }
+  .dashboard-viewport::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--color-pine) 7%, white);
+  }
+  .dashboard-viewport::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-pine) 45%, white);
+    border-radius: 999px;
+    border: 2px solid color-mix(in srgb, var(--color-pine) 7%, white);
+  }
+  .dashboard-viewport::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pine);
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    .dashboard-viewport {
+      scrollbar-width: thin;
+      scrollbar-color: color-mix(in srgb, var(--color-pine) 45%, white) color-mix(in srgb, var(--color-pine) 7%, white);
+    }
   }
 }
 
