@@ -2,13 +2,15 @@
 
 For John and Maddie. The site has its own editor, so you can change wording, links, pictures and lists without asking Kwaku. Nothing you do there can break the layout: the editor only accepts plain text.
 
-## The first time
+## Signing in
+
+There is no password.
 
 1. Open **https://editor.communityhb.tech** (the editor lives on its own address; the public site has no edit button).
-2. Choose **First time? Create your account**.
-3. Enter the email address Kwaku added for you, a password of at least 12 characters, and the **sign-up code** Kwaku sends you privately. Only listed addresses can create an account.
+2. Type your email address (the one Kwaku added for you) and press **Email me a code**.
+3. A 6-digit code arrives in your inbox within a minute (check junk if it does not). Type it in and press **Sign in**.
 
-After that, sign in at the same address with your email and password.
+You stay signed in on that browser for a week. After that, or on another computer, ask for a new code the same way.
 
 ## Change a sentence
 

@@ -19,9 +19,9 @@ Maddie and John can change the site's words, links, pictures, lists and sections
 
 | Name | Where | What it does |
 |---|---|---|
-| `ADMIN_EMAILS` | Vercel (set) and `.env.local` | Comma separated. Only these may sign up or sign in. Currently the founder (two addresses), John and Maddie. |
+| `ADMIN_EMAILS` | Vercel (set) and `.env.local` | Comma separated. Only these addresses are sent a sign-in code. Currently the founder (two addresses), John and Maddie. |
 | `ADMIN_HOST` | Vercel (set: `editor.communityhb.tech` on the editor project) and `.env.local` | Host the editor lives on, for example `editor.communityhb.tech`. Locally `admin.localhost:8123`. Unset in production means the editor is off. |
-| `ADMIN_SIGNUP_CODE` | Vercel (set, Production and Preview) and `.env.local` | A shared code needed to create an account (header `x-cms-signup-code`). Must be at least 16 characters; if shorter or missing, sign-up is refused. Share it privately with each person. |
+| `RESEND_API_KEY`, `MAIL_FROM` | Vercel (set on both projects) | Sends the sign-in codes (and the contact form). Without the key on the editor project nobody can sign in. Sender defaults to website@communityhub.cloud. |
 | `BETTER_AUTH_SECRET` | Vercel (set, hidden) and `.env.local` | 32+ characters; signs sessions. |
 | `DATABASE_URL` | Vercel (set) | Hosted Postgres (Neon). Unset locally: an in-memory pglite database is used. |
 | `BLOB_READ_WRITE_TOKEN` | Vercel (Production, set by the Blob store) | Picture uploads. Unset locally: pictures go to `.cms-media/` (or `CMS_MEDIA_DIR`). |
@@ -32,7 +32,7 @@ Two Vercel projects in team Community Hub run the same code against the same dat
 
 - **`communityhub-cloud`: the public site** (www.communityhub.cloud). Connected to GitHub (`Community-Hub/communityhub.cloud`, branch `master`), so every merge deploys it. It has no `ADMIN_HOST`, so it serves no editor: `/admin` and `/api/cms*` answer 404 there.
 - **`community-hub-site`: the editor** (https://editor.communityhb.tech, `ADMIN_HOST=editor.communityhb.tech`). The domain `communityhb.tech` is registered with Vercel, so no outside DNS record is needed. Since 2026-11-21 it is connected to the same GitHub repository and branch as the public site, so every merge to `master` deploys both and the editor always lists the words of the build that is live. (Before that it was deployed by hand and had fallen behind, still on the 2026-11-12 build.)
-- Both read the same Neon database (`DATABASE_URL` is identical) and sign sessions with the same `BETTER_AUTH_SECRET`, so an edit saved in the editor is what the public site reads. `ADMIN_EMAILS` (four addresses) and `ADMIN_SIGNUP_CODE` are set on the editor project. Each project has its own Blob store token; pictures uploaded in the editor are public Blob addresses, which the public site accepts.
+- Both read the same Neon database (`DATABASE_URL` is identical) and sign sessions with the same `BETTER_AUTH_SECRET`, so an edit saved in the editor is what the public site reads. `ADMIN_EMAILS` (four addresses), `RESEND_API_KEY` and `MAIL_FROM` are set on the editor project. `ADMIN_SIGNUP_CODE` is still set there from the password days; nothing reads it any more and it can be deleted. Each project has its own Blob store token; pictures uploaded in the editor are public Blob addresses, which the public site accepts.
 - **The editor must run the same build as the site.** It lists the words of the build it was deployed from; on an older build it shows old defaults, and an edit made against them is set aside as "Out of date" on the public site. The shared GitHub connection keeps them together: if a merge deploys one project and not the other (a failed build), redeploy the one that is behind.
 - Pull requests build a preview on both projects. The editor project's preview builds run the migrations against the shared database, so a pull request that adds a migration applies it there before it is merged.
 - The cache purge on save runs in the editor's project. Whether it reaches the public project's cache has not been checked; if it does not, edits show on the public site after about a minute (the first visit after that minute still gets the old page and starts the refresh; the next one gets the new wording).
@@ -40,18 +40,18 @@ Two Vercel projects in team Community Hub run the same code against the same dat
 ## Giving someone access
 
 1. Check their address is in `ADMIN_EMAILS` on the editor project (`community-hub-site`); redeploy if you change it.
-2. Send them https://editor.communityhb.tech and, privately, the sign-up code.
-3. They choose "First time? Create your account" and enter their email, a password of 12+ characters and the code.
+2. Send them https://editor.communityhb.tech. There is nothing else to send: no password, no code from you.
+3. They type their email address, receive a 6-digit code by email, and type it in. The first time also creates their account. They stay signed in on that browser for a week.
 
 Result: `editor.communityhb.tech` serves only the editor (`/` goes to `/admin`). Cookies belong to the editor host only (host-only, httpOnly, SameSite strict, Secure).
 
 ## Adding Maddie and John
 
-They are already on `ADMIN_EMAILS`. To add or remove anyone: edit `ADMIN_EMAILS` in Vercel and redeploy (sessions are checked against the list on every request, so removal takes effect immediately after the redeploy). Each person then opens the admin address, chooses "First time? Create your account", and enters their email, a password of 12+ characters and the sign-up code. No emails are sent by the system; send the address and code yourself.
+They are already on `ADMIN_EMAILS` (as `john.petersen@oberlin.edu` and `mfaubert@oberlin.edu`; the address must match exactly). To add or remove anyone: edit `ADMIN_EMAILS` in Vercel and redeploy (sessions are checked against the list on every request, so removal takes effect immediately after the redeploy). Each person then opens the editor address and signs in with a code sent to their email.
 
 ## Security notes
 
-Only listed emails can sign up or in; sign-in is limited to 5 tries a minute and sign-up to 5 per five minutes per IP address (taken from `x-forwarded-for`, which is only trustworthy on Vercel, so the app must stay hosted on Vercel); cookies are secure and host-only; writes need a matching Origin (CSRF); everything is stored as plain text and escaped when drawn; links must be `/path`, `#`, `https://`, `http://`, `mailto:` or `tel:`; image URLs must be the original, a stored upload or this project's Blob store; the editor host sends `no-store`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, a Content Security Policy with `frame-ancestors 'none'`, and `noindex` (the public site is unchanged); the path is lower-cased and decoded before the host check, so `/Admin` and `/%61dmin` are 404 on the public host; uploads are cut off at 4 MB while streaming; outside `NODE_ENV` development or test the editor refuses to run without `ADMIN_HOST` and a 32+ character `BETTER_AUTH_SECRET`.
+There are no passwords (the owner's choice, 2026-11-21): a listed address is emailed a 6-digit code, and reading that mailbox is the proof. The code works for 10 minutes and for 5 tries, is stored hashed, and is never logged when live; a new code cancels the old one. A signed-in browser stays signed in for 7 days, not extended by use, then needs a new code. Only listed emails are sent a code; anyone else is told the address cannot use the editor. Asking for a code and using one are each limited to 5 a minute per IP address (taken from `x-forwarded-for`, which is only trustworthy on Vercel, so the app must stay hosted on Vercel); everything else the sign-in library offers (passwords, password reset, changing an address) answers 404; cookies are secure and host-only; writes need a matching Origin (CSRF); everything is stored as plain text and escaped when drawn; links must be `/path`, `#`, `https://`, `http://`, `mailto:` or `tel:`; image URLs must be the original, a stored upload or this project's Blob store; the editor host sends `no-store`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, a Content Security Policy with `frame-ancestors 'none'`, and `noindex` (the public site is unchanged); the path is lower-cased and decoded before the host check, so `/Admin` and `/%61dmin` are 404 on the public host; uploads are cut off at 4 MB while streaming; outside `NODE_ENV` development or test the editor refuses to run without `ADMIN_HOST` and a 32+ character `BETTER_AUTH_SECRET`.
 
 ## Running locally
 
@@ -60,7 +60,7 @@ npm install
 npm run dev -- --port 8123          # site: http://127.0.0.1:8123   editor: http://admin.localhost:8123/admin
 ```
 
-`.env.local` (git-ignored) needs `ADMIN_EMAILS`, `ADMIN_HOST=admin.localhost:8123`, `ADMIN_SIGNUP_CODE`, `BETTER_AUTH_SECRET`. Without `ADMIN_HOST`, dev serves the editor at `/admin` on any host. Do not run `vercel env pull` or `vercel blob create-store` in this folder without a backup: they overwrite `.env.local`.
+`.env.local` (git-ignored) needs `ADMIN_EMAILS`, `ADMIN_HOST=admin.localhost:8123`, `BETTER_AUTH_SECRET`. With no `RESEND_API_KEY` locally, the sign-in code is printed in the terminal instead of emailed (set `CMS_OTP_OUTBOX` to a folder to have it written there, as the tests do). Without `ADMIN_HOST`, dev serves the editor at `/admin` on any host. Do not run `vercel env pull` or `vercel blob create-store` in this folder without a backup: they overwrite `.env.local`.
 
 ## Tests
 

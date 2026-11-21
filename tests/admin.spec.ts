@@ -1,4 +1,7 @@
 import { test as base, expect, type Page } from "@playwright/test";
+import { existsSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 /**
  * The editor, end to end, on local pglite. It lives on its own host (admin.localhost), the public site on
@@ -8,13 +11,20 @@ const port = Number(process.env.CMS_TEST_PORT ?? 8080);
 const ADMIN = `http://admin.localhost:${port}`;
 const PUBLIC = `http://127.0.0.1:${port}`;
 const EDITOR = "editor@example.test";
-const PASSWORD = "a long test password 1234";
-const CODE = "test-signup-code-0123456789";
+// The test server writes each sign-in code to this folder instead of emailing it (playwright.config.ts).
+const OUTBOX = join(tmpdir(), `cms-test-otp-${port}`);
+const codeFile = (email: string) => join(OUTBOX, `${email}.txt`);
+
+/** The code the server just "emailed" to this address. */
+async function codeFor(email: string): Promise<string> {
+  await expect.poll(() => existsSync(codeFile(email)), { timeout: 15_000 }).toBe(true);
+  return readFileSync(codeFile(email), "utf8").trim();
+}
 
 // 1x1 transparent png.
 const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "base64");
 
-// Sign-in is limited to 5 a minute per address, so the editor signs in once and every test reuses that session.
+// Asking for a code and using one are each limited to 5 a minute, so the editor signs in once and every test reuses that session.
 let shared: Page;
 const test = base.extend<{ page: Page }>({
   page: async ({}, use) => {
@@ -24,7 +34,7 @@ const test = base.extend<{ page: Page }>({
 test.describe.configure({ mode: "serial" });
 test.beforeAll(async ({ browser }) => {
   shared = await (await browser.newContext()).newPage();
-  await signUpOrIn(shared);
+  await signIn(shared);
 });
 test.afterAll(async () => {
   await shared?.context().close();
@@ -36,22 +46,24 @@ async function openEditor(page: Page) {
   await expect(page.getByTestId("whoami")).toHaveText(EDITOR);
 }
 
-async function signUpOrIn(page: Page) {
+/** No password: type the address, get a code "by email", type the code. The first time also creates the account. */
+async function signIn(page: Page) {
+  rmSync(codeFile(EDITOR), { force: true });
   await page.goto(`${ADMIN}/admin`);
   await page.getByTestId("login-email").waitFor();
+  await expect(page.locator("input[type=password]")).toHaveCount(0);
   await page.getByTestId("login-email").fill(EDITOR);
-  await page.getByTestId("login-password").fill(PASSWORD);
   await page.getByTestId("login-submit").click();
-  // First run: the account does not exist yet, so sign-in is refused and we create it.
-  const who = page.getByTestId("whoami");
-  const refused = page.getByRole("alert");
-  await who.or(refused).first().waitFor({ timeout: 15_000 });
-  if (!(await who.isVisible())) {
-    await page.getByRole("button", { name: /create your account/i }).click();
-    await page.getByTestId("login-code").fill(CODE);
-    await page.getByTestId("login-submit").click();
-  }
-  await expect(who).toHaveText(EDITOR);
+  const code = await codeFor(EDITOR);
+  expect(code).toMatch(/^\d{6}$/);
+  // A wrong code is refused and leaves the right one usable.
+  await page.getByTestId("login-otp").fill(code === "000000" ? "111111" : "000000");
+  await page.getByTestId("login-submit").click();
+  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.getByTestId("whoami")).toHaveCount(0);
+  await page.getByTestId("login-otp").fill(code);
+  await page.getByTestId("login-submit").click();
+  await expect(page.getByTestId("whoami")).toHaveText(EDITOR);
 }
 
 async function overview(page: Page) {
@@ -78,21 +90,51 @@ test("host split: the public host has no editor, the editor host has no site", a
   expect((await request.get(`${ADMIN}/pricing`)).status()).toBe(404);
 });
 
-test("a non-listed email cannot sign in or sign up", async ({ browser }) => {
+test("the session lasts a week", async () => {
+  const cookie = (await shared.context().cookies(ADMIN)).find((c) => c.name.includes("session_token"));
+  expect(cookie, "session cookie").toBeTruthy();
+  const days = (cookie!.expires - Date.now() / 1000) / 86_400;
+  expect(days).toBeGreaterThan(6.9);
+  expect(days).toBeLessThan(7.1);
+  expect(cookie!.httpOnly).toBe(true);
+  expect(cookie!.sameSite).toBe("Strict");
+});
+
+test("a non-listed email is sent no code and cannot sign in", async ({ browser }) => {
   const page = await (await browser.newContext()).newPage();
-  const body = { email: "stranger@example.test", password: PASSWORD, name: "x" };
-  const headers = { origin: ADMIN, "x-cms-signup-code": CODE };
-  const up = await page.request.post(`${ADMIN}/api/cms-auth/sign-up/email`, { data: body, headers });
-  expect(up.status()).toBeGreaterThanOrEqual(400);
-  const inn = await page.request.post(`${ADMIN}/api/cms-auth/sign-in/email`, { data: { email: body.email, password: PASSWORD }, headers });
-  expect(inn.status()).toBeGreaterThanOrEqual(400);
-  // And the UI shows an error, not the editor.
+  const stranger = "stranger@example.test";
+  const headers = { origin: ADMIN };
+  const send = await page.request.post(`${ADMIN}/api/cms-auth/email-otp/send-verification-otp`, { data: { email: stranger, type: "sign-in" }, headers });
+  expect(send.status()).toBe(403);
+  expect(existsSync(codeFile(stranger))).toBe(false);
+  const inn = await page.request.post(`${ADMIN}/api/cms-auth/sign-in/email-otp`, { data: { email: stranger, otp: "123456" }, headers });
+  expect(inn.status()).toBe(403);
+  // And the UI shows an error, not the code step or the editor.
   await page.goto(`${ADMIN}/admin`);
-  await page.getByTestId("login-email").fill(body.email);
-  await page.getByTestId("login-password").fill(PASSWORD);
+  await page.getByTestId("login-email").fill(stranger);
   await page.getByTestId("login-submit").click();
   await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.getByTestId("login-otp")).toHaveCount(0);
   await expect(page.getByTestId("whoami")).toHaveCount(0);
+  await page.context().close();
+});
+
+test("passwords and everything else the sign-in library offers are shut", async ({ request }) => {
+  const headers = { origin: ADMIN };
+  const tries: [string, unknown][] = [
+    ["/sign-up/email", { email: EDITOR, password: "a long test password 1234", name: "x" }],
+    ["/sign-in/email", { email: EDITOR, password: "a long test password 1234" }],
+    ["/email-otp/request-password-reset", { email: EDITOR }],
+    ["/email-otp/verify-email", { email: EDITOR, otp: "123456" }],
+    ["/email-otp/check-verification-otp", { email: EDITOR, type: "sign-in", otp: "123456" }],
+  ];
+  for (const [path, data] of tries) {
+    const res = await request.post(`${ADMIN}/api/cms-auth${path}`, { data, headers });
+    expect(res.status(), path).toBe(404);
+  }
+  // A code is only ever for signing in.
+  const other = await request.post(`${ADMIN}/api/cms-auth/email-otp/send-verification-otp`, { data: { email: EDITOR, type: "forget-password" }, headers });
+  expect(other.status()).toBe(403);
 });
 
 test("signed-out calls and calls without a matching origin are refused", async ({ page, request }) => {

@@ -3,8 +3,11 @@
  *
  *   ADMIN_EMAILS       comma separated. Only these emails may sign up or sign in.
  *   ADMIN_HOST         host (and port, locally) the editor lives on, e.g. editor.communityhb.tech.
- *   ADMIN_SIGNUP_CODE  shared secret the first sign-up needs (required in production).
  *   BETTER_AUTH_SECRET signs the editor sessions.
+ *   RESEND_API_KEY     sends the sign-in codes (see contact/mail.server.ts). Without it nobody can sign in.
+ *   CMS_OTP_OUTBOX     development and tests only: a folder the sign-in codes are written to instead of emailed.
+ *
+ * There are no passwords. An editor types their address, is emailed a 6-digit code and stays signed in for a week.
  */
 import { isIP } from "node:net";
 
@@ -13,8 +16,6 @@ const read = (key: string) => process.env[key]?.trim() || undefined;
 /** Only an explicit development or test run gets the relaxed local behaviour. Anything else (including unset) is treated as live. */
 export const isDevOrTest = () => process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
 export const isProduction = () => !isDevOrTest();
-
-export const MIN_SIGNUP_CODE = 16;
 
 export function adminEmails(): string[] {
   return (read("ADMIN_EMAILS") ?? "")
@@ -32,10 +33,9 @@ export function adminHost(): string | null {
   return read("ADMIN_HOST")?.toLowerCase() ?? null;
 }
 
-/** The shared sign-up code, or null (sign-up refused) when it is missing or shorter than 16 characters. */
-export function signupCode(): string | null {
-  const code = read("ADMIN_SIGNUP_CODE");
-  return code && code.length >= MIN_SIGNUP_CODE ? code : null;
+/** Development and tests only: the folder sign-in codes are written to instead of being emailed. Never set when live. */
+export function codeOutbox(): string | null {
+  return isDevOrTest() ? (read("CMS_OTP_OUTBOX") ?? null) : null;
 }
 
 export function authSecret(): string {
