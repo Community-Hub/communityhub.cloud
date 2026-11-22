@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { adminEmails, isAdminEmail, adminOrigin, useSecureCookies, codeOutbox, authSecret, isAdminHost } from "./env.ts";
 import { isOwnBlobUrl, checkValue } from "./validate.ts";
 import { readBodyLimited } from "./body.ts";
-import { gate, hardenEditorResponse } from "./gate.server.ts";
+import { gate, hardenEditorResponse, hasEditorCookie } from "./gate.server.ts";
 
 const KEYS = ["ADMIN_EMAILS", "ADMIN_HOST", "NODE_ENV", "CMS_OTP_OUTBOX", "BETTER_AUTH_SECRET", "BLOB_READ_WRITE_TOKEN"] as const;
 const saved = Object.fromEntries(KEYS.map((k) => [k, process.env[k]]));
@@ -99,6 +99,43 @@ describe("host routing", () => {
       set({ NODE_ENV: env });
       assert.equal(codeOutbox(), null);
     }
+  });
+  it("a signed-in editor's browser may open the site's pages on the editor host; nobody else", () => {
+    set({ ADMIN_HOST: "admin.example.org", NODE_ENV: "production" });
+    const withCookie = (path: string, cookie: string) => new Request(`http://admin.example.org${path}`, { headers: { host: "admin.example.org", cookie } });
+    // No cookie: the home goes to sign-in and every other page is not found, as before.
+    assert.equal(gate(req("admin.example.org", "/"))?.status, 302);
+    assert.equal(gate(req("admin.example.org", "/pricing"))?.status, 404);
+    // The editor's session cookie (either spelling) lets the site's own pages through.
+    for (const cookie of ["__Secure-cms.session_token=abc.def", "theme=dark; cms.session_token=abc.def"]) {
+      assert.equal(hasEditorCookie(withCookie("/pricing", cookie)), true);
+      assert.equal(gate(withCookie("/pricing", cookie)), null);
+      assert.equal(gate(withCookie("/", cookie)), null);
+    }
+    // Some other cookie, or an empty one, does not.
+    for (const cookie of ["session_token=abc", "cms.session_token=", "xcms.session_token=abc"]) {
+      assert.equal(hasEditorCookie(withCookie("/pricing", cookie)), false, cookie);
+      assert.equal(gate(withCookie("/pricing", cookie))?.status, 404, cookie);
+    }
+    // The public host is unchanged by the cookie: no editor there.
+    const pub = new Request("http://www.example.org/admin", { headers: { host: "www.example.org", cookie: "cms.session_token=abc.def" } });
+    assert.equal(gate(pub)?.status, 404);
+  });
+  it("nothing on the editor host is cacheable; the site's pages there may show frames, the editor itself may not", () => {
+    set({ ADMIN_HOST: "admin.example.org", NODE_ENV: "production" });
+    const page = hardenEditorResponse(req("admin.example.org", "/pricing"), new Response("x", { headers: { "cache-control": "public, max-age=0, s-maxage=60" } }));
+    assert.equal(page.headers.get("cache-control"), "no-store");
+    assert.match(page.headers.get("content-security-policy") ?? "", /frame-src https:/);
+    assert.match(page.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
+    assert.match(page.headers.get("content-security-policy") ?? "", /script-src 'self' 'unsafe-inline'(;|$)/);
+    assert.equal(page.headers.get("x-robots-tag"), "noindex, nofollow");
+    const editor = hardenEditorResponse(req("admin.example.org", "/admin"), new Response("x"));
+    assert.equal(editor.headers.get("cache-control"), "no-store");
+    assert.doesNotMatch(editor.headers.get("content-security-policy") ?? "", /frame-src/);
+    // The public host's pages are left exactly as they are.
+    const pub = hardenEditorResponse(req("www.example.org", "/pricing"), new Response("x", { headers: { "cache-control": "public, max-age=0, s-maxage=60" } }));
+    assert.equal(pub.headers.get("cache-control"), "public, max-age=0, s-maxage=60");
+    assert.equal(pub.headers.get("content-security-policy"), null);
   });
   it("links cannot start //, /\\ or /\\evil", () => {
     for (const bad of ["/\\evil.com", "//evil.com", "/\\/evil.com"]) {

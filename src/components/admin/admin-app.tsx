@@ -20,7 +20,7 @@ interface Session {
   user: { email: string; name: string } | null;
 }
 
-export function AdminApp() {
+export function AdminApp({ onEditorHost = false }: { onEditorHost?: boolean }) {
   const [session, setSession] = useState<Session | "loading">("loading");
   const refreshSession = useCallback(async () => {
     try {
@@ -34,15 +34,15 @@ export function AdminApp() {
   }, [refreshSession]);
 
   if (session === "loading") return <p className="p-8 text-ink/70">Loading...</p>;
-  if (!session.user) return <SignIn onDone={refreshSession} />;
-  return <Editor email={session.user.email} onSignOut={refreshSession} />;
+  if (!session.user) return <SignIn onDone={refreshSession} onEditorHost={onEditorHost} />;
+  return <Editor email={session.user.email} onSignOut={refreshSession} onEditorHost={onEditorHost} />;
 }
 
 /**
  * Signing in has no password: type your address, get a 6-digit code by email, type the code. The browser then stays
  * signed in for a week.
  */
-function SignIn({ onDone }: { onDone: () => Promise<void> }) {
+function SignIn({ onDone, onEditorHost }: { onDone: () => Promise<void>; onEditorHost: boolean }) {
   const [step, setStep] = useState<"email" | "code">("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -75,7 +75,9 @@ function SignIn({ onDone }: { onDone: () => Promise<void> }) {
     setBusy(true);
     try {
       await post("/api/cms-auth/sign-in/email-otp", { email: address, otp: code.replace(/\D/g, "") });
-      await onDone();
+      // Straight to the site itself, to edit on the page. The lists stay here at /admin.
+      if (onEditorHost) window.location.assign("/");
+      else await onDone();
     } catch (e2) {
       const status = (e2 as { status?: number }).status;
       setErr(status === 429 ? "Too many tries. Wait a minute, then try again." : status === 403 ? errorText(e2) : "That code is not right, or it has run out. Check the email, or send a new code.");
@@ -137,7 +139,7 @@ function SignIn({ onDone }: { onDone: () => Promise<void> }) {
   );
 }
 
-function Editor({ email, onSignOut }: { email: string; onSignOut: () => Promise<void> }) {
+function Editor({ email, onSignOut, onEditorHost }: { email: string; onSignOut: () => Promise<void>; onEditorHost: boolean }) {
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("texts");
@@ -204,9 +206,16 @@ function Editor({ email, onSignOut }: { email: string; onSignOut: () => Promise<
             Signed in as <span data-testid="whoami">{email}</span>. Changes appear on the site within about a minute. Everything can be undone from History.
           </p>
         </div>
-        <button type="button" className={btnGhost} onClick={signOut} data-testid="signout">
-          Sign out
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {onEditorHost ? (
+            <a href="/" className={btn} data-testid="edit-on-page">
+              Edit on the page
+            </a>
+          ) : null}
+          <button type="button" className={btnGhost} onClick={signOut} data-testid="signout">
+            Sign out
+          </button>
+        </div>
       </header>
 
       <nav aria-label="Editor sections" className="mb-4 flex flex-wrap gap-2">

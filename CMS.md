@@ -15,6 +15,17 @@ Maddie and John can change the site's words, links, pictures, lists and sections
 - If the code changes after someone edited it (new wording, or an item inserted into a list), the edit is not applied to the wrong place: it is set aside, the original shows, and the editor marks it "Out of date" so it can be saved again. Each edit stores a fingerprint of the default it was made against (`migrations/0002_cms_def_hash.sql`); lists also follow items by `id` when the code only reorders them. Edits saved before that migration keep applying. Those rows (no fingerprint) apply by position and are not protected against code changes; Neon had no edits when 0002 was added, so none exist there. Fingerprints of list items are taken from a copy of the defaults made at startup, so editing text never changes them. Reverting a list keeps the item identities it was saved against, so an old order is flagged "Out of date" if the code list has since changed.
 - If the database is slow or down, public pages wait about 1 second, then use the last good edits (or the built-in text if there were none), so a database blip never breaks a page. Known small race: the page content is shared inside one server process, so a page rendering at the exact moment new edits load can show them one load early and the browser redraws it once.
 
+## Editing on the page
+
+On the editor's address a signed-in editor sees the site itself and clicks wording to change it where it sits (the owner, 2026-11-21: the editor should look like the site, so people know what they are editing and how it will look).
+
+- After sign-in the editor lands on `/`, the site's home, on the editor host. `/admin` is still the full list (words, pictures, lists, show or hide, history); a bar at the bottom of every page links to it, and it links back.
+- **Who can open the site's pages there.** The gate lets a request through to the site's own pages on the editor host only when it carries the editor's session cookie; without it `/` goes to `/admin` and every other page is 404, as before. The cookie is only looked for at the gate. The on-page tools then check the session and send anyone not signed in to `/admin`, and every read or write of editor data checks the session itself, as always.
+- **Never cached, relaxed frames.** Every response on the editor host is `no-store`, so a page drawn for an editor is never handed to anyone else. The site's pages there get their own Content Security Policy that allows the frames, pictures and film the public pages show; `/admin` and the editor API keep the strict one.
+- **How a click finds the right entry.** The on-page tools (`src/components/admin/page-editor.tsx`) are loaded only on the editor host. In that browser only, each editable wording gets an invisible tag at its end (three kinds of zero-width character that cannot move a line break) saying which entry it is, and the page redraws once. Text carrying a tag is that entry exactly, so the heading "Pricing" and a menu item that also says "Pricing" are told apart. Text the page's code reshapes loses its tag; that falls back to matching what it says, and when the same words are used in several places the editor chooses which. The tags never reach the server, the database or the public site (a test checks the public page has none).
+- **After a save** only the text carrying that entry's tag changes on screen; if that cannot be done in place the page redraws itself from its content. The public site shows it after about a minute.
+- Not on the page yet: pictures, lists, hiding sections and history. They are in the list at `/admin`.
+
 ## Environment variables
 
 | Name | Where | What it does |
@@ -42,7 +53,7 @@ Two Vercel projects in team Community Hub run the same code against the same dat
 
 1. Check their address is in `ADMIN_EMAILS` on the editor project (`community-hub-site`); redeploy if you change it.
 2. Send them https://editor.communityhb.tech. There is nothing else to send: no password, no code from you.
-3. They type their email address, receive a 6-digit code by email, and type it in. The first time also creates their account. They stay signed in on that browser for a week.
+3. They type their email address, receive a 6-digit code by email, and type it in. The first time also creates their account. They stay signed in on that browser for a week. They land on the site itself, ready to click wording and change it.
 
 Result: `editor.communityhb.tech` serves only the editor (`/` goes to `/admin`). Cookies belong to the editor host only (host-only, httpOnly, SameSite strict, Secure).
 
