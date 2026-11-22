@@ -225,6 +225,10 @@ Flat by default. Depth comes from page bands (white, field, lime pale, pine) and
 ### Footer
 - Product columns, then one column per menu item that has a submenu, with the same names and order as the menu.
 
+### The editor (editor.communityhb.tech)
+- It is the site itself: the same pages, header and footer, so an editor sees what they are changing and how it will look. The only additions are a pine bar pinned to the bottom of the screen (an **Edit text / Browse** switch, a one-line hint, a link to **Pictures, lists and history**, sign out) and, in Edit text, a dashed leaf outline with a lime tint on whatever the pointer is over. Clicking it opens a white card above the bar with the wording, **Save**, **Cancel** and **Use the original wording**.
+- Sign-in is one white card: an email field, then a 6-digit code. No passwords.
+
 ### Our team (About)
 - Six portraits (7:8, 1.25rem corners, hairline) in one row on wide screens and two rows of three below 1024px; the name in ink 600 with the role under it in small type. Names, roles and photos are those of the original site's team page; nothing is added. "Our team" in the menu opens About at this section.
 

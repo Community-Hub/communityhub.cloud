@@ -6,6 +6,19 @@ import { EMPTY_STATE } from "./core";
  * never waits long: if the database is down or slow the last good state is used (the same one the server's shared
  * content holds), or the built-in text when there never was one. Loads only the content service, not the editor sign-in.
  */
+/**
+ * True on the editor's own address (ADMIN_HOST). The page shell asks once per page load and, only there, loads the
+ * tools for editing on the page; the public site never downloads them.
+ */
+export const getEditorHost = createServerFn({ method: "GET" }).handler(async (): Promise<boolean> => {
+  try {
+    const [{ onDedicatedAdminHost }, { getRequest }] = await Promise.all([import("./env"), import("@tanstack/react-start/server")]);
+    return onDedicatedAdminHost(getRequest());
+  } catch {
+    return false;
+  }
+});
+
 export const getCmsState = createServerFn({ method: "GET" }).handler(async (): Promise<string> => {
   try {
     const { dbSource } = await import("../db");

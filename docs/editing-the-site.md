@@ -14,16 +14,22 @@ You stay signed in on that browser for a week. After that, or on another compute
 
 ## Change a sentence
 
-1. Open **Words and links**.
-2. Type a few words from the sentence into **Find a word or heading**, or pick the page from the list under it.
-3. Click the sentence. Edit it in the box. You'll see **On the site now** and **Your version** side by side.
-4. Press **Save**. It shows on the site after about a minute: refresh the page, and if it still shows the old wording, refresh once more.
+After you sign in you are on the site itself, with a dark bar at the bottom of the screen.
 
-If your text runs much longer than the original, the editor warns you, because long text may not fit its space on the page.
+1. Go to the page you want. To move between pages, press **Browse** in the bar, use the site's menu as usual, then press **Edit text** again.
+2. Move the pointer over the page: anything you can change lights up. Click the sentence.
+3. A small box opens with the wording. Change it and press **Save**. The page shows your new wording at once, so you can see how it fits.
+4. On the public site it shows after about a minute: refresh the page, and if it still shows the old wording, refresh once more.
+
+To go back, click the sentence again and press **Use the original wording**.
+
+If your text runs much longer than the original, the box warns you, because long text may not fit its space on the page.
+
+A few pieces of wording cannot be clicked on the page (text inside the live dashboards, and a few lines the page reshapes). For those, and for pictures and lists, press **Pictures, lists and history** in the bar: it opens the full list, where **Words and links** has a search box (**Find a word or heading**).
 
 ## Change a picture
 
-1. Open **Pictures** and find the picture.
+1. Press **Pictures, lists and history** in the bar, open **Pictures** and find the picture.
 2. Upload a jpg, png or webp (up to 4 MB). A **picture description** is required: one sentence saying what the picture shows, for people who can't see it.
 3. Press **Save**.
 

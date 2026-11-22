@@ -100,6 +100,81 @@ test("the session lasts a week", async () => {
   expect(cookie!.sameSite).toBe("Strict");
 });
 
+/** What a person reads: the on-page editor's invisible tags taken out. */
+const seen = (text: string | null) => (text ?? "").replace(/[\u2063\u2060\u200C]/g, "").replace(/\s+/g, " ").trim();
+
+test("after signing in the editor is on the site itself, with the editing bar", async ({ page }) => {
+  // signIn() ran in beforeAll: it ends on the editor host's own copy of the home page, not on the lists.
+  await page.goto(`${ADMIN}/`);
+  await expect(page.getByTestId("page-edit-bar")).toBeVisible();
+  await expect(page.getByTestId("page-edit-hint")).toHaveText("Click any wording to change it.");
+  await expect(page.getByRole("navigation", { name: "Main" })).toBeVisible();
+  expect(await page.locator("[data-cms-edit]").count()).toBeGreaterThan(20);
+  // The site's pages on the editor host are never cacheable and may show the live examples in frames.
+  const res = await page.request.get(`${ADMIN}/pricing`);
+  expect(res.status()).toBe(200);
+  expect(res.headers()["cache-control"]).toBe("no-store");
+  expect(res.headers()["content-security-policy"]).toContain("frame-src https:");
+  expect(res.headers()["x-robots-tag"]).toContain("noindex");
+});
+
+test("edit on the page: click a heading, save, and only that wording changes, here and on the public site", async ({ page, browser }) => {
+  await page.goto(`${ADMIN}/pricing`);
+  await expect(page.getByTestId("page-edit-hint")).toHaveText("Click any wording to change it.");
+  const h1 = page.locator("main h1").first();
+  const crumb = page.locator("[data-breadcrumbs] [aria-current=page]");
+  await expect.poll(async () => seen(await h1.textContent())).toBe("Pricing");
+  await expect(h1).toHaveAttribute("data-cms-edit", "");
+
+  // The heading and the breadcrumb say the same word, and each opens its own entry.
+  const card = page.getByTestId("page-edit-card");
+  await crumb.click();
+  await expect(card).toHaveAttribute("data-key", /^page\.siteHeader\.NAV\./);
+  await card.getByRole("button", { name: "Close" }).click();
+  await h1.click();
+  await expect(card).toHaveAttribute("data-key", "copy.pricing.Pricing.DocSection_title1");
+  await expect(page.getByTestId("page-edit-which")).toHaveCount(0);
+  expect(page.url()).toBe(`${ADMIN}/pricing`);
+
+  await page.getByTestId("page-edit-input").fill("Pricing and plans");
+  await page.getByTestId("page-edit-save").click();
+  await expect(card.getByRole("status")).toContainText("Saved.");
+  await expect.poll(async () => seen(await h1.textContent())).toBe("Pricing and plans");
+  expect(seen(await crumb.textContent())).toBe("Pricing");
+  expect(seen(await page.getByRole("navigation", { name: "Main" }).textContent())).not.toContain("Pricing and plans");
+
+  // A visitor to the public site sees it, with nothing of the editor on the page.
+  const visitor = await (await browser.newContext()).newPage();
+  await visitor.goto(`${PUBLIC}/pricing`);
+  await expect(visitor.locator("main h1").first()).toHaveText("Pricing and plans");
+  await expect(visitor.locator("[data-cms-ui]")).toHaveCount(0);
+  expect(await visitor.evaluate(() => /[\u2063\u2060\u200C]/.test(document.documentElement.outerHTML))).toBe(false);
+
+  // Put it back from the same card.
+  await page.getByTestId("page-edit-reset").click();
+  await expect(card.getByRole("status")).toContainText("original wording");
+  await expect.poll(async () => seen(await h1.textContent())).toBe("Pricing");
+  await visitor.reload();
+  await expect(visitor.locator("main h1").first()).toHaveText("Pricing");
+  await visitor.context().close();
+});
+
+test("edit on the page: in Edit text a link opens for editing; in Browse it is followed", async ({ page }) => {
+  await page.goto(`${ADMIN}/pricing`);
+  await expect(page.getByTestId("page-edit-hint")).toHaveText("Click any wording to change it.");
+  const home = page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Home" });
+  await home.click();
+  await expect(page.getByTestId("page-edit-card")).toBeVisible();
+  expect(page.url()).toBe(`${ADMIN}/pricing`);
+  await page.getByTestId("page-edit-mode-browse").click();
+  await expect(page.getByTestId("page-edit-card")).toHaveCount(0);
+  await home.click();
+  await expect(page).toHaveURL(`${ADMIN}/`);
+  // The lists are one click away, and they link back.
+  await page.getByRole("link", { name: "Pictures, lists and history" }).click();
+  await expect(page.getByTestId("edit-on-page")).toBeVisible();
+});
+
 test("a non-listed email is sent no code and cannot sign in", async ({ browser }) => {
   const page = await (await browser.newContext()).newPage();
   const stranger = "stranger@example.test";

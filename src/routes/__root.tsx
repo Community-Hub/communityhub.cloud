@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { pc } from "@/lib/page-content";
 import { site } from "@/lib/site";
 import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
-import { getCmsState } from "@/lib/cms/state";
+import { getCmsState, getEditorHost } from "@/lib/cms/state";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteHeader } from "@/components/site-header";
 import appCss from "../styles.css?url";
@@ -12,13 +12,19 @@ import appCss from "../styles.css?url";
 const inlineJson = (json: string) =>
   json.replace(/</g, "\\u003c").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
 
+// Editing on the page: loaded only on the editor's own address, never by a visitor to the public site.
+const PageEditor = lazy(() => import("@/components/admin/page-editor").then((m) => ({ default: m.PageEditor })));
+
 export const Route = createRootRoute({
   // The saved edits are loaded once per page load, applied to the content before anything is drawn,
   // and handed to the browser so its first render matches the server's.
-  loader: () => getCmsState(),
+  loader: async () => {
+    const [cms, editorHost] = await Promise.all([getCmsState(), getEditorHost()]);
+    return { cms, editorHost };
+  },
   staleTime: Number.POSITIVE_INFINITY,
   head: ({ loaderData }) => ({
-    scripts: loaderData ? [{ children: `window.__CMS_STATE__=${inlineJson(loaderData)};` }] : [],
+    scripts: loaderData?.cms ? [{ children: `window.__CMS_STATE__=${inlineJson(loaderData.cms)};` }] : [],
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -51,10 +57,22 @@ export const Route = createRootRoute({
 function RootDocument() {
   // The editor has its own screen: no site header on it.
   const editing = useRouterState({ select: (s) => s.location.pathname === "/admin" });
+  const editorHost = Route.useLoaderData({ select: (d) => Boolean(d?.editorHost) });
   // Marks the page as interactive (tests wait for it before clicking).
+  const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     document.documentElement.dataset.hydrated = "true";
+    setHydrated(true);
   }, []);
+  // On the editor's address only: the on-page editor asks for the page to be drawn afresh from its content (once
+  // when it starts, and after a save it could not show in place).
+  const [draw, setDraw] = useState(0);
+  useEffect(() => {
+    if (!editorHost) return;
+    const redraw = () => setDraw((n) => n + 1);
+    window.addEventListener("cms:redraw", redraw);
+    return () => window.removeEventListener("cms:redraw", redraw);
+  }, [editorHost]);
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -79,8 +97,13 @@ function RootDocument() {
               Skip to content
             </a>
           )}
-          {editing ? null : <SiteHeader />}
-          <Outlet />
+          {editing ? null : <SiteHeader key={`header-${draw}`} />}
+          <Outlet key={`page-${draw}`} />
+          {editorHost && hydrated && !editing ? (
+            <Suspense fallback={null}>
+              <PageEditor />
+            </Suspense>
+          ) : null}
         </AuthProvider>
         <Scripts />
       </body>
