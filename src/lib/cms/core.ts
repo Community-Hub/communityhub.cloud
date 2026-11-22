@@ -157,9 +157,9 @@ export function classify(rawLeaf: string, value: string, only?: readonly string[
   if (leaf === "alt") return only && !only.includes("alt") ? null : "alt";
   if (only && !only.includes(leaf)) return null;
   if (IMAGE_KEYS.has(leaf) && IMAGE_EXT.test(value)) return "image";
-  if (leaf === "contactEmail" || leaf === "formInbox") return "email";
+  if (leaf === "contactEmail" || leaf === "formInbox" || /Email$/.test(leaf)) return "email";
   if (leaf === "href") return LINK_RE.test(value) ? "link" : null;
-  if (NEVER_TEXT.has(leaf)) return null;
+  if (NEVER_TEXT.has(leaf) && !only?.includes(leaf)) return null;
   if (IMAGE_KEYS.has(leaf)) return null; // a src that is not a picture (an iframe address, say)
   if (/^(\/|\.\/|https?:)/i.test(value)) return null;
   if (!/\p{L}/u.test(value)) return null;
@@ -276,6 +276,13 @@ export interface ContentIndex {
   sections: SectionSpec[];
   list(path: string): ListInfo | undefined;
   apply(state: CmsState): void;
+  /**
+   * Adds the wording of one more object after the index was made, and gives it the saved edits already applied.
+   * For wording that travels with one page only (a long document, a page's own text) and so is not known until that
+   * page's code loads; the server loads all of it before it lists or checks anything. Calling it again with the
+   * same name replaces what was there (a hot reload).
+   */
+  extend(root: RootSpec): void;
   isHidden(path: string, id: string): boolean;
   /** What the site shows now for a slot. */
   current(key: string): string | undefined;
@@ -307,7 +314,7 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
     props.add(ref.prop);
     return true;
   };
-  for (const root of input.roots) {
+  const addRoot = (root: RootSpec) => {
     rootByName.set(root.name, root);
     walk(root.value, [], [], ({ path, leaf, value, ref, ancestors }) => {
       const kind = classify(leaf, value, root.only);
@@ -331,9 +338,10 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
       refs.set(key, ref);
       slots.push(slot);
     });
-  }
+  };
+  for (const root of input.roots) addRoot(root);
   // An empty alt ("decorative") is not a text slot of its own, but its image can still be given one.
-  for (const root of input.roots) {
+  const addEmptyAlts = (root: RootSpec) => {
     walk(root.value, [], [], ({ path, leaf, value, ref, ancestors }) => {
       if (attrOf(leaf) !== "alt" || value !== "") return;
       const key = [root.name, ...path].join(".");
@@ -345,17 +353,21 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
       refs.set(key, ref);
       slots.push(slot);
     });
-  }
+  };
+  for (const root of input.roots) addEmptyAlts(root);
   // Pair every image with the alt text beside it.
-  for (const s of slots) {
-    if (s.kind !== "image") continue;
-    const altKey = altKeyOf(s.key);
-    const alt = bySlot.get(altKey);
-    if (alt) {
-      s.altKey = altKey;
-      alt.ownedByImage = true;
+  const pairAlts = (from: Slot[]) => {
+    for (const s of from) {
+      if (s.kind !== "image") continue;
+      const altKey = altKeyOf(s.key);
+      const alt = bySlot.get(altKey);
+      if (alt) {
+        s.altKey = altKey;
+        alt.ownedByImage = true;
+      }
     }
-  }
+  };
+  pairAlts(slots);
 
   const listInfos = new Map<string, ListInfo>();
   for (const spec of input.lists ?? []) {
@@ -408,10 +420,13 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
     return { state: { v, l, h: state.h }, stale };
   };
   let lastStale: string[] = [];
+  /** The overrides last applied, kept so wording that registers later (extend) gets them too. */
+  let lastValues: Record<string, string> = {};
 
   const apply = (input: CmsState) => {
     const { state, stale } = resolve(input);
     lastStale = stale;
+    lastValues = state.v;
     const next = new Set<string>();
     for (const [key, value] of Object.entries(state.v)) {
       const ref = refs.get(key);
@@ -459,6 +474,31 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
     sections: input.sections ?? [],
     list: (path) => listInfos.get(path),
     apply,
+    extend: (root) => {
+      if (rootByName.has(root.name)) {
+        // The same wording registering again (a hot reload): forget the old object's entries first.
+        const mine = (key: string) => key === root.name || key.startsWith(`${root.name}.`);
+        for (let i = slots.length - 1; i >= 0; i--) {
+          if (!mine(slots[i].key)) continue;
+          bySlot.delete(slots[i].key);
+          refs.delete(slots[i].key);
+          applied.delete(slots[i].key);
+          slots.splice(i, 1);
+        }
+      }
+      const from = slots.length;
+      addRoot(root);
+      addEmptyAlts(root);
+      const added = slots.slice(from);
+      pairAlts(added);
+      for (const slot of added) {
+        const value = lastValues[slot.key];
+        if (value === undefined) continue;
+        const ref = refs.get(slot.key)!;
+        ref.obj[ref.prop] = value;
+        applied.add(slot.key);
+      }
+    },
     isHidden: (path, id) => hidden.has(`${path}#${id}`),
     current: (key) => {
       const ref = refs.get(key);

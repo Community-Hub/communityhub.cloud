@@ -3,6 +3,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { AppLink } from "@/components/app-link";
 import { cleanPath, sectionFor, trailFor } from "@/lib/site-map";
 import { cn } from "@/lib/utils";
+import { txt } from "@/lib/page-text/breadcrumbs";
 
 const linkCls = "font-medium text-leaf underline decoration-leaf/40 underline-offset-4 hover:text-pine hover:decoration-current";
 
@@ -57,7 +58,7 @@ export function SectionLinks({ className }: { className?: string }) {
   if (!section || others.length === 0) return null;
   return (
     <nav aria-label={`Also in ${section.label}`} className={cn("flex flex-wrap items-center gap-x-5 gap-y-1 text-[0.9375rem]", className)}>
-      <span className="text-ink/70">Also in this section</span>
+      <span className="text-ink/70">{txt.span1}</span>
       <ul className="flex flex-wrap gap-x-5 gap-y-1">
         {others.map((child) => (
           <li key={child.href}>

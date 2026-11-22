@@ -11,6 +11,7 @@ import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
 import { allProducts, sectionFor, SERVICES } from "@/lib/site-map";
 
+import { txt } from "@/lib/page-text/siteHeader";
 
 function iconFor(id: string) {
   return productIcon(id);
@@ -58,7 +59,7 @@ function ProductsPanel({ onPick }: { onPick: () => void }) {
       </ul>
       <div className="flex flex-col gap-1 border-line max-lg:border-t max-lg:pt-6 lg:border-l lg:pl-8">
         <AppLink href="/products" onClick={onPick} className="link">
-          All products <ArrowRight className="size-4" aria-hidden />
+          {txt.AppLink1}{" "}<ArrowRight className="size-4" aria-hidden />
         </AppLink>
         <AppLink href={SERVICES.href} onClick={onPick} className="link">
           {SERVICES.label}
@@ -255,7 +256,7 @@ export function SiteHeader() {
                           ))}
                         </ul>
                         <AppLink href="/products" onClick={() => setOpen(false)} className="link mt-3">
-                          All products <ArrowRight className="size-4" aria-hidden />
+                          {txt.AppLink2}{" "}<ArrowRight className="size-4" aria-hidden />
                         </AppLink>
                       </div>
                     )}
@@ -287,7 +288,7 @@ export function SiteHeader() {
                 {copy.siteHeader.SiteHeader.a2}
               </AppLink>
               <p className="mt-4 text-center text-sm text-ink/65">
-                or write to{" "}
+                {txt.p1}{" "}
                 <a href={site.mailtoHref} className="font-semibold text-leaf underline">
                   {site.contactEmail}
                 </a>

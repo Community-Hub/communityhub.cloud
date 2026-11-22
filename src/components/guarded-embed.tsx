@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { txt } from "@/lib/page-text/guardedEmbed";
 
 /** Partner pages are laid out for a desktop screen, so narrow boxes show them at this width, scaled down. */
 const VIRTUAL_WIDTH = 1360;
@@ -50,7 +51,7 @@ export function PortalPartnerBanner({ kind }: { kind: PortalEmbedKind }) {
           draggable={false}
           className="h-5 w-auto"
         />
-        <span className="text-xs font-semibold tracking-tight opacity-95">Home Oberlin College</span>
+        <span className="text-xs font-semibold tracking-tight opacity-95">{txt.span1}</span>
       </div>
     );
   }
@@ -68,9 +69,9 @@ export function PortalPartnerBanner({ kind }: { kind: PortalEmbedKind }) {
             draggable={false}
             className="h-7 w-auto"
           />
-          <span className="text-sm font-light tracking-tight">Oberlin City Schools</span>
+          <span className="text-sm font-light tracking-tight">{txt.span2}</span>
         </div>
-        <span className="text-xs font-semibold tracking-tight opacity-95">Home Oberlin City Schools</span>
+        <span className="text-xs font-semibold tracking-tight opacity-95">{txt.span3}</span>
       </div>
     );
   }
@@ -86,7 +87,7 @@ export function PortalPartnerBanner({ kind }: { kind: PortalEmbedKind }) {
           draggable={false}
           className="h-6 w-auto"
         />
-        <span className="text-xs font-semibold tracking-tight opacity-95">Home City Of Oberlin</span>
+        <span className="text-xs font-semibold tracking-tight opacity-95">{txt.span4}</span>
       </div>
     );
   }
@@ -96,8 +97,8 @@ export function PortalPartnerBanner({ kind }: { kind: PortalEmbedKind }) {
       className="pointer-events-none relative flex h-10 w-full shrink-0 select-none items-center justify-between overflow-hidden border-b border-black/10 bg-[#d1eafc] px-3"
     >
       <div className="relative z-10 flex items-baseline gap-2">
-        <span className="text-xs font-bold tracking-tight text-[#5bb951]">Cleveland Environmental Dashboard</span>
-        <span className="text-xs font-medium text-neutral-700">educate, motivate, empower!</span>
+        <span className="text-xs font-bold tracking-tight text-[#5bb951]">{txt.span5}</span>
+        <span className="text-xs font-medium text-neutral-700">{txt.span6}</span>
       </div>
       <img
         src="https://communityhubstorage.cloud/ch-data-hub/data-hub/CLE_GLSCWebBanner.svg"

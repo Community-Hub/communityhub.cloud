@@ -5,6 +5,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
+import { txt } from "@/lib/page-text/toolkit";
+
 type Lesson = {
   title: string;
   type: string;
@@ -41,7 +43,7 @@ function gradeText(gs: string[]) {
           ? `Grades ${nums[0]} to ${nums[nums.length - 1]}`
           : `Grades ${nums.slice(0, -1).join(", ")} and ${nums[nums.length - 1]}`;
   }
-  return higher ? (text ? `${text} and higher education` : "Higher education") : text;
+  return higher ? (text ? `${text} and higher education` : txt.text1) : text;
 }
 
 export const Route = createFileRoute("/toolkit")({
@@ -95,27 +97,24 @@ function Toolkit() {
     <DocShell stops={[{id: "lessons", label: pc.toolkit.TITLE}]} soft>
       <DocSection label={pc.toolkit.TITLE} title={pc.toolkit.TITLE} as="h1" lede={ledeText()}>
         <form onSubmit={e => e.preventDefault()} role="search" aria-label="Find teaching resources" className="mb-4 grid gap-3 md:grid-cols-3">
-          <label className="grid gap-1 font-bold">Search lessons
-            <input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Title, topic or dashboard feature" className="min-h-11 min-w-0 rounded border border-line bg-paper px-3 font-normal shadow-[inset_0_1px_2px_rgba(36,75,56,0.06)] focus-visible:border-pine" />
+          <label className="grid gap-1 font-bold">{txt.label1}<input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder={txt.placeholder1} className="min-h-11 min-w-0 rounded border border-line bg-paper px-3 font-normal shadow-[inset_0_1px_2px_rgba(36,75,56,0.06)] focus-visible:border-pine" />
           </label>
-          <label className="grid gap-1 font-bold">Grade level
-            <select value={grade} onChange={e => setGrade(e.target.value)} className="min-h-11 min-w-0 rounded border border-line bg-paper px-3 font-normal shadow-[inset_0_1px_2px_rgba(36,75,56,0.06)] focus-visible:border-pine">
-              <option value="">All grade levels</option>{grades.map(g => <option key={g}>{g}</option>)}
+          <label className="grid gap-1 font-bold">{txt.label2}<select value={grade} onChange={e => setGrade(e.target.value)} className="min-h-11 min-w-0 rounded border border-line bg-paper px-3 font-normal shadow-[inset_0_1px_2px_rgba(36,75,56,0.06)] focus-visible:border-pine">
+              <option value="">{txt.option1}</option>{grades.map(g => <option key={g}>{g}</option>)}
             </select>
           </label>
-          <label className="grid gap-1 font-bold">Subject
-            <select value={subject} onChange={e => setSubject(e.target.value)} className="min-h-11 min-w-0 rounded border border-line bg-paper px-3 font-normal shadow-[inset_0_1px_2px_rgba(36,75,56,0.06)] focus-visible:border-pine">
-              <option value="">All subjects</option>{subjects.map(s => <option key={s}>{s}</option>)}
+          <label className="grid gap-1 font-bold">{txt.label3}<select value={subject} onChange={e => setSubject(e.target.value)} className="min-h-11 min-w-0 rounded border border-line bg-paper px-3 font-normal shadow-[inset_0_1px_2px_rgba(36,75,56,0.06)] focus-visible:border-pine">
+              <option value="">{txt.option2}</option>{subjects.map(s => <option key={s}>{s}</option>)}
             </select>
           </label>
         </form>
         <div className="mb-3 flex items-center justify-between gap-3">
-          <p role="status">{lessons.length} of {LESSONS.length} lessons</p>
-          {(query || grade || subject) && <button onClick={clear} className="link min-h-11">Clear filters</button>}
+          <p role="status">{lessons.length} {" "}{txt.p1}{" "}{LESSONS.length} {" "}{txt.p2}</p>
+          {(query || grade || subject) && <button onClick={clear} className="link min-h-11">{txt.button1}</button>}
         </div>
         {lessons.length ? <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">{lessons.map(lesson => <LessonCard key={lesson.url} lesson={lesson} />)}</ul>
-          : <p className="rounded border border-line bg-paper p-5">No lessons match these filters. Try a different topic or clear the filters.</p>}
-        <p className="mt-4 t-small">Source: <a href={pc.toolkit.CREDIT_URL} target="_blank" rel="noopener noreferrer" className="link">Environmental Dashboard Instructor Toolkit</a>.</p>
+          : <p className="rounded border border-line bg-paper p-5">{txt.p3}</p>}
+        <p className="mt-4 t-small">{txt.p4}{" "}<a href={pc.toolkit.CREDIT_URL} target="_blank" rel="noopener noreferrer" className="link">{txt.a1}</a>.</p>
       </DocSection>
     </DocShell>
   );

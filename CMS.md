@@ -80,10 +80,25 @@ npm run dev -- --port 8123          # site: http://127.0.0.1:8123   editor: http
 - `CMS_TEST_PORT=8124 npx playwright test` runs the whole site suite (including `fit-screens`) and then `tests/admin.spec.ts` (edit appears on the page, non-listed email refused, revisions, pictures with alt text, lists, sections, links). They use pglite and a temp media folder, never the hosted database.
 - `npm run typecheck`.
 
-## Not editable yet
+## What cannot be edited
 
-- Chapter and school names (`CHAPTERS`, `SCHOOLS_NAME`), embed and iframe URLs, aria and iframe titles built in code, the `{count}` placeholder in the toolkit intro.
-- The small "Post it" cards in digital signage, the Story slide set (`ORIGINAL_SLIDES`), the voices filters and embeds data.
-- Hiding: the digital-signage sections, home chapters and product-page slides cannot be hidden (only the 11 listed sections).
-- Items you add to a list cannot have their words edited afterwards (remove and add again). Strings copied from the home beats into "Who it's for" are separate slots.
+Checked on all 31 public pages (2026-11-21): of 1,799 pieces of wording a person can read, all but a handful can be clicked and changed on the page.
+
+- **The lesson grade lines on the Teacher toolkit** ("Grades 8 to 12"): the page works them out from each lesson's grade tags, which also drive the grade filter. The lesson's type and subjects next to them can be edited.
+- **On the Privacy Policy:** the sentence Google's review requires word for word (`legal.limitedUse`) and two web addresses shown as code.
+- **Text inside live examples** (dashboards, calendars, slide stories, Community Voices players): they are other sites shown in frames. The Community Voices preview cards drawn by this site are editable.
+- **Words only a screen reader hears** (picture descriptions, button names for assistive technology) are not clickable on the page; picture descriptions are edited with the picture in the list at `/admin`.
+- Chapter and school names (`CHAPTERS`, `SCHOOLS_NAME`), embed and frame addresses, and the `{count}` placeholder in the toolkit intro are fixed in the code.
+- Hiding: only the sections listed under "Show or hide" can be hidden.
+- Items you add to a list cannot have their words edited afterwards (remove and add again).
 - The Blob check accepts any Vercel Blob address, not only this store.
+
+## Where a page's own wording lives
+
+Most wording is in the shared content files (`src/lib/copy.ts`, `page-content.ts`, `content.ts` and the data files). Wording that used to be written directly inside a page or component file now lives in `src/lib/page-text/<name>.ts`, one file per source file, moved there by a script on 2026-11-21 (495 pieces across 28 files). Each of those files registers its wording with the editor (`registerText`), under keys that start `text.<name>.`.
+
+- These files travel with their own page's code, so the public site downloads a page's wording only with that page. The same goes for the 2016 implementation guide (`src/lib/bring-guide.ts`) and the Community Voices preview slides.
+- The server loads all of them up front (`src/lib/page-text/all.ts`, imported by the content service), because the editor must list and check every entry. **A new page-text file must be added to `all.ts`.**
+- In a page or component, read wording when drawing (`txt.heading1`), never copy it into a constant: an edit would not show. For a constant list at the top of a file, use a getter (`get title() { return txt.title2; }`), as the script did.
+- New wording goes into the page's `page-text` file by hand, then is used as `txt.<key>`.
+

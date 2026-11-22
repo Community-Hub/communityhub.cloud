@@ -3,6 +3,8 @@
 // Links are written [text](address). An address starting #ref- points into Literature Cited. A paragraph that starts
 // with a number and a full stop ("1. ") is an item of a numbered list.
 
+import { siteIndex } from "@/lib/site-registry";
+
 export type GuideParagraph = { type: "p"; text: string };
 export type GuideFigure = { type: "figure"; src: string; original: string; width: number; height: number; alt: string; caption: string };
 export type GuideBlock = GuideParagraph | GuideFigure;
@@ -404,6 +406,15 @@ export const bringGuide: {
 };
 
 /** The first sentence of the guide, without link marks: the page's search description. */
+// The guide is long, so it travels with its own page; the editor learns its wording when this file loads (the server
+// loads it up front, see page-text/all.ts). Addresses, ids, numbers and picture files are not wording.
+siteIndex.extend({
+  name: "bringGuide",
+  page: "Implementation guide",
+  value: bringGuide,
+  only: ["title", "byline", "revised", "toc", "text", "caption", "alt"],
+});
+
 export function bringGuideSummary(): string {
   const first = bringGuide.overview.blocks[0];
   const text = first?.type === "p" ? first.text : "";

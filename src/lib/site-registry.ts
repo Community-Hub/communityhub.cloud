@@ -27,6 +27,10 @@ import { productPages } from "@/lib/product-pages";
 import { site } from "@/lib/site";
 import { team } from "@/lib/team";
 import { whoStops } from "@/lib/who";
+import { homeMission } from "@/lib/home-feedback";
+import { legal } from "@/lib/legal";
+import { SERVICES } from "@/lib/site-map";
+import { STUDIO_MAPS, STUDIO_SHOWS } from "@/lib/studios";
 
 /** Page names as the editors see them. */
 const PAGE: Record<string, string> = {
@@ -75,6 +79,12 @@ const roots: RootSpec[] = [
   { name: "demoChanges", page: "Research: What it changed", value: demoChanges },
   { name: "aboutOriginFrames", page: "About", value: ABOUT_ORIGIN_FRAMES },
   { name: "team", page: "About", value: team },
+  { name: "homeMission", page: "Home", value: homeMission },
+  // The sentence Google's review requires word for word (limitedUse) and the web addresses stay as they are in the code.
+  { name: "legal", page: "Privacy Policy and Terms", value: legal, only: ["entity", "address", "product", "privacyEmail", "supportEmail", "effectiveDate", "lastUpdated"] },
+  { name: "servicesLink", page: "Products", value: SERVICES, only: ["label"] },
+  { name: "studioShows", page: "Studios", value: STUDIO_SHOWS, only: ["title", "meta"] },
+  { name: "studioMaps", page: "Studios", value: STUDIO_MAPS, only: ["title", "meta"] },
   { name: "phoneFrames", page: "Digital Signage", value: PHONE_FRAMES },
   { name: "productPages", page: "Product pages", value: productPages },
   { name: "bundles", page: "Pricing", value: bundles },
@@ -93,7 +103,8 @@ const roots: RootSpec[] = [
   },
   { name: "implementationCopy", page: "Implementations", value: implementationCopy },
   { name: "bringGuideCopy", page: "Implementation guide", value: bringGuideCopy },
-  { name: "lessons", page: "Teacher toolkit", value: lessonsData, only: ["title", "description", "url"] },
+  // Grade levels stay as they are: the page reads the number out of each ("Grade 10") to write "Grades 8 to 12".
+  { name: "lessons", page: "Teacher toolkit", value: lessonsData, only: ["title", "description", "url", "type", "subjects"] },
   {
     name: "publications",
     page: "Research",

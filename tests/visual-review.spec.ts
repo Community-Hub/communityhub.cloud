@@ -16,6 +16,8 @@ for(const width of [390,1440]) for(const path of routes) test(`visual review ${p
   page.on('pageerror',e=>{ if (!fromAnEmbed(e)) errors.push(e.message); });
   await page.goto(path,{waitUntil:'domcontentloaded'});
   await expect(page.getByRole('heading',{level:1}).first()).toBeVisible();
+  // Measure the finished page: some parts (the phone demo) are sized by script once the page is interactive.
+  await page.locator("html[data-hydrated='true']").waitFor({state:'attached'});
   await page.waitForTimeout(800);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   expect(errors).toEqual([]);

@@ -46,6 +46,7 @@ function BundleCard({ bundle }: { bundle: (typeof bundles)[number] }) {
 }
 
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+import { txt } from "@/lib/page-text/pricing";
 
 function Pricing() {
   // A link that names a bundle (/pricing#data) brings that bundle into view.
@@ -77,14 +78,14 @@ function Pricing() {
         </ul>
       </DocSection>
 
-      <DocSection label={STOPS[1].label} title={copy.pricing.Pricing.DocSection_title2} lede="Connect your data and explain what makes your community unique. Design services complement the Community Hub products you choose.">
+      <DocSection label={STOPS[1].label} title={copy.pricing.Pricing.DocSection_title2} lede={txt.lede1}>
         <ul className="grid max-w-5xl gap-8 md:grid-cols-2 md:gap-12" data-services>
           {services.map((service) => (
             <li key={service.id} className="border-t border-line pt-6">
               <h3 className="t-h3">{service.name}</h3>
               <p className="mt-3 t-body text-ink/80">{service.line}</p>
               <AppLink href={`/services#${service.id}`} className="link mt-3">
-                Explore {service.name.toLowerCase()} <ArrowRight className="size-4" aria-hidden />
+                {txt.AppLink1}{" "}{service.name.toLowerCase()} <ArrowRight className="size-4" aria-hidden />
               </AppLink>
             </li>
           ))}

@@ -7,6 +7,7 @@ import { getCmsState, getEditorHost } from "@/lib/cms/state";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteHeader } from "@/components/site-header";
 import appCss from "../styles.css?url";
+import { txt } from "@/lib/page-text/root";
 
 /** JSON that is safe inside a script tag. */
 const inlineJson = (json: string) =>
@@ -37,7 +38,7 @@ export const Route = createRootRoute({
       { property: "og:image", content: "/og.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Downtown Oberlin from the Community Hub film, with the line: It has never been more important to act locally while thinking globally" },
+      { property: "og:image:alt", content: txt.content1 },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -94,8 +95,7 @@ function RootDocument() {
                 main.scrollIntoView({ block: "start" });
               }}
             >
-              Skip to content
-            </a>
+              {txt.a1}</a>
           )}
           {editing ? null : <SiteHeader key={`header-${draw}`} />}
           <Outlet key={`page-${draw}`} />

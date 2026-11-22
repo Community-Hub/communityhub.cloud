@@ -11,16 +11,17 @@ import { copy } from "@/lib/copy";
 import { DEMO_HREF } from "@/lib/links";
 import { productIcon } from "@/lib/product-icons";
 import { OPEN_STUDIO, STUDIO_MAPS, STUDIO_SHOWS, studioWorkHref, type StudioWork } from "@/lib/studios";
+import { txt } from "@/lib/page-text/studios";
 
 export const Route = createFileRoute("/studios")({
   component: Studios,
   head: () => ({
     meta: [
-      { title: "Studios — Community Hub" },
+      { title: txt.title1 },
       {
         name: "description",
         content:
-          "Studios makes it easy to tell the story behind a community’s data, as an interactive story, a map, or a loop for digital signage.",
+          txt.content1,
       },
     ],
   }),
@@ -30,42 +31,41 @@ const show = (slug: string) => STUDIO_SHOWS.find((work) => work.slug === slug)!;
 const map = (slug: string) => STUDIO_MAPS.find((work) => work.slug === slug)!;
 
 /** The published work below plays live from Studios, inside this page. */
-const HERO_FRAMES: SlideFrame[] = [{ title: "Oberlin · Carbon Neutral Stories", caption: "", embed: show("oberlin-home-loop").src, presentation: true }];
+const HERO_FRAMES: SlideFrame[] = [{ get title() { return txt.title2; }, caption: "", embed: show("oberlin-home-loop").src, presentation: true }];
 
 const WAYS = [
   {
-    kind: "Map",
-    body: "Orb maps place live readings where they happen, so people can compare buildings and sensors in a place they recognize.",
+    get kind() { return txt.wayKind1; },
+    get body() { return txt.body1; },
   },
   {
-    kind: "Story",
-    body: "Stories explain how a system works, with routes, pipes, text, maps, gauges and illustrations arranged on a freeform canvas.",
+    get kind() { return txt.wayKind2; },
+    get body() { return txt.body2; },
   },
   {
-    kind: "Loop",
-    body: "Loops play the same scenes as a hands-free display that stays easy to read from across a lobby.",
+    get kind() { return txt.wayKind3; },
+    get body() { return txt.body3; },
   },
 ] as const;
 
 const WAY_FRAMES: SlideFrame[] = [
-  { title: "Map · Air quality in Cleveland", caption: "", embed: map("cleveland").src, presentation: true },
-  { title: "Story · Heating & Cooling at Oberlin", caption: "", embed: show("oberlin-geothermal").src, presentation: true },
-  { title: "Loop · What’s in Cleveland’s air?", caption: "", embed: show("cleveland-air-loop").src, presentation: true },
+  { get title() { return txt.title3; }, caption: "", embed: map("cleveland").src, presentation: true },
+  { get title() { return txt.title4; }, caption: "", embed: show("oberlin-geothermal").src, presentation: true },
+  { get title() { return txt.title5; }, caption: "", embed: show("cleveland-air-loop").src, presentation: true },
 ];
 
 const STEPS = [
-  { title: "Start with a place", body: "Begin with a campus, a neighborhood, a building or a sensor network." },
-  { title: "Draw and connect", body: "Draw the connections, link them to live readings, and arrange the story on the canvas." },
-  { title: "Publish", body: "Share an interactive link, or run the same work as a hands-free loop on digital signage." },
+  { get title() { return txt.title6; }, get body() { return txt.body4; } },
+  { get title() { return txt.title7; }, get body() { return txt.body5; } },
+  { get title() { return txt.title8; }, get body() { return txt.body6; } },
 ] as const;
 
 /** The editor itself runs only on studios.communityhb.tech, so this one link opens there, in a new tab. */
 function OpenStudio({ className = "btn-primary" }: { className?: string }) {
   return (
     <a href={OPEN_STUDIO} target="_blank" rel="noopener" className={className}>
-      Open Studio
-      <ArrowUpRight className="size-4" aria-hidden />
-      <span className="sr-only"> (opens in a new tab)</span>
+      {txt.a1}<ArrowUpRight className="size-4" aria-hidden />
+      <span className="sr-only"> {" "}{txt.span1}</span>
     </a>
   );
 }
@@ -95,12 +95,9 @@ function Studios() {
               <div className="min-w-0">
                 <img src={productIcon("studios")} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />
                 <h1 id="studios-title" className="t-h1">
-                  Studios
-                </h1>
+                  {txt.h11}</h1>
                 <p className="mt-5 max-w-xl t-lede">
-                  Studios makes it easy to tell the story behind a community’s data. Draw buildings, pipes and gauges on a canvas, connect
-                  them to live readings, and publish the result as an interactive story, a map, or a loop for digital signage.
-                </p>
+                  {txt.p1}</p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <OpenStudio />
                   <AppLink href={DEMO_HREF} className="btn-secondary">
@@ -118,12 +115,11 @@ function Studios() {
                     }}
                     className="link"
                   >
-                    See published examples
-                  </a>
+                    {txt.a2}</a>
                 </p>
               </div>
               <div className="product-detail-media min-w-0">
-                <FrameSlider frames={HERO_FRAMES} heading="Studios" />
+                <FrameSlider frames={HERO_FRAMES} heading={txt.heading1} />
               </div>
             </div>
           </div>
@@ -134,11 +130,9 @@ function Studios() {
             <div className="product-detail-layout product-detail-split">
               <div className="min-w-0">
                 <h2 id="three-ways-title" className="t-h2">
-                  Maps, stories and loops
-                </h2>
+                  {txt.h21}</h2>
                 <p className="mt-4 max-w-xl t-body text-ink/80">
-                  Work made in Studios can be explored as a map, followed as a story, or played on a public screen.
-                </p>
+                  {txt.p2}</p>
                 <ul className="mt-6 space-y-5">
                   {WAYS.map((way) => (
                     <li key={way.kind} className="studio-way">
@@ -149,7 +143,7 @@ function Studios() {
                 </ul>
               </div>
               <div className="product-detail-media min-w-0">
-                <FrameSlider frames={WAY_FRAMES} heading="Maps, stories and loops" />
+                <FrameSlider frames={WAY_FRAMES} heading={txt.heading2} />
               </div>
             </div>
           </div>
@@ -158,8 +152,7 @@ function Studios() {
         <section id="how-it-works" aria-labelledby="how-title" className="product-section page page-center">
           <div className="wrap page-body">
             <h2 id="how-title" className="t-h2 max-w-3xl">
-              How Studios works
-            </h2>
+              {txt.h22}</h2>
             <ol className="mt-[clamp(1.75rem,6vh,3.5rem)] grid gap-8 md:grid-cols-3">
               {STEPS.map((step, n) => (
                 <li key={step.title} className="studio-step">
@@ -182,14 +175,13 @@ function Studios() {
             <div className="page-head">
               <div>
                 <h2 id="work-title" className="t-h2">
-                  Published examples
-                </h2>
-                <p className="mt-3 max-w-2xl t-body text-ink/78">These maps, stories and loops are live. Open any of them to explore the published version.</p>
+                  {txt.h23}</h2>
+                <p className="mt-3 max-w-2xl t-body text-ink/78">{txt.p3}</p>
               </div>
             </div>
             <div className="grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
               <div>
-                <h3 className="font-semibold text-ink">Stories and loops</h3>
+                <h3 className="font-semibold text-ink">{txt.h31}</h3>
                 <ul className="mt-3 grid gap-2.5">
                   {STUDIO_SHOWS.map((work) => (
                     <WorkCard key={work.slug} work={work} />
@@ -197,7 +189,7 @@ function Studios() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-ink">Orb maps</h3>
+                <h3 className="font-semibold text-ink">{txt.h32}</h3>
                 <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
                   {STUDIO_MAPS.map((work) => (
                     <WorkCard key={work.slug} work={work} />
@@ -206,10 +198,7 @@ function Studios() {
               </div>
             </div>
             <p className="mt-6 max-w-4xl text-[0.8125rem] leading-relaxed text-ink/60">
-              Illustrations by Maddie Faubert for Community Hub’s SIP signage. Map data © OpenStreetMap contributors (ODbL). Cleveland
-              sensor sites from the City of Cleveland CLEANinCLE program. Readings are synthetic until each community’s live feed is
-              connected.
-            </p>
+              {txt.p4}</p>
           </div>
         </section>
 

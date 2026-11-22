@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { usePreviewRotation } from "@/lib/use-preview-rotation";
+import { txt } from "@/lib/page-text/signageSlidePreview";
 
 const slides = [
-  { src: "/assets/signage-live/citywide.png", label: "Citywide Dashboard", location: "Oberlin", alt: "Oberlin Citywide Dashboard captured from the school digital sign" },
-  { src: "/assets/signage-live/story-content.png", label: "Story Content", location: "Energy Use", alt: "Energy Use story playing on the school digital sign" },
-  { src: "/assets/signage-live/events-calendar.png", label: "Events Calendar", location: "Oberlin community events", alt: "Community event playing on the school digital sign" },
-  { src: "/assets/signage-live/community-voices.png", label: "Community Voices", location: "Oberlin community members", alt: "Community Voices slide playing on the school digital sign" },
-  { src: "/assets/signage-live/live-data.png", label: "Live Data", location: "Oberlin Elementary — electricity use", alt: "Electricity-use graph captured from the school digital sign" },
-  { src: "/assets/signage-live/ops-elementary.png?v=2", label: "OPS Elementary", location: "School-specific content", alt: "Oberlin Elementary school-specific slide from its digital sign" },
+  { src: "/assets/signage-live/citywide.png", get label() { return txt.label1; }, location: "Oberlin", get alt() { return txt.alt1; } },
+  { src: "/assets/signage-live/story-content.png", get label() { return txt.label2; }, get location() { return txt.location1; }, get alt() { return txt.alt2; } },
+  { src: "/assets/signage-live/events-calendar.png", get label() { return txt.label3; }, get location() { return txt.location2; }, get alt() { return txt.alt3; } },
+  { src: "/assets/signage-live/community-voices.png", get label() { return txt.label4; }, get location() { return txt.location3; }, get alt() { return txt.alt4; } },
+  { src: "/assets/signage-live/live-data.png", get label() { return txt.label5; }, get location() { return txt.location4; }, get alt() { return txt.alt5; } },
+  { src: "/assets/signage-live/ops-elementary.png?v=2", get label() { return txt.label6; }, get location() { return txt.location5; }, get alt() { return txt.alt6; } },
 ];
 
 export function SignageSlidePreview() {
@@ -24,8 +25,8 @@ export function SignageSlidePreview() {
     return () => observer.disconnect();
   }, []);
   return <div ref={ref} data-signage-slide-preview className="mt-3 shrink-0 border-t border-pine/20 pt-4">
-    <h3 className="t-h3">Examples of content on the screen</h3>
-    <p className="mt-1 mb-3 t-small text-ink/70">Examples captured from Oberlin Elementary’s digital sign, using each controller selection.</p>
+    <h3 className="t-h3">{txt.h31}</h3>
+    <p className="mt-1 mb-3 t-small text-ink/70">{txt.p1}</p>
     <div className="overflow-hidden">
       <div className="flex" style={{ transform: `translateX(-${position * 100 / visible}%)`, transition: position === 0 ? "none" : "transform 600ms ease" }} onTransitionEnd={() => { if (position >= slides.length) setPosition(0); }}>
         {[...slides, ...slides.slice(0, visible)].map((slide, i) => <figure key={`${slide.src}-${i}`} aria-hidden={i < position || i >= position + visible} className="min-w-0 shrink-0 px-2" style={{ width: `${100 / visible}%` }}>

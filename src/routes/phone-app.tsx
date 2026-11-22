@@ -10,10 +10,11 @@ import { DEMO_HREF } from "@/lib/links";
 import { ContactBand } from "@/components/contact-band";
 import { RelatedProducts } from "@/components/product-pager";
 import { engageBeats } from "@/lib/content";
+import { txt } from "@/lib/page-text/phoneApp";
 
 export const Route = createFileRoute("/phone-app")({
   component: PhoneApp,
-  head: () => ({ meta: [{ title: "Phone App — Community Hub" }] }),
+  head: () => ({ meta: [{ title: txt.title1 }] }),
 });
 
 function LivePhoneApp({ visit }: { visit: number }) {
@@ -52,7 +53,7 @@ function PhoneApp() {
           <div className="phone-page-split">
             <div>
               {icon && <img src={icon} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />}
-              <h1 className="t-h1">Phone App</h1>
+              <h1 className="t-h1">{txt.h11}</h1>
               <p className="mt-5 t-lede">{engageBeats.find((b) => b.id === "phone")?.body}</p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <AppLink href={site.contactHref} className="btn-primary">
@@ -65,8 +66,7 @@ function PhoneApp() {
             </div>
             <figure>
               <figcaption className="mb-3 text-[0.9375rem] font-semibold text-ink/70">
-                Oberlin — Oberlin College Carbon Neutral Stories
-              </figcaption>
+                {txt.figcaption1}</figcaption>
               <img
                 className="phone-intro-photo"
                 src="/assets/phone-workflow/science-center-touchpad.jpg"
@@ -76,18 +76,17 @@ function PhoneApp() {
           </div>
           <div className="phone-capabilities">
             <div>
-              <h2 className="t-h3">Control a sign</h2>
-              <p className="mt-2 t-body">Your phone can choose the content on a nearby display.</p>
+              <h2 className="t-h3">{txt.h21}</h2>
+              <p className="mt-2 t-body">{txt.p1}</p>
             </div>
             <div>
-              <h2 className="t-h3">Open a story</h2>
-              <p className="mt-2 t-body">A story’s QR code brings its content directly to your phone.</p>
+              <h2 className="t-h3">{txt.h22}</h2>
+              <p className="mt-2 t-body">{txt.p2}</p>
             </div>
             <div>
-              <h2 className="t-h3">Browse content</h2>
+              <h2 className="t-h3">{txt.h23}</h2>
               <p className="mt-2 t-body">
-                Events, community messages, and dashboards are available on your own screen.
-              </p>
+                {txt.p3}</p>
             </div>
           </div>
           </div>
@@ -106,20 +105,17 @@ function PhoneApp() {
           <div className="wrap page-body">
           <div className="phone-page-split phone-browse-layout">
             <div className="phone-browse-copy">
-              <h2 className="t-h2">Your community, on your phone</h2>
+              <h2 className="t-h2">{txt.h24}</h2>
               <p className="mt-5 t-body">
-                The phone app also brings community content to your own screen. You can find local events, view Community Voices, and explore resource-use information wherever you are.
-              </p>
+                {txt.p4}</p>
               <p className="mt-4 t-body">
-                Each community can customize its app to reflect its communication goals and the content it shares.
-              </p>
-              <p className="mt-6 text-[0.9375rem] font-semibold text-ink/70">Oberlin — Live phone app</p>
+                {txt.p5}</p>
+              <p className="mt-6 text-[0.9375rem] font-semibold text-ink/70">{txt.p6}</p>
               <div className="phone-mascot-cue">
                 <img src="/assets/squirrel-cue-still.png" alt="" />
                 <p className="t-h3">
-                  This app works.
-                  <br />
-                  Try it out. <span aria-hidden="true">→</span>
+                  {txt.p7}<br />
+                  {txt.p8}{" "}<span aria-hidden="true">→</span>
                 </p>
               </div>
               <button
@@ -127,8 +123,7 @@ function PhoneApp() {
                 className="link mt-4"
                 onClick={() => setVisit((v) => v + 1)}
               >
-                Back to app home
-              </button>
+                {txt.button1}</button>
             </div>
             <div className="phone-hub-example">
               <LivePhoneApp visit={visit} />
