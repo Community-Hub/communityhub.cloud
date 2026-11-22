@@ -125,6 +125,9 @@ describe("host routing", () => {
     set({ ADMIN_HOST: "admin.example.org", NODE_ENV: "production" });
     const page = hardenEditorResponse(req("admin.example.org", "/pricing"), new Response("x", { headers: { "cache-control": "public, max-age=0, s-maxage=60" } }));
     assert.equal(page.headers.get("cache-control"), "no-store");
+    // The CDN is told directly as well: on Vercel the site-wide page rule replaces Cache-Control at the edge.
+    assert.equal(page.headers.get("vercel-cdn-cache-control"), "no-store");
+    assert.equal(page.headers.get("cdn-cache-control"), "no-store");
     assert.match(page.headers.get("content-security-policy") ?? "", /frame-src https:/);
     assert.match(page.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
     assert.match(page.headers.get("content-security-policy") ?? "", /script-src 'self' 'unsafe-inline'(;|$)/);
@@ -135,6 +138,7 @@ describe("host routing", () => {
     // The public host's pages are left exactly as they are.
     const pub = hardenEditorResponse(req("www.example.org", "/pricing"), new Response("x", { headers: { "cache-control": "public, max-age=0, s-maxage=60" } }));
     assert.equal(pub.headers.get("cache-control"), "public, max-age=0, s-maxage=60");
+    assert.equal(pub.headers.get("vercel-cdn-cache-control"), null);
     assert.equal(pub.headers.get("content-security-policy"), null);
   });
   it("links cannot start //, /\\ or /\\evil", () => {
