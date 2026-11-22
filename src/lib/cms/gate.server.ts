@@ -110,8 +110,14 @@ export function hardenEditorResponse(request: Request, response: Response): Resp
   if (!editorHost && !isEditorPath(path)) return response;
   const editorPath = isEditorPath(path);
   // Nothing on the editor host may sit in a shared cache: a page drawn for a signed-in editor must never be handed
-  // to the next visitor, who would get it without passing the gate.
-  if (editorHost || editorPath) response.headers.set("cache-control", "no-store");
+  // to the next visitor, who would get it without passing the gate. On Vercel the site-wide page rule
+  // (vite.config.ts routeRules, "s-maxage=60") is applied at the edge and replaces this response's Cache-Control, so
+  // the CDN's own headers say it too: Vercel obeys them before Cache-Control and no route rule sets them.
+  if (editorHost || editorPath) {
+    response.headers.set("cache-control", "no-store");
+    response.headers.set("cdn-cache-control", "no-store");
+    response.headers.set("vercel-cdn-cache-control", "no-store");
+  }
   response.headers.set("x-frame-options", "DENY");
   response.headers.set("x-content-type-options", "nosniff");
   response.headers.set("content-security-policy", editorHost && !editorPath ? sitePageOnEditorCsp() : editorCsp());
