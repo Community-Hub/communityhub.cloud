@@ -1,5 +1,6 @@
-/** Input rules for everything an editor can save. Pure, no imports beyond the core types. */
+/** Input rules for everything an editor can save. Pure, no imports beyond the core types and the text marks. */
 import type { SlotKind } from "./core.ts";
+import { canonical, plainOf, stripInvisible } from "./marks.ts";
 
 /** An error whose message is safe to show to the editor. */
 export class CmsError extends Error {
@@ -42,7 +43,10 @@ const EMAIL_OK = /^[^\s@<>"',;()[\]\\]+@[^\s@<>"',;()[\]\\]+\.[^\s@<>"',;()[\]\\
  * Warn when a text is much longer than the one in the code. The layout is fixed to one
  * screen per section, so a very long text can push things off the screen.
  */
-export function lengthWarning(def: string, value: string): string | null {
+export function lengthWarning(storedDef: string, storedValue: string): string | null {
+  // What is read counts, not the <b> and <i> around it.
+  const def = plainOf(storedDef);
+  const value = plainOf(storedValue);
   if (def.length === 0) return value.length > 120 ? "This is long for the space it sits in; check the preview." : null;
   const limit = Math.max(Math.ceil(def.length * 1.3) + 12, 24);
   if (value.length <= limit) return null;
@@ -51,17 +55,18 @@ export function lengthWarning(def: string, value: string): string | null {
 
 /**
  * Normalise and validate one value. Returns the value to store; throws CmsError.
- * Text is plain text only: it is stored as typed and always escaped when drawn, but control
- * characters are refused. Angle brackets are allowed (shown literally).
+ * Text is plain text, with `<b>` and `<i>` for bold and italic and nothing else: it is always escaped when
+ * drawn, so any other angle brackets show as typed. Control characters are refused, and the invisible
+ * characters the site uses for itself (text copied off a page of the editor carries them) are taken out.
  */
 export function checkValue(kind: SlotKind, raw: unknown, def = ""): string {
   if (typeof raw !== "string") throw new CmsError("Value must be text.");
-  const value = raw.replace(/\r\n?/g, "\n");
+  const value = stripInvisible(raw.replace(/\r\n?/g, "\n"));
   if (CONTROL.test(value)) throw new CmsError("That text has characters that are not allowed.");
   switch (kind) {
     case "text": {
-      const v = value.trim();
-      if (!v) throw new CmsError("Text cannot be empty. Use Reset to go back to the original.");
+      const v = canonical(value);
+      if (!plainOf(v).trim()) throw new CmsError("Text cannot be empty. Use Reset to go back to the original.");
       if (v.length > MAX_TEXT) throw new CmsError(`Text is too long (limit ${MAX_TEXT} characters).`);
       return v;
     }

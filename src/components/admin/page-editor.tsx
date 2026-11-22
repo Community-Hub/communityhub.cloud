@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import type { AdminSlot, Overview } from "@/lib/cms/service";
 import type { CmsState } from "@/lib/cms/core";
+import { canonical, isFormatted, numberOf, plainOf, runsOfStored, storedOf, stripInvisible, stripMarks, TAG, tagOf, type Run } from "@/lib/cms/marks";
 import { lengthWarning } from "@/lib/cms/validate";
 import { siteIndex } from "@/lib/site-registry";
 import { errorText, get, post } from "./api";
@@ -20,18 +21,19 @@ import { errorText, get, post } from "./api";
  * "Pricing" and a menu item that also says "Pricing" are told apart. After a save, only the text carrying that tag
  * changes. Text the site's code reshapes before showing it loses its tag; that falls back to matching what it says,
  * and when the same words are used in more than one place the likeliest is offered and the others can be chosen.
+ *
+ * Bold and italic (John Petersen, 22 Nov 2026). The card shows the wording as it will look, with a B and an I button:
+ * select some words and press one, or press one with nothing selected to change the whole wording. What is saved is
+ * the text with <b> and <i> around those words (src/lib/cms/marks.ts), and the page draws it as real bold and italic.
+ * A wording with bold in the middle is drawn in several pieces; its tag is still at its end, so a click anywhere in
+ * it finds the next tag after the click.
  */
 
-// The tag: an invisible separator, the entry's number in binary as two zero-width characters, the separator again.
-// None of the three lets a line break at it (a zero-width space would, and a headline then wraps in a new place).
-const EDGE = "\u2063";
-const ZERO = "\u2060";
-const ONE = "\u200C";
-const TAG = new RegExp(`${EDGE}([${ZERO}${ONE}]+)${EDGE}`, "g");
-const tagOf = (n: number) => EDGE + [...n.toString(2)].map((bit) => (bit === "1" ? ONE : ZERO)).join("") + EDGE;
-const numberOf = (bits: string) => parseInt([...bits].map((c) => (c === ONE ? "1" : "0")).join(""), 2);
-const untagged = (text: string) => text.replace(TAG, "");
+// The tag (src/lib/cms/marks.ts): an invisible separator, the entry's number in binary, the separator again.
+const untagged = (text: string) => stripMarks(text.replace(TAG, ""));
 const norm = (text: string) => untagged(text).replace(/\s+/g, " ").trim();
+/** What a wording says, as the page shows it: no tags, no bold or italic. */
+const said = (slot: AdminSlot) => norm(plainOf(slot.value));
 
 const SKIP = "[data-cms-ui], script, style, noscript, textarea, input, select, option, iframe, svg, [contenteditable='true']";
 /** One run of reading: a paragraph, a heading, a list item. A wording drawn in several pieces (a link in the middle) stays inside one. */
@@ -62,6 +64,47 @@ function applyTagged(texts: AdminSlot[]) {
   for (const slot of texts) if (slot.kind === "text") v[slot.key] = slot.value + tagOf(numberFor(slot.key));
   // No fingerprints: these are what the editor's own list says the site shows now, so none of them is out of date.
   siteIndex.apply({ v, l: state.l, h: state.h });
+}
+
+/** Draws a wording in the card's box, bold and italic as they will show. */
+function fillBox(box: HTMLElement, stored: string) {
+  box.replaceChildren(
+    ...runsOfStored(stored).map((run) => {
+      let node: Node = document.createTextNode(run.text);
+      if (run.italic) {
+        const i = document.createElement("i");
+        i.append(node);
+        node = i;
+      }
+      if (run.bold) {
+        const b = document.createElement("b");
+        b.append(node);
+        node = b;
+      }
+      return node;
+    }),
+  );
+}
+
+/** Reads the card's box back as a wording to save. Whatever the browser used to make words bold or italic counts. */
+function readBox(box: HTMLElement): string {
+  const runs: Run[] = [];
+  const visit = (node: Node, bold: boolean, italic: boolean) => {
+    if (node.nodeType === Node.TEXT_NODE) return void runs.push({ text: (node as Text).data, bold, italic });
+    if (!(node instanceof HTMLElement)) return;
+    const tag = node.tagName;
+    if (tag === "BR") return void runs.push({ text: "\n", bold, italic });
+    if (tag === "B" || tag === "STRONG") bold = true;
+    if (tag === "I" || tag === "EM") italic = true;
+    const weight = node.style.fontWeight;
+    if (weight) bold = weight === "bold" || weight === "bolder" || Number(weight) >= 600;
+    const style = node.style.fontStyle;
+    if (style) italic = style === "italic" || style === "oblique";
+    if ((tag === "DIV" || tag === "P") && runs.length) runs.push({ text: "\n", bold: false, italic: false });
+    for (const child of node.childNodes) visit(child, bold, italic);
+  };
+  for (const child of box.childNodes) visit(child, false, false);
+  return canonical(stripInvisible(storedOf(runs)));
 }
 
 type Found = { slot: AdminSlot; exact: boolean };
@@ -99,7 +142,11 @@ export function PageEditor() {
   const [msg, setMsg] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
   const [count, setCount] = useState(0);
   const nodes = useRef(new WeakMap<Text, Found[]>());
-  const box = useRef<HTMLTextAreaElement>(null);
+  const box = useRef<HTMLDivElement>(null);
+  /** Set when a card opens: the box takes the keyboard once it has been drawn. */
+  const focusNext = useRef(false);
+  /** Whether the B and I buttons show as on: for the selected words, or for the whole wording when none are. */
+  const [pressed, setPressed] = useState({ bold: false, italic: false });
   const drawn = useRef(false);
 
   // Only a signed-in editor stays here; anyone else is sent to sign in.
@@ -141,7 +188,7 @@ export function PageEditor() {
   const byText = useMemo(() => {
     const map = new Map<string, AdminSlot[]>();
     for (const slot of slots ?? []) {
-      const text = norm(slot.value);
+      const text = said(slot);
       if (text.length < 2) continue;
       const list = map.get(text);
       if (list) list.push(slot);
@@ -172,7 +219,9 @@ export function PageEditor() {
       // Words only a screen reader hears ("opens in a new tab") are their own wording, not part of the sentence.
       if (block && !parent.closest(".sr-only")) {
         const run = runs.get(block) ?? [];
-        if (tagged.length || (!here.length && norm(node.data).length >= 2)) run.push({ node, parent, slot: tagged.length ? tagged[tagged.length - 1].slot : null });
+        // Bold or italic words are a piece of the wording whose tag follows them, even when another entry says the same.
+        const styled = parent.matches("em, strong");
+        if (tagged.length || ((!here.length || styled) && norm(node.data).length >= 2)) run.push({ node, parent, slot: tagged.length ? tagged[tagged.length - 1].slot : null });
         runs.set(block, run);
       }
       if (!here.length) continue;
@@ -192,10 +241,11 @@ export function PageEditor() {
           next = piece.slot;
           continue;
         }
-        if (!next || !norm(next.value).includes(norm(piece.node.data))) continue;
+        if (!next || !said(next).includes(norm(piece.node.data))) continue;
+        if (!nodes.current.has(piece.node)) found += 1;
         nodes.current.set(piece.node, [{ slot: next, exact: true }]);
-        piece.parent.setAttribute("data-cms-edit", "");
-        found += 1;
+        // "part": the bold or italic words of a wording. They open it, and it is outlined as one, not piece by piece.
+        piece.parent.setAttribute("data-cms-edit", piece.parent.matches("em, strong") ? "part" : "");
       }
     }
     setCount(found);
@@ -245,9 +295,9 @@ export function PageEditor() {
       element.setAttribute("data-cms-active", "");
       setTarget({ element, node, candidates, exact });
       setKey(candidates[0].key);
-      setDraft(candidates[0].value);
+      setDraft(canonical(candidates[0].value));
       setMsg(null);
-      window.setTimeout(() => box.current?.focus(), 30);
+      focusNext.current = true;
     },
     [path],
   );
@@ -269,9 +319,13 @@ export function PageEditor() {
       if (!mine.length) return;
       const caret = (document as Document & { caretRangeFromPoint?: (x: number, y: number) => Range | null }).caretRangeFromPoint?.(event.clientX, event.clientY);
       const under = caret && mine.includes(caret.startContainer as Text) ? (caret.startContainer as Text) : null;
+      // A click on words drawn apart from the rest (bold in the middle of a sentence): the wording is the next one tagged after them.
+      const after = !under && caret && marked.contains(caret.startContainer) ? mine.find((n) => caret.startContainer.compareDocumentPosition(n) & Node.DOCUMENT_POSITION_FOLLOWING) : undefined;
+      // The whole wording is shown as chosen, not only its bold or italic words.
+      const whole = marked.getAttribute("data-cms-edit") === "part" ? (marked.parentElement?.closest<HTMLElement>('[data-cms-edit=""]') ?? marked) : marked;
       event.preventDefault();
       event.stopPropagation();
-      open(marked, under ?? mine[0], under ? caret!.startOffset : null);
+      open(whole, under ?? after ?? mine[0], under ? caret!.startOffset : null);
     };
     window.addEventListener("click", onClick, true);
     return () => window.removeEventListener("click", onClick, true);
@@ -284,6 +338,57 @@ export function PageEditor() {
 
   const slot = target?.candidates.find((c) => c.key === key) ?? null;
   const warning = slot && draft !== slot.def ? lengthWarning(slot.def, draft.trim()) : null;
+  const dirty = Boolean(slot) && draft !== canonical(slot!.value);
+
+  /** The B and I buttons: on for the selected words, or for the whole wording when nothing is selected. */
+  const refresh = useCallback(() => {
+    const el = box.current;
+    if (!el) return;
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0 && !sel.isCollapsed && el.contains(sel.anchorNode)) {
+      return setPressed({ bold: document.queryCommandState("bold"), italic: document.queryCommandState("italic") });
+    }
+    const runs = runsOfStored(readBox(el)).filter((run) => run.text.trim());
+    setPressed({ bold: runs.length > 0 && runs.every((run) => run.bold), italic: runs.length > 0 && runs.every((run) => run.italic) });
+  }, []);
+
+  // Draw the wording in the box when a card opens, when another entry is chosen in it, and after a save.
+  const value = slot?.value;
+  useEffect(() => {
+    const el = box.current;
+    if (!el || value === undefined) return;
+    fillBox(el, value);
+    if (focusNext.current) {
+      focusNext.current = false;
+      el.focus();
+      const sel = window.getSelection();
+      sel?.selectAllChildren(el);
+      sel?.collapseToEnd();
+    }
+    refresh();
+  }, [target, key, value, refresh]);
+
+  useEffect(() => {
+    if (!target) return;
+    document.addEventListener("selectionchange", refresh);
+    return () => document.removeEventListener("selectionchange", refresh);
+  }, [target, refresh]);
+
+  /** Makes the selected words bold or italic, or back to plain. With nothing selected, the whole wording. */
+  const format = (command: "bold" | "italic") => {
+    const el = box.current;
+    const sel = window.getSelection();
+    if (!el || !sel) return;
+    el.focus();
+    const all = sel.isCollapsed || !el.contains(sel.anchorNode);
+    if (all) sel.selectAllChildren(el);
+    document.execCommand("styleWithCSS", false, "false");
+    document.execCommand(command);
+    // Left selected, the next key pressed would replace the whole wording.
+    if (all) sel.collapseToEnd();
+    setDraft(readBox(el));
+    refresh();
+  };
 
   /**
    * After a save: every piece of text on the page that carries this entry's tag now says the new wording. If one of
@@ -291,7 +396,8 @@ export function PageEditor() {
    * page draws itself again from its content instead, which is always right.
    */
   const show = useCallback((changed: AdminSlot, before: string) => {
-    if (changed.kind !== "text") return void window.dispatchEvent(new Event(REDRAW));
+    // Bold and italic are drawn as elements, not as text that can be swapped where it sits.
+    if (changed.kind !== "text" || isFormatted(before) || isFormatted(changed.value)) return void window.dispatchEvent(new Event(REDRAW));
     const tag = tagOf(numberFor(changed.key));
     let swapped = 0;
     let unsure = false;
@@ -330,7 +436,7 @@ export function PageEditor() {
       applyTagged(fresh);
       setSlots(fresh);
       if (now) {
-        setDraft(now.value);
+        setDraft(canonical(now.value));
         show(now, before);
       }
       setTarget((t) => (t ? { ...t, candidates: t.candidates.map((c) => fresh.find((s) => s.key === c.key) ?? c) } : t));
@@ -358,6 +464,7 @@ export function PageEditor() {
       <style>{`
         html[data-cms-mode="edit"] [data-cms-edit] { cursor: text; outline: 1px dashed transparent; outline-offset: 3px; border-radius: 3px; transition: outline-color 120ms ease, background-color 120ms ease; }
         html[data-cms-mode="edit"] [data-cms-edit]:hover { outline-color: #467d58; background-color: rgb(201 219 135 / 0.28); }
+        html[data-cms-mode="edit"] [data-cms-edit="part"], html[data-cms-mode="edit"] [data-cms-edit="part"]:hover { outline: none; background-color: transparent; }
         html[data-cms-mode] [data-cms-active] { outline: 2px solid #123a29 !important; outline-offset: 3px; background-color: rgb(201 219 135 / 0.4) !important; }
         @media (prefers-reduced-motion: reduce) { html[data-cms-mode="edit"] [data-cms-edit] { transition: none; } }
       `}</style>
@@ -393,7 +500,7 @@ export function PageEditor() {
                   const next = target.candidates.find((c) => c.key === e.target.value);
                   if (!next) return;
                   setKey(next.key);
-                  setDraft(next.value);
+                  setDraft(canonical(next.value));
                   setMsg(null);
                 }}
               >
@@ -406,17 +513,63 @@ export function PageEditor() {
               </select>
             </label>
           ) : null}
-          <textarea
+          {slot.kind === "text" ? (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <div role="group" aria-label="Bold and italic" className="flex gap-1">
+                {(["bold", "italic"] as const).map((command) => (
+                  <button
+                    key={command}
+                    type="button"
+                    aria-label={command === "bold" ? "Bold" : "Italic"}
+                    aria-pressed={pressed[command]}
+                    title={command === "bold" ? "Bold" : "Italic"}
+                    data-testid={`page-edit-${command}`}
+                    className={`inline-flex size-9 items-center justify-center rounded-lg border text-base transition-colors ${pressed[command] ? "border-pine bg-pine text-white" : "border-ink/30 bg-white text-ink hover:bg-field"}`}
+                    // Keeps the words selected in the box while the button is pressed.
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => format(command)}
+                  >
+                    <span aria-hidden className={command === "bold" ? "font-extrabold" : "font-serif text-lg italic"}>
+                      {command === "bold" ? "B" : "I"}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <p className="min-w-0 flex-1 basis-56 text-xs text-ink/60">Select words to make them bold or italic. With nothing selected, the whole text changes.</p>
+            </div>
+          ) : null}
+          <div
             ref={box}
+            role="textbox"
+            aria-multiline="true"
             aria-label={`${slot.label} (${slot.page})`}
             data-testid="page-edit-input"
-            className="min-h-20 w-full rounded-xl border border-ink/40 bg-white px-3 py-2 text-base text-ink focus:border-leaf focus:outline-2 focus:outline-leaf"
-            rows={Math.min(8, Math.max(2, Math.ceil(draft.length / 60)))}
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Escape") close();
+            contentEditable
+            suppressContentEditableWarning
+            spellCheck
+            className="max-h-[40vh] min-h-20 w-full overflow-y-auto whitespace-pre-wrap break-words rounded-xl border border-ink/40 bg-white px-3 py-2 text-base font-normal not-italic text-ink focus:border-leaf focus:outline-2 focus:outline-leaf"
+            onInput={(e) => {
+              setDraft(readBox(e.currentTarget));
+              // "Saved." was about the wording before this change.
+              setMsg(null);
+              refresh();
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") return close();
+              if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                // A plain line break, not the new paragraph element a browser would put in.
+                e.preventDefault();
+                document.execCommand("insertLineBreak");
+              }
+              // An email address has no bold or italic: the browser's own shortcuts for them do nothing here.
+              if (slot.kind !== "text" && (e.metaKey || e.ctrlKey) && ["b", "i", "u"].includes(e.key.toLowerCase())) e.preventDefault();
+            }}
+            onPaste={(e) => {
+              // Only the words: nothing of how they looked where they were copied from.
+              e.preventDefault();
+              document.execCommand("insertText", false, stripInvisible(e.clipboardData.getData("text/plain")).replace(/\r\n?/g, "\n"));
+            }}
+            onDrop={(e) => e.preventDefault()}
           />
           {slot.stale ? (
             <p role="status" className="text-xs font-bold text-red-700">
@@ -434,7 +587,7 @@ export function PageEditor() {
             </p>
           ) : null}
           <div className="flex flex-wrap items-center gap-2">
-            <button type="submit" className={`${pill} bg-lime text-pine hover:bg-lime-deep disabled:opacity-50`} disabled={busy || draft === slot.value} data-testid="page-edit-save">
+            <button type="submit" className={`${pill} bg-lime text-pine hover:bg-lime-deep disabled:opacity-50`} disabled={busy || !dirty} data-testid="page-edit-save">
               Save
             </button>
             <button type="button" className={`${pill} border border-pine/25 bg-white text-pine hover:bg-field`} onClick={close}>

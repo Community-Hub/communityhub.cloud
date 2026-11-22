@@ -178,7 +178,12 @@ export default defineConfig(({ command, isPreview }) => ({
     port: 8081,
     strictPort: true,
   },
-  resolve: { tsconfigPaths: true },
+  resolve: {
+    tsconfigPaths: true,
+    // "site-jsx" is how the build reaches src/lib/jsx from any file whose JSX it compiles, the framework's own
+    // entry files included (the "@/" shorthand only works inside src).
+    alias: [{ find: /^site-jsx\/(jsx-runtime|jsx-dev-runtime)$/, replacement: `${join(process.cwd(), "src/lib/jsx")}/$1.ts` }],
+  },
   plugins: [
     pgliteBootstrapPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
@@ -206,6 +211,7 @@ export default defineConfig(({ command, isPreview }) => ({
           }),
         ]
       : []),
-    viteReact(),
+    // The site's page code makes its elements through src/lib/jsx, which draws an editor's bold and italic.
+    viteReact({ jsxImportSource: "site-jsx" }),
   ],
 }));

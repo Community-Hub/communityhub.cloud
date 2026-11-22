@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import { plainOf, stripMarks } from "@/lib/cms/marks";
 import type { Overview } from "@/lib/cms/service";
 import { errorText, get, post } from "./api";
 import { HistoryPanel } from "./history-panel";
@@ -172,7 +173,8 @@ function Editor({ email, onSignOut, onEditorHost }: { email: string; onSignOut: 
 
   const altByKey = useMemo(() => new Map((overview?.slots ?? []).map((s) => [s.key, s])), [overview]);
   const q = query.trim().toLowerCase();
-  const match = (...parts: (string | undefined)[]) => !q || parts.some((p) => p?.toLowerCase().includes(q));
+  // A search finds wording by what it says: "resilient communities" matches although the saved text has <i> in the middle.
+  const match = (...parts: (string | undefined)[]) => !q || parts.some((p) => p !== undefined && (p.toLowerCase().includes(q) || stripMarks(plainOf(p)).toLowerCase().includes(q)));
 
   const textSlots = useMemo(() => (overview?.slots ?? []).filter((s) => s.kind !== "image" && !s.ownedByImage), [overview]);
   const pictureSlots = useMemo(() => (overview?.slots ?? []).filter((s) => s.kind === "image"), [overview]);

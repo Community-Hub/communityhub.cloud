@@ -23,6 +23,15 @@ After you sign in you are on the site itself, with a dark bar at the bottom of t
 
 To go back, click the sentence again and press **Use the original wording**.
 
+### Bold and italic
+
+The box has a **B** button and an *I* button above the wording.
+
+- To change a few words, select them in the box, then press **B** for bold or **I** for italic.
+- To change the whole wording, press **B** or **I** without selecting anything.
+- Press the same button again to take it off. The box shows the wording as it will look.
+- Press **Save**.
+
 If your text runs much longer than the original, the box warns you, because long text may not fit its space on the page.
 
 A few pieces of wording cannot be clicked on the page (text inside the live dashboards, and a few lines the page reshapes). For those, and for pictures and lists, press **Pictures, lists and history** in the bar: it opens the full list, where **Words and links** has a search box (**Find a word or heading**).

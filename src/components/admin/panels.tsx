@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AdminSection, AdminSlot } from "@/lib/cms/service";
+import { plainOf, toMarked } from "@/lib/cms/marks";
 import { lengthWarning } from "@/lib/cms/validate";
 import { errorText, post, upload } from "./api";
 import { btn, btnGhost, inputCls, Notice, when } from "./ui";
@@ -10,6 +11,8 @@ interface RowProps {
 }
 
 const origin = (s: AdminSlot) => (s.value !== s.def || s.changed ? "Edited" : "Original");
+/** A wording as the site draws it: its bold and italic show in the preview (the page code turns the marks into them). */
+const shownAs = (s: AdminSlot, stored: string) => (s.kind === "text" ? toMarked(stored) : stored);
 
 /** One piece of text, link or email address. */
 export function TextRow({ slot, reload, openHistory }: RowProps & { slot: AdminSlot }) {
@@ -74,19 +77,27 @@ export function TextRow({ slot, reload, openHistory }: RowProps & { slot: AdminS
           onChange={(e) => setDraft(e.target.value)}
         />
       )}
-      <p className="mt-1 text-xs text-ink/60">
-        {draft.length} characters. Original: {slot.def.length}. Plain text only; nothing you type is treated as code.
+      <p className="mt-1 text-xs text-ink/60" data-testid="slot-help">
+        {slot.kind === "text" ? (
+          <>
+            {plainOf(draft).length} characters. Original: {plainOf(slot.def).length}. For bold, put {"<b>"} before the words and {"</b>"} after them; for italic, {"<i>"} and {"</i>"}. Nothing else you type is treated as code.
+          </>
+        ) : (
+          <>
+            {draft.length} characters. Original: {slot.def.length}. Plain text only; nothing you type is treated as code.
+          </>
+        )}
       </p>
       {warning ? <div className="mt-2"><Notice kind="warn">{warning}</Notice></div> : null}
       {dirty ? (
         <div className="mt-3 grid gap-2 sm:grid-cols-2" aria-label="Preview">
           <div className="rounded-md bg-field p-3">
             <p className="mb-1 text-xs font-bold uppercase tracking-wide text-ink/60">On the site now</p>
-            <p className="whitespace-pre-wrap break-words text-sm text-ink">{slot.value || "(empty)"}</p>
+            <p className="whitespace-pre-wrap break-words text-sm text-ink">{shownAs(slot, slot.value) || "(empty)"}</p>
           </div>
           <div className="rounded-md bg-water p-3">
             <p className="mb-1 text-xs font-bold uppercase tracking-wide text-ink/60">Your version</p>
-            <p className="whitespace-pre-wrap break-words text-sm text-ink" data-testid="slot-preview">{draft || "(empty)"}</p>
+            <p className="whitespace-pre-wrap break-words text-sm text-ink" data-testid="slot-preview">{shownAs(slot, draft) || "(empty)"}</p>
           </div>
         </div>
       ) : null}

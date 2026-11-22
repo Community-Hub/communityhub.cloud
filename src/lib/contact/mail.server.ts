@@ -18,6 +18,7 @@
  * The visitor's address goes in Reply-To, so answering the email answers them. Nothing is ever sent to the visitor.
  */
 import { randomUUID } from "node:crypto";
+import { stripInvisible } from "../cms/marks.ts";
 
 const RESEND_URL = "https://api.resend.com/emails";
 const POSTMARK_URL = "https://api.postmarkapp.com/email";
@@ -87,9 +88,11 @@ export async function sendFormMail(mail: FormMail): Promise<void> {
 export async function sendMail(mail: Omit<FormMail, "replyTo"> & { replyTo?: string; footer: string }): Promise<void> {
   const provider = mailProvider();
   if (!provider) throw new MailError("Neither POSTMARK_SERVER_TOKEN nor RESEND_API_KEY is set.");
-  const subject = oneLine(mail.subject);
-  const text = `${mail.text}\n\n${mail.footer}`;
-  const html = htmlFor(mail.text, mail.footer);
+  // A product or plan name the form quotes may carry an editor's bold or italic as invisible marks: mail is plain.
+  const body = stripInvisible(mail.text);
+  const subject = stripInvisible(oneLine(mail.subject));
+  const text = `${body}\n\n${mail.footer}`;
+  const html = htmlFor(body, mail.footer);
   // A distinct id on every notification, so Gmail lists each one on its own instead of folding them together.
   const ref = randomUUID();
   const name = provider === "postmark" ? "Postmark" : "Resend";

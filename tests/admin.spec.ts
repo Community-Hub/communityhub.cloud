@@ -102,6 +102,26 @@ test("the session lasts a week", async () => {
 
 /** What a person reads: the on-page editor's invisible tags taken out. */
 const seen = (text: string | null) => (text ?? "").replace(/[\u2063\u2060\u200C]/g, "").replace(/\s+/g, " ").trim();
+/** The site's own invisible characters: the editor's tags, and the marks bold and italic travel as. A visitor's page has none. */
+const INVISIBLE = "[\\u2061\\u2063\\u2064\\u2060\\u200C]";
+const hasInvisible = (page: Page) => page.evaluate((chars) => new RegExp(chars).test(document.documentElement.outerHTML), INVISIBLE);
+/** Selects one word in the card's box, as dragging over it would. */
+const selectInBox = (page: Page, word: string) =>
+  page.getByTestId("page-edit-input").evaluate((box, w) => {
+    const walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
+      const at = node.data.indexOf(w);
+      if (at < 0) continue;
+      const range = document.createRange();
+      range.setStart(node, at);
+      range.setEnd(node, at + w.length);
+      const sel = window.getSelection()!;
+      sel.removeAllRanges();
+      sel.addRange(range);
+      return true;
+    }
+    return false;
+  }, word);
 
 test("after signing in the editor is on the site itself, with the editing bar", async ({ page }) => {
   // signIn() ran in beforeAll: it ends on the editor host's own copy of the home page, not on the lists.
@@ -148,7 +168,7 @@ test("edit on the page: click a heading, save, and only that wording changes, he
   await visitor.goto(`${PUBLIC}/pricing`);
   await expect(visitor.locator("main h1").first()).toHaveText("Pricing and plans");
   await expect(visitor.locator("[data-cms-ui]")).toHaveCount(0);
-  expect(await visitor.evaluate(() => /[\u2063\u2060\u200C]/.test(document.documentElement.outerHTML))).toBe(false);
+  expect(await hasInvisible(visitor)).toBe(false);
 
   // Put it back from the same card.
   await page.getByTestId("page-edit-reset").click();
@@ -189,6 +209,141 @@ test("edit on the page: wording that belongs to one page, a list in it, and the 
   await page.locator("main a", { hasText: "connect@communityhub.cloud" }).first().click();
   await expect(card).toHaveAttribute("data-key", "site.contactEmail");
   await card.getByRole("button", { name: "Close" }).click();
+});
+
+test("edit on the page: italic for a whole wording, bold for a few words of it, here and on the public site", async ({ page, browser }) => {
+  // What John asked to see (22 Nov 2026): the mission statement on the home page in italics.
+  await page.goto(`${ADMIN}/`);
+  await expect(page.getByTestId("page-edit-hint")).toHaveText("Click any wording to change it.");
+  const lede = page.locator("#platform p.t-lede");
+  await expect(lede).toHaveAttribute("data-cms-edit", "");
+  const mission = seen(await lede.textContent());
+  expect(mission.length).toBeGreaterThan(40);
+  await lede.click();
+  const card = page.getByTestId("page-edit-card");
+  const box = page.getByTestId("page-edit-input");
+  const bold = page.getByTestId("page-edit-bold");
+  const italic = page.getByTestId("page-edit-italic");
+  const save = page.getByTestId("page-edit-save");
+  await expect(card).toHaveAttribute("data-key", "copy.chapters.WhoChapter.p1");
+  await expect(box).toHaveText(mission);
+  await expect(italic).toHaveAttribute("aria-pressed", "false");
+  await expect(save).toBeDisabled();
+
+  // With nothing selected the button changes the whole wording, and the box shows it as it will look.
+  await italic.click();
+  await expect(italic).toHaveAttribute("aria-pressed", "true");
+  await expect(box.locator("i")).toHaveText(mission);
+  // Pressed again it is plain again, and there is nothing to save.
+  await italic.click();
+  await expect(box.locator("i")).toHaveCount(0);
+  await expect(save).toBeDisabled();
+  await italic.click();
+  await save.click();
+  await expect(card.getByRole("status")).toContainText("Saved.");
+  await expect(lede.locator("em")).toHaveText(mission);
+  expect(seen(await lede.textContent())).toBe(mission);
+
+  // A visitor sees real italics: one <em> around the sentence, and none of the site's invisible characters.
+  const visitor = await (await browser.newContext()).newPage();
+  const errors: string[] = [];
+  visitor.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text());
+  });
+  await visitor.goto(`${PUBLIC}/`);
+  const shown = visitor.locator("#platform p.t-lede");
+  await expect(shown.locator("em")).toHaveText(mission);
+  expect(await shown.evaluate((p) => p.childNodes.length)).toBe(1);
+  expect(await shown.locator("em").evaluate((em) => getComputedStyle(em).fontStyle)).toBe("italic");
+  await visitor.waitForSelector("html[data-hydrated='true']");
+  expect(await hasInvisible(visitor)).toBe(false);
+  expect(errors.filter((e) => /hydrat|did not match|mismatch/i.test(e))).toEqual([]);
+
+  // A click on the italic words opens the same entry (not "the same words appear elsewhere"), still italic in the box.
+  await card.getByRole("button", { name: "Close" }).click();
+  await lede.locator("em").click();
+  await expect(card).toHaveAttribute("data-key", "copy.chapters.WhoChapter.p1");
+  await expect(page.getByTestId("page-edit-which")).toHaveCount(0);
+  await expect(box.locator("i")).toHaveText(mission);
+  await expect(lede).toHaveAttribute("data-cms-active", "");
+
+  // One word selected: only that word becomes bold. The rest stays as it was.
+  expect(await selectInBox(page, "educate")).toBe(true);
+  await expect(bold).toHaveAttribute("aria-pressed", "false");
+  await bold.click();
+  await expect(bold).toHaveAttribute("aria-pressed", "true");
+  await expect(box.locator("b")).toHaveText("educate");
+  await save.click();
+  await expect(card.getByRole("status")).toContainText("Saved.");
+  await expect(lede.locator("strong")).toHaveText("educate");
+  await visitor.reload();
+  await expect(shown.locator("strong")).toHaveText("educate");
+  await expect(shown.locator("strong em")).toHaveText("educate");
+  await expect(shown).toHaveText(mission);
+
+  // A click on the bold word, or on the words after it, still opens this entry.
+  await card.getByRole("button", { name: "Close" }).click();
+  await lede.locator("strong").click();
+  await expect(card).toHaveAttribute("data-key", "copy.chapters.WhoChapter.p1");
+  await expect(box.locator("b")).toHaveText("educate");
+
+  // Typing in the box keeps working, and text pasted in brings only its words.
+  await box.evaluate((el) => {
+    const sel = window.getSelection()!;
+    sel.selectAllChildren(el);
+    sel.collapseToEnd();
+  });
+  await page.keyboard.type(" today");
+  await box.evaluate((el) => {
+    const data = new DataTransfer();
+    data.setData("text/html", "<h1 style='color:red'>BIG</h1>");
+    data.setData("text/plain", " and tomorrow\u2063\u2060\u200C\u2063");
+    el.dispatchEvent(new ClipboardEvent("paste", { clipboardData: data, bubbles: true, cancelable: true }));
+  });
+  await expect(box).toHaveText(`${mission} today and tomorrow`);
+  await expect(box.locator("h1")).toHaveCount(0);
+  await save.click();
+  await expect(card.getByRole("status")).toContainText("Saved.");
+  await expect.poll(async () => seen(await lede.textContent())).toBe(`${mission} today and tomorrow`);
+  const stored = await page.evaluate(async () => {
+    const overview = (await (await fetch("/api/cms/overview")).json()) as { slots: { key: string; value: string }[] };
+    return overview.slots.find((s) => s.key === "copy.chapters.WhoChapter.p1")?.value;
+  });
+  expect(stored).toBe(`<i>${mission.replace("educate", "</i><b><i>educate</i></b><i>")} today and tomorrow</i>`);
+
+  // Back to the original from the same card: plain text again for the editor and for the visitor.
+  await page.getByTestId("page-edit-reset").click();
+  await expect(card.getByRole("status")).toContainText("original wording");
+  await expect.poll(async () => seen(await lede.textContent())).toBe(mission);
+  await expect(lede.locator("em, strong")).toHaveCount(0);
+  await visitor.reload();
+  await expect(shown).toHaveText(mission);
+  await expect(shown.locator("em, strong")).toHaveCount(0);
+  await visitor.context().close();
+});
+
+test("bold or italic in a wording never shows as symbols: a tab title and a picture description stay plain", async ({ page, browser }) => {
+  const visitor = await (await browser.newContext()).newPage();
+  await visitor.goto(`${PUBLIC}/pricing`);
+  const title = await visitor.title();
+  await page.goto(`${ADMIN}/pricing`);
+  const save = (key: string, value: string) =>
+    page.evaluate(async ([k, v]) => (await fetch("/api/cms/save", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ key: k, value: v }) })).status, [key, value]);
+  const reset = (key: string) =>
+    page.evaluate(async (k) => (await fetch("/api/cms/reset", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ key: k }) })).status, key);
+  const slots = await page.evaluate(async () => ((await (await fetch("/api/cms/overview")).json()) as { slots: { key: string; kind: string; value: string }[] }).slots);
+  const tab = slots.find((s) => s.kind === "text" && s.value === title);
+  expect(tab, `the entry for the tab title "${title}"`).toBeTruthy();
+  // The same in the old list of words: typed with the tags, it is saved tidied.
+  expect(await save(tab!.key, `<STRONG>${title}</STRONG>`)).toBe(200);
+  await visitor.reload();
+  expect(await visitor.title()).toBe(title);
+  expect(await hasInvisible(visitor)).toBe(false);
+  const raw = await (await visitor.request.get(`${PUBLIC}/pricing`)).text();
+  expect(raw).toContain(`<title>${title.replace(/&/g, "&amp;")}</title>`);
+  expect(new RegExp(INVISIBLE).test(raw.replace(/<script[\s\S]*?<\/script>/g, ""))).toBe(false);
+  expect(await reset(tab!.key)).toBe(200);
+  await visitor.context().close();
 });
 
 test("edit on the page: every piece of wording on these pages can be clicked", async ({ page }) => {
@@ -279,15 +434,19 @@ test("edit a string, see it on the public page, escaped, then revert", async ({ 
   const row = page.getByTestId("slot-row").first();
   await expect(row).toBeVisible();
   const input = row.getByTestId("slot-input");
-  await input.fill("<b>Gone fishing</b> & back soon");
-  await expect(row.getByTestId("slot-preview")).toHaveText("<b>Gone fishing</b> & back soon");
+  // <b> and <i> are the two things typed text can ask for; everything else in angle brackets is only text.
+  await input.fill("<b>Gone fishing</b> & <u>back</u> <script>soon</script>");
+  await expect(row.getByTestId("slot-help")).toContainText("For bold, put <b> before the words");
+  await expect(row.getByTestId("slot-preview")).toHaveText("Gone fishing & <u>back</u> <script>soon</script>");
+  await expect(row.getByTestId("slot-preview").locator("strong")).toHaveText("Gone fishing");
   await row.getByTestId("slot-save").click();
   await expect(row.getByText(/Saved/)).toBeVisible();
 
-  // The public page shows it with no old text first, and nothing was turned into markup.
+  // The public page shows it with no old text first: the bold as real bold, and nothing else turned into markup.
   const html = await (await request.get(`${PUBLIC}/no-such-page`)).text();
-  expect(html).toContain("&lt;b&gt;Gone fishing&lt;/b&gt; &amp; back soon");
-  expect(html).not.toContain("<b>Gone fishing</b>");
+  expect(html).toContain("<strong>Gone fishing</strong> &amp; &lt;u&gt;back&lt;/u&gt; &lt;script&gt;soon&lt;/script&gt;");
+  expect(html).not.toContain("<u>back</u>");
+  expect(html).not.toContain("<script>soon</script>");
   expect(html).not.toContain("That page is not here");
 
   // History lists it; reverting to the original puts the default back.
@@ -423,11 +582,12 @@ test("lists: remove, reorder and add an item, then restore the original list", a
   const form = card.getByTestId("list-add-form");
   const fields = form.locator('input[type=text]');
   const n = await fields.count();
-  for (let i = 0; i < n; i++) await fields.nth(i).fill(i === 0 ? "Is this a <i>new</i> question?" : "Yes, added from the editor.");
+  // Italic works in an added item too; any other tag is only text.
+  for (let i = 0; i < n; i++) await fields.nth(i).fill(i === 0 ? "Is this a <i>new</i> <u>question</u>?" : "Yes, added from the editor.");
   await form.getByTestId("list-add-confirm").click();
   await card.getByTestId("list-save").click();
   await expect(card.getByTestId("list-item")).toHaveCount(before);
-  await expect.poll(async () => (await (await request.get(`${PUBLIC}/pricing`)).text()).includes("Is this a &lt;i&gt;new&lt;/i&gt; question?")).toBe(true);
+  await expect.poll(async () => (await (await request.get(`${PUBLIC}/pricing`)).text()).includes("Is this a <em>new</em> &lt;u&gt;question&lt;/u&gt;?")).toBe(true);
 
   // Back to the original list.
   await card.getByRole("button", { name: "Reset to original list" }).click();

@@ -2,8 +2,8 @@
  * CMS core: finds every editable thing in the site's content objects and applies
  * stored overrides to them IN PLACE.
  *
- * Pure TypeScript with no imports, so it runs in the browser, on the server and under
- * `node --test`.
+ * Pure TypeScript (its one import, ./marks.ts, is the same), so it runs in the browser, on the
+ * server and under `node --test`.
  *
  * Keys. Every editable value has a stable key made from the root name and the path to it
  * in the code default, for example `orbBeats.0.frames.1.caption`. Indexes are positions in
@@ -14,7 +14,12 @@
  * Merge. `apply(state)` first puts every previously changed slot back to its default, then
  * writes the new overrides, then rebuilds the list arrays. Because the objects are patched
  * in place, every module that imported them sees the new text with no further wiring.
+ *
+ * Bold and italic. A wording is stored with `<b>` and `<i>` around the words they apply to. In the
+ * content objects it sits with invisible marks instead (./marks.ts), which the page's drawing code
+ * turns into real bold and italic and which do no harm anywhere else a string goes.
  */
+import { toMarked } from "./marks.ts";
 
 export type SlotKind = "text" | "alt" | "link" | "email" | "image";
 
@@ -128,6 +133,9 @@ export const humanize = (key: string) => {
   return spaced ? spaced[0].toUpperCase() + spaced.slice(1) : key;
 };
 
+/** A value as it sits in the content objects: text carries its bold and italic as invisible marks. */
+const shown = (kind: SlotKind, value: string) => (kind === "text" ? toMarked(value) : value);
+
 const isPlain = (v: unknown): v is Record<string, unknown> =>
   typeof v === "object" && v !== null && !Array.isArray(v);
 
@@ -235,6 +243,14 @@ export function itemFields(item: unknown, only?: readonly string[]): ItemField[]
   return out;
 }
 
+/** An item an editor added to a list, with the bold and italic of its text as the page draws them. */
+function markItem<T>(item: T, only?: readonly string[]): T {
+  walk(item, [], [], ({ leaf, value, ref }) => {
+    if (classify(leaf, value, only) === "text") ref.obj[ref.prop] = toMarked(value);
+  });
+  return item;
+}
+
 export function getAtPath(root: unknown, path: string): unknown {
   let cur: any = root;
   if (path === "") return cur;
@@ -284,7 +300,7 @@ export interface ContentIndex {
    */
   extend(root: RootSpec): void;
   isHidden(path: string, id: string): boolean;
-  /** What the site shows now for a slot. */
+  /** What the site's content holds now for a slot (text with its bold and italic as invisible marks). */
   current(key: string): string | undefined;
   /**
    * Drops overrides made against code that has since changed, and re-points list tokens when default items moved.
@@ -337,6 +353,9 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
       bySlot.set(key, slot);
       refs.set(key, ref);
       slots.push(slot);
+      // Wording written in the code with <b> or <i> is drawn the same way as an editor's.
+      const marked = shown(kind, value);
+      if (marked !== value) ref.obj[ref.prop] = marked;
     });
   };
   for (const root of input.roots) addRoot(root);
@@ -431,13 +450,14 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
     for (const [key, value] of Object.entries(state.v)) {
       const ref = refs.get(key);
       if (!ref) continue; // a key the code no longer has: ignored, kept in history
-      ref.obj[ref.prop] = value;
+      ref.obj[ref.prop] = shown(bySlot.get(key)!.kind, value);
       next.add(key);
     }
     for (const key of applied) {
       if (next.has(key)) continue;
       const ref = refs.get(key);
-      if (ref) ref.obj[ref.prop] = bySlot.get(key)!.def;
+      const slot = bySlot.get(key);
+      if (ref && slot) ref.obj[ref.prop] = shown(slot.kind, slot.def);
     }
     applied = next;
 
@@ -455,7 +475,7 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
             const d = info.defaults[defaultIndex(token)];
             if (d !== undefined) items.push(d);
           } else if (ls.added[token] !== undefined) {
-            items.push(structuredClone(ls.added[token]));
+            items.push(markItem(structuredClone(ls.added[token]), info.only));
           }
         }
       } else {
@@ -495,7 +515,7 @@ export function createContentIndex(input: { roots: RootSpec[]; lists?: ListSpec[
         const value = lastValues[slot.key];
         if (value === undefined) continue;
         const ref = refs.get(slot.key)!;
-        ref.obj[ref.prop] = value;
+        ref.obj[ref.prop] = shown(slot.kind, value);
         applied.add(slot.key);
       }
     },
