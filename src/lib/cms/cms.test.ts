@@ -357,3 +357,44 @@ describe("sign-in codes: one address is emailed only so many", () => {
     assert.equal(await takeCodeSlot(sql, "john.petersen@oberlin.edu", t0 + CODE_MAIL_WINDOW_MS + 2), true);
   });
 });
+
+describe("wording that registers after the index is made (a page's own text)", () => {
+  it("is listed, gets the edits already applied, and follows later ones", async () => {
+    const { createContentIndex } = await import("./core.ts");
+    const base = { title: "Home" };
+    const index = createContentIndex({ roots: [{ name: "base", page: "Home", value: base }] });
+    // An edit for wording the index has not met yet is kept, not dropped.
+    index.apply({ v: { "base.title": "Welcome", "text.lorawan.heading": "Sensors, simply" }, l: {}, h: [] });
+    assert.equal(base.title, "Welcome");
+    assert.equal(index.slot("text.lorawan.heading"), undefined);
+
+    const page = { heading: "Sensors and gateways", body: "Readings arrive by radio.", kinds: ["Map", "Loop"] };
+    index.extend({ name: "text.lorawan", page: "LoRaWAN", value: page });
+    assert.equal(page.heading, "Sensors, simply");
+    assert.equal(page.body, "Readings arrive by radio.");
+    assert.deepEqual(index.slots.map((s) => s.key).sort(), ["base.title", "text.lorawan.body", "text.lorawan.heading", "text.lorawan.kinds.0", "text.lorawan.kinds.1"]);
+    assert.equal(index.slot("text.lorawan.heading")?.def, "Sensors and gateways");
+
+    // Later edits reach it like any other wording, and removing one puts the original back.
+    index.apply({ v: { "text.lorawan.body": "Readings arrive.", "text.lorawan.kinds.1": "Display" }, l: {}, h: [] });
+    assert.equal(base.title, "Home");
+    assert.equal(page.heading, "Sensors and gateways");
+    assert.equal(page.body, "Readings arrive.");
+    assert.deepEqual(page.kinds, ["Map", "Display"]);
+
+    // The same wording registering again (a hot reload) replaces the old object, without duplicates.
+    const again = { heading: "Sensors and gateways", body: "Readings arrive by radio.", kinds: ["Map", "Loop"] };
+    index.extend({ name: "text.lorawan", page: "LoRaWAN", value: again });
+    assert.equal(index.slots.filter((s) => s.key.startsWith("text.lorawan.")).length, 4);
+    assert.equal(again.body, "Readings arrive.");
+  });
+
+  it("a name the walk normally leaves alone is editable when a root lists it", async () => {
+    const { createContentIndex } = await import("./core.ts");
+    const places = [{ name: "MidTown Cleveland", kind: "Neighborhood", slug: "midtown" }];
+    const listed = createContentIndex({ roots: [{ name: "places", page: "Implementations", value: places, only: ["name", "kind"] }] });
+    assert.deepEqual(listed.slots.map((s) => s.key), ["places.0.name", "places.0.kind"]);
+    const plain = createContentIndex({ roots: [{ name: "places", page: "Implementations", value: structuredClone(places) }] });
+    assert.deepEqual(plain.slots.map((s) => s.key), ["places.0.name"]);
+  });
+});

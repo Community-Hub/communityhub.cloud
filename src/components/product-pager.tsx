@@ -14,6 +14,7 @@ import { pc } from "@/lib/page-content";
 import { copy } from "@/lib/copy";
 import { DEMO_HREF } from "@/lib/links";
 import { site } from "@/lib/site";
+import { txt } from "@/lib/page-text/productPager";
 
 export type ProductSlide = {
   label: string;
@@ -47,7 +48,7 @@ function Walkthrough() {
   const [playing, setPlaying] = useAutoplay();
   return <div className="relative" data-box-frame>
     <PhoneWalkthrough running={playing} />
-    <div className="absolute bottom-2 right-2"><PlayPauseButton playing={playing} onToggle={() => setPlaying(p => !p)} labels={{pause: "Pause animation", play: "Play animation"}} /></div>
+    <div className="absolute bottom-2 right-2"><PlayPauseButton playing={playing} onToggle={() => setPlaying(p => !p)} labels={{pause: txt.pause1, play: txt.play1}} /></div>
   </div>;
 }
 
@@ -64,10 +65,9 @@ export function RelatedProducts({ page }: { page: string }) {
       <div className="wrap page-body">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <h2 id="related-title" className="t-h2">
-          More products
-        </h2>
+          {txt.h21}</h2>
         <AppLink href="/products" className="link">
-          All products <ArrowRight className="size-4" aria-hidden />
+          {txt.AppLink1}{" "}<ArrowRight className="size-4" aria-hidden />
         </AppLink>
       </div>
       <ul className="mt-[clamp(1.5rem,4vh,2.5rem)] grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -105,7 +105,7 @@ function LiveLink({ href, label, primary = false }: { href: string; label: strin
     <a href={href} target="_blank" rel="noopener" className={primary ? "btn-secondary" : "link"}>
       {label}
       <ArrowUpRight className="size-4" aria-hidden />
-      <span className="sr-only"> (opens in a new tab)</span>
+      <span className="sr-only"> {" "}{txt.span1}</span>
     </a>
   );
 }
@@ -139,7 +139,7 @@ export function ProductPager({ slides, page }: { slides: ProductSlide[]; page: s
           const liveAction =
             slide.live ??
             (slide.embed && !slide.presentation
-              ? { href: slide.embed, label: "Open live example" }
+              ? { href: slide.embed, label: txt.label1 }
               : undefined);
           const first = index === 0;
           const Heading = first ? "h1" : "h2";

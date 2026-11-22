@@ -5,13 +5,14 @@ import { SiteFooter } from "@/components/site-footer";
 import { pc } from "@/lib/page-content";
 import { site } from "@/lib/site";
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+import { txt } from "@/lib/page-text/index";
 
 export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
       { title: pc.meta.home.title },
-      { name: "description", content: "Community Hub is a community-centered communication platform. " + site.mission.split(". ")[0] + "." },
+      { name: "description", content: txt.text1 + site.mission.split(". ")[0] + "." },
     ],
   }),
 });

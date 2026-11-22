@@ -14,6 +14,7 @@ import { implementationHref, implementations } from "@/lib/implementations";
 import { usePreviewRotation } from "@/lib/use-preview-rotation";
 import { useSwipe } from "@/lib/use-swipe";
 import { whoStops } from "@/lib/who";
+import { txt } from "@/lib/page-text/home";
 
 const prefersReducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -118,23 +119,23 @@ const AUDIENCE_ORDER = ["cities", "neighborhoods", "schools", "campuses", "museu
 const AUDIENCE_PHOTO: Record<(typeof AUDIENCE_ORDER)[number], { src: string; alt: string; focus?: string }> = {
   cities: {
     src: "/assets/photos/chalk-walk-2022/chalk-walk-2022-14.jpg",
-    alt: "Families drawing with chalk on a downtown Oberlin sidewalk at the 2022 Chalk Walk, a fire engine parked behind them",
+    get alt() { return txt.alt1; },
     focus: "44% 50%",
   },
   neighborhoods: {
     src: "/assets/signage-partners/asian-town-center.jpg",
-    alt: "Three young people in front of the MidTown digital sign at Asian Town Center",
+    get alt() { return txt.alt2; },
     focus: "38% 50%",
   },
-  schools: { src: "/assets/classroom-dashboard.jpg", alt: "A classroom with the school building dashboard on screen", focus: "62% 50%" },
+  schools: { src: "/assets/classroom-dashboard.jpg", get alt() { return txt.alt3; }, focus: "62% 50%" },
   campuses: {
     src: "/assets/photos/big-parade-2023/big-parade-2023-13.jpg",
-    alt: "A crowd in colorful costumes beside an Oberlin College stone building with a pointed tower",
+    get alt() { return txt.alt4; },
     focus: "40% 50%",
   },
   museums: {
     src: "/assets/glsc-exhibit.jpg",
-    alt: "Students and staff in front of a dashboard screen and a touch tablet at the Great Lakes Science Center",
+    get alt() { return txt.alt5; },
     focus: "48% 50%",
   },
 };
@@ -304,7 +305,7 @@ export function Platform() {
         <p className="mt-[clamp(1rem,3vh,2rem)] text-center">
           <AppLink href={t.TextLink_href1} className="link">
             {t.TextLink_label1}
-            <span className="sr-only"> about Community Hub</span>
+            <span className="sr-only"> {" "}{txt.span1}</span>
             <ArrowRight className="size-4" aria-hidden />
           </AppLink>
         </p>
@@ -391,7 +392,7 @@ function Category({ id, title, beats, target }: { id: string; title: string; bea
             <h3 className="t-h3 mt-5">{item.title}</h3>
             <p className="mt-3 t-lede">{lineFor(item)}</p>
             <AppLink href={item.href} className="link mt-4">
-              Learn more<span className="sr-only"> about {item.title}</span>
+              {txt.AppLink1}<span className="sr-only"> {" "}{txt.span2}{" "}{item.title}</span>
               <ArrowRight className="size-4" aria-hidden />
             </AppLink>
           </div>

@@ -1,0 +1,31 @@
+// Every file of page wording, loaded together. The server imports this with the content service, because the editor
+// must list and check every entry. The browser never imports it: there each file loads with its own page.
+import "./breadcrumbs";
+import "./contactBand";
+import "./digitalSignage";
+import "./guardedEmbed";
+import "./home";
+import "./implementationsClosingBand";
+import "./index";
+import "./legalPage";
+import "./lorawan";
+import "./phoneApp";
+import "./phoneControl";
+import "./phoneWalkthrough";
+import "./pricing";
+import "./privacyPolicy";
+import "./productPager";
+import "./productSection";
+import "./products";
+import "./research";
+import "./root";
+import "./signageContentGallery";
+import "./signageSlidePreview";
+import "./siteFooter";
+import "./siteHeader";
+import "./story";
+import "./studios";
+import "./termsOfService";
+import "./toolkit";
+import "./voices-slides";
+import "../bring-guide";

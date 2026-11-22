@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SiteFooter } from "@/components/site-footer";
 import { legal } from "@/lib/legal";
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+import { txt } from "@/lib/page-text/legalPage";
 
 export type LegalSection = {
   id: string;
@@ -42,16 +43,16 @@ export function LegalPage({
           <p className="mt-5 max-w-2xl t-lede">{intro}</p>
           <dl className="mt-8 grid gap-x-8 gap-y-3 border-t border-line pt-5 t-small sm:grid-cols-3">
             <div>
-              <dt className="font-semibold text-ink">Effective</dt>
+              <dt className="font-semibold text-ink">{txt.dt1}</dt>
               <dd>{legal.effectiveDate}</dd>
             </div>
             <div>
-              <dt className="font-semibold text-ink">Last updated</dt>
+              <dt className="font-semibold text-ink">{txt.dt2}</dt>
               <dd>{legal.lastUpdated}</dd>
             </div>
             <div>
-              <dt className="font-semibold text-ink">Applies to</dt>
-              <dd>communityhub.cloud and the Community Hub products</dd>
+              <dt className="font-semibold text-ink">{txt.dt3}</dt>
+              <dd>{txt.dd1}</dd>
             </div>
           </dl>
           <p className="sr-only">{description}</p>
@@ -61,7 +62,7 @@ export function LegalPage({
       <div className="mx-auto grid w-full max-w-5xl gap-12 px-(--gutter) py-12 md:grid-cols-[15rem_minmax(0,1fr)] md:py-16">
         <aside className="hidden md:block" aria-label="On this page">
           <div className="sticky top-24">
-            <p className="eyebrow">On this page</p>
+            <p className="eyebrow">{txt.p1}</p>
             <ol className="mt-3 space-y-2 border-l border-line pl-4 t-small">
               {sections.map((section) => (
                 <li key={section.id}>
@@ -80,13 +81,12 @@ export function LegalPage({
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                   className="text-left hover:text-pine"
                 >
-                  Contact us
-                </button>
+                  {txt.button1}</button>
               </li>
             </ol>
             <div className="mt-8 rounded-2xl border border-line bg-field p-4">
-              <p className="t-small font-semibold text-ink">Questions?</p>
-              <p className="mt-1 t-small">Write to</p>
+              <p className="t-small font-semibold text-ink">{txt.p2}</p>
+              <p className="mt-1 t-small">{txt.p3}</p>
               <a href={`mailto:${legal.privacyEmail}`} className="mt-0.5 block break-words text-[0.8125rem] underline decoration-2 underline-offset-2">
                 {legal.privacyEmail}
               </a>
@@ -106,7 +106,7 @@ export function LegalPage({
           }}
         >
           <details className="mb-8 rounded-2xl border border-line bg-field p-4 md:hidden">
-            <summary className="cursor-pointer font-semibold text-ink">On this page</summary>
+            <summary className="cursor-pointer font-semibold text-ink">{txt.summary1}</summary>
             <ol className="mt-2 grid gap-1 t-small">
               {sections.map((section) => (
                 <li key={section.id}>
@@ -125,8 +125,7 @@ export function LegalPage({
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                   className="text-left hover:text-pine"
                 >
-                  Contact us
-                </button>
+                  {txt.button2}</button>
               </li>
             </ol>
           </details>
@@ -147,8 +146,7 @@ export function LegalPage({
 
           <section id="contact" aria-labelledby="contact-title" className="mt-10 scroll-mt-24 border-t border-line/80 pt-8">
             <h2 id="contact-title" className="t-h3 text-pine">
-              Contact us
-            </h2>
+              {txt.h21}</h2>
             <div className="legal-prose mt-3">
               <p>
                 <strong>{legal.entity}</strong>
@@ -156,21 +154,19 @@ export function LegalPage({
                 {legal.address}
               </p>
               <p>
-                Privacy and data requests:{" "}
+                {txt.p4}{" "}
                 <a href={`mailto:${legal.privacyEmail}`}>{legal.privacyEmail}</a>
                 <br />
-                General support:{" "}
+                {txt.p5}{" "}
                 <a href={`mailto:${legal.supportEmail}`}>{legal.supportEmail}</a>
               </p>
               <p>
-                We respond to privacy requests within 30 days. Include the organization and site
-                name if your request concerns a Community Hub dashboard.
-              </p>
+                {txt.p6}</p>
             </div>
           </section>
 
           <p className="mt-10 border-t border-line pt-4 t-small text-ink/70">
-            {legal.entity} · {legal.address} · Effective {legal.effectiveDate}
+            {legal.entity} · {legal.address} {" "}{txt.p7}{" "}{legal.effectiveDate}
           </p>
         </article>
       </div>

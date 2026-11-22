@@ -9,6 +9,7 @@ import { site } from "@/lib/site";
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
 import { allProducts } from "@/lib/site-map";
+import { txt } from "@/lib/page-text/products";
 
 function iconFor(id: string) {
   return productIcon(id);
@@ -43,7 +44,7 @@ function KeepExploring() {
     <DocSection label={copy.products.KeepExploring.DocSection_label1} title={copy.products.KeepExploring.DocSection_title1} cut={5}>
       <Split media={<Shot src={copy.products.KeepExploring.Shot_src1} alt={copy.products.KeepExploring.Shot_alt1} />}>
         <ul className="space-y-3 max-md:space-y-1">
-          <li><AppLink href="/services" className="link">Design services</AppLink><p className="t-small text-ink/70">Data integration, local illustrations, stories, and outreach materials.</p></li>
+          <li><AppLink href="/services" className="link">{txt.AppLink1}</AppLink><p className="t-small text-ink/70">{txt.p1}</p></li>
           <li className="relative">
             <AppLink href={ORB_HREF} className="link max-md:min-h-0 max-md:after:absolute max-md:after:inset-0">{copy.products.KeepExploring.AppLink1}</AppLink>
             <p className="t-small text-ink/70">{copy.products.KeepExploring.p1}</p>
@@ -77,7 +78,7 @@ export const Route = createFileRoute("/products")({
 });
 
 function Products() {
-  const stops = [{ id: "products", label: "Products and Services" }];
+  const stops = [{ id: "products", label: txt.label1 }];
 
   return (
     <DocShell stops={stops}>

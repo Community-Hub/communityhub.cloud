@@ -5,6 +5,7 @@ import { OBERLIN_AERIAL, type BackCoverPhoto } from "@/components/contact-band";
 import { copy } from "@/lib/copy";
 import { DEMO_HREF } from "@/lib/links";
 import { site } from "@/lib/site";
+import { txt } from "@/lib/page-text/implementationsClosingBand";
 
 /**
  * The closing page in the form of the site's ContactBand (src/components/contact-band.tsx): a full-bleed photo with
@@ -64,7 +65,7 @@ export function ClosingBand({
               <ArrowRight className="size-4" aria-hidden />
             </AppLink>
             <span>
-              Or write to{" "}
+              {txt.span1}{" "}
               <a
                 href={site.mailtoHref}
                 className="font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"

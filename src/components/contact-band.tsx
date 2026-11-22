@@ -3,6 +3,7 @@ import { copy } from "@/lib/copy";
 import { ArrowRight } from "lucide-react";
 import { BRING_HREF, DEMO_HREF } from "@/lib/links";
 import { site } from "@/lib/site";
+import { txt } from "@/lib/page-text/contactBand";
 
 export type BackCoverPhoto = { src: string; srcSet?: string; alt: string; focus?: string };
 
@@ -10,14 +11,14 @@ export type BackCoverPhoto = { src: string; srcSet?: string; alt: string; focus?
 export const OBERLIN_AERIAL: BackCoverPhoto = {
   src: "/assets/oberlin-aerial-2048.jpg",
   srcSet: "/assets/oberlin-aerial-1280.jpg 1280w, /assets/oberlin-aerial-2048.jpg 2048w",
-  alt: "Downtown Oberlin from the air in autumn: Main Street, brick storefronts and trees in fall color",
+  get alt() { return txt.alt1; },
   focus: "62% 50%",
 };
 
 /** Families chalk-drawing on a downtown Oberlin sidewalk (Chalk Walk 2022), for pages that already show the aerial. */
 export const DOWNTOWN_CHALK_WALK: BackCoverPhoto = {
   src: "/assets/photos/chalk-walk-2022/chalk-walk-2022-14.jpg",
-  alt: "Families drawing with chalk on a downtown Oberlin sidewalk at the 2022 Chalk Walk, a fire engine parked behind them",
+  get alt() { return txt.alt2; },
   focus: "40% 50%",
 };
 
@@ -62,7 +63,7 @@ export function ContactBand({ photo = OBERLIN_AERIAL }: { photo?: BackCoverPhoto
               <ArrowRight className="size-4" aria-hidden />
             </AppLink>
             <span>
-              Or write to{" "}
+              {txt.span1}{" "}
               <a href={site.mailtoHref} className="font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">
                 {site.contactEmail}
               </a>

@@ -9,7 +9,7 @@ import { site } from "@/lib/site";
 import { DEMO_HREF } from "@/lib/links";
 import { ContactBand, DOWNTOWN_CHALK_WALK } from "@/components/contact-band";
 import { RelatedProducts } from "@/components/product-pager";
-import { engageBeats, placeTitle, type SlideFrame } from "@/lib/content";
+import { engageBeats, type SlideFrame } from "@/lib/content";
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
 
@@ -18,64 +18,64 @@ const ICON = engageBeats.find((beat) => beat.id === "signage")?.icon ?? "";
 const HERO_INSTALLATIONS: SlideFrame[] = [
   {
     src: "/assets/platform-explanation/interactive-signage.jpg",
-    title: placeTitle("City of Oberlin", "Hotel at Oberlin"),
-    alt: "A CommunityHub digital sign in the Hotel at Oberlin lobby",
+    get title() { return txt.installation1; },
+    get alt() { return txt.alt1; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/phone-person-water-display.jpg",
-    title: placeTitle("Great Lakes Science Center", "Digital Signage"),
-    alt: "A visitor using her phone beside a digital sign and touchpad at Great Lakes Science Center",
+    get title() { return txt.installation2; },
+    get alt() { return txt.alt2; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/phone-workflow/science-center-touchpad.jpg",
-    title: placeTitle("Oberlin College", "Science Center"),
-    alt: "Visitors beside the Carbon Neutral Stories digital sign at Oberlin College Science Center",
+    get title() { return txt.installation3; },
+    get alt() { return txt.alt3; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/eng-sign-daves-full.jpg",
-    title: placeTitle("MidTown Cleveland", "Dave's Market"),
-    alt: "The Dave's Market digital sign installation in MidTown Cleveland",
+    get title() { return txt.installation4; },
+    get alt() { return txt.alt4; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/signage-partners/fatima-family-center.jpg",
-    title: placeTitle("MidTown Cleveland", "Fatima Family Center"),
-    alt: "Community members viewing a digital sign at Fatima Family Center",
+    get title() { return txt.installation5; },
+    get alt() { return txt.alt5; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/signage-partners/learning-to-grow.jpg",
-    title: placeTitle("MidTown Cleveland", "Learning to Grow Child Enrichment"),
-    alt: "A person beside the Learning to Grow digital sign in MidTown Cleveland",
+    get title() { return txt.installation6; },
+    get alt() { return txt.alt6; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/signage-partners/asian-town-center.jpg",
-    title: placeTitle("MidTown Cleveland", "Asian Town Center"),
-    alt: "People beside a CommunityHub digital sign at Asian Town Center",
+    get title() { return txt.installation7; },
+    get alt() { return txt.alt7; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/signage-partners/ichc-health-clinic.jpg",
-    title: placeTitle("MidTown Cleveland", "ICHC Health Clinic"),
-    alt: "People beside a digital sign at ICHC Health Clinic",
+    get title() { return txt.installation8; },
+    get alt() { return txt.alt8; },
     caption: "",
     fit: "contain",
   },
   {
     src: "/assets/signage-partners/foundry-lofts.jpg",
-    title: placeTitle("MidTown Cleveland", "Foundry Lofts"),
-    alt: "Digital sign installation in the lobby at Foundry Lofts",
+    get title() { return txt.installation9; },
+    get alt() { return txt.alt9; },
     caption: "",
     fit: "contain",
   },
@@ -84,60 +84,60 @@ const HERO_INSTALLATIONS: SlideFrame[] = [
 const SIGNAGE_CONTENT_EXAMPLES: SlideFrame[] = [
   {
     src: "/assets/signage-partners/midtown-inc.jpg",
-    title: placeTitle("MidTown Cleveland", "MidTown, Inc. Jobs Board"),
-    alt: "A person beside a digital sign displaying the MidTown jobs board at MidTown, Inc.",
-    caption: "Location-specific announcements and job boards alongside community-wide updates.",
+    get title() { return txt.installation10; },
+    get alt() { return txt.alt10; },
+    get caption() { return txt.caption1; },
     fit: "contain",
   },
   {
     src: "/assets/signage-live/events-calendar.png",
-    title: placeTitle("City of Oberlin", "Community Calendar"),
-    alt: "Oberlin Community Calendar displayed on a digital sign",
-    caption: "Local events and announcements shared across public screens.",
+    get title() { return txt.installation11; },
+    get alt() { return txt.alt11; },
+    get caption() { return txt.caption2; },
     fit: "contain",
   },
   {
     src: "/assets/signage-live/community-voices.png",
-    title: placeTitle("City of Oberlin", "Community Voices"),
-    alt: "Community Voices slide displayed on a digital sign",
-    caption: "Neighbors’ photos and quotes organized by community themes.",
+    get title() { return txt.installation12; },
+    get alt() { return txt.alt12; },
+    get caption() { return txt.caption3; },
     fit: "contain",
   },
   {
     src: "/assets/signage-live/live-data.png",
-    title: placeTitle("Oberlin Public Schools", "Building Dashboard"),
-    alt: "Oberlin Elementary School electricity-use graph on a digital sign",
-    caption: "Real-time electricity and water visualizations for an individual building.",
+    get title() { return txt.installation13; },
+    get alt() { return txt.alt13; },
+    get caption() { return txt.caption4; },
     fit: "contain",
   },
   {
     src: "/assets/signage-live/citywide.png",
-    title: placeTitle("City of Oberlin", "Citywide Dashboard"),
-    alt: "Oberlin Citywide Dashboard on a digital sign",
-    caption: "Whole-community flows of electricity, drinking water, and environmental conditions.",
+    get title() { return txt.installation14; },
+    get alt() { return txt.alt14; },
+    get caption() { return txt.caption5; },
     fit: "contain",
   },
   {
     src: "/assets/signage-live/story-content.png",
-    title: placeTitle("Oberlin Public Schools", "Energy Use Story"),
-    alt: "Illustrated Energy Use story slide on a digital sign",
-    caption: "Illustrated stories explaining how local energy and water systems work.",
+    get title() { return txt.installation15; },
+    get alt() { return txt.alt15; },
+    get caption() { return txt.caption6; },
     fit: "contain",
   },
 ];
 
 const SIGNAGE_FEATURES = [
   {
-    title: "Interactive by design",
-    body: "Visitors scan a QR code with their phone or use a nearby touchpad to choose what plays on the screen.",
+    get title() { return txt.title1; },
+    get body() { return txt.body1; },
   },
   {
-    title: "Managed with Google Slides",
-    body: "Organizations update slide decks, events, and announcements using familiar tools that publish straight to the display.",
+    get title() { return txt.title2; },
+    get body() { return txt.body2; },
   },
   {
-    title: "Community & location content",
-    body: "Bring community-wide calendars, voices, and dashboards together with content tailored to each host venue.",
+    get title() { return txt.title3; },
+    get body() { return txt.body3; },
   },
 ] as const;
 
@@ -149,6 +149,7 @@ export const Route = createFileRoute("/digital-signage")({
 });
 
 import { consumeNavigationTarget } from "@/lib/use-hash-stops";
+import { txt } from "@/lib/page-text/digitalSignage";
 
 function DigitalSignage() {
   useEffect(() => {
@@ -221,8 +222,7 @@ function DigitalSignage() {
               </div>
               <p className="mt-5">
                 <a href="#try-the-phone" onClick={(e) => { const el = document.getElementById("try-the-phone"); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); } }} className="link">
-                  Try the phone controller
-                </a>
+                  {txt.a1}</a>
               </p>
             </div>
 
@@ -253,19 +253,17 @@ function DigitalSignage() {
           <div className="wrap page-body">
           <div className="product-detail-layout product-detail-split">
             <div className="min-w-0">
-              <h2 className="t-h2">Community and local content</h2>
+              <h2 className="t-h2">{txt.h21}</h2>
               <p className="mt-5 t-body text-ink/80">
-                Community Hub’s digital signage connects community members with information and events from across their community. Organizations can also post and update content specific to their location, bringing community-wide and organization-specific communication together on one screen.
-              </p>
+                {txt.p1}</p>
               <p className="mt-4 t-body text-ink/80">
-                Community calendars, stories, and resource-use visualizations provide opportunities to inform, engage, and connect the people who live, shop, work, and play in the community.
-              </p>
+                {txt.p2}</p>
             </div>
 
             <div className="min-w-0" data-signage-content-slider>
               <FrameSlider
                 frames={SIGNAGE_CONTENT_EXAMPLES}
-                heading="Community and local content"
+                heading={txt.heading1}
               />
             </div>
           </div>

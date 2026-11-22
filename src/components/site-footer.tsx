@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
 import { allProducts, SERVICES } from "@/lib/site-map";
+import { txt } from "@/lib/page-text/siteFooter";
 
 /**
  * The footer mirrors the main menu, heading for heading (John, 19 Nov 2026: "this has story, this does not have story,
@@ -14,8 +15,8 @@ import { allProducts, SERVICES } from "@/lib/site-map";
 function footerColumns() {
   return [
     {
-      title: "Products",
-      links: [{ href: "/products", label: "All products" }, ...allProducts().map((item) => ({ href: item.href, label: item.title })), SERVICES],
+      title: txt.title1,
+      links: [{ href: "/products", label: txt.label1 }, ...allProducts().map((item) => ({ href: item.href, label: item.title })), SERVICES],
     },
     ...pc.siteHeader.NAV.filter((item) => item.children).map((item) => ({
       title: item.label,
@@ -72,15 +73,12 @@ export function SiteFooter() {
         </div>
         <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 text-sm text-ink/70 md:flex-row md:items-center md:justify-between">
           <p>
-            {copy.siteFooter.SiteFooter.p2} Community Hub Inc, Oberlin, Ohio.
-          </p>
+            {copy.siteFooter.SiteFooter.p2} {" "}{txt.p1}</p>
           <nav aria-label="Legal" className="flex flex-wrap gap-x-6 gap-y-1">
             <AppLink href="/privacy-policy" className="inline-flex min-h-8 items-center hover:text-pine">
-              Privacy Policy
-            </AppLink>
+              {txt.AppLink1}</AppLink>
             <AppLink href="/terms-of-service" className="inline-flex min-h-8 items-center hover:text-pine">
-              Terms of Service
-            </AppLink>
+              {txt.AppLink2}</AppLink>
           </nav>
         </div>
       </div>

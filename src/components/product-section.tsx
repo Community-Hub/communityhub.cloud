@@ -9,7 +9,8 @@ import { useSwipe } from "@/lib/use-swipe";
 import type { SlideFrame } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { PhoneScanExample, PhoneWalkthrough } from "@/components/phone-walkthrough";
-import voicesSlidesData from "@/data/voices-slides.json";
+import { voicesSlidesData } from "@/lib/page-text/voices-slides";
+import { txt } from "@/lib/page-text/productSection";
 
 type VoiceSlideItem = {
   id: number;
@@ -177,7 +178,7 @@ function VoicesCategoryPreview({ url, iframeSrc, title, running }: { url: string
             </svg>
           </button>
         </div>
-        <span className="pr-1 text-xs font-medium text-[#5f6368]">Community Voices</span>
+        <span className="pr-1 text-xs font-medium text-[#5f6368]">{txt.span1}</span>
       </div>
     </div>
   );
@@ -194,9 +195,9 @@ function DisplayFramedEmbed({ frame, running }: { frame: SlideFrame; running: bo
           <div className="flex h-5 shrink-0 items-center justify-between bg-[#1f2622] px-2.5 text-xs font-medium tracking-wide text-paper/85 sm:h-6 sm:px-3">
             <span className="flex items-center gap-1.5 truncate">
               <span className="inline-block size-2 shrink-0 rounded-full bg-leaf" />
-              <span className="truncate">Digital Signage Display — Community Event Carousel</span>
+              <span className="truncate">{txt.span2}</span>
             </span>
-            <span className="ml-2 shrink-0 text-paper/60 max-sm:hidden">City of Oberlin</span>
+            <span className="ml-2 shrink-0 text-paper/60 max-sm:hidden">{txt.span3}</span>
           </div>
           <div className="relative min-h-0 flex-1 w-full bg-white">
             <GuardedEmbed src={frame.embed!} title={frame.title} passive={false} className="absolute inset-0 h-full" />
@@ -229,10 +230,9 @@ function DisplayFramedEmbed({ frame, running }: { frame: SlideFrame; running: bo
         </div>
       </div>
       <div className="hidden max-w-44 text-left md:block">
-        <p className="font-display text-sm font-bold text-pine">Mobile Phone View</p>
+        <p className="font-display text-sm font-bold text-pine">{txt.p1}</p>
         <p className="mt-1 text-xs leading-relaxed text-ink/75">
-          Community members can browse, search, and post events directly from their phone.
-        </p>
+          {txt.p2}</p>
       </div>
     </div>
   );
@@ -452,7 +452,7 @@ export function Examples({
   const layers = [at, ...(slide.prev !== null && slide.prev !== at && frames[slide.prev] ? [slide.prev] : [])];
   const scrollingEmbed = isScrollableHomeEmbed(frame);
   // On the home, a dashboard says how it works (John, 19 Nov 2026: "I don't know how anyone would know that").
-  const legend = frame.legend ?? (home && scrollingEmbed && !frame.displayFrame ? "Scroll inside the dashboard, or press Play to scroll through it." : undefined);
+  const legend = frame.legend ?? (home && scrollingEmbed && !frame.displayFrame ? txt.text1 : undefined);
   const hasPause = Boolean(many || scrollingEmbed || frame.phoneWalkthrough || frame.presentation || frame.voices || frame.embed?.includes("/cv-public/"));
 
   return (
@@ -531,10 +531,10 @@ export function Examples({
                 className="home-round-btn media-pause-button"
                 labels={
                   frame.phoneWalkthrough
-                    ? { pause: "Pause animation", play: "Play animation" }
+                    ? { pause: txt.pause1, play: txt.play1 }
                     : scrollingEmbed
-                      ? { pause: "Stop scrolling", play: "Scroll through the dashboard" }
-                      : { pause: "Pause examples", play: "Play examples" }
+                      ? { pause: txt.pause2, play: txt.play2 }
+                      : { pause: txt.pause3, play: txt.play3 }
                 }
               />
             )}

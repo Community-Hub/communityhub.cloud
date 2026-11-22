@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { txt } from "@/lib/page-text/phoneWalkthrough";
 
 const steps = ["Scan the QR code", "Select content", "View on the sign"];
 const visionScreens = [
-  { src: "/assets/phone-workflow/vision-plan-screen-2.png", alt: "Neighborhood Vision Plan: a place for everyone in MidTown" },
-  { src: "/assets/phone-workflow/vision-plan-screen-3.png", alt: "Neighborhood Vision Plan: the community’s guiding vision" },
+  { src: "/assets/phone-workflow/vision-plan-screen-2.png", get alt() { return txt.alt1; } },
+  { src: "/assets/phone-workflow/vision-plan-screen-3.png", get alt() { return txt.alt2; } },
 ];
 
 export function PhoneScanExample() {
   return <div className="phone-scan-example">
     <div className="phone-scan-example-pictures">
       <img className="phone-scan-example-photo" src="/assets/eng-sign-daves-full.jpg" alt="The MidTown digital sign at Dave’s Market, with its QR poster and a person holding a phone" />
-      <div className="phone-scan-example-code"><img src="/assets/phone-workflow/midtown-qr.png" alt="QR code for the MidTown screen controller" /><span>Scan with your phone’s camera</span></div>
+      <div className="phone-scan-example-code"><img src="/assets/phone-workflow/midtown-qr.png" alt="QR code for the MidTown screen controller" /><span>{txt.span1}</span></div>
     </div>
-    <p>Scan the QR code with your phone to choose what appears on this screen.</p>
+    <p>{txt.p1}</p>
   </div>;
 }
 
@@ -61,6 +62,6 @@ export function PhoneWalkthrough({ running, onComplete }: { running: boolean; on
         {n < 2 && <ArrowRight className="phone-process-arrow" aria-hidden="true" />}
       </div>)}
     </div>
-    <span className="sr-only">Interactive illustration. Choose Vision Plan on the phone to show original screens from the Neighborhood Vision Plan presentation. This preview does not control a public sign.</span>
+    <span className="sr-only">{txt.span2}</span>
   </div>;
 }

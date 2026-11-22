@@ -3,6 +3,7 @@ import { ChevronDown, Pause, Play, SkipBack, SkipForward } from "lucide-react";
 import QRCode from "qrcode";
 import { copy } from "@/lib/copy";
 import { cn } from "@/lib/utils";
+import { txt } from "@/lib/page-text/phoneControl";
 
 type ControllerTopic = {
   id: string;
@@ -15,92 +16,92 @@ type ControllerTopic = {
 const OC_TOPICS: ControllerTopic[] = [
   {
     id: "heating-cooling",
-    label: "Heating & Cooling",
-    subtitle: "Oberlin’s Sustainable Infrastructure Program",
+    get label() { return txt.label1; },
+    get subtitle() { return txt.subtitle1; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/SIP-Icon.svg",
     screenUrl: "https://docs.google.com/presentation/d/1Wa8Gp961gxbfIDkMCCQL0MKcQSpjpU74D8lO0HezmiY/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "energy",
-    label: "Energy",
-    subtitle: "Where Oberlin’s electricity comes from",
+    get label() { return txt.label2; },
+    get subtitle() { return txt.subtitle2; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/electricity_remoteicon.svg",
     screenUrl: "https://docs.google.com/presentation/d/1Jn6-B1LAZ2vSpSsb_nCglBFeg31Ti-6q1Dz4UIlYwdQ/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "water",
-    label: "Water",
-    subtitle: "How water moves through campus and town",
+    get label() { return txt.label3; },
+    get subtitle() { return txt.subtitle3; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/waterusebutton.svg",
     screenUrl: "https://docs.google.com/presentation/d/17GMrrBh083wuFLHhCZ57PVLhSsNF1-ioQQ4_Lra2lf4/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "climate",
-    label: "Climate",
-    subtitle: "Achieving climate neutrality in Oberlin",
+    get label() { return txt.label4; },
+    get subtitle() { return txt.subtitle4; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/climate_plan_remoteicon.svg",
     screenUrl: "https://docs.google.com/presentation/d/1EvWrV8J_49NQ1ZSZsgA_xg9r9j9vTcvUAC0w_rTDBB4/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "transportation",
-    label: "Transportation",
-    subtitle: "Low-carbon mobility across campus and community",
+    get label() { return txt.label5; },
+    get subtitle() { return txt.subtitle5; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/Transport-Icon.svg",
     screenUrl: "https://docs.google.com/presentation/d/1GSdWGNliCmlP7K7UKfBiEs0TcN2ixOplSytrhxj1U7I/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "food",
-    label: "Food",
-    subtitle: "Local food systems and sustainable dining",
+    get label() { return txt.label6; },
+    get subtitle() { return txt.subtitle6; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/Food.svg",
     screenUrl: "https://docs.google.com/presentation/d/16P_x_4QszkF200nllv900KJcMmwyJLUtFAnk82R4tvM/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "land",
-    label: "Land",
-    subtitle: "Campus landscapes and ecological restoration",
+    get label() { return txt.label7; },
+    get subtitle() { return txt.subtitle7; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/Land-Use-Icon.svg",
     screenUrl: "https://docs.google.com/presentation/d/1alHAGJhaGTvqLMNyLyhFJMOfxmlnZFZcqeCnZXnG_U0/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "material",
-    label: "Material",
-    subtitle: "Waste reduction, reuse, and circularity",
+    get label() { return txt.label8; },
+    get subtitle() { return txt.subtitle8; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/Material.svg",
     screenUrl: "https://docs.google.com/presentation/d/1LeVRaKUcRSUjsBikgMz4swGd74Z1u7XxSqPg4uMpoR4/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "ajlc",
-    label: "AJLC",
-    subtitle: "Adam Joseph Lewis Center for Environmental Studies",
+    get label() { return txt.label9; },
+    get subtitle() { return txt.subtitle9; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/ajlc_remotebuttons.svg",
     screenUrl: "https://docs.google.com/presentation/d/1borjqV9S4kuqM8eTH1SAYKGk6IghqkHiKxZkYCWpDaw/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "citywide",
-    label: "Citywide Dashboard",
-    subtitle: "Real-time electricity, water, and environmental flows",
+    get label() { return txt.label10; },
+    get subtitle() { return txt.subtitle10; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/CWD_remoteicon_multicolor.svg",
     screenUrl: "https://oberlin.communityhub.cloud/citywide-dashboard/index?embed=1&show-menu=0",
   },
   {
     id: "live-data",
-    label: "Live Data - OC",
-    subtitle: "Real-time campus electricity and water monitoring",
+    get label() { return txt.label11; },
+    get subtitle() { return txt.subtitle11; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/live_data_button_alt.svg",
     screenUrl: "https://oberlin.communityhub.cloud/dh-public/oc/dashboard/815",
   },
   {
     id: "voices",
-    label: "Community Voices",
-    subtitle: "Quotes and images from students, faculty, and neighbors",
+    get label() { return txt.label12; },
+    get subtitle() { return txt.subtitle12; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/CV_remoteicon.svg",
     screenUrl: "https://oberlin.communityhub.cloud/cv-public/embeddable?fullscreen=true&category=41,42,43,44,45,46,66,68",
   },
   {
     id: "ecolympics",
-    label: "Ecolympics 2026 Results",
-    subtitle: "Campus and community conservation competition",
+    get label() { return txt.label13; },
+    get subtitle() { return txt.subtitle13; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/ecolympics_icon.png",
     screenUrl: "https://oberlin.communityhub.cloud/data-hub/embed/ecolympic-tab-contents/2026",
   },
@@ -109,50 +110,50 @@ const OC_TOPICS: ControllerTopic[] = [
 const GLSC_TOPICS: ControllerTopic[] = [
   {
     id: "our-lake",
-    label: "Our Lake",
-    subtitle: "Lake Erie’s ecosystem and water resources",
+    get label() { return txt.label14; },
+    get subtitle() { return txt.subtitle14; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/MT_OurLake_Button.svg",
     screenUrl: "https://docs.google.com/presentation/d/1Az60BMTNbkAAKCN6XwqaT1jmivvAqzH7bNprnOLQv94/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "climate",
-    label: "Climate",
-    subtitle: "How climate change shapes the Great Lakes region",
+    get label() { return txt.label15; },
+    get subtitle() { return txt.subtitle15; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/MT_Climate_Button.svg",
     screenUrl: "https://docs.google.com/presentation/d/1VdppDivGwcZ_4hn66WPBYkVR7Ue9_ESm8RRzBYAt--0/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "energy-use",
-    label: "Energy Use",
-    subtitle: "How electricity powers our homes and city",
+    get label() { return txt.label16; },
+    get subtitle() { return txt.subtitle16; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/electricity_remoteicon.svg",
     screenUrl: "https://docs.google.com/presentation/d/18uxEKlfFY0cv24FjYx5FyDwjkCdXdE3v7cZRtWDrxLQ/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "renewable-energy",
-    label: "Renewable Energy",
-    subtitle: "Solar and wind energy on the Lake Erie shore",
+    get label() { return txt.label17; },
+    get subtitle() { return txt.subtitle17; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/MT_RenewableEnergy_Button.svg",
     screenUrl: "https://docs.google.com/presentation/d/1RQKlaL77bgSB9biv_0dITPsSLHl2TW6JRSiAS6iLpbs/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "water-use",
-    label: "Water Use",
-    subtitle: "Clean drinking water from Lake Erie to your tap",
+    get label() { return txt.label18; },
+    get subtitle() { return txt.subtitle18; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/waterusebutton.svg",
     screenUrl: "https://docs.google.com/presentation/d/1OAxn8O0UhXAqz3ffnutoKWovK-Tb_YkfjTN3FpJk4Jw/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "air-quality",
-    label: "Air Quality",
-    subtitle: "Monitoring clean air across Northeast Ohio",
+    get label() { return txt.label19; },
+    get subtitle() { return txt.subtitle19; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/MT_AirQuality_Button.svg",
     screenUrl: "https://docs.google.com/presentation/d/16A6R8VB2l579Xy9ua_lpzeCwXDXUx5j_VAOvLowcahU/embed?start=true&loop=true&delayms=7000&rm=minimal#slide=1",
   },
   {
     id: "live-data",
-    label: "Live Data",
-    subtitle: "Cleveland Citywide Dashboard real-time flows",
+    get label() { return txt.label20; },
+    get subtitle() { return txt.subtitle20; },
     icon: "https://communityhubstorage.cloud/ch-digital-signage/cleveland/digital-signage/live_data_button.svg",
     screenUrl: "https://cleveland.communityhub.cloud/citywide-dashboard/index?embed=1&show-menu=0",
   },
@@ -160,8 +161,8 @@ const GLSC_TOPICS: ControllerTopic[] = [
 
 const VENUES = [
   {
-    name: "Oberlin College",
-    headerTitle: "CARBON NEUTRAL STORIES – ADMISSIONS",
+    get name() { return txt.name1; },
+    get headerTitle() { return txt.headerTitle1; },
     headerBg: "#b91c1c",
     headerLogo: "https://communityhubstorage.cloud/ch-digital-signage/oberlin/digital-signage/carbon_neutral_logo.png",
     community: "oberlin",
@@ -170,8 +171,8 @@ const VENUES = [
     topics: OC_TOPICS,
   },
   {
-    name: "Great Lakes Science Center",
-    headerTitle: "GREAT LAKES SCIENCE CENTER",
+    get name() { return txt.name2; },
+    get headerTitle() { return txt.headerTitle2; },
     headerBg: "#283583",
     headerLogo: "https://communityhubstorage.cloud/ch-digital-signage/glsc/digital-signage/glsc-logo.png",
     community: "glsc",
@@ -293,13 +294,13 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
               className="size-10 shrink-0 object-contain"
             />
             <h2 className="min-w-0 flex-1 t-h2 max-md:text-2xl">
-              <span className="md:hidden">Choose what plays</span>
+              <span className="md:hidden">{txt.span1}</span>
               <span className="hidden md:inline">{copy.digitalSignage.PhoneControl.h21}</span>
             </h2>
           </div>
           <p className="mt-2 max-w-2xl t-body text-ink/85">
-            At a digital sign, visitors can scan the QR code with their phone or use a nearby touchpad to choose what plays on the big screen.{" "}
-            <strong className="font-bold text-pine">Try it below — click any topic on the phone controller to switch the screen immediately to Slide 1.</strong>
+            {txt.p1}{" "}
+            <strong className="font-bold text-pine">{txt.strong1}</strong>
           </p>
         </div>
         {qr && (
@@ -320,8 +321,7 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
             </a>
             <figcaption className="max-w-36 t-small leading-snug text-ink/80">
               <strong className="block font-bold text-pine">{current.name}</strong>
-              Scan to open this controller on your own phone.
-            </figcaption>
+              {txt.figcaption1}</figcaption>
           </figure>
         )}
       </div>
@@ -455,8 +455,7 @@ export function PhoneControl({ venueIndex }: { venueIndex: number }) {
                     </span>
                     {isSelected && (
                       <span className="block truncate text-xs text-lime">
-                        Now playing on screen
-                      </span>
+                        {txt.span2}</span>
                     )}
                   </span>
                   <span

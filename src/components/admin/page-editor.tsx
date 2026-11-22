@@ -34,6 +34,8 @@ const untagged = (text: string) => text.replace(TAG, "");
 const norm = (text: string) => untagged(text).replace(/\s+/g, " ").trim();
 
 const SKIP = "[data-cms-ui], script, style, noscript, textarea, input, select, option, iframe, svg, [contenteditable='true']";
+/** One run of reading: a paragraph, a heading, a list item. A wording drawn in several pieces (a link in the middle) stays inside one. */
+const BLOCK = "p, li, h1, h2, h3, h4, h5, h6, blockquote, figcaption, dd, dt, td, th, caption, summary, label";
 const REDRAW = "cms:redraw";
 
 /** The saved edits as this browser knows them: what the page loaded with, plus every save made here since. */
@@ -56,7 +58,8 @@ const numberFor = (key: string) => {
 function applyTagged(texts: AdminSlot[]) {
   const state = knownState();
   const v = { ...state.v };
-  for (const slot of texts) v[slot.key] = slot.value + tagOf(numberFor(slot.key));
+  // An email address is also put into links (mailto:), so it carries no tag and is found by what it says.
+  for (const slot of texts) if (slot.kind === "text") v[slot.key] = slot.value + tagOf(numberFor(slot.key));
   // No fingerprints: these are what the editor's own list says the site shows now, so none of them is out of date.
   siteIndex.apply({ v, l: state.l, h: state.h });
 }
@@ -116,7 +119,7 @@ export function PageEditor() {
 
   const load = useCallback(async () => {
     const overview = await get<Overview>("/api/cms/overview");
-    const texts = overview.slots.filter((s) => s.kind === "text");
+    const texts = overview.slots.filter((s) => s.kind === "text" || s.kind === "email");
     applyTagged(texts);
     setSlots(texts);
     return texts;
@@ -153,6 +156,8 @@ export function PageEditor() {
     nodes.current = new WeakMap();
     if (!byKey.size) return setCount(0);
     let found = 0;
+    // Every piece of text of each run of reading, in the order it is read: its wording when it carries a tag.
+    const runs = new Map<Element, { node: Text; parent: HTMLElement; slot: AdminSlot | null }[]>();
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
       const parent = node.parentElement;
@@ -163,10 +168,35 @@ export function PageEditor() {
         if (slot) tagged.push({ slot, exact: true });
       }
       const here = tagged.length ? tagged : (byText.get(norm(node.data)) ?? []).map((slot) => ({ slot, exact: false }));
+      const block = parent.closest(BLOCK);
+      // Words only a screen reader hears ("opens in a new tab") are their own wording, not part of the sentence.
+      if (block && !parent.closest(".sr-only")) {
+        const run = runs.get(block) ?? [];
+        if (tagged.length || (!here.length && norm(node.data).length >= 2)) run.push({ node, parent, slot: tagged.length ? tagged[tagged.length - 1].slot : null });
+        runs.set(block, run);
+      }
       if (!here.length) continue;
       nodes.current.set(node, here);
       parent.setAttribute("data-cms-edit", "");
       found += 1;
+    }
+    // A wording drawn in several pieces (a paragraph with a link in the middle, "Fig. 7:" set apart from its caption)
+    // carries its tag on its last piece only. So within one run of reading, an untagged piece belongs to the next
+    // tag after it, but only when that wording really contains those words. Text the page works out for itself (a
+    // lesson's grade range, sitting before its subjects) is in no wording, and a click there opens nothing.
+    for (const run of runs.values()) {
+      let next: AdminSlot | null = null;
+      for (let i = run.length - 1; i >= 0; i--) {
+        const piece = run[i];
+        if (piece.slot) {
+          next = piece.slot;
+          continue;
+        }
+        if (!next || !norm(next.value).includes(norm(piece.node.data))) continue;
+        nodes.current.set(piece.node, [{ slot: next, exact: true }]);
+        piece.parent.setAttribute("data-cms-edit", "");
+        found += 1;
+      }
     }
     setCount(found);
   }, [byKey, byText]);
@@ -261,6 +291,7 @@ export function PageEditor() {
    * page draws itself again from its content instead, which is always right.
    */
   const show = useCallback((changed: AdminSlot, before: string) => {
+    if (changed.kind !== "text") return void window.dispatchEvent(new Event(REDRAW));
     const tag = tagOf(numberFor(changed.key));
     let swapped = 0;
     let unsure = false;
@@ -288,7 +319,7 @@ export function PageEditor() {
       const res = action === "save" ? await post<{ ok: true; warning?: string | null }>("/api/cms/save", { key: slot.key, value: draft }) : await post("/api/cms/reset", { key: slot.key });
       // Keep this browser's own record of the saved edits in step, then tag and apply the fresh wordings.
       const state = knownState();
-      const fresh = await get<Overview>("/api/cms/overview").then((o) => o.slots.filter((s) => s.kind === "text"));
+      const fresh = await get<Overview>("/api/cms/overview").then((o) => o.slots.filter((s) => s.kind === "text" || s.kind === "email"));
       const now = fresh.find((s) => s.key === slot.key);
       if (now) {
         const v = { ...state.v };

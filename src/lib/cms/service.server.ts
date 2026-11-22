@@ -4,6 +4,8 @@
  */
 import { getSql } from "../db.ts";
 import { siteIndex } from "../site-registry.ts";
+// Wording that travels with single pages registers itself when its page loads; the service needs all of it at once.
+import "../page-text/all.ts";
 import { createCmsService, type CmsService } from "./service.ts";
 
 /**

@@ -5,6 +5,8 @@ import publicationsData from "@/data/publications.json";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
+import { txt } from "@/lib/page-text/research";
+
 type Paper = {
   id: string;
   title: string;
@@ -23,10 +25,10 @@ const PAPERS = publicationsData as Paper[];
 const when = (p: Paper) => (p.year ? String(p.year) : "in press");
 /** url first, then the Drive PDF, then a request through the contact form, which notifies the form inbox. */
 function linkFor(p: Paper) {
-  if (p.url) return { href: p.url, text: "Read the paper", external: true };
-  if (p.drive_url) return { href: p.drive_url, text: "PDF (Drive)", external: true };
+  if (p.url) return { href: p.url, text: txt.text1, external: true };
+  if (p.drive_url) return { href: p.drive_url, text: txt.text2, external: true };
   const message = `I would like a copy of the paper “${p.title}”.`;
-  return { href: `/contact?topic=Research&message=${encodeURIComponent(message)}`, text: "Request the paper", external: false };
+  return { href: `/contact?topic=Research&message=${encodeURIComponent(message)}`, text: txt.text3, external: false };
 }
 
 export const Route = createFileRoute("/research")({
@@ -83,13 +85,13 @@ function Research() {
   const OTHERS = PAPERS.filter((p) => !p.featured);
   // "What it changed" moved here from the home (John and Maddie, 19 Nov 2026: "we just think it wants to be under research").
   const stops = [
-    { id: "featured", label: "Research" },
-    { id: "results", label: "What it changed" },
-    { id: "more", label: "More publications" },
+    { id: "featured", label: txt.label1 },
+    { id: "results", label: txt.label2 },
+    { id: "more", label: txt.label3 },
   ];
   return (
     <DocShell stops={stops} soft>
-      <DocSection label="Research" title={pc.research.TITLE} as="h1" lede={pc.research.LEDE}>
+      <DocSection label={txt.label4} title={pc.research.TITLE} as="h1" lede={pc.research.LEDE}>
         <h2 className="t-h3 mb-4">{copy.research.Research.h21}</h2>
         <ul data-fit="featured" className="grid gap-4 md:grid-cols-2">
           {FEATURED.map((paper) => (
@@ -98,7 +100,7 @@ function Research() {
         </ul>
       </DocSection>
       <Results onResearch />
-      <DocSection label="More publications" title="More publications">
+      <DocSection label={txt.label5} title={txt.title1}>
         <ul data-fit="citations" className="grid max-w-4xl gap-2.5 t-small leading-snug">
           {OTHERS.map((paper) => (
             <li key={paper.id} data-citation>

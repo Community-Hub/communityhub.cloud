@@ -9,16 +9,17 @@ import { copy } from "@/lib/copy";
 import { DEMO_HREF } from "@/lib/links";
 import { productIcon } from "@/lib/product-icons";
 import { site } from "@/lib/site";
+import { txt } from "@/lib/page-text/lorawan";
 
 export const Route = createFileRoute("/lorawan")({
   component: LoRaWAN,
   head: () => ({
     meta: [
-      { title: "LoRaWAN — Community Hub" },
+      { title: txt.title1 },
       {
         name: "description",
         content:
-          "LoRaWAN makes it easy for schools and campuses to run their own private network of environmental sensors, with readings that flow into Data Hub.",
+          txt.content1,
       },
     ],
   }),
@@ -31,67 +32,66 @@ const CONSOLE_HREF = "/lorawan/console";
 const PATH = [
   {
     icon: RadioTower,
-    title: "Sensors and gateways",
-    body: "Air quality and energy sensors send their readings over long-range radio to a gateway on site.",
+    get title() { return txt.title2; },
+    get body() { return txt.body1; },
   },
   {
     icon: Building2,
-    title: "Your private network",
-    body: "Each organization has its own workspace for its gateways, sensors, readings and alerts.",
+    get title() { return txt.title3; },
+    get body() { return txt.body2; },
   },
   {
     icon: BarChart3,
-    title: "Data Hub and other systems",
-    body: "Readings flow into Data Hub and can also be shared through an API, webhooks or a CSV download.",
+    get title() { return txt.title4; },
+    get body() { return txt.body3; },
   },
 ] as const;
 
 const FEATURES = [
   {
-    title: "Easy setup",
-    body: "Choose the sensor model and follow the written steps for that device. The network key is created for you on the server.",
+    get title() { return txt.title5; },
+    get body() { return txt.body4; },
   },
   {
-    title: "Alerts",
-    body: "The console lets you know when a sensor stops reporting, a gateway goes offline or a battery runs low.",
+    get title() { return txt.title6; },
+    get body() { return txt.body5; },
   },
   {
-    title: "Sharing your data",
-    body: "Readings can be explored in charts, downloaded as CSV files, or sent to other systems through a REST API and signed webhooks.",
+    get title() { return txt.title7; },
+    get body() { return txt.body6; },
   },
 ] as const;
 
 const STEPS = [
-  { title: "Connect a gateway", body: "Register your gateway and the console gives you the exact settings to enter." },
-  { title: "Add sensors", body: "Choose the sensor model and the guide walks you through activating and setting up that device." },
-  { title: "Follow the readings", body: "See live readings, charts and alerts, and choose who in your organization can view them." },
+  { get title() { return txt.title8; }, get body() { return txt.body7; } },
+  { get title() { return txt.title9; }, get body() { return txt.body8; } },
+  { get title() { return txt.title10; }, get body() { return txt.body9; } },
 ] as const;
 
 /** Device families the console already knows, with their decoders; anything else can be added as a custom type. */
 const DEVICES = [
-  { name: "Milesight AM series", kind: "Indoor air quality" },
-  { name: "Milesight EM series", kind: "Environment monitoring" },
-  { name: "Milesight CT series", kind: "Electric current" },
-  { name: "Milesight WS series", kind: "Smart buttons and switches" },
-  { name: "Wio-E5, XBee LR, RFM95", kind: "Build your own" },
+  { get name() { return txt.name1; }, get kind() { return txt.deviceKind1; } },
+  { get name() { return txt.name2; }, get kind() { return txt.deviceKind2; } },
+  { get name() { return txt.name3; }, get kind() { return txt.deviceKind3; } },
+  { get name() { return txt.name4; }, get kind() { return txt.deviceKind4; } },
+  { get name() { return txt.name5; }, get kind() { return txt.deviceKind5; } },
 ] as const;
 
 const PRIVATE = [
   {
-    title: "Separate workspaces",
-    body: "Sensors, gateways, readings, people, API keys and webhooks all belong to a single organization.",
+    get title() { return txt.title11; },
+    get body() { return txt.body10; },
   },
   {
-    title: "Credentials stay on the server",
-    body: "Network and integration credentials are never sent to the browser.",
+    get title() { return txt.title12; },
+    get body() { return txt.body11; },
   },
   {
-    title: "Roles",
-    body: "Administrators decide who can manage the network and who can only view readings.",
+    get title() { return txt.title13; },
+    get body() { return txt.body12; },
   },
 ] as const;
 
-const DESTINATIONS = ["Data Hub", "Webhooks", "MQTT", "AWS IoT Core", "Azure Event Grid", "ThingsBoard", "Datadog"] as const;
 
 /** The path a reading takes, drawn in the site's own colours: radio waves leave the sensor and reach your data. */
 function SignalPath() {
@@ -131,13 +131,9 @@ function LoRaWAN() {
               <div className="min-w-0">
                 <img src={productIcon("lorawan")} alt="" width={56} height={56} className="mb-5 size-14 object-contain" />
                 <h1 id="lorawan-title" className="t-h1">
-                  LoRaWAN
-                </h1>
+                  {txt.h11}</h1>
                 <p className="mt-5 max-w-xl t-lede">
-                  LoRaWAN makes it easy for schools and campuses to run their own private network of environmental sensors. Gateways and
-                  sensors are simple to set up with step-by-step guides, and the readings flow into Data Hub, where they can be shared on
-                  websites and digital signage.
-                </p>
+                  {txt.p1}</p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <AppLink href={site.contactHref} className="btn-primary">
                     {copy.siteHeader.SiteHeader.a1}
@@ -148,8 +144,7 @@ function LoRaWAN() {
                 </div>
                 <p className="mt-5">
                   <AppLink href={CONSOLE_HREF} className="link">
-                    Sign in to the console
-                    <ArrowRight className="size-4" aria-hidden />
+                    {txt.AppLink1}<ArrowRight className="size-4" aria-hidden />
                   </AppLink>
                 </p>
               </div>
@@ -173,12 +168,9 @@ function LoRaWAN() {
             <div className="product-detail-layout product-detail-split">
               <div className="min-w-0">
                 <h2 id="campus-network-title" className="t-h2">
-                  Built on a real campus network
-                </h2>
+                  {txt.h21}</h2>
                 <p className="mt-5 max-w-xl t-body text-ink/80">
-                  LoRaWAN was built and tested on a campus network at Oberlin College, with a gateway on a rooftop and air quality and
-                  energy sensors whose readings flow to a community dashboard.
-                </p>
+                  {txt.p2}</p>
                 <ol className="mt-8 space-y-5">
                   {STEPS.map((step, n) => (
                     <li key={step.title} className="flex gap-4 t-body">
@@ -195,8 +187,8 @@ function LoRaWAN() {
               </div>
               <div className="min-w-0">
                 <div className="lora-devices">
-                  <h3 className="t-h3">Works with</h3>
-                  <p className="mt-2 t-small text-ink/70">The console comes ready for these sensor types, with their decoders installed. Other hardware can be added as a custom device type.</p>
+                  <h3 className="t-h3">{txt.h31}</h3>
+                  <p className="mt-2 t-small text-ink/70">{txt.p3}</p>
                   <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                     {DEVICES.map((device) => (
                       <li key={device.name} className="lora-device">
@@ -214,9 +206,8 @@ function LoRaWAN() {
         <section id="privacy-and-security" aria-labelledby="private-title" className="product-section page page-center">
           <div className="wrap page-body">
             <h2 id="private-title" className="t-h2 max-w-3xl">
-              Privacy and security
-            </h2>
-            <p className="mt-5 max-w-2xl t-lede">Each organization’s network is kept separate from every other, and its data only goes where the organization chooses to send it.</p>
+              {txt.h22}</h2>
+            <p className="mt-5 max-w-2xl t-lede">{txt.p4}</p>
             <ul className="mt-[clamp(1.5rem,5vh,3rem)] grid gap-8 md:grid-cols-3">
               {PRIVATE.map((item) => (
                 <li key={item.title} className="lora-private">
@@ -226,9 +217,9 @@ function LoRaWAN() {
               ))}
             </ul>
             <div className="mt-[clamp(1.5rem,5vh,3rem)] border-t border-line pt-[clamp(1.25rem,3.5vh,2rem)]">
-              <p className="font-semibold text-ink">Readings can be sent to</p>
+              <p className="font-semibold text-ink">{txt.p5}</p>
               <ul className="mt-4 flex flex-wrap gap-2.5">
-                {DESTINATIONS.map((name) => (
+                {txt.destinations.map((name) => (
                   <li key={name} className="lora-chip">
                     {name}
                   </li>

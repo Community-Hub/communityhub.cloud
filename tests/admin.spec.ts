@@ -159,6 +159,61 @@ test("edit on the page: click a heading, save, and only that wording changes, he
   await visitor.context().close();
 });
 
+test("edit on the page: wording that belongs to one page, a list in it, and the email address are all editable", async ({ page, browser }) => {
+  // LoRaWAN's wording travels with that page alone; the editor still lists it, and a visitor sees the saved edit.
+  await page.goto(`${ADMIN}/lorawan`);
+  await expect(page.getByTestId("page-edit-hint")).toHaveText("Click any wording to change it.");
+  const stage = page.locator("main .lora-stage-title").first();
+  await expect.poll(async () => seen(await stage.textContent())).toBe("Sensors and gateways");
+  await stage.click();
+  const card = page.getByTestId("page-edit-card");
+  await expect(card).toHaveAttribute("data-key", /^text\.lorawan\./);
+  await page.getByTestId("page-edit-input").fill("Sensors and their gateways");
+  await page.getByTestId("page-edit-save").click();
+  await expect(card.getByRole("status")).toContainText("Saved.");
+  await expect.poll(async () => seen(await stage.textContent())).toBe("Sensors and their gateways");
+  const visitor = await (await browser.newContext()).newPage();
+  await visitor.goto(`${PUBLIC}/lorawan`);
+  await expect(visitor.locator("main .lora-stage-title").first()).toHaveText("Sensors and their gateways");
+  await page.getByTestId("page-edit-reset").click();
+  await expect(card.getByRole("status")).toContainText("original wording");
+  await visitor.reload();
+  await expect(visitor.locator("main .lora-stage-title").first()).toHaveText("Sensors and gateways");
+  await visitor.context().close();
+  await card.getByRole("button", { name: "Close" }).click();
+
+  // One item of a plain list, and the email address (which carries no tag, because it is also a link).
+  await page.locator("main .lora-chip", { hasText: "MQTT" }).click();
+  await expect(card).toHaveAttribute("data-key", /^text\.lorawan\.destinations\.\d+$/);
+  await card.getByRole("button", { name: "Close" }).click();
+  await page.locator("main a", { hasText: "connect@communityhub.cloud" }).first().click();
+  await expect(card).toHaveAttribute("data-key", "site.contactEmail");
+  await card.getByRole("button", { name: "Close" }).click();
+});
+
+test("edit on the page: every piece of wording on these pages can be clicked", async ({ page }) => {
+  // What a person can read on the page, outside frames and form fields, and whether the editor made it clickable.
+  const uncovered = () =>
+    page.evaluate(() => {
+      const skip = "[data-cms-ui], script, style, noscript, textarea, input, select, option, iframe, svg, code, .sr-only, [aria-hidden='true'], [hidden]";
+      const out: string[] = [];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        const parent = node.parentElement;
+        const text = (node as Text).data.replace(/[\u2063\u2060\u200C]/g, "").replace(/\s+/g, " ").trim();
+        if (!parent || parent.closest(skip) || text.length < 2 || !/[A-Za-z]/.test(text) || !parent.getClientRects().length) continue;
+        if (!/\u2063/.test((node as Text).data) && !parent.hasAttribute("data-cms-edit")) out.push(text.slice(0, 60));
+      }
+      return out;
+    });
+  for (const path of ["/", "/about", "/pricing", "/contact", "/implementations/midtown-cleveland", "/studios", "/phone-app", "/terms-of-service", "/bring-dashboard-to-your-community"]) {
+    await page.goto(`${ADMIN}${path}`);
+    // The long pages take a moment to load their wording and draw again with it.
+    await expect(page.getByTestId("page-edit-hint"), path).toHaveText("Click any wording to change it.", { timeout: 20_000 });
+    await expect.poll(uncovered, { message: path, timeout: 15_000 }).toEqual([]);
+  }
+});
+
 test("edit on the page: in Edit text a link opens for editing; in Browse it is followed", async ({ page }) => {
   await page.goto(`${ADMIN}/pricing`);
   await expect(page.getByTestId("page-edit-hint")).toHaveText("Click any wording to change it.");

@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { usePreviewRotation } from "@/lib/use-preview-rotation";
+import { txt } from "@/lib/page-text/signageContentGallery";
 
 const examples = [
-  { src: "/assets/sign-farmers-market.jpg", label: "Community Calendar", alt: "Oberlin Farmers Market event on a digital sign" },
-  { src: "/assets/cv-slideshow-shot.jpg", label: "Community Voices", alt: "Community Voices message from Mike Cariglio of Lorenzo’s Pizza" },
-  { src: "/assets/originals/kahn-dashboard-slide68.jpg", label: "Building Dashboard", alt: "Kahn Hall whole-building water use visualization" },
-  { src: "/assets/cwd-thumb.jpg", label: "Citywide Dashboard", alt: "Oberlin citywide electricity, water and environmental conditions" },
-  { src: "/assets/source-previews/oberlin-stories-heating-original.png", label: "Stories: campus heating", alt: "Oberlin College heating and cooling story" },
-  { src: "/assets/source-previews/glsc-stories-climate-original.png", label: "Stories: climate", alt: "Great Lakes Science Center story explaining the greenhouse effect" },
+  { src: "/assets/sign-farmers-market.jpg", get label() { return txt.label1; }, get alt() { return txt.alt1; } },
+  { src: "/assets/cv-slideshow-shot.jpg", get label() { return txt.label2; }, get alt() { return txt.alt2; } },
+  { src: "/assets/originals/kahn-dashboard-slide68.jpg", get label() { return txt.label3; }, get alt() { return txt.alt3; } },
+  { src: "/assets/cwd-thumb.jpg", get label() { return txt.label4; }, get alt() { return txt.alt4; } },
+  { src: "/assets/source-previews/oberlin-stories-heating-original.png", get label() { return txt.label5; }, get alt() { return txt.alt5; } },
+  { src: "/assets/source-previews/glsc-stories-climate-original.png", get label() { return txt.label6; }, get alt() { return txt.alt6; } },
 ];
 
 export function SignageContentGallery() {
@@ -25,7 +26,7 @@ export function SignageContentGallery() {
   }, []);
   return <div ref={ref} data-signage-content-gallery className="mt-3 border-t border-pine/20 pt-4">
     <div className="mb-3 flex items-center justify-between gap-3">
-      <h2 className="t-h3">What the screen shows</h2>
+      <h2 className="t-h3">{txt.h21}</h2>
 
     </div>
     <div className="overflow-hidden">

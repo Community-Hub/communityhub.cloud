@@ -7,6 +7,8 @@ import type { SlideFrame } from "@/lib/content";
 
 import { copy } from "@/lib/copy";
 import { pc } from "@/lib/page-content";
+import { txt } from "@/lib/page-text/story";
+
 export const Route = createFileRoute("/story")({
   component: Story,
   head: () => ({
@@ -20,7 +22,7 @@ const STOPS = pc.story.STOPS;
 
 // Oct 2: preserve the original editable presentation and its native animation.
 const ORIGINAL_SLIDES: SlideFrame[] = [{
-  title: "Story of the Dashboard",
+  get title() { return txt.title1; },
   caption: "",
   embed: storyOfDashboard.src,
   presentation: true,
