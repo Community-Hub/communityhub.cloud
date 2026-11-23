@@ -36,14 +36,15 @@ Community Hub grew out of Environmental Dashboard, research at Oberlin College o
 ## Operating Context
 
 - **Codebase:** React + TanStack Start (Vite, Nitro). A CMS editor at editor.communityhb.tech overrides built-in copy by stable keys. The app also has legacy redirects, a generated sitemap and a `/healthz` route.
-- **Live site is newer than GitHub.** Production was deployed from local code on 2026-11-12. That build has three pieces GitHub's master (Nov 5) lacks, and the redesign rebuilds them from the live site (owner's choice):
-  - a contact form that posts to `/api/contact` and emails through Resend (`RESEND_API_KEY`, `MAIL_FROM`, default sender website@communityhub.cloud)
+- **Pages that sell beyond the products:**
+  - a contact form with demo booking that posts to `/api/contact` and emails the team (Postmark or Resend; see `CMS.md` for the sender in use)
   - `/implementations` with five case pages (City of Oberlin, MidTown Cleveland, Oberlin Public Schools, Oberlin College, Great Lakes Science Center); `/who`, `/work` and `/demos` redirect there
+  - `/communities`, photo cards for each kind of place
   - `/bring-dashboard-to-your-community`, the implementation guide (John E. Petersen, revised 3/22/16) with its PDF
 - **Live content the pages embed:** dashboards and calendars from oberlin, cleveland and glsc.communityhub.cloud and environmentaldashboard.org, Google Slides stories, and Community Voices players.
 - **Contact:** connect@communityhub.cloud. Legal: privacy@ and info@communityhub.cloud. Community Hub Inc, Oberlin, Ohio.
 - **Pricing:** three bundles (Communications, Data, Pro), cloud-hosted with an annual fee, pricing on request. No prices are published, and a test enforces this.
-- **Deploy:** Vercel project `communityhub-cloud` (team Community Hub). Redesign work happens on branch `redesign` of Community-Hub/communityhub.cloud and goes to a preview link first; production switches only on the owner's OK.
+- **Deploy:** Vercel, team Community Hub: `communityhub-cloud` (the public site) and `community-hub-site` (the editor). Work goes on a branch of Community-Hub/communityhub.cloud and a pull request, which builds a preview; merging to `master` deploys both projects, and happens only on the owner's OK.
 
 ## Capabilities and Constraints
 
@@ -98,4 +99,4 @@ Community Hub grew out of Environmental Dashboard, research at Oberlin College o
 
 ## Accessibility & Inclusion
 
-WCAG 2.2 AA for public-sector and school buyers. Respect reduced motion. Moving media that starts on its own must stop within five seconds or offer a pause; the current hero film has no pause control.
+WCAG 2.2 AA for public-sector and school buyers. Respect reduced motion. Moving media that starts on its own must stop within five seconds or offer a pause; the hero film, the rotating examples and the quotes all have a Pause button.

@@ -1,5 +1,7 @@
 # Follow up with John
 
+> **Historical (October 2026, Astro version).** This describes the site before it became the current React/TanStack site; paths, commands and open items here are not current. See [`docs/README.md`](README.md).
+
 Reconciled October 1, 2026 against the September 30 email thread **“Website review follow-up: four items needed from the 28 Sep review”**, Gmail thread `1a0f28efa1775abf`, and the earlier meeting/source notes. This is Kwaku’s unsent follow-up list. No email was sent, and only this task report was edited.
 
 ## Remaining questions

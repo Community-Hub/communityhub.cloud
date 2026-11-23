@@ -1,0 +1,24 @@
+# Community Hub design work
+
+Before each design or UI task, every participating agent must read two relevant primary online design sources, inspect the current rendered target, and record a few specific patterns to avoid for that task. This is Kwaku's explicit instruction, not an optional research suggestion. Keep the research bounded and proceed with authorized work.
+
+Read [the current research and implementation brief](../tasks/2026-10-01-website-delivery/DESIGN_RESEARCH_RULES.md). Primary starting points are [Impeccable](https://impeccable.style/slop/), [Anthropic Frontend Design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md), and [NN/G](https://www.nngroup.com/articles/aesthetic-minimalist-design/). Judge the actual content and rendering; a detector finding alone is not a design decision.
+
+Preserve CommunityHub.cloud source writing, factual claims, quotations, their attribution, real community photographs, useful destinations, and product behavior. Kwaku's latest visual direction supersedes historical visual preferences attributed to John. Use the installed Impeccable skill and read its craft floor immediately before UI edits.
+
+Reuse existing visible browser tabs. Do not open new visible tabs. Keep direct links, native controls, reduced motion, keyboard access, real wheel/touch navigation, and one visible story owner intact. Verify affected desktop and phone views against the actual build. Do not deploy or package while coordinated review is pending.
+
+## Latest visual priority: fuller scenes and strict overlap checks
+
+Kwaku explicitly wants larger text, larger real images and full-scene backgrounds across every page. Use the eight main colors from the verified Environmental Dashboard: Narrative Consistency Guide (task `stripe-reference/dashboard-style-guide-original.txt`). The later instruction is that backgrounds support the content: subdued fields and curves, with strong text and real imagery. Avoid large blank white regions without adding competing decoration. This full-field direction takes precedence over generic anti-gradient defaults. Keep accepted large Lato typography; the guide's slide-specific type and word rules do not authorize truncating website writing.
+
+Remove standalone floating decorative mascot overlays and extra character ornaments. Exception (Kwaku, 2026-10-03): the attention squirrel is a functional cue, not decoration. When the site wants the visitor to do something (scroll an inner region, try a controller), the squirrel pops out beside that target and disappears as soon as the visitor starts doing it. Preserve authentic source photographs, actual embedded product content, evidence about character gauges, working data states and semantic diagram icons. Every heading and caption belongs in the same scene as its matching image/tool; use precise scope/year captions where similar posters represent different groups.
+No ornamental icon, bubble, caption or control may cover text, essential image content or another control. Background layers stay behind content; real controls receive explicit layout space. Treat accidental overlap as a delivery blocker. Where phone product selectors consume the image area, show compact choices with the selected description and a larger preview, keeping all descriptions available through selection and the full directory intact. Follow stripe-reference/IMPLEMENTATION_BRIEF.md in the task folder, with the latest user correction taking priority over its earlier restrained proposals.
+
+## After building, before delivery
+
+Kwaku requires an independent visitor-perspective critique of the actual rendered work after every build. Ask another agent to review what a first-time visitor would understand, the next action, visual noise, and whether interactions meet the visitor's expectations. Record the tested build and evidence. Fix concrete findings in a coordinated batch and confirm those repairs before handoff. Keep this gate bounded; it is not permission to start a new aesthetic redesign cycle after an accepted direction. Passing automated checks alone does not satisfy this review.
+
+## Latest correction: continuous surface and direct scene cuts
+
+Use the old Community Hub website as the visual and copy authority. Every page family and footer share one quiet pale surface; the earlier alternating dark/bright chapter treatment is superseded. Keep useful large text and complete source images without oversized empty bands. One deliberate swipe replaces the current complete scene with the next immediately, without a visible vertical journey or overlapping fade. Preserve gesture latching, native controls and browser restoration. Restore exact original source paragraphs, including their punctuation; source author wording takes priority over the generic copy detector. Record missing verbatim source authority instead of inventing new slogans.

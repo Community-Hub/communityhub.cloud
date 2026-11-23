@@ -160,7 +160,7 @@ Community Hub's greens on white, with lime kept rare so the next step is always 
 ## Typography
 
 **Display and body:** Figtree (Google Fonts, 400–800), with ui-sans-serif fallback.
-**Wordmark only:** Comfortaa 700.
+**Wordmark only:** Comfortaa 700. The one other place it appears is inside the Community Voices preview cards, which redraw the player's slides in the player's own font.
 
 **Character:** One friendly geometric sans for everything keeps the site calm and readable at every size; weight and size carry the hierarchy, never color tricks.
 
@@ -188,7 +188,7 @@ Community Hub's greens on white, with lime kept rare so the next step is always 
 - **No picture twice on a page.** A photo used in one place on a page is not used again on that page (the closing photo changes on pages that already show it).
 - **Document pages** (About, Pricing, Research, Story, Toolkit, Resources, Products): normal scrolling, sections separated by a hairline and clamp(3rem, 6vw, 4.5rem) of space, ending with the contact panel and footer.
 - **Product pages:** first screen pairs the product (icon, name, lede, Contact us, live link) with its live example; later sections alternate text and examples; "More products" lists the other products before the contact panel. Outside the home's three sections, products are one plain list, never sorted under Engage, Educate, Motivate and Empower (a product can serve more than one).
-- **Breakpoints:** 640px (two columns), 768px (phone to tablet; strips become columns), 1024px (side-by-side compositions), 1280px (`nav`: the full menu in the header; below it the menu is the sheet).
+- **Breakpoints:** 640px (two columns), 768px (phone to tablet; strips become columns), 1024px (side-by-side compositions), 1100px (`nav`, `--breakpoint-nav: 68.75rem`: the full menu in the header; below it the menu is the sheet). Below 1280px the header menu tightens (smaller items, "Bring Dashboard to Your Community" on two lines) so a 1280px laptop with a scrollbar still shows it in full.
 
 ## Elevation & Depth
 
@@ -213,11 +213,11 @@ Flat by default. Depth comes from page bands (white, field, lime pale, pine) and
 - **Links:** leaf, 600, underline at 45% that goes solid on hover, often with a trailing arrow.
 
 ### Header and navigation
-- The menu agreed in the 2026-11-19 review, in this order: Home, Products, Implementations, Bring Dashboard to Your Community (Communities, Implementation guide, Pricing), Resources (Teacher toolkit), About Us (Our team, Story of the Dashboard, Research), Contact us. Pricing is not a top-level item. One list (`pc.siteHeader.NAV`, read through `src/lib/site-map.ts`) drives the header, the breadcrumbs and the footer, so they cannot disagree.
+- The menu agreed in the 2026-11-19 review, in this order: Home, Products, Implementations, Bring Dashboard to Your Community (Communities, Implementation guide, Pricing), Resources (Teacher toolkit), About Us (Our mission, Our team, Story of the Dashboard, Research), Contact us. Pricing is not a top-level item. One list (`pc.siteHeader.NAV`, read through `src/lib/site-map.ts`) drives the header, the breadcrumbs and the footer, so they cannot disagree.
 - **You are here:** the section the page belongs to is pine, bold, and carries a 3px pine bar on the header's bottom edge. Never bold alone.
 - Items with a submenu carry a caret and open on click (also on hover with a mouse), close on Escape, on a click elsewhere and when the page changes. Two levels at most.
 - Products opens a full-width panel: every product with its icon, name and one-line description, in one list with no group headings.
-- Below 1280px: a full-screen sheet with large rows, Home first, sections expanding in place, Contact us and Book a demo pinned at the bottom with the email address.
+- Below 1100px: a full-screen sheet with large rows, Home first, sections expanding in place, Contact us and Book a demo pinned at the bottom with the email address.
 
 ### Breadcrumbs
 - On every page but the home, above the page title: Home, the section, the page. It follows the site's structure, not the visitor's clicks; the page itself comes last, in ink, and is not a link. On phones it is one link back up to the page above.
@@ -263,11 +263,11 @@ Flat by default. Depth comes from page bands (white, field, lime pale, pine) and
 - **Do** show the real thing: the film, installation photos and live embeds before any description.
 - **Do** keep each home page to one idea that fits a screen; move extra items into a swipe strip on phones.
 - **Do** pause anything that moves on its own when the visitor hovers, focuses or asks for reduced motion.
-- **Do** take every word from the content modules (`copy`, `pc`, `implementations`, `contactContent`) so the editor can change it.
+- **Do** take every word from the content modules (`copy`, `pc`, `implementations`, `contactContent`) or the page's own `src/lib/page-text/` file, so the editor can change it.
 
 ### Don't:
 - **Don't** paint a background behind a photo that doesn't fill its box.
 - **Don't** put a label, number or category above a heading.
 - **Don't** invent prices, client counts or awards; pricing is on request.
 - **Don't** use gradient text, glassy cards, colored side borders or block shadows.
-- **Don't** use a second display face; Comfortaa is the wordmark and nothing else.
+- **Don't** use a second display face; Comfortaa is the wordmark (and the Community Voices preview's own font) and nothing else.

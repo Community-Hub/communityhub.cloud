@@ -11,7 +11,7 @@ Maddie and John can change the site's words, links, pictures, lists and sections
 - Lists (lessons, publications, case studies, voices, pricing tiers, design services, FAQ, home stories, the team on About, orb/engage/educate/motivate frames): add, remove, reorder. A new item copies the layout of the first item.
 - Sections (11 of them, such as Supporters, Questions, Results): hide or show.
 - A warning appears when text is much longer than the original (about 1.3 times plus 12 characters).
-- Edits show on the public site at once on Vercel: pages are cached for 1 minute (refreshing in the background for a day; it was 5 minutes until 2026-11-21, shortened so an editor sees a change quickly), and every save purges that cache (tag `cms`, via `@vercel/functions`). The purge only runs on Vercel and has not been exercised yet; if it ever fails, edits still show within 5 minutes.
+- Edits show on the public site at once on Vercel: pages are cached for 1 minute (refreshing in the background for a day; it was 5 minutes until 2026-11-21, shortened so an editor sees a change quickly), and every save purges that cache (tag `cms`, via `@vercel/functions`). The purge only runs on Vercel. The owner checked on 2026-11-23 that a real edit made in the editor shows on the public site; if the purge ever fails, edits still show within about a minute.
 - If the code changes after someone edited it (new wording, or an item inserted into a list), the edit is not applied to the wrong place: it is set aside, the original shows, and the editor marks it "Out of date" so it can be saved again. Each edit stores a fingerprint of the default it was made against (`migrations/0002_cms_def_hash.sql`); lists also follow items by `id` when the code only reorders them. Edits saved before that migration keep applying. Those rows (no fingerprint) apply by position and are not protected against code changes; Neon had no edits when 0002 was added, so none exist there. Fingerprints of list items are taken from a copy of the defaults made at startup, so editing text never changes them. Reverting a list keeps the item identities it was saved against, so an old order is flagged "Out of date" if the code list has since changed.
 - If the database is slow or down, public pages wait about 1 second, then use the last good edits (or the built-in text if there were none), so a database blip never breaks a page. Known small race: the page content is shared inside one server process, so a page rendering at the exact moment new edits load can show them one load early and the browser redraws it once.
 
@@ -24,7 +24,7 @@ On the editor's address a signed-in editor sees the site itself and clicks wordi
 - **Never cached, relaxed frames.** Every response on the editor host is `no-store`, so a page drawn for an editor is never handed to anyone else. The site's pages there get their own Content Security Policy that allows the frames, pictures and film the public pages show; `/admin` and the editor API keep the strict one.
 - **How a click finds the right entry.** The on-page tools (`src/components/admin/page-editor.tsx`) are loaded only on the editor host. In that browser only, each editable wording gets an invisible tag at its end (three kinds of zero-width character that cannot move a line break) saying which entry it is, and the page redraws once. Text carrying a tag is that entry exactly, so the heading "Pricing" and a menu item that also says "Pricing" are told apart. Text the page's code reshapes loses its tag; that falls back to matching what it says, and when the same words are used in several places the editor chooses which. The tags never reach the server, the database or the public site (a test checks the public page has none).
 - **After a save** only the text carrying that entry's tag changes on screen; if that cannot be done in place the page redraws itself from its content. The public site shows it after about a minute.
-- Not on the page yet: pictures, lists, hiding sections and history. They are in the list at `/admin`.
+- Pictures, lists, hiding sections and history are changed in the list at `/admin`, not on the page. The owner decided on 2026-11-23 to keep it that way.
 
 ## Bold and italic
 
@@ -36,7 +36,7 @@ Asked for by John Petersen on 2026-11-22, to see the mission statement in italic
 - **Why invisible marks.** Pages pass wording around as plain strings: into a heading, but also into the browser tab title, the address of a section, a search, code that cuts a sentence in two. A visible mark could turn up on screen as stray symbols; an invisible one is either drawn as formatting or does nothing. Tab titles and descriptions for search engines have the marks taken out in `src/router.tsx`, and mail sent by the forms in `mail.server.ts`. A test checks a visitor's page holds none of these characters.
 - **Saving cleans up.** The site's own invisible characters are stripped from everything saved, so text copied off a page of the editor (which carries the click tags) cannot put them in the database.
 - Only text has formatting. Links, email addresses and picture descriptions do not; typing the tags there saves them as plain characters.
-- Headings are set in Comfortaa, which has no italic of its own, so the browser slants it. Body text uses Figtree's real italic.
+- Headings and body text are set in Figtree, whose real italic is loaded (weights 400 to 600). Comfortaa, used only for the wordmark and the Community Voices preview cards, has no italic of its own, so the browser slants it there.
 
 ## Environment variables
 
@@ -50,16 +50,16 @@ Asked for by John Petersen on 2026-11-22, to see the mission statement in italic
 | `DATABASE_URL` | Vercel (set) | Hosted Postgres (Neon). Unset locally: an in-memory pglite database is used. |
 | `BLOB_READ_WRITE_TOKEN` | Vercel (Production, set by the Blob store) | Picture uploads. Unset locally: pictures go to `.cms-media/` (or `CMS_MEDIA_DIR`). |
 
-## Cloud setup status (checked 2026-11-21)
+## Cloud setup status (checked 2026-11-21, updated 2026-11-23)
 
 Two Vercel projects in team Community Hub run the same code against the same database:
 
 - **`communityhub-cloud`: the public site** (www.communityhub.cloud). Connected to GitHub (`Community-Hub/communityhub.cloud`, branch `master`), so every merge deploys it. It has no `ADMIN_HOST`, so it serves no editor: `/admin` and `/api/cms*` answer 404 there.
 - **`community-hub-site`: the editor** (https://editor.communityhb.tech, `ADMIN_HOST=editor.communityhb.tech`). The domain `communityhb.tech` is registered with Vercel, so no outside DNS record is needed. Since 2026-11-21 it is connected to the same GitHub repository and branch as the public site, so every merge to `master` deploys both and the editor always lists the words of the build that is live. (Before that it was deployed by hand and had fallen behind, still on the 2026-11-12 build.)
-- Both read the same Neon database (`DATABASE_URL` is identical) and sign sessions with the same `BETTER_AUTH_SECRET`, so an edit saved in the editor is what the public site reads. `ADMIN_EMAILS` (four addresses), `RESEND_API_KEY` and `MAIL_FROM` are set on the editor project. `ADMIN_SIGNUP_CODE` is still set there from the password days; nothing reads it any more and it can be deleted. Each project has its own Blob store token; pictures uploaded in the editor are public Blob addresses, which the public site accepts.
+- Both read the same Neon database (`DATABASE_URL` is identical) and sign sessions with the same `BETTER_AUTH_SECRET`, so an edit saved in the editor is what the public site reads. `ADMIN_EMAILS` (four addresses), `RESEND_API_KEY` and `MAIL_FROM` are set on the editor project. `ADMIN_SIGNUP_CODE`, left over from the password days, was deleted from it on 2026-11-23; nothing read it. Each project has its own Blob store token; pictures uploaded in the editor are public Blob addresses, which the public site accepts.
 - **The editor must run the same build as the site.** It lists the words of the build it was deployed from; on an older build it shows old defaults, and an edit made against them is set aside as "Out of date" on the public site. The shared GitHub connection keeps them together: if a merge deploys one project and not the other (a failed build), redeploy the one that is behind.
 - Pull requests build a preview on both projects. The editor project's preview builds run the migrations against the shared database, so a pull request that adds a migration applies it there before it is merged.
-- The cache purge on save runs in the editor's project. Whether it reaches the public project's cache has not been checked; if it does not, edits show on the public site after about a minute (the first visit after that minute still gets the old page and starts the refresh; the next one gets the new wording).
+- The cache purge on save runs in the editor's project. A real edit was seen on the public site on 2026-11-23, but the delay was not timed, so it is still unknown whether the purge reaches the public project's cache or the 1-minute refresh does the work. Either way, edits show on the public site after about a minute (the first visit after that minute still gets the old page and starts the refresh; the next one gets the new wording).
 
 ## Giving someone access
 

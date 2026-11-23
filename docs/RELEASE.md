@@ -1,5 +1,7 @@
 # Package a local static release
 
+> **Historical (October 2026, Astro version).** This describes the site before it became the current React/TanStack site; paths, commands and open items here are not current. See [`docs/README.md`](README.md).
+
 > This document retains the supplied historical static-build packager workflow. For the current source ZIP/GitHub handoff, use `HANDOFF.md`, `QA-STATUS.md` and the [October 2 maintainer guide](refinement-20261002/MAINTAINER-GUIDE.md). The earlier parent-repository ignore warning below is historical; the complete current source handoff includes its media.
 
 The build contains the website and its local images, fonts and videos. The parent Git repository ignores asset directories, so committing source alone does not deliver those media. This command copies the **completed build on disk**, including files that Git ignores, into a self-contained release folder. It does not build, upload, publish, commit or modify the website.
